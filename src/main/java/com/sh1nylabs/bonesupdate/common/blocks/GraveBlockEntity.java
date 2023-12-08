@@ -28,7 +28,10 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
     public GraveBlockEntity(BlockPos position, BlockState state) {super(BonesBlocks.GRAVE.get(), position, state);}
 
     public boolean canSummonMinion() {return (readyToSpawn && this.getBlockState().getValue(HAUNTED));}
-    public void applyLastSpawnConfigurations(Minion minion) {minion.setOwner(null);}
+    public void applyLastSpawnConfigurations(Minion minion) {
+        minion.setOwner(null);
+        minion.setFriendly(false);
+    }
     @Override
     public void delayNextSummon(RandomSource rdmSource) {readyToSpawn = false;}
 

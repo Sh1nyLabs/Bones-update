@@ -37,7 +37,7 @@ public class BonesItems {
     /** Register all spawn eggs using the function 'registerSpawnEggs' */
     public static final RegistryObject<ForgeSpawnEggItem> MINION_SPAWN_EGG = registerSpawnEgg(BonesEntities.MINION,"minion_spawn_egg",0xE7E7E7,0xC5C5C5);
     public static final RegistryObject<ForgeSpawnEggItem> NECROMANCER_SPAWN_EGG = registerSpawnEgg(BonesEntities.NECROMANCER,"necromancer_spawn_egg",0x9B7A63,0xFFFFFF);
-    public static final RegistryObject<ForgeSpawnEggItem> KNIGHT_SKELETON_SPAWN_EGG = registerSpawnEgg(BonesEntities.KNIGHT_SKELETON,"knight_skeleton_spawn_egg",0xACACAC,0xCAC639);
+    public static final RegistryObject<ForgeSpawnEggItem> KNIGHT_SKELETON_SPAWN_EGG = registerSpawnEgg(BonesEntities.KNIGHT_SKELETON,"knight_skeleton_spawn_egg",0xD5D5D5,0xBF3939);
 
     /** Register other items, with no use */
     public static final RegistryObject<Item> NECRO_SCEPTER_INVENTORY=BU_ITEMS.register("necromancer_scepter_inventory",

@@ -1,5 +1,6 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
+import com.sh1nylabs.bonesupdate.common.entities.goal.MinionFollowsOwnerGoal;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
 import net.minecraft.nbt.CompoundTag;
@@ -59,6 +60,7 @@ public class Minion extends BonesBrokenSkeletons{
     public void registerGoals() {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this,1.7D,false));  //FIX_VALUE (speedModifier)
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D)); //FIX_VALUE (radius of search / walkSpeedModif / sprintspeedModif)
+        this.goalSelector.addGoal(4, new MinionFollowsOwnerGoal(this));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Necromancer.class, 5.0F)); //FIX_VALUE (radius of search)
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F)); //FIX_VALUE (radius of search)
@@ -88,6 +90,9 @@ public class Minion extends BonesBrokenSkeletons{
 
     public void setOwner(@Nullable Necromancer necromancer) {
         this.owner = necromancer;
+    }
+    public Necromancer getOwner() {
+        return this.owner;
     }
 
     @Override

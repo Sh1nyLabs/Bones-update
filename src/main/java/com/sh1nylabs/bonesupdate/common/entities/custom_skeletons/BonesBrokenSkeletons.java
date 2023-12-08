@@ -75,6 +75,7 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
             level.addParticle(ParticleTypes.HEART, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
         }
     }
+    public void setFriendly(boolean friendly) {this.friendly=friendly;}
 
     @Override
     public boolean canAttack(LivingEntity entity) {

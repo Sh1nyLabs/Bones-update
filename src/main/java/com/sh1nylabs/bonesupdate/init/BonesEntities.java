@@ -23,7 +23,7 @@ public class BonesEntities {
             () -> EntityType.Builder.of(KnightSkeleton::new,MobCategory.MONSTER).build(BonesUpdate.MODID+":knight_skeleton"));
 
     public static void registerWaveMembers() {
-        Raid.RaiderType.create("NECROMANCER", NECROMANCER.get(), new int[]{0, 0, 0, 0, 1, 1, 2, 1}); //TODO:FIX_VALUES
+        Raid.RaiderType.create("NECROMANCER", NECROMANCER.get(), new int[]{0, 0, 1, 0, 1, 1, 2, 1}); //FIX_VALUES
     }
 
 }

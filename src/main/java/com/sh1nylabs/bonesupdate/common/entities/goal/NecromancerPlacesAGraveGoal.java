@@ -4,6 +4,7 @@ import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.init.BonesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,8 +18,9 @@ public class NecromancerPlacesAGraveGoal extends MoveToBlockGoal {
     }
 
     @Override
-    public boolean canUse() { //
-        return super.canUse() && mob.getRandom().nextInt(10)==0 && ((Necromancer) this.mob).graveStock > 0;
+    public boolean canUse() {
+        return super.canUse() && ((Necromancer) this.mob).graveStock > 0
+                && mob.getRandom().nextInt(((Raider)mob).hasActiveRaid()? 3:10)==0;
     }
 
     @Override

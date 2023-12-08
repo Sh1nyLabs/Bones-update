@@ -24,6 +24,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -143,10 +144,10 @@ public class Necromancer extends AbstractIllager {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new NecromancerSummons(this));
-        this.goalSelector.addGoal(2, new NecromancerApproachAGraveGoal(this,0.8D,20,3));
-        this.goalSelector.addGoal(3, new NecromancerPlacesAGraveGoal(this,0.8D,10,4));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 0.6D, 0.8D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, IronGolem.class, 5.0F, 0.6D, 0.8D));
+        this.goalSelector.addGoal(2, new NecromancerApproachAGraveGoal(this,0.8D,20,3));
+        this.goalSelector.addGoal(2, new NecromancerPlacesAGraveGoal(this,0.8D,10,4));
         this.goalSelector.addGoal(8, new RandomStrollGoal(this, 0.6D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -178,6 +179,7 @@ public class Necromancer extends AbstractIllager {
 
         public void applyLastSpawnConfigurations(Minion minion) {
             minion.setOwner(necromancer);
+            minion.setFriendly(false);
             necromancer.addMinionToStock(-1);
         }
 

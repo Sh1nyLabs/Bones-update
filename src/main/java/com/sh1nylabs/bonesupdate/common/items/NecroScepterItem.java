@@ -56,7 +56,7 @@ public class NecroScepterItem extends GravePacifierItem {
                 Minion minion = BonesEntities.MINION.get().create(level);
                 if (minion!=null) {
                     BlockPos pos = player.blockPosition().offset(-1+rdmSequence.nextInt(3),0,-1+rdmSequence.nextInt(3));
-                    minion.moveTo(pos,0.0F,0.0F); //TODO: set a random rotation
+                    minion.moveTo(pos,0.0F,0.0F);
                     minion.becomesFriendly(level);
                     ForgeEventFactory.onFinalizeSpawn(minion, (ServerLevel)level, level.getCurrentDifficultyAt(player.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     ((ServerLevel)level).tryAddFreshEntityWithPassengers(minion);

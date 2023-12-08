@@ -49,7 +49,7 @@ public class BonesModEvent {
     @Mod.EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesForgeEvents {
     @SubscribeEvent
-    public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this
+    public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this after mod final test
         if (event.getEntity() instanceof BonesBrokenSkeletons || event.getEntity() instanceof Necromancer) {
             LOGGER.info("-------Detecting a spawn: {} -----------", event.getEntity().getName());
         }
