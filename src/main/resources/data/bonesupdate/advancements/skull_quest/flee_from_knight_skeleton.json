@@ -1,0 +1,40 @@
+{
+  "parent": "bonesupdate:skull_quest/kill_broken_skeleton",
+  "criteria": {
+    "knight_is_dashing": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:knight_skeleton"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.skull_quest.flee_from_knight_skeleton.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:warped_fungus_on_a_stick",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.skull_quest.flee_from_knight_skeleton.title"
+    }
+  },
+  "requirements": [
+    [
+      "knight_is_dashing"
+    ]
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ZXZ",
+    " Y ",
+    " Y "
+  ],
+  "key": {
+    "X": {
+      "item": "bonesupdate:soul_orb"
+    },
+    "Z": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "Y": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "result": {
+    "item": "bonesupdate:necromancer_scepter"
+  }
+}

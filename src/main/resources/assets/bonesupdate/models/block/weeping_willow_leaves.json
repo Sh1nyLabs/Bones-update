@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "bonesupdate:block/weeping_willow_leaves"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bonesupdate:item/amulet"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 120, -90, 55 ],
+      "translation": [ 0, -1.0, -1.5 ],
+      "scale": [ 0.55, 0.55, 0.55 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 120, 90, -55 ],
+      "translation": [ 0, -1.0, -1.5 ],
+      "scale": [ 0.55, 0.55, 0.55 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 60, -90, 25 ],
+      "translation": [ 1.13, 1.2, 1.13],
+      "scale": [ 0.68, 0.68, 0.68 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 60, 90, -25 ],
+      "translation": [ 1.13, 1.2, 1.13 ],
+      "scale": [ 0.68, 0.68, 0.68 ]
+    }
+  }
+}

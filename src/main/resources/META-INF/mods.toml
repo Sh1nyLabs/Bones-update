@@ -1,0 +1,33 @@
+
+modLoader="javafml" #mandatory
+
+loaderVersion="[45,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+
+license="All rights reserved"
+
+[[mods]]
+modId="bonesupdate"
+
+version="1.0.0"
+displayName="Bones Update"
+logoFile="examplemod.png"
+
+credits="Thanks for this example mod goes to Java"
+
+authors="Shiny Labs"
+
+description=''' Explore a world where skeletons decided to come back to life to defend their pairs! New mobs, illagers and structures awaits you!'''
+
+[[dependencies.bonesupdate]]
+    modId="forge"
+    mandatory=true
+    versionRange="[45,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.bonesupdate]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19.4,1.20)"
+    ordering="NONE"
+    side="BOTH"

@@ -1,0 +1,78 @@
+{
+  "parent": "bonesupdate:skull_quest/kill_broken_skeleton",
+  "criteria": {
+    "bonesupdate:knight_skeleton": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:knight_skeleton"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "bonesupdate:minion": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:minion"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "bonesupdate:necromancer": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:necromancer"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.skull_quest.kill_all_bones_monsters.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:diamond_sword",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.skull_quest.kill_all_bones_monsters.title"
+    }
+  },
+  "requirements": [
+    [
+      "bonesupdate:knight_skeleton"
+    ],
+    [
+      "bonesupdate:minion"
+    ],
+    [
+      "bonesupdate:necromancer"
+    ]
+
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}

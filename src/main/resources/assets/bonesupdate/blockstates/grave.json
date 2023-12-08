@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,haunted=true": {
+      "model": "bonesupdate:block/grave",
+      "y": 270
+    },
+    "facing=north,haunted=true": {
+      "model": "bonesupdate:block/grave",
+      "y": 180
+    },
+    "facing=south,haunted=true": {
+      "model": "bonesupdate:block/grave"
+    },
+    "facing=west,haunted=true": {
+      "model": "bonesupdate:block/grave",
+      "y": 90
+    },
+    "facing=east,haunted=false": {
+      "model": "bonesupdate:block/grave_flowers",
+      "y": 270
+    },
+    "facing=north,haunted=false": {
+      "model": "bonesupdate:block/grave_flowers",
+      "y": 180
+    },
+    "facing=south,haunted=false": {
+      "model": "bonesupdate:block/grave_flowers"
+    },
+    "facing=west,haunted=false": {
+      "model": "bonesupdate:block/grave_flowers",
+      "y": 90
+    }
+  }
+}

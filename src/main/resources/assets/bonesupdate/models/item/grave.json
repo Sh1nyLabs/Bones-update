@@ -1,0 +1,19 @@
+{
+  "parent": "bonesupdate:block/grave",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [ 0, 60, 0 ],
+      "translation": [ 0, 2.2, 0 ],
+      "scale": [ 0.40, 0.40, 0.40 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 210, 0 ],
+      "translation": [ 0, 2.2, 0 ],
+      "scale": [ 0.40, 0.40, 0.40 ]
+    },
+    "fixed": {
+      "rotation": [ 0, 90, 0 ],
+      "scale": [ 0.5, 0.5, 0.5 ]
+    }
+  }
+}

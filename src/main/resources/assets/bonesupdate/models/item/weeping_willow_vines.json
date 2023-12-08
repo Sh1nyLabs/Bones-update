@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bonesupdate:block/weeping_willow_vines"
+  }
+}

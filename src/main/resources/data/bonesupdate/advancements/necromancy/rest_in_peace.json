@@ -1,0 +1,36 @@
+{
+  "parent": "bonesupdate:necromancy/kill_a_necromancer",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:necromancer_scepter"
+          ],
+          "enchantments": [
+            {
+              "enchantment": "bonesupdate:serenity"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.necromancy.rest_in_peace.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "bonesupdate:grave_flowers",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.necromancy.rest_in_peace.title"
+    }
+  }
+}

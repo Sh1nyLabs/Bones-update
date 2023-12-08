@@ -1,0 +1,35 @@
+{
+  "parent": "bonesupdate:necromancy/find_weeping_willow_tree",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:necromancer"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.necromancy.kill_a_necromancer.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "bonesupdate:necromancer_scepter_inventory",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.necromancy.kill_a_necromancer.title"
+    }
+  }
+}

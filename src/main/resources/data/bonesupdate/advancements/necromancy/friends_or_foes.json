@@ -1,0 +1,36 @@
+{
+  "parent": "bonesupdate:necromancy/kill_a_necromancer",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:necromancer_scepter"
+          ],
+          "enchantments": [
+            {
+              "enchantment": "bonesupdate:subordinate"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.necromancy.friends_or_foes.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "bonesupdate:necromancer_scepter_inventory",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.necromancy.friends_or_foes.title"
+    }
+  }
+}
