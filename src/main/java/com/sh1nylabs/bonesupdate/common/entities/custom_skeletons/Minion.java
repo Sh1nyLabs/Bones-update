@@ -71,7 +71,7 @@ public class Minion extends BonesBrokenSkeletons{
 
     @Override
     protected SoundEvent getStepSound() {
-        return SoundEvents.WITHER_SKELETON_STEP; //TODO: modify this
+        return SoundEvents.SKELETON_STEP;
     }
 
     @Override

@@ -34,8 +34,6 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
     private int dashCooldown = DASH_RESET_DURATION;
     private static final EntityDataAccessor<Boolean> IS_DASHING = SynchedEntityData.defineId(KnightSkeleton.class, EntityDataSerializers.BOOLEAN);
 
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     public KnightSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {super(entityType, level);}
 
     public static AttributeSupplier.Builder getCustomAttributes() {
