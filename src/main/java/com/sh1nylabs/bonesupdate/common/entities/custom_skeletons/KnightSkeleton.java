@@ -29,10 +29,11 @@ import org.slf4j.Logger;
 import javax.annotation.Nullable;
 
 public class KnightSkeleton extends BonesBrokenSkeletons {
-    private static final int DASH_RESET_DURATION = 200;
+    private static final int DASH_RESET_DURATION = 130;
     private static final float DASH_BONUS_DAMAGE = 10.0F;
     private int dashCooldown = DASH_RESET_DURATION;
     private static final EntityDataAccessor<Boolean> IS_DASHING = SynchedEntityData.defineId(KnightSkeleton.class, EntityDataSerializers.BOOLEAN);
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     public KnightSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {super(entityType, level);}
 
@@ -105,7 +106,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
     @Override
     public void tick() {
-        if (dashCooldown > 0) {
+        if (dashCooldown >= 0) {
             this.dashCooldown--;
         }
         super.tick();
