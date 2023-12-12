@@ -51,7 +51,7 @@ public class NecroScepterItem extends GravePacifierItem {
         ItemStack stack = player.getItemInHand(hand);
         if (!level.isClientSide() && !stack.getAllEnchantments().containsKey(BonesEnchantments.SUBORDINATE.get())){
             RandomSource rdmSequence = level.getRandom();
-            int entityCount = MAX_MINIONS_SUMMONED + (stack.getAllEnchantments().containsKey(BonesEnchantments.LEADER.get())? 2 : 0);
+            int entityCount = MAX_MINIONS_SUMMONED + (stack.getAllEnchantments().containsKey(BonesEnchantments.LEADER.get())? 4 : 0);
             for (int i=0;i<entityCount;++i){
                 Minion minion = BonesEntities.MINION.get().create(level);
                 if (minion!=null) {

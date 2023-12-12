@@ -7,7 +7,6 @@ import com.sh1nylabs.bonesupdate.common.blocks.GraveBlockEntity;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -128,7 +127,7 @@ public class Necromancer extends AbstractIllager {
             timeBeforeNextCast--;
         }
 
-        if (level instanceof ClientLevel && this.isCastingSpell()) {
+        if (level.isClientSide() && this.isCastingSpell()) { // TODO: produces bug (did I fix it?)
             float f = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos((float)this.tickCount * 0.6662F) * 0.15F;
             level.addParticle(ParticleTypes.ENTITY_EFFECT,this.getX() -0.5D * (double) (Mth.cos(f))+0.8D*Mth.sin(0.4F*tickCount),this.getY()+2.5D,this.getZ() - 0.8D * (double) (Mth.sin(f)) + 0.8D*Mth.cos(0.4F*tickCount),0.3D, 0.35D, 0.65D);
         }
