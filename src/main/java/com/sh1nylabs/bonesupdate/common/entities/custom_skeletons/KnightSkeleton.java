@@ -1,7 +1,6 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.common.entities.goal.KnightSkeletonDashesGoal;
-import com.mojang.logging.LogUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,16 +23,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
 public class KnightSkeleton extends BonesBrokenSkeletons {
     private static final int DASH_RESET_DURATION = 130;
     private static final float DASH_BONUS_DAMAGE = 10.0F;
-    private int dashCooldown = DASH_RESET_DURATION;
     private static final EntityDataAccessor<Boolean> IS_DASHING = SynchedEntityData.defineId(KnightSkeleton.class, EntityDataSerializers.BOOLEAN);
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private int dashCooldown = DASH_RESET_DURATION;
 
     public KnightSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {super(entityType, level);}
 

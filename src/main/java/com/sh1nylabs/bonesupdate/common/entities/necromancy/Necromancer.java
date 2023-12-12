@@ -23,7 +23,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -38,25 +37,21 @@ import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
-
 public class Necromancer extends AbstractIllager {
     private static final EntityDataAccessor<Byte> DATA_NECRO_SPELL_CASTING_ID = SynchedEntityData.defineId(Necromancer.class, EntityDataSerializers.BYTE);
-    private int timeBeforeNextCast = 100; // FIX_VALUE
     private static final int CAST_ANIMATION_TIME = 60; // FIX_VALUE
     private static final int TIME_BETWEEN_TWO_CASTS_MIN = 500; // FIX_VALUE
     private static final int TIME_BETWEEN_TWO_CASTS_MAX = 800; // FIX_VALUE
-
     private static final int MINION_STOCK_ON_SPAWN = 15; // FIX_VALUE
     private static final int GRAVE_STOCK_ON_SPAWN = 6; // FIX_VALUE
-    private int minionStock;
-    public int graveStock;
+    private int timeBeforeNextCast = 100; // FIX_VALUE
+    private int minionStock = MINION_STOCK_ON_SPAWN;
+    public int graveStock = GRAVE_STOCK_ON_SPAWN;
     public BlockPos gravePosition = BlockPos.ZERO;
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Necromancer(EntityType<? extends AbstractIllager> entityType, Level level) {
         super(entityType, level);
-        this.minionStock = MINION_STOCK_ON_SPAWN;
-        this.graveStock = GRAVE_STOCK_ON_SPAWN;
         LOGGER.info("spawned with stock: {}",minionStock);
     }
 
@@ -76,14 +71,15 @@ public class Necromancer extends AbstractIllager {
         tag.put("GravePos", NbtUtils.writeBlockPos(this.gravePosition));
     }
 
-    public static AttributeSupplier.Builder getCustomAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH,25.0D) // FIX_VALUE
-                .add(Attributes.MOVEMENT_SPEED, 0.4F); // FIX_VALUE
-    }
-
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_NECRO_SPELL_CASTING_ID, (byte)0);
+    }
+
+    public static AttributeSupplier.Builder getCustomAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH,25.0D) // FIX_VALUE
+                .add(Attributes.MOVEMENT_SPEED, 0.4F); // FIX_VALUE
     }
 
     @Override
@@ -127,7 +123,7 @@ public class Necromancer extends AbstractIllager {
             timeBeforeNextCast--;
         }
 
-        if (level.isClientSide() && this.isCastingSpell()) { // TODO: produces bug (did I fix it?)
+        if (level.isClientSide() && this.isCastingSpell()) { // Animation when the necromancer moves its scepter
             float f = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos((float)this.tickCount * 0.6662F) * 0.15F;
             level.addParticle(ParticleTypes.ENTITY_EFFECT,this.getX() -0.5D * (double) (Mth.cos(f))+0.8D*Mth.sin(0.4F*tickCount),this.getY()+2.5D,this.getZ() - 0.8D * (double) (Mth.sin(f)) + 0.8D*Mth.cos(0.4F*tickCount),0.3D, 0.35D, 0.65D);
         }
@@ -158,7 +154,7 @@ public class Necromancer extends AbstractIllager {
         return this.entityData.get(DATA_NECRO_SPELL_CASTING_ID) > 0;
     }
 
-    public class NecromancerSummons extends Goal implements CanSummonMinions {
+    private class NecromancerSummons extends Goal implements CanSummonMinions {
         private final Necromancer necromancer;
         private int warmUpDelay;
         private boolean summonWithAGrave = false;

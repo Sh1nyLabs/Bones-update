@@ -39,10 +39,10 @@ import static java.lang.Math.max;
  */
 public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     private static final EntityDataAccessor<Boolean> IS_BROKEN = SynchedEntityData.defineId(BonesBrokenSkeletons.class, EntityDataSerializers.BOOLEAN);
-    private int timeBeforeSkeletonRevives;
-    public static final float HEALTH_WHEN_SKELETON_BREAKS = 15.0F; // FIX_VALUE
-    public static final int REVIVING_TIME_WHEN_BROKEN = 250; // FIX_VALUE
+    private static final float HEALTH_WHEN_SKELETON_BREAKS = 15.0F; // FIX_VALUE
+    private static final int REVIVING_TIME_WHEN_BROKEN = 250; // FIX_VALUE
     private boolean friendly;
+    private int timeBeforeSkeletonRevives;
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public BonesBrokenSkeletons(EntityType<? extends AbstractSkeleton> entityType, Level level) {

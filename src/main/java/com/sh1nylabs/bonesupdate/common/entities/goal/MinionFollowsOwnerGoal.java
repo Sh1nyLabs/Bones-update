@@ -15,7 +15,7 @@ public class MinionFollowsOwnerGoal extends Goal {
         this.minion=minion;
     }
 
-    public boolean canUse() {return (this.minion.getOwner()!=null);}
+    public boolean canUse() {return (this.minion.getOwner()!=null && minion.getLevel().getRandom().nextInt(11)<2);}
 
     public void start() {
         this.timeToRecalcPath = 0;

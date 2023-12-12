@@ -24,8 +24,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
 
-import static java.lang.Math.max;
-
 public class Minion extends BonesBrokenSkeletons{
     Necromancer owner; //TODO: right now, the owner can only be a Necromancer. Potentially extend this to Player
 
