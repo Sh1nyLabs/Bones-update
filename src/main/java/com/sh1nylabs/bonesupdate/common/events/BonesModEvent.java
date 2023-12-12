@@ -48,31 +48,31 @@ public class BonesModEvent {
 
     @Mod.EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesForgeEvents {
-    @SubscribeEvent
-    public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this after mod final test
-        if (event.getEntity() instanceof BonesBrokenSkeletons || event.getEntity() instanceof Necromancer) {
-            LOGGER.info("-------Detecting a spawn: {} -----------", event.getEntity().getName());
-        }
-    }
-
-    @SubscribeEvent
-    public static void SkeletonBrokeEvent(LivingDamageEvent event) {
-        if (event.getEntity() instanceof BonesBrokenSkeletons customSkeleton && !customSkeleton.getLevel().isClientSide()) {
-            float finalDamage = customSkeleton.updateDamageIfBecomesBroken(event.getAmount(),event.getSource());
-            event.setAmount(finalDamage);
-        }
-    }
-
-    @SubscribeEvent
-    public static void illagerDieEvent(LivingDeathEvent event) {
-        LivingEntity illager = event.getEntity();
-        if (illager instanceof AbstractIllager || illager instanceof AbstractVillager) {
-            List<? extends LivingEntity> list = illager.getLevel().getNearbyEntities(Necromancer.class, TargetingConditions.forNonCombat(),illager,illager.getBoundingBox().inflate(10.0D, 8.0D, 10.0D));
-            for (LivingEntity necromancer:list) {
-                ((Necromancer) necromancer).addMinionToStock(2);
+        @SubscribeEvent
+        public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this after mod final test
+            if (event.getEntity() instanceof BonesBrokenSkeletons || event.getEntity() instanceof Necromancer) {
+                LOGGER.info("-------Detecting a spawn: {} -----------", event.getEntity().getName());
             }
         }
-    }
+
+        @SubscribeEvent
+        public static void SkeletonBrokeEvent(LivingDamageEvent event) {
+            if (event.getEntity() instanceof BonesBrokenSkeletons customSkeleton && !customSkeleton.getLevel().isClientSide()) {
+                float finalDamage = customSkeleton.updateDamageIfBecomesBroken(event.getAmount(),event.getSource());
+                event.setAmount(finalDamage);
+            }
+        }
+
+        @SubscribeEvent
+        public static void illagerDieEvent(LivingDeathEvent event) {
+            LivingEntity illager = event.getEntity();
+            if (illager instanceof AbstractIllager || illager instanceof AbstractVillager) {
+                List<? extends LivingEntity> list = illager.getLevel().getNearbyEntities(Necromancer.class, TargetingConditions.forNonCombat(),illager,illager.getBoundingBox().inflate(10.0D, 8.0D, 10.0D));
+                for (LivingEntity necromancer:list) {
+                    ((Necromancer) necromancer).addMinionToStock(2);
+                }
+            }
+        }
         @SubscribeEvent
         public static void addCartographerTradesEvent(VillagerTradesEvent event){
             if (event.getType() == VillagerProfession.CARTOGRAPHER){
@@ -116,7 +116,6 @@ public class BonesModEvent {
             event.put(BonesEntities.NECROMANCER.get(), Necromancer.getCustomAttributes().build());
             event.put(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeleton.getCustomAttributes().build());
         }
-
 
         @SubscribeEvent
         public static void entitySpawnRestriction(SpawnPlacementRegisterEvent event) {
