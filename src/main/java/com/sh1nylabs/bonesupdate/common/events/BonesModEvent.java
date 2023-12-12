@@ -73,7 +73,32 @@ public class BonesModEvent {
             }
         }
     }
-
+        @SubscribeEvent
+        public static void addCartographerTradesEvent(VillagerTradesEvent event){
+            if (event.getType() == VillagerProfession.CARTOGRAPHER){
+                event.getTrades().get(1).add(new VillagerTrades.ItemListing() { //TODO: change 1 to 4
+                    @Nullable
+                    @Override
+                    public MerchantOffer getOffer(Entity entity, RandomSource rdmSource) {
+                        if (!(entity.level instanceof ServerLevel)) {
+                            return null;
+                        } else {
+                            ServerLevel serverlevel = (ServerLevel)entity.level;
+                            BlockPos blockpos = serverlevel.findNearestMapStructure(StructureTags.OCEAN_RUIN, entity.blockPosition(), 100, true);
+                            if (blockpos != null) {
+                                ItemStack itemstack = MapItem.create(serverlevel, blockpos.getX(), blockpos.getZ(), (byte)2, true, true);
+                                MapItem.renderBiomePreviewMap(serverlevel, itemstack);
+                                MapItemSavedData.addTargetDecoration(itemstack, blockpos, "+", MapDecoration.Type.MANSION);
+                                itemstack.setHoverName(Component.translatable("filled_map.necromancer_crypte"));
+                                return new MerchantOffer(new ItemStack(Items.EMERALD, 16), new ItemStack(Items.COMPASS), itemstack, 12, 12, 0.2F);
+                            } else {
+                                return null;
+                            }
+                        }
+                    }
+                });
+            }
+        }
     }
 
     @Mod.EventBusSubscriber(modid = BonesUpdate.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
