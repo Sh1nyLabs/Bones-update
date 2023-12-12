@@ -72,7 +72,7 @@ public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements 
 		this.left_leg.yRot = -0.005F;
 		this.right_leg.zRot = 0.005F;
 		this.left_leg.zRot = -0.005F;
-		if (entity.isDashing()) { //
+		if (entity.isDashing()) { // Set a different dash pose
 
 			this.body.xRot = 12.5F * Mth.PI/180F;
 			this.body.yRot = -17.5F * Mth.PI/180F;
@@ -88,7 +88,7 @@ public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements 
 			this.left_arm.x = 4.0F;
 			this.left_arm.z = -1.0F;
 
-			this.left_arm.xRot = -4.9F * Mth.PI/180F;
+			this.left_arm.xRot = -27.4F * Mth.PI/180F;
 			this.left_arm.yRot = -0.6F * Mth.PI/180F;
 			this.left_arm.zRot = 14.9F * Mth.PI/180F;
 
@@ -104,8 +104,6 @@ public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements 
 
 
 		} else {
-			//LOGGER.info(" left arm x: {}",this.left_arm.x); // x 4.0, y 2.0, z 0.0
-			//LOGGER.info(" right arm x: {}",this.right_arm.x); // x -4.0, y 2.0, z 0.0
 
 			boolean flag = entity.getFallFlyingTicks() > 4;
 			float f = 1.0F;
@@ -118,7 +116,7 @@ public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements 
 			if (f < 1.0F) {
 				f = 1.0F;
 			}
-			float period=0.667F; //0.6662F
+			float period=0.667F;
 
 			this.right_arm.x = -4.0F;
 			this.right_arm.y = 2.0F;

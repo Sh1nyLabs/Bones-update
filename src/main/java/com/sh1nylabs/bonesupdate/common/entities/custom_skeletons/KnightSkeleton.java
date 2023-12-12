@@ -71,11 +71,11 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
     public void registerGoals() {
         super.registerGoals();
 
-        this.goalSelector.addGoal(3, new KnightSkeletonDashesGoal(this,1.3D,false));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D)); //FIX_VALUE (radius of search / walkSpeedModif / sprintspeedModif)
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F)); //FIX_VALUE (radius of search)
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new KnightSkeletonDashesGoal(this,1.3D,false));
+        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D)); //FIX_VALUE (radius of search / walkSpeedModif / sprintspeedModif)
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F)); //FIX_VALUE (radius of search)
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
     @Override

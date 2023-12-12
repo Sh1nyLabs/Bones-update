@@ -89,8 +89,8 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     @Override
     public void registerGoals() {
 
-        this.goalSelector.addGoal(1, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(2, new FleeSunGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new RestrictSunGoal(this));
+        this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
 
         this.registerTargets();
         }
