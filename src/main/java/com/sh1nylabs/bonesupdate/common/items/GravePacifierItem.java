@@ -21,7 +21,7 @@ import static com.sh1nylabs.bonesupdate.common.blocks.GraveBlock.HAUNTED;
  * An Item class used to group items which can pacify graves.
  */
 public class GravePacifierItem extends Item {
-    public static final int ITEM_COOLDOWN = 50; //FIX_VALUE
+    public static final int ITEM_COOLDOWN = 100; //FIX_VALUE
 
     public GravePacifierItem(Properties properties) {
         super(properties);

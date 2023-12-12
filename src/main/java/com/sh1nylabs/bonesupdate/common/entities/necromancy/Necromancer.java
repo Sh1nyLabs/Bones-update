@@ -164,14 +164,6 @@ public class Necromancer extends AbstractIllager {
             this.warmUpDelay = CAST_ANIMATION_TIME;
         }
 
-        public boolean canSummonMinion() {
-        if (necromancer.level.getBlockEntity(gravePosition) instanceof GraveBlockEntity grave && grave.necromancerTriggerSummon(CAST_ANIMATION_TIME)) {
-                summonWithAGrave = true;
-                return true;
-            }
-            return necromancer.canIncreaseItsArmy();
-        }
-
         public void applyLastSpawnConfigurations(Minion minion) {
             minion.setOwner(necromancer);
             minion.setFriendly(false);
@@ -184,7 +176,11 @@ public class Necromancer extends AbstractIllager {
 
         @Override
         public boolean canUse() {
-            return this.canSummonMinion() ;
+            if (necromancer.level.getBlockEntity(gravePosition) instanceof GraveBlockEntity grave && grave.necromancerTriggerSummon(CAST_ANIMATION_TIME)) {
+                summonWithAGrave = true;
+                return true;
+            }
+            return necromancer.canIncreaseItsArmy();
         }
 
         @Override
@@ -219,7 +215,9 @@ public class Necromancer extends AbstractIllager {
                     if (!summonWithAGrave) {
                         int rdmQuantity = Math.min(necromancer.minionStock, 2+rdmSource.nextInt(4)); // FIX_VALUE
                         LOGGER.info("summon {} minions",rdmQuantity);
-                        this.summonMinion((ServerLevel) level, rdmSource,rdmQuantity,necromancer.getOnPos().above(),MobSpawnType.MOB_SUMMONED);
+                        this.summonMinion((ServerLevel) level, rdmSource,
+                                rdmQuantity,
+                                necromancer.getOnPos().above(), MobSpawnType.MOB_SUMMONED);
                     }
                     summonWithAGrave = false;
                 }

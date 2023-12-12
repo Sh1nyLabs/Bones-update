@@ -20,14 +20,15 @@ import static com.sh1nylabs.bonesupdate.common.blocks.GraveBlock.HAUNTED;
 
 public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
     public static final int SPAWN_PROBABILITY = 700; // FIX_VALUE
-    public static final int SPAWN_COUNT = 7;
+    public static final int SPAWN_COUNT = 7; // FIX_VALUE
     private boolean readyToSpawn = false;
     private static final Logger LOGGER = LogUtils.getLogger();
     private int necromancerDelay = -1;
 
     public GraveBlockEntity(BlockPos position, BlockState state) {super(BonesBlocks.GRAVE.get(), position, state);}
 
-    public boolean canSummonMinion() {return (readyToSpawn && this.getBlockState().getValue(HAUNTED));}
+    public boolean readyToSummon() {return (readyToSpawn && this.getBlockState().getValue(HAUNTED));}
+
     public void applyLastSpawnConfigurations(Minion minion) {
         minion.setOwner(null);
         minion.setFriendly(false);
@@ -38,38 +39,49 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
     public void load(CompoundTag compoundTag) {
         super.load(compoundTag);
         readyToSpawn=compoundTag.getBoolean("ReadyToSpawn");
+        necromancerDelay=compoundTag.getInt("NecromancerDelay");
     }
     
     protected void saveAdditional(CompoundTag compoundTag) {
         super.saveAdditional(compoundTag);
         compoundTag.putBoolean("ReadyToSpawn", readyToSpawn);
+        compoundTag.putInt("NecromancerDelay", necromancerDelay);
     }
 
     public void blockEntityTicker(Level level, BlockPos pos, BlockState blockState) {
-        RandomSource rdmSequence=level.getRandom();
+        RandomSource rdmSequence = level.getRandom();
 
         if (level.isClientSide()) {
             if (blockState.getValue(HAUNTED) && level.random.nextDouble()<0.07) {
                 level.addParticle(ParticleTypes.SMOKE, pos.getX()+level.random.nextDouble(), pos.getY() + 0.2D, pos.getZ()+level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
             }
         } else {
-            if (blockState.getValue(HAUNTED) && rdmSequence.nextInt(SPAWN_PROBABILITY)==0) {
+            if (blockState.getValue(HAUNTED) && rdmSequence.nextInt(SPAWN_PROBABILITY) == 0) {
                 LOGGER.info("grave ready to spawn");
                 readyToSpawn = true;
             }
 
-            if (necromancerDelay>=0) {
+            if (necromancerDelay >= 0) {
                 necromancerDelay--;
             }
-            if (canSummonMinion() & ( necromancerDelay == 0
+            if (readyToSummon() & ( necromancerDelay == 0
                     || ((level.getBrightness(LightLayer.SKY,pos)-level.getSkyDarken())<(5+rdmSequence.nextInt(4))))) {
-                this.summonMinion((ServerLevel)level,rdmSequence,1+rdmSequence.nextInt(SPAWN_COUNT-1),getBlockPos(),MobSpawnType.SPAWNER);
+                this.summonMinion((ServerLevel)level, rdmSequence,
+                        1+rdmSequence.nextInt(SPAWN_COUNT-1),
+                        getBlockPos(), MobSpawnType.SPAWNER);
             }
         }
     }
 
+    /** Called by the Necromancer class when he tries to use a Grave. It puts a timer on the Grave
+     *  to force Minions summoning after the countdown, and during this time, it executes an 'empty' "Summon" goal.
+     *  Here, this goal is only used for necromancer animations.
+     *
+     * @param count timer to put before the grave forces its spawn.
+     * @return
+     */
     public boolean necromancerTriggerSummon(int count) {
-        if (this.canSummonMinion()) {
+        if (this.readyToSummon()) {
             this.necromancerDelay = count;
             return true;
         }

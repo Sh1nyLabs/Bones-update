@@ -23,7 +23,7 @@ public class NecromancerApproachAGraveGoal extends MoveToBlockGoal {
 
     @Override
     protected boolean isValidTarget(LevelReader level, BlockPos blockPos) {
-        return (level.getBlockEntity(blockPos) instanceof GraveBlockEntity grave && grave.canSummonMinion());
+        return (level.getBlockEntity(blockPos) instanceof GraveBlockEntity grave && grave.readyToSummon());
     }
 
     @Override
