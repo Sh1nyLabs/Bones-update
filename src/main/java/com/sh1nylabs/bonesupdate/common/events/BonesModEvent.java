@@ -73,6 +73,7 @@ public class BonesModEvent {
             }
         }
     }
+
     }
 
     @Mod.EventBusSubscriber(modid = BonesUpdate.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
