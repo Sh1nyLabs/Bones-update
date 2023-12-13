@@ -2,6 +2,7 @@ package com.sh1nylabs.bonesupdate.common.items;
 
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BonesBrokenSkeletons;
+import com.sh1nylabs.bonesupdate.common.unclassed.CanPacifyGraves;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import net.minecraft.server.level.ServerLevel;
@@ -12,12 +13,15 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 
 
-public class NecroScepterItem extends GravePacifierItem implements CanSummonMinions {
+public class NecroScepterItem extends Item implements CanSummonMinions, CanPacifyGraves {
     public static final int MAX_MINIONS_SUMMONED=3; //FIX_VALUE
 
     public NecroScepterItem(Properties properties) {
@@ -80,15 +84,38 @@ public class NecroScepterItem extends GravePacifierItem implements CanSummonMini
     }
 
     /**
+     * useOn will apply the function 'pacifyGrave' if the item contains the enchantment 'Serenity'.
+     *
+     * @param context : The context when it is used
+     * @return InteractionResult: SUCCESS / PASS
+     */
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        return tryToPacifyGrave(context, context.getItemInHand(), context.getPlayer());
+    }
+
+    /**
      * Enchantments applicable on the Necromancer scepter:
      * Category "NECROMANCY": "Leader", "Subordinate"
-     * Categories inherited from the GravePacifier item.
+     * Category "SKELETON_QUEST": "Serenity"
+     * Category "BREAKABLE": "Mending", "Unbreaking"
      *
      * For enchantment compatibility, check enchantments classes.
      */
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)  {
-        return enchantment.category == BonesEnchantments.NECROMANCY || super.canApplyAtEnchantingTable(stack,enchantment);
+        return enchantment.category == BonesEnchantments.NECROMANCY
+                || enchantment.category == EnchantmentCategory.BREAKABLE
+                || enchantment.category == BonesEnchantments.SKELETON_QUEST;
+    }
+
+    public void useItemStack(ItemStack stack, Player player, InteractionHand hand) {
+        if (player != null) {
+            stack.hurtAndBreak(1, player, player1 -> {
+                player1.broadcastBreakEvent(hand);
+            });
+            player.getCooldowns().addCooldown(this, 100);
+        }
     }
 
 }
