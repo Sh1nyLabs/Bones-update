@@ -73,6 +73,7 @@ public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements 
 		this.right_leg.zRot = 0.005F;
 		this.left_leg.zRot = -0.005F;
 		if (entity.isDashing()) { // Set a different dash pose
+			entity.showWarmUpParticles();
 
 			this.body.xRot = 12.5F * Mth.PI/180F;
 			this.body.yRot = -17.5F * Mth.PI/180F;

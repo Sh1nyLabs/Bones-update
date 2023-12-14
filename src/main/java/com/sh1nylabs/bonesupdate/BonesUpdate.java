@@ -1,5 +1,6 @@
 package com.sh1nylabs.bonesupdate;
 
+import com.sh1nylabs.bonesupdate.common.particle.BonesParticles;
 import com.sh1nylabs.bonesupdate.init.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -9,6 +10,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+
 
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate {
@@ -24,6 +26,7 @@ public class BonesUpdate {
         BonesEntities.BU_ENTITIES.register(modEventBus);
         BonesBlocks.BU_BLOCK_ENTITIES.register(modEventBus);
         BonesEnchantments.BU_ENCHANTMENTS.register(modEventBus);
+        BonesParticles.PARTICLE_TYPE.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

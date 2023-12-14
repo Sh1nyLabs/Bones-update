@@ -1,6 +1,8 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
+import com.mojang.logging.LogUtils;
 import com.sh1nylabs.bonesupdate.common.entities.goal.KnightSkeletonDashesGoal;
+import com.sh1nylabs.bonesupdate.common.particle.BonesParticles;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -23,6 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
@@ -31,6 +34,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
     private static final float DASH_BONUS_DAMAGE = 10.0F;
     private static final EntityDataAccessor<Boolean> IS_DASHING = SynchedEntityData.defineId(KnightSkeleton.class, EntityDataSerializers.BOOLEAN);
     private int dashCooldown = DASH_RESET_DURATION;
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     public KnightSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {super(entityType, level);}
 
@@ -107,6 +111,16 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
             this.dashCooldown--;
         }
         super.tick();
+    }
+
+    public void showWarmUpParticles() { // TODO: modify particle design
+        for (int i=0; i<random.nextInt(5)-4; i++) {
+            level.addParticle(BonesParticles.SOUL_PARTICLE.get(),
+                    this.getX() -1 + 2*random.nextDouble(),
+                    this.getY(),
+                    this.getZ() -1 + 2*random.nextDouble(),
+                    0.0D, 0.5D, 0.0D);
+        }
     }
 
     /**
