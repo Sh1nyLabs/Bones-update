@@ -60,7 +60,8 @@ public class AmuletItem extends Item implements CanPacifyGraves {
      */
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)  {
-        return enchantment.category == EnchantmentCategory.BREAKABLE || enchantment.category == BonesEnchantments.SKELETON_QUEST;
+        return enchantment.category == EnchantmentCategory.BREAKABLE
+                || enchantment.category == BonesEnchantments.SKELETON_QUEST;
     }
 
     public void useItemStack(ItemStack stack, Player player, InteractionHand hand) {

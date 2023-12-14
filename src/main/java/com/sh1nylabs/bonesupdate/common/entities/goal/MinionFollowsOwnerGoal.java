@@ -12,18 +12,24 @@ public class MinionFollowsOwnerGoal extends Goal {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public MinionFollowsOwnerGoal(Minion minion) {
-        this.minion=minion;
+        this.minion = minion;
     }
 
-    public boolean canUse() {return (this.minion.getOwner()!=null && minion.getLevel().getRandom().nextInt(11)<2);}
+    public boolean canUse() {return (this.minion.getOwner()!=null && minion.getLevel().getRandom().nextInt(70)<2);}
+
+    public boolean canContinueToUse() {
+        return minion.getOwner()!=null && minion.distanceTo(minion.getOwner())>3;
+    }
 
     public void start() {
         this.timeToRecalcPath = 0;
     }
+    public void stop() {
+        minion.getNavigation().stop();
+    }
 
     public void tick() {
         if (--this.timeToRecalcPath <= 0) {
-            LOGGER.info("updated path navigation to necromancer");
             this.timeToRecalcPath = this.adjustedTickDelay(10);
             this.minion.getNavigation().moveTo(this.minion.getOwner(), 1.0D);
         }
