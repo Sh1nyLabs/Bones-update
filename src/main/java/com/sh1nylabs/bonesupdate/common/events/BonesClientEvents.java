@@ -7,14 +7,9 @@ import com.sh1nylabs.bonesupdate.common.client.models.NecromancerModel;
 import com.sh1nylabs.bonesupdate.common.client.renderer.KnightSkeletonRenderer;
 import com.sh1nylabs.bonesupdate.common.client.renderer.MinionRenderer;
 import com.sh1nylabs.bonesupdate.common.client.renderer.NecromancerRenderer;
-import com.sh1nylabs.bonesupdate.common.particle.BonesParticles;
-import com.sh1nylabs.bonesupdate.common.particle.SoulParticle;
+import com.sh1nylabs.bonesupdate.init.BonesParticles;
+import com.sh1nylabs.bonesupdate.common.particle.ParticleBar;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -40,6 +35,6 @@ public class BonesClientEvents {
 
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(BonesParticles.SOUL_PARTICLE.get(),  SoulParticle.Provider::new);
+        event.registerSpriteSet(BonesParticles.PURPLE_BAR.get(),  ParticleBar.Provider::new);
     }
 }

@@ -1,8 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
-import com.mojang.logging.LogUtils;
 import com.sh1nylabs.bonesupdate.common.entities.goal.KnightSkeletonDashesGoal;
-import com.sh1nylabs.bonesupdate.common.particle.BonesParticles;
+import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,16 +24,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
 public class KnightSkeleton extends BonesBrokenSkeletons {
     private static final int DASH_RESET_DURATION = 130;
+    private static final int DASH_WARM_UP_TIME = 60; // FIX_VALUE
     private static final float DASH_BONUS_DAMAGE = 10.0F;
     private static final EntityDataAccessor<Boolean> IS_DASHING = SynchedEntityData.defineId(KnightSkeleton.class, EntityDataSerializers.BOOLEAN);
     private int dashCooldown = DASH_RESET_DURATION;
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private int warmUpTime = DASH_WARM_UP_TIME;
 
     public KnightSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {super(entityType, level);}
 
@@ -107,20 +106,31 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
     @Override
     public void tick() {
+        if (level.isClientSide()) {
+            if (isDashing()) { /** stuff to stop showing particles at appropriate time */
+                if (getWarmUpTime()>=0) {
+                    tickWarmupTime();
+                    showWarmUpParticles();
+                }
+            } else {
+                reInitWarmUpTime(DASH_WARM_UP_TIME - 17);
+            }
+        }
+
         if (dashCooldown >= 0) {
             this.dashCooldown--;
         }
         super.tick();
     }
 
-    public void showWarmUpParticles() { // TODO: modify particle design
-        for (int i=0; i<random.nextInt(5)-4; i++) {
-            level.addParticle(BonesParticles.SOUL_PARTICLE.get(),
-                    this.getX() -1 + 2*random.nextDouble(),
-                    this.getY(),
-                    this.getZ() -1 + 2*random.nextDouble(),
-                    0.0D, 0.5D, 0.0D);
-        }
+    public void showWarmUpParticles() { /** Only Client-sided */
+        float f1 = (float) (2*Mth.PI*random.nextDouble());
+        double d1 = 0.2 + 0.65*random.nextDouble();
+        level.addParticle(BonesParticles.PURPLE_BAR.get(),
+                this.getX() + d1*Mth.cos(f1),
+                this.getY(),
+                this.getZ() + d1*Mth.sin(f1),
+                0.0D, 0.15D, 0.0D);
     }
 
     /**
@@ -158,4 +168,11 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
         return flag;
     }
+
+    public void reInitWarmUpTime(int value) {this.warmUpTime = value;}
+    public void reInitWarmUpTime() {reInitWarmUpTime(DASH_WARM_UP_TIME);}
+
+    public void tickWarmupTime() {this.warmUpTime--;}
+
+    public int getWarmUpTime() {return warmUpTime;}
 }

@@ -1,22 +1,19 @@
 package com.sh1nylabs.bonesupdate.common.particle;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
-public class SoulParticle extends TextureSheetParticle {
-    private static final Logger LOGGER = LogUtils.getLogger();
+public class ParticleBar extends TextureSheetParticle {
 
-    protected SoulParticle(ClientLevel level, SpriteSet sprite, double pos_x, double pos_y, double pos_z, double xd, double yd, double zd) {
+    protected ParticleBar(ClientLevel level, SpriteSet sprite, double pos_x, double pos_y, double pos_z, double xd, double yd, double zd) {
         super(level, pos_x, pos_y, pos_z, xd, yd, zd);
         this.quadSize *= 0.85F;
-        this.friction = 0.8F;
-        this.lifetime = 50;
+        this.friction = 0.99F;
+        this.lifetime = 12+level.random.nextInt(5);
         this.pickSprite(sprite);
 
         this.xd = xd;
@@ -42,7 +39,7 @@ public class SoulParticle extends TextureSheetParticle {
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
-            return new SoulParticle(level, sprite, x, y, z, dx, dy, dz);
+            return new ParticleBar(level, sprite, x, y, z, dx, dy, dz);
         }
     }
 

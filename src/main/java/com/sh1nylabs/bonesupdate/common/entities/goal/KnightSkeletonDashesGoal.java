@@ -33,6 +33,7 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
 
     public void stop() {
         ((KnightSkeleton)mob).setIsDashing(false);
+        ((KnightSkeleton)mob).reInitWarmUpTime();
     }
 
     private void updateDashAction() {
@@ -44,7 +45,7 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
             LOGGER.info("try to dash");
             ((KnightSkeleton)mob).setIsDashing(true);
             isWarmingUp = true;
-            warmUpTime = DASH_WARM_UP_TIME;
+            ((KnightSkeleton)mob).reInitWarmUpTime(); //this.warmUpTime = DASH_WARM_UP_TIME;
             mob.getNavigation().stop();
         }
     }
@@ -53,16 +54,15 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
     public void tick() {
         updateDashAction();
         if (isWarmingUp && mob.getTarget()!=null) {
-            LOGGER.info("warming up... {}", warmUpTime);
             this.mob.getLookControl().setLookAt(mob.getTarget(), 30.0F, 30.0F);
-            this.warmUpTime--;
-            if (warmUpTime == 0) {
+            ((KnightSkeleton)mob).tickWarmupTime(); //this.warmUpTime--;
+            if (((KnightSkeleton)mob).getWarmUpTime() == 0) { // this.warmUpTime == 0
                 // execute dash attack & potentially hurt the player
                 this.resetAttackCooldown();
                 this.mob.doHurtTarget(mob.getTarget());
-                BlockPos position = mob.getTarget().getOnPos();
 
                 // tp behind player
+                BlockPos position = mob.getTarget().getOnPos();
                 this.mob.moveTo(position.getX(),position.getY()+1,position.getZ());
                 ((KnightSkeleton)mob).resetDashCooldown();
                 isWarmingUp = false;
