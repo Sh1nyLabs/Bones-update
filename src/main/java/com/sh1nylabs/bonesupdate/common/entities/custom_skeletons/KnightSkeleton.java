@@ -34,6 +34,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
     private static final EntityDataAccessor<Boolean> IS_DASHING = SynchedEntityData.defineId(KnightSkeleton.class, EntityDataSerializers.BOOLEAN);
     private int dashCooldown = DASH_RESET_DURATION;
     private int warmUpTime = DASH_WARM_UP_TIME;
+    private int particleSpawnDuration = DASH_WARM_UP_TIME - 17;
 
     public KnightSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {super(entityType, level);}
 
@@ -108,22 +109,21 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
     public void tick() {
         if (level.isClientSide()) {
             if (isDashing()) { /** stuff to stop showing particles at appropriate time */
-                if (getWarmUpTime()>=0) {
-                    tickWarmupTime();
-                    showWarmUpParticles();
+                if (particleSpawnDuration>=0) {
+                    particleSpawnDuration--;
+                    spawnWarmUpParticles();
                 }
             } else {
-                reInitWarmUpTime(DASH_WARM_UP_TIME - 17);
+                 particleSpawnDuration = DASH_WARM_UP_TIME - 17;
             }
         }
-
         if (dashCooldown >= 0) {
             this.dashCooldown--;
         }
         super.tick();
     }
 
-    public void showWarmUpParticles() { /** Only Client-sided */
+    public void spawnWarmUpParticles() { /** Only Client-sided */
         float f1 = (float) (2*Mth.PI*random.nextDouble());
         double d1 = 0.2 + 0.65*random.nextDouble();
         level.addParticle(BonesParticles.PURPLE_BAR.get(),
@@ -171,8 +171,6 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
     public void reInitWarmUpTime(int value) {this.warmUpTime = value;}
     public void reInitWarmUpTime() {reInitWarmUpTime(DASH_WARM_UP_TIME);}
-
     public void tickWarmupTime() {this.warmUpTime--;}
-
     public int getWarmUpTime() {return warmUpTime;}
 }
