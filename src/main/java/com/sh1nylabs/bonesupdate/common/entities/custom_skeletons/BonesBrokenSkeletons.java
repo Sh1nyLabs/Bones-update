@@ -3,14 +3,17 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.mojang.logging.LogUtils;
+import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -153,6 +156,8 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     public void brokenSkeletonRevives() {
         this.setBroken(false);
         this.setHealth(this.getMaxHealth());
+        ((ServerLevel) level).sendParticles(BonesParticles.PURPLE_SOUL.get(), this.getX(), this.getY() + 0.5D, this.getZ(), 50, 0.0D, 0.1D, 0.0D, 0.4D);
+        LOGGER.info("should be revived");
     }
 
     /**
@@ -172,7 +177,6 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
         super.tick();
         if (isBroken() && !this.getLevel().isClientSide()) {
             if (timeBeforeSkeletonRevives <= 0 && this.isAlive()) {
-                LOGGER.info("should be revived");
                 this.brokenSkeletonRevives();
             } else {
                 timeBeforeSkeletonRevives--;}

@@ -7,6 +7,7 @@ import com.sh1nylabs.bonesupdate.common.client.models.NecromancerModel;
 import com.sh1nylabs.bonesupdate.common.client.renderer.KnightSkeletonRenderer;
 import com.sh1nylabs.bonesupdate.common.client.renderer.MinionRenderer;
 import com.sh1nylabs.bonesupdate.common.client.renderer.NecromancerRenderer;
+import com.sh1nylabs.bonesupdate.common.particle.ParticleSoul;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import com.sh1nylabs.bonesupdate.common.particle.ParticleBar;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
@@ -36,5 +37,6 @@ public class BonesClientEvents {
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(BonesParticles.PURPLE_BAR.get(),  ParticleBar.Provider::new);
+        event.registerSpriteSet(BonesParticles.PURPLE_SOUL.get(),  ParticleSoul.Provider::new);
     }
 }
