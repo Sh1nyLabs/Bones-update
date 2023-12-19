@@ -34,7 +34,6 @@ import static java.lang.Math.max;
  * - The ability to become broken instead of killed. The only way to kill them is, when they are broken,
  *      to 'purify' them using a specific item or to put them in front of fire.
  *      If they are not killed rapidly, they might become mobile skeletons again.
- *
  * Some behaviours may be overriden by dependant entities.
  */
 public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
@@ -69,7 +68,7 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
 
     public boolean isFriendly() {return this.friendly;}
     public void setFriendly(boolean friendly) {this.friendly = friendly;}
-    public void becomesFriendly(Level level) { /** Can be called on both sides */
+    public void becomesFriendly(Level level) { /* Can be called on both sides */
         if (!level.isClientSide()) {
             this.friendly = true;
         } else {
@@ -200,7 +199,7 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
             } else {
                 timeBeforeSkeletonRevives--;}
         }
-        if (this.getLevel().isClientSide() && (clientSideBrokenState != isBroken())) { /** Update the bounding box of the entity */
+        if (this.getLevel().isClientSide() && (clientSideBrokenState != isBroken())) { /* Update the bounding box of the entity */
             clientSideBrokenState = isBroken();
             this.refreshDimensions();
         }

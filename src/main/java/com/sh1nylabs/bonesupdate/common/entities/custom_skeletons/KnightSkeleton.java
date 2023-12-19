@@ -108,7 +108,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
     @Override
     public void tick() {
         if (level.isClientSide()) {
-            if (isDashing()) { /** stuff to stop showing particles at appropriate time */
+            if (isDashing()) { /* stuff to stop showing particles at appropriate time */
                 if (particleSpawnDuration>=0) {
                     particleSpawnDuration--;
                     spawnWarmUpParticles();
@@ -123,7 +123,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
         super.tick();
     }
 
-    public void spawnWarmUpParticles() { /** Only Client-sided */
+    public void spawnWarmUpParticles() { /* Only Client-sided */
         float f1 = (float) (2*Mth.PI*random.nextDouble());
         double d1 = 0.2 + 0.65*random.nextDouble();
         level.addParticle(BonesParticles.PURPLE_BAR.get(),
@@ -136,7 +136,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
     /**
      * Function overriden in order to introduce dash bonus damage.
      * @param entity : entity hurt
-     * @return
+     * @return boolean
      */
     @Override
     public boolean doHurtTarget(Entity entity) {

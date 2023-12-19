@@ -1,10 +1,8 @@
 package com.sh1nylabs.bonesupdate.common.entities.goal;
 
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import org.slf4j.Logger;
 
 /**
  * A dash action that can be done by a knight skeleton.
@@ -12,8 +10,7 @@ import org.slf4j.Logger;
 public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
     private static final double DASH_INTERRUPTION_DISTANCE = 15.0D; // FIX_VALUE
     private static final double DASH_TRIGGER_DISTANCE = 7.0D; // FIX_VALUE
-    private KnightSkeleton knight; /** we can use the parameter LivingEntity mob, but we prefer not to use cast everywhere */
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private final KnightSkeleton knight; /** we can use the parameter LivingEntity mob, but we prefer not to use cast everywhere */
 
     public KnightSkeletonDashesGoal(KnightSkeleton knight, double speedModifier, boolean followingTargetEvenIfNotSeen) {
         super(knight,speedModifier,followingTargetEvenIfNotSeen);
@@ -34,20 +31,17 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
      * It begins to warm up when:
      *  - The attacked entity is near enough (< DASH_TRIGGER_DISTANCE),
      *  - The knight is ready to dash (dash cooldown ended, not broken).
-     *
      * It stops warming up when:
      *  - The attacked entity is too far away (> DASH_INTERRUPTION_DISTANCE),
      *  - The attacked entity is too near (< 1.5D),
      *  - The attacked entity is forgotten.
-     *
      */
     @Override
     public void tick() {
         if (knight.isDashing()) {
             if (knight.getTarget() == null || knight.distanceTo(knight.getTarget()) > DASH_INTERRUPTION_DISTANCE || knight.distanceTo(knight.getTarget()) < 1.5D) {
-                LOGGER.info("dash aborted");
                 knight.resetDashCooldown();
-            } else { // dash conditions are still met
+            } else { /* dash conditions are still met */
                 this.mob.getLookControl().setLookAt(mob.getTarget(), 30.0F, 30.0F);
                 knight.tickWarmupTime();
 
@@ -59,7 +53,6 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
                     this.knight.moveTo(position.getX(),position.getY()+1,position.getZ());
                     knight.resetDashCooldown();
                     this.start(); // to recompute a path navigation
-                    LOGGER.info("dash should be finished, returns to original melee attack");
                 }
             }
         } else { // knight not currently dashing
@@ -67,7 +60,6 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
             super.tick();
 
             if (knight.canDash() && (knight.getTarget()!=null) && (knight.distanceTo(knight.getTarget()) < DASH_TRIGGER_DISTANCE) && (knight.distanceTo(knight.getTarget()) > 1.5D) && (knight.getLevel().getRandom().nextDouble()<0.5)) { // prepare dash procedure
-                LOGGER.info("try to dash");
                 knight.setIsDashing(true);
                 knight.reInitWarmUpTime();
                 knight.getNavigation().stop();

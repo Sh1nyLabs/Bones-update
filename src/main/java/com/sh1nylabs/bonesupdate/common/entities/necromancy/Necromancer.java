@@ -48,11 +48,9 @@ public class Necromancer extends AbstractIllager {
     private int minionStock = MINION_STOCK_ON_SPAWN;
     public int graveStock = GRAVE_STOCK_ON_SPAWN;
     public BlockPos gravePosition = BlockPos.ZERO;
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public Necromancer(EntityType<? extends AbstractIllager> entityType, Level level) {
         super(entityType, level);
-        LOGGER.info("spawned with stock: {}",minionStock);
     }
 
     public void readAdditionalSaveData(CompoundTag tag) {
@@ -96,7 +94,6 @@ public class Necromancer extends AbstractIllager {
 
     public void addMinionToStock(int quantity) {
         this.minionStock = this.minionStock + quantity;
-        LOGGER.info("minion stock: {}",this.minionStock);
     }
 
     @Override
@@ -113,7 +110,7 @@ public class Necromancer extends AbstractIllager {
     }
 
     @Override
-    protected float getEquipmentDropChance(EquipmentSlot p_21520_) {
+    protected float getEquipmentDropChance(EquipmentSlot slot) {
         return 0.0F;
     }
 
@@ -190,7 +187,6 @@ public class Necromancer extends AbstractIllager {
 
         @Override
         public void start() {
-            LOGGER.info("begin necromancer summon goal");
             this.warmUpDelay = CAST_ANIMATION_TIME;
             this.necromancer.entityData.set(DATA_NECRO_SPELL_CASTING_ID, (byte) 1);
             this.necromancer.navigation.stop();
@@ -214,7 +210,6 @@ public class Necromancer extends AbstractIllager {
                     RandomSource rdmSource = level.getRandom();
                     if (!summonWithAGrave) {
                         int rdmQuantity = Math.min(necromancer.minionStock, 2+rdmSource.nextInt(4)); // FIX_VALUE
-                        LOGGER.info("summon {} minions",rdmQuantity);
                         this.summonMinion((ServerLevel) level, rdmSource,
                                 rdmQuantity,
                                 necromancer.getOnPos().above(), MobSpawnType.MOB_SUMMONED);

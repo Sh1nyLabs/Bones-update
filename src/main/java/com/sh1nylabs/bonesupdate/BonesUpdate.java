@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 public class BonesUpdate {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "bonesupdate";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public BonesUpdate() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
