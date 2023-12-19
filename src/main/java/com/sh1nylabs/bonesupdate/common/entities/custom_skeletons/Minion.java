@@ -47,6 +47,11 @@ public class Minion extends BonesBrokenSkeletons{
     @Override
     protected void dropCustomDeathLoot(DamageSource source, int p_34175_, boolean p_34176_) {}
 
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {
+        return 0.85F * 0.85F;
+    }
+
     public static AttributeSupplier.Builder getCustomAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,2.0D) //FIX_VALUE
@@ -64,7 +69,7 @@ public class Minion extends BonesBrokenSkeletons{
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F)); //FIX_VALUE (radius of search)
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
 
-        this.registerTargets();
+        this.registerSkeletonTargets();
 }
 
     @Override
@@ -76,6 +81,7 @@ public class Minion extends BonesBrokenSkeletons{
     protected void populateDefaultEquipmentSlots(RandomSource rdmSequence, DifficultyInstance difficulty) {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesItems.MINION_SWORD.get()));
     }
+
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);

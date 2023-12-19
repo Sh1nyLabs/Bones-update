@@ -15,8 +15,8 @@ public class ParticleSoul extends TextureSheetParticle {
     protected ParticleSoul(ClientLevel level, SpriteSet sprite, double pos_x, double pos_y, double pos_z, double xd, double yd, double zd) {
         super(level, pos_x, pos_y, pos_z, xd, yd, zd);
         this.quadSize *= 0.85F;
-        this.friction = 0.75F;
-        this.lifetime = 10+level.random.nextInt(5);
+        this.friction = 0.55F;
+        this.lifetime = 10+level.random.nextInt(3);
         this.pickSprite(sprite);
 
         this.xd = xd;

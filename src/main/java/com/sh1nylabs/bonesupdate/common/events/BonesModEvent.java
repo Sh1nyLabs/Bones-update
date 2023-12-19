@@ -75,7 +75,22 @@ public class BonesModEvent {
                 }
             }
         }
-
+        /**
+        @SubscribeEvent
+        public static void changeSkeletonBoxSize(EntityEvent.Size event) { // TODO: not working
+            if (event.getEntity() instanceof BonesBrokenSkeletons skeleton && skeleton.getLevel().isClientSide()) {
+                if (skeleton instanceof Minion) { // update eye height on spawn
+                    event.setNewEyeHeight(0.85F*0.85F);
+                }
+                else if (skeleton.isBroken()) {
+                    event.setNewSize(EntityDimensions.scalable(0.6F,0.4F),true);
+                } else {
+                    event.setNewSize(EntityDimensions.scalable(0.6F,1.8F),true);
+                }
+                LOGGER.info("box size should have been changed");
+            }
+        }
+        */
     }
 
     @Mod.EventBusSubscriber(modid = BonesUpdate.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

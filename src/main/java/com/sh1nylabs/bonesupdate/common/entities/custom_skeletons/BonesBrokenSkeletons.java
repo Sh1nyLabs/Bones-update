@@ -13,10 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -42,6 +39,7 @@ import static java.lang.Math.max;
  */
 public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     private static final EntityDataAccessor<Boolean> IS_BROKEN = SynchedEntityData.defineId(BonesBrokenSkeletons.class, EntityDataSerializers.BOOLEAN);
+    private boolean clientSideBrokenState = false;
     private static final float HEALTH_WHEN_SKELETON_BREAKS = 15.0F; // FIX_VALUE
     private static final int REVIVING_TIME_WHEN_BROKEN = 250; // FIX_VALUE
     private boolean friendly;
@@ -70,15 +68,16 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     }
 
     public boolean isFriendly() {return this.friendly;}
-    public void becomesFriendly(Level level) {
+    public void setFriendly(boolean friendly) {this.friendly = friendly;}
+    public void becomesFriendly(Level level) { /** Can be called on both sides */
         if (!level.isClientSide()) {
             this.friendly = true;
         } else {
             level.addParticle(ParticleTypes.HEART, this.getRandomX(1.0D), this.getRandomY() + 0.1D, this.getRandomZ(1.0D), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
             level.addParticle(ParticleTypes.HEART, this.getRandomX(1.0D), this.getRandomY() + 0.1D, this.getRandomZ(1.0D), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
+            level.addParticle(ParticleTypes.HEART, this.getRandomX(1.0D), this.getRandomY() + 0.1D, this.getRandomZ(1.0D), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
         }
     }
-    public void setFriendly(boolean friendly) {this.friendly=friendly;}
 
     @Override
     public boolean canAttack(LivingEntity entity) {
@@ -95,10 +94,10 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
         this.goalSelector.addGoal(2, new RestrictSunGoal(this));
         this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
 
-        this.registerTargets();
+        this.registerSkeletonTargets();
         }
 
-    protected void registerTargets() {
+    protected void registerSkeletonTargets() {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, true,this::canAttackMonsters));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true,this::canAttackPlayer));
@@ -106,7 +105,25 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     }
 
     public boolean isBroken() {return this.entityData.get(IS_BROKEN);}
-    public void setBroken(boolean nextState) {this.entityData.set(IS_BROKEN,nextState);}
+    public void setBroken(boolean nextState) {
+        this.entityData.set(IS_BROKEN,nextState);
+    }
+
+    /** Overriden so that hitboxes are modified when the skeleton is broken. */
+    @Override
+    public EntityDimensions getDimensions(Pose pose) {
+        if (this.isBroken()) {
+            return super.getDimensions(pose).scale(1.1F,0.3F);
+        } else {
+            return super.getDimensions(pose);
+        }
+    }
+    /** Overriden so that eye height is modified when the skeleton is broken. */
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {
+        float f = super.getStandingEyeHeight(pose, entityDimensions);
+        return this.isBroken() ? 0.3F : f;
+    }
 
     /**
      * When broken, only fire can damage the monster (sun, lava, fire aspect, flame, flint & steel...).
@@ -141,7 +158,7 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
      * To get the loot of the skeletons, you need to 'purify' them using an Amulet.
      * @param damageSource : to check what are the items in player's hands
      */
-    protected void dropAllDeathLoot(DamageSource damageSource) { //TODO: does it drop its weapon?
+    protected void dropAllDeathLoot(DamageSource damageSource) {
         if (damageSource.getEntity() instanceof Player player) {
             if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AmuletItem ||
                     player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem) {
@@ -156,7 +173,9 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     public void brokenSkeletonRevives() {
         this.setBroken(false);
         this.setHealth(this.getMaxHealth());
-        ((ServerLevel) level).sendParticles(BonesParticles.PURPLE_SOUL.get(), this.getX(), this.getY() + 0.5D, this.getZ(), 50, 0.0D, 0.1D, 0.0D, 0.4D);
+        ((ServerLevel) level).sendParticles(BonesParticles.PURPLE_SOUL.get(),
+                this.getX(), this.getY() + 0.5D, this.getZ(),
+                50, 0.0D, 0.1D, 0.0D, 0.20D);
         LOGGER.info("should be revived");
     }
 
@@ -180,6 +199,10 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
                 this.brokenSkeletonRevives();
             } else {
                 timeBeforeSkeletonRevives--;}
+        }
+        if (this.getLevel().isClientSide() && (clientSideBrokenState != isBroken())) { /** Update the bounding box of the entity */
+            clientSideBrokenState = isBroken();
+            this.refreshDimensions();
         }
     }
 }
