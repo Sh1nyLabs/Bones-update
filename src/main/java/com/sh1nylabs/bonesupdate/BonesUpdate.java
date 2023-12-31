@@ -44,6 +44,7 @@ public class BonesUpdate {
             event.accept(BonesItems.AMULET);
         } else if (event.getTab() == CreativeModeTabs.COMBAT) {
             event.accept(BonesItems.NECRO_SCEPTER);
+            event.accept(BonesItems.HAUNTER_SPEAR);
             event.accept(BonesItems.MINION_SWORD);
         } else if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
             event.accept(BonesItems.SKELETON_SOUL);
@@ -51,6 +52,7 @@ public class BonesUpdate {
         } else if (event.getTab() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(BonesItems.MINION_SPAWN_EGG);
             event.accept(BonesItems.KNIGHT_SKELETON_SPAWN_EGG);
+            event.accept(BonesItems.HAUNTER_SPAWN_EGG);
             event.accept(BonesItems.NECROMANCER_SPAWN_EGG);
         }
     }

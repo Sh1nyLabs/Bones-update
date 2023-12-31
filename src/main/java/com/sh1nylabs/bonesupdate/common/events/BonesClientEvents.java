@@ -1,9 +1,11 @@
 package com.sh1nylabs.bonesupdate.common.events;
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
+import com.sh1nylabs.bonesupdate.common.client.models.HaunterSkeletonModel;
 import com.sh1nylabs.bonesupdate.common.client.models.KnightSkeletonModel;
 import com.sh1nylabs.bonesupdate.common.client.models.MinionModel;
 import com.sh1nylabs.bonesupdate.common.client.models.NecromancerModel;
+import com.sh1nylabs.bonesupdate.common.client.renderer.HaunterSkeletonRenderer;
 import com.sh1nylabs.bonesupdate.common.client.renderer.KnightSkeletonRenderer;
 import com.sh1nylabs.bonesupdate.common.client.renderer.MinionRenderer;
 import com.sh1nylabs.bonesupdate.common.client.renderer.NecromancerRenderer;
@@ -25,6 +27,7 @@ public class BonesClientEvents {
         event.registerEntityRenderer(BonesEntities.MINION.get(), MinionRenderer::new);
         event.registerEntityRenderer(BonesEntities.NECROMANCER.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeletonRenderer::new);
+        event.registerEntityRenderer(BonesEntities.HAUNTER.get(), HaunterSkeletonRenderer::new);
     }
 
     @SubscribeEvent
@@ -32,6 +35,7 @@ public class BonesClientEvents {
         event.registerLayerDefinition(MinionModel.LAYER_LOCATION,MinionModel::createBodyLayer);
         event.registerLayerDefinition(NecromancerModel.LAYER_LOCATION,NecromancerModel::createBodyLayer);
         event.registerLayerDefinition(KnightSkeletonModel.LAYER_LOCATION, KnightSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(HaunterSkeletonModel.LAYER_LOCATION, HaunterSkeletonModel::createBodyLayer);
     }
 
     @SubscribeEvent

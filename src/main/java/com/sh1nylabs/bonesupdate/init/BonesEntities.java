@@ -1,6 +1,7 @@
 package com.sh1nylabs.bonesupdate.init;
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleton;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
@@ -18,6 +19,7 @@ public class BonesEntities {
     public static final RegistryObject<EntityType<Minion>> MINION = registerMonster("minion", Minion::new,0.35F,0.85F);
     public static final RegistryObject<EntityType<Necromancer>> NECROMANCER = registerMonster("necromancer", Necromancer::new);
     public static final RegistryObject<EntityType<KnightSkeleton>> KNIGHT_SKELETON = registerMonster("knight_skeleton", KnightSkeleton::new);
+    public static final RegistryObject<EntityType<HaunterSkeleton>> HAUNTER = registerMonster("haunter", HaunterSkeleton::new);
 
     public static void registerWaveMembers() {
         Raid.RaiderType.create("NECROMANCER", NECROMANCER.get(), new int[]{0, 0, 1, 0, 1, 1, 2, 1}); //FIX_VALUES

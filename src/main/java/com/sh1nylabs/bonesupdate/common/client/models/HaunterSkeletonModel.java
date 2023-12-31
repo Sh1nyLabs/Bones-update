@@ -4,10 +4,11 @@ package com.sh1nylabs.bonesupdate.common.client.models;
 // Paste this class into your mod and generate all required imports
 
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
-import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.sh1nylabs.bonesupdate.BonesUpdate;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleton;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -18,9 +19,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements ArmedModel {
+public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implements ArmedModel {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BonesUpdate.MODID, "knightskeletonmodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BonesUpdate.MODID, "haunterskeletonmodel"), "main");
 	private final ModelPart head;
 	private final ModelPart broken_state;
 	private final ModelPart body;
@@ -29,7 +30,7 @@ public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements 
 	private final ModelPart left_leg;
 	private final ModelPart right_leg;
 
-	public KnightSkeletonModel(ModelPart root) {
+	public HaunterSkeletonModel(ModelPart root) {
 		this.head = root.getChild("head");
 		this.broken_state = root.getChild("broken_state");
 		this.body = root.getChild("body");
@@ -68,88 +69,55 @@ public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements 
 	}
 
 	@Override
-	public void setupAnim(KnightSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(HaunterSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.right_leg.yRot = 0.005F;
 		this.left_leg.yRot = -0.005F;
 		this.right_leg.zRot = 0.005F;
 		this.left_leg.zRot = -0.005F;
-		if (entity.isDashing()) { // Set a different dash pose
 
-			this.body.xRot = 12.5F * Mth.PI/180F;
-			this.body.yRot = -17.5F * Mth.PI/180F;
-
-			this.right_arm.x = -5.0F;
-			this.right_arm.y = 2.0F;
-			this.right_arm.z = -4.0F;
-
-			this.right_arm.xRot = -157.29F * Mth.PI/180F;
-			this.right_arm.yRot = 12.0F * Mth.PI/180F;
-			this.right_arm.zRot = 141.6F * Mth.PI/180F;
-
-			this.left_arm.x = 4.0F;
-			this.left_arm.z = -1.0F;
-
-			this.left_arm.xRot = -27.4F * Mth.PI/180F;
-			this.left_arm.yRot = -0.6F * Mth.PI/180F;
-			this.left_arm.zRot = 14.9F * Mth.PI/180F;
-
-			this.head.x = 0.5F;
-			this.head.y = 0.5F;
-			this.head.z = -3.0F;
-			this.head.xRot = 14.0F * Mth.PI/180F;
-			this.head.yRot = -13.0F * Mth.PI/180F;
-			this.head.zRot = 1.6F * Mth.PI/180F;
-
-			//this.right_leg.xRot = -12.5F * Mth.PI/180F;
-			//this.left_leg.xRot = 10.0F * Mth.PI/180F;
-
-
-		} else {
-
-			boolean flag = entity.getFallFlyingTicks() > 4;
-			float f = 1.0F;
-			if (flag) {
-				f = (float)entity.getDeltaMovement().lengthSqr();
-				f /= 0.2F;
-				f *= f * f;
-			}
-
-			if (f < 1.0F) {
-				f = 1.0F;
-			}
-			float period=0.667F;
-
-			this.right_arm.x = -4.0F;
-			this.right_arm.y = 2.0F;
-			this.right_arm.z = 0.0F;
-			this.right_arm.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
-			this.right_arm.yRot = 0.0F;
-			this.right_arm.zRot = 0.0F;
-
-			this.left_arm.x = 4.0F;
-			this.left_arm.z = 0.0F;
-			this.left_arm.xRot = Mth.cos(limbSwing * period) * limbSwingAmount / f;
-			this.left_arm.yRot = 0.0F;
-			this.left_arm.zRot = 0.0F;
-
-			this.body.xRot = 0.0F;
-			this.body.yRot = 0.0F;
-
-			this.head.x = 0.0F;
-			this.head.y = 0.0F;
-			this.head.z = 0.0F;
-
-			this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-			if (flag) {
-				this.head.xRot = (-(float)Math.PI / 4F);
-			} else {
-				this.head.xRot = headPitch * ((float)Math.PI / 180F);
-			}
-
-			this.right_leg.xRot = Mth.cos(limbSwing * period) * 1.4F * limbSwingAmount / f;
-			this.left_leg.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * 1.4F * limbSwingAmount / f;
-
+		boolean flag = entity.getFallFlyingTicks() > 4;
+		float f = 1.0F;
+		if (flag) {
+			f = (float)entity.getDeltaMovement().lengthSqr();
+			f /= 0.2F;
+			f *= f * f;
 		}
+
+		if (f < 1.0F) {
+			f = 1.0F;
+		}
+		float period=0.667F;
+
+		this.right_arm.x = -4.0F;
+		this.right_arm.y = 2.0F;
+		this.right_arm.z = 0.0F;
+		this.right_arm.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
+		this.right_arm.yRot = 0.0F;
+		this.right_arm.zRot = 0.0F;
+
+		this.left_arm.x = 4.0F;
+		this.left_arm.z = 0.0F;
+		this.left_arm.xRot = Mth.cos(limbSwing * period) * limbSwingAmount / f;
+		this.left_arm.yRot = 0.0F;
+		this.left_arm.zRot = 0.0F;
+
+		this.body.xRot = 0.0F;
+		this.body.yRot = 0.0F;
+
+		this.head.x = 0.0F;
+		this.head.y = 0.0F;
+		this.head.z = 0.0F;
+
+		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		if (flag) {
+			this.head.xRot = (-(float)Math.PI / 4F);
+		} else {
+			this.head.xRot = headPitch * ((float)Math.PI / 180F);
+		}
+
+		this.right_leg.xRot = Mth.cos(limbSwing * period) * 1.4F * limbSwingAmount / f;
+		this.left_leg.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * 1.4F * limbSwingAmount / f;
+
 
 		boolean flag2 = entity.isBroken();
 		this.head.visible=!flag2;

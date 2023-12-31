@@ -3,6 +3,7 @@ package com.sh1nylabs.bonesupdate.common.events;
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BonesBrokenSkeletons;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleton;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
@@ -35,6 +37,7 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -54,6 +57,13 @@ public class BonesModEvent {
         public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this after mod final test
             if (event.getEntity() instanceof BonesBrokenSkeletons || event.getEntity() instanceof Necromancer) {
                 LOGGER.info("-------Detecting a spawn: {} -----------", event.getEntity().getName());
+            }
+        }
+
+        @SubscribeEvent
+        public static void catchHurtEvent(LivingHurtEvent event) { //TODO: delete this after mod final test
+            if (event.getEntity() instanceof PolarBear) {
+                LOGGER.info("polar bear has been hurt by {}", event.getAmount());
             }
         }
 
@@ -100,6 +110,7 @@ public class BonesModEvent {
             event.put(BonesEntities.MINION.get(), Minion.getCustomAttributes().build());
             event.put(BonesEntities.NECROMANCER.get(), Necromancer.getCustomAttributes().build());
             event.put(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeleton.getCustomAttributes().build());
+            event.put(BonesEntities.HAUNTER.get(), HaunterSkeleton.getCustomAttributes().build());
         }
 
         @SubscribeEvent
