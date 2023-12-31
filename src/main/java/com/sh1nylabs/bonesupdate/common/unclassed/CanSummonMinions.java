@@ -33,15 +33,15 @@ public interface CanSummonMinions {
      */
     default void summonMinion(ServerLevel level, RandomSource rdmSource, int quantity, BlockPos pos, MobSpawnType spawntype) {
         for (int i = 0; i < quantity; ++i) {
-            for (int j = 0; j < 5; ++j) { /** 5 attempts to spawn the mob */ // FIX_VALUE
+            for (int j = 0; j < 8; ++j) { /** 8 attempts to spawn the mob */ // FIX_VALUE
                 double positionX = pos.getX() + (rdmSource.nextDouble() - 0.5) * 4 + 0.5;
-                double positionY = pos.getY();
+                double positionY = pos.getY() + rdmSource.nextGaussian() * 2 + 0.5;
                 double positionZ = pos.getZ() + (rdmSource.nextDouble() - 0.5) * 4 + 0.5;
                 BlockPos blockpos = BlockPos.containing(positionX, positionY, positionZ);
                 if (level.noCollision(BonesEntities.MINION.get().getAABB(positionX, positionY, positionZ)) && level.getBlockState(blockpos.below()).isValidSpawn(level, blockpos.below(), BonesEntities.MINION.get())) {
                     Minion minion = BonesEntities.MINION.get().create(level);
                     if (minion != null) {
-                        minion.moveTo(positionX, positionY, positionZ, rdmSource.nextFloat(), 0.0F); // should put moveTo for a random rotation
+                        minion.moveTo(positionX, positionY, positionZ, rdmSource.nextFloat(), 0.0F);
                         applyLastSpawnConfigurations(minion); /** In case that other things have to be done */
                         ForgeEventFactory.onFinalizeSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, null, null);
                         level.tryAddFreshEntityWithPassengers(minion);

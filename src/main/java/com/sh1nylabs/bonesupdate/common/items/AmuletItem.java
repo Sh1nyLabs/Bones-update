@@ -33,7 +33,9 @@ public class AmuletItem extends Item implements CanPacifyGraves {
             if (!player.level.isClientSide() && brokenSkeleton.isAlive() && brokenSkeleton.isBroken()) {
                 brokenSkeleton.setHealth(-1.0F);
                 brokenSkeleton.die(player.level.damageSources().playerAttack(player));
-                this.useItemStack(stack, player,hand);
+
+                stack.hurtAndBreak(1, player, player1 -> {player1.broadcastBreakEvent(hand);});
+                player.getCooldowns().addCooldown(this, 80); // FIX_VALUE
             }
             return InteractionResult.SUCCESS;
         }
@@ -62,14 +64,5 @@ public class AmuletItem extends Item implements CanPacifyGraves {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)  {
         return enchantment.category == EnchantmentCategory.BREAKABLE
                 || enchantment.category == BonesEnchantments.SKELETON_QUEST;
-    }
-
-    public void useItemStack(ItemStack stack, Player player, InteractionHand hand) {
-        if (player != null) {
-            stack.hurtAndBreak(1, player, player1 -> {
-                player1.broadcastBreakEvent(hand);
-            });
-            player.getCooldowns().addCooldown(this, 100);
-        }
     }
 }
