@@ -3,7 +3,6 @@ package com.sh1nylabs.bonesupdate.common.unclassed;
 import com.sh1nylabs.bonesupdate.common.blocks.GraveBlock;
 import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
