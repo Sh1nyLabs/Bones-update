@@ -10,8 +10,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
  * This enchantment allows the player to tame some monsters.
  * When used on the necromancer scepter, it no more summons minions.
  */
-public class SubordinateEnchantment extends Enchantment {
-    public SubordinateEnchantment(Rarity rarity, EquipmentSlot... slot) {
+public class Subaltern extends Enchantment {
+    public Subaltern(Rarity rarity, EquipmentSlot... slot) {
         super(rarity, BonesEnchantments.NECROMANCY, slot);
     }
 

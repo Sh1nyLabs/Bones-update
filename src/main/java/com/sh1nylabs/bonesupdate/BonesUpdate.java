@@ -41,7 +41,6 @@ public class BonesUpdate {
             event.accept(BonesItems.AMULET);
         } else if (event.getTab() == CreativeModeTabs.COMBAT) {
             event.accept(BonesItems.NECRO_SCEPTER);
-            event.accept(BonesItems.MINION_SWORD);
         } else if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
             event.accept(BonesItems.SKELETON_SOUL);
             event.accept(BonesItems.SOUL_ORB);

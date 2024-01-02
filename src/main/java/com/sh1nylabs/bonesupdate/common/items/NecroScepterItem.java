@@ -42,7 +42,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
      */
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if (stack.getAllEnchantments().containsKey(BonesEnchantments.SUBORDINATE.get()) && entity.isAlive() && entity instanceof BonesBrokenSkeletons friendlySkeleton && !friendlySkeleton.isFriendly()) {
+        if (stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get()) && entity.isAlive() && entity instanceof BonesBrokenSkeletons friendlySkeleton && !friendlySkeleton.isFriendly()) {
             friendlySkeleton.becomesFriendly(player.level);
 
             stack.hurtAndBreak(1, player, player1 -> {player1.broadcastBreakEvent(hand);});
@@ -75,7 +75,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         boolean hasLeader = stack.getAllEnchantments().containsKey(BonesEnchantments.LEADER.get());
-        if (!level.isClientSide() && !stack.getAllEnchantments().containsKey(BonesEnchantments.SUBORDINATE.get())){
+        if (!level.isClientSide() && !stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get())){
             this.summonMinion((ServerLevel) level, level.getRandom(),
                     MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
                     player.blockPosition(), MobSpawnType.MOB_SUMMONED);

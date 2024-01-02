@@ -1,0 +1,45 @@
+{
+  "block.bonesupdate.grave": "могила",
+  "block.bonesupdate.weeping_willow_leaves": "Листья плакучей ивы",
+  "block.bonesupdate.weeping_willow_small_vines": "Плакучие ивовые лозы",
+  "block.bonesupdate.weeping_willow_vines": "Ветка плакучей ивы",
+
+  "item.bonesupdate.amulet": "Амулет",
+  "item.bonesupdate.minion_sword": "Меч миньона",
+  "item.bonesupdate.necromancer_scepter": "Скипетр некроманта",
+  "item.bonesupdate.skeleton_soul": "Душа скелета",
+  "item.bonesupdate.soul_orb": "Шар души",
+
+  "entity.bonesupdate.knight_skeleton": "Рыцарь-скелет",
+  "entity.bonesupdate.minion": "Миньон",
+  "entity.bonesupdate.necromancer": "Некромант",
+
+  "item.bonesupdate.knight_skeleton_spawn_egg": "Яйцо призыва рыцарь-скелет",
+  "item.bonesupdate.minion_spawn_egg": "Яйцо призыва миньон",
+  "item.bonesupdate.necromancer_spawn_egg": "Яйцо призыва некромант",
+
+  "enchantment.bonesupdate.leader": "Лидер",
+  "enchantment.bonesupdate.subaltern": "Подчиненные",
+  "enchantment.bonesupdate.serenity": "Безмятежность",
+
+  "advancements.bonesupdate.root.description": "Добро пожаловать в мод Bones Update!",
+  "advancements.bonesupdate.root.title": "Bones Update",
+
+  "advancements.necromancy.find_weeping_willow_tree.title": "Встреча под деревом",
+  "advancements.necromancy.find_weeping_willow_tree.description": "Найти Плакучая ива дерево и встретить там кого-то особенного",
+  "advancements.necromancy.friends_or_foes.title":"Друзья или враги",
+  "advancements.necromancy.friends_or_foes.description": "Подружитесь с определенным скелетом",
+  "advancements.necromancy.kill_a_necromancer.title": "Запрещенные навыки",
+  "advancements.necromancy.kill_a_necromancer.description": "Убить некроманта",
+  "advancements.necromancy.rest_in_peace.title": "Покойся с миром",
+  "advancements.necromancy.rest_in_peace.description": "Используйте специальный инструмент на могиле...",
+  "advancements.necromancy.whos_the_necromancer_now.title": "Кто теперь некромант?",
+  "advancements.necromancy.whos_the_necromancer_now.description": "Верните к жизни сразу огромное количество миньонов",
+
+  "advancements.skull_quest.kill_all_bones_monsters.title": "Бестиарий завершен",
+  "advancements.skull_quest.kill_all_bones_monsters.description": "Убейте каждую новую особь монстра",
+  "advancements.skull_quest.kill_broken_skeleton.title": "Последний удар",
+  "advancements.skull_quest.kill_broken_skeleton.description": "Убить сломанный скелет",
+  "advancements.skull_quest.use_amulet.title": "Извлечение души",
+  "advancements.skull_quest.use_amulet.description": "Найдите способ получить добычу с разбитого скелета"
+}

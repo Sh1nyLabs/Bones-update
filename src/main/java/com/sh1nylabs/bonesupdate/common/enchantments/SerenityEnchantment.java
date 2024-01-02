@@ -26,7 +26,7 @@ public class SerenityEnchantment extends Enchantment {
      * The 'Serenity' enchantment is incompatible with the 'Subordinate' enchantment
      */
     public boolean checkCompatibility(Enchantment enchantement) {
-        return !( enchantement instanceof SubordinateEnchantment) && super.checkCompatibility(enchantement);
+        return !( enchantement instanceof Subaltern) && super.checkCompatibility(enchantement);
     }
 
 }
