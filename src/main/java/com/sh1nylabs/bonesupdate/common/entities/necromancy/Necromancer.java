@@ -6,7 +6,6 @@ import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.common.blocks.GraveBlockEntity;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +32,6 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 

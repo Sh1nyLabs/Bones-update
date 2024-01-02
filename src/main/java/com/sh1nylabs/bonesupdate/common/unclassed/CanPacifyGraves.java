@@ -15,14 +15,6 @@ import static com.sh1nylabs.bonesupdate.common.blocks.GraveBlock.HAUNTED;
 
 public interface CanPacifyGraves {
 
-    /** Function used to damage the item after an usage.
-     *
-     * @param stack
-     * @param player
-     * @param hand
-     */
-    //void useItemStack(ItemStack stack, Player player, InteractionHand hand);
-
     /** function used by some items to pacify graves (especially AmuletItem and NecroScepteritem)
      * If the item contains the enchantment 'SERENITY', it will change the grave from state
      * 'HAUNTED' = false to 'HAUNTED' = true.

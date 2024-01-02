@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 
 
 public class NecroScepterItem extends Item implements CanSummonMinions, CanPacifyGraves {
-    public static final int MAX_MINIONS_SUMMONED = 3; //FIX_VALUE
+    public static final int MAX_MINIONS_SUMMONED = 3; //FIXED_VALUE
 
     public NecroScepterItem(Properties properties) {
         super(properties);

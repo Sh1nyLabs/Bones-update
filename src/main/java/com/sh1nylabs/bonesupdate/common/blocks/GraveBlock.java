@@ -56,7 +56,7 @@ public class GraveBlock extends Block implements EntityBlock {
 
     public VoxelShape getShape(BlockState blockState, BlockGetter p_48817_, BlockPos p_48818_, CollisionContext p_48819_) {
         Direction direction = blockState.getValue(FACING);
-        return direction== Direction.NORTH ? FACE_N : direction== Direction.SOUTH ? FACE_S :direction== Direction.EAST ? FACE_E : FACE_W;
+        return direction == Direction.NORTH ? FACE_N : direction == Direction.SOUTH ? FACE_S : direction == Direction.EAST ? FACE_E : FACE_W;
     }
 
     @Nullable
@@ -78,7 +78,7 @@ public class GraveBlock extends Block implements EntityBlock {
         AABB aabb = player.getBoundingBox().inflate(10.0D,6.0D,10.0D);
         List<Villager> list = level.getNearbyEntities(Villager.class, TargetingConditions.forCombat().range(64.0D), player, aabb);
         for (Villager villager: list){
-            villager.getGossips().add(player.getUUID(), GossipType.MINOR_NEGATIVE, 50); //PROBLEM?
+            villager.getGossips().add(player.getUUID(), GossipType.MINOR_NEGATIVE, 25); // TODO:PROBLEM?
             villager.playSound(SoundEvents.VILLAGER_NO, 1.0F, villager.getVoicePitch());
         }
         super.playerDestroy(level,player,blockPos,state,blockEntity,stack);

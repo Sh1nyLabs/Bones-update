@@ -3,7 +3,6 @@ package com.sh1nylabs.bonesupdate.common.blocks;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.init.BonesBlocks;
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -14,15 +13,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.slf4j.Logger;
 
 import static com.sh1nylabs.bonesupdate.common.blocks.GraveBlock.HAUNTED;
 
 public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
-    public static final int SPAWN_PROBABILITY = 700; // FIX_VALUE
-    public static final int SPAWN_COUNT = 7; // FIX_VALUE
+    public static final int SPAWN_PROBABILITY = 700; // FIXED_VALUE
+    public static final int SPAWN_COUNT = 7; // FIXED_VALUE
     private boolean readyToSpawn = false;
-    private static final Logger LOGGER = LogUtils.getLogger();
     private int necromancerDelay = -1;
 
     public GraveBlockEntity(BlockPos position, BlockState state) {super(BonesBlocks.GRAVE.get(), position, state);}
@@ -57,7 +54,6 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
             }
         } else {
             if (blockState.getValue(HAUNTED) && rdmSequence.nextInt(SPAWN_PROBABILITY) == 0) {
-                LOGGER.info("grave ready to spawn");
                 readyToSpawn = true;
             }
 
