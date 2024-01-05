@@ -114,6 +114,7 @@ public class Necromancer extends AbstractIllager {
 
     @Override
     public void tick() {
+
         if (timeBeforeNextCast != 0) {
             timeBeforeNextCast--;
         }
@@ -123,6 +124,7 @@ public class Necromancer extends AbstractIllager {
             level.addParticle(ParticleTypes.ENTITY_EFFECT,this.getX() -0.5D * (double) (Mth.cos(f))+0.8D*Mth.sin(0.4F*tickCount),this.getY()+2.5D,this.getZ() - 0.8D * (double) (Mth.sin(f)) + 0.8D*Mth.cos(0.4F*tickCount),0.3D, 0.35D, 0.65D);
         }
         super.tick();
+
     }
 
     @Override

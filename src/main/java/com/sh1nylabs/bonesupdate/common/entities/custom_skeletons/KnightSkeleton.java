@@ -73,6 +73,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
     @Override
     public void registerGoals() {
+
         super.registerGoals();
 
         this.goalSelector.addGoal(4, new KnightSkeletonDashesGoal(this,1.3D,false));
@@ -107,8 +108,9 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
     @Override
     public void tick() {
+        setIsDashing(true);
         if (level.isClientSide()) {
-            if (isDashing()) { /* stuff to stop showing particles at appropriate time */
+            if (isDashing()) { /* stuff to stop showing particles at appropriate time*/
                 if (particleSpawnDuration>=0) {
                     particleSpawnDuration--;
                     spawnWarmUpParticles();
