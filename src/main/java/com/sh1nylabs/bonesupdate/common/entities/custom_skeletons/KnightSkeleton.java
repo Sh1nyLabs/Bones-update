@@ -108,7 +108,6 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
     @Override
     public void tick() {
-        setIsDashing(true);
         if (level.isClientSide()) {
             if (isDashing()) { /* stuff to stop showing particles at appropriate time*/
                 if (particleSpawnDuration>=0) {

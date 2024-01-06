@@ -10,9 +10,9 @@ modId="bonesupdate"
 
 version="1.0.0"
 displayName="Bones Update"
-logoFile="bonesupdate.png"
+logoFile= "bonesupdate.png"
 
-credits="Thanks for this example mod goes to Java"
+credits="Shinylabs team"
 
 authors="Shiny Labs"
 
