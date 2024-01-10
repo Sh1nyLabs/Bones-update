@@ -27,7 +27,7 @@ public class BonesClientEvents {
         event.registerEntityRenderer(BonesEntities.MINION.get(), MinionRenderer::new);
         event.registerEntityRenderer(BonesEntities.NECROMANCER.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeletonRenderer::new);
-        event.registerEntityRenderer(BonesEntities.HAUNTER.get(), HaunterSkeletonRenderer::new);
+        event.registerEntityRenderer(BonesEntities.HAUNTER_SKELETON.get(), HaunterSkeletonRenderer::new);
     }
 
     @SubscribeEvent

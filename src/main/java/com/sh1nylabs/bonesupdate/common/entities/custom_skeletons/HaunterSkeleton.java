@@ -9,24 +9,36 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FleeSunGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class HaunterSkeleton extends BonesBrokenSkeletons {
-
+    //TODO: entities do not forget the target when broken
     public HaunterSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder getCustomAttributes() {
         return (Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 25.0D)
-                .add(Attributes.ATTACK_DAMAGE,1.0D)
+                .add(Attributes.MAX_HEALTH, 35.0D) // TODO: put 10.0D + HEALTH_WHEN_SKELETON_BREAKS);
+                .add(Attributes.ATTACK_DAMAGE,5.0D)
                 .add(Attributes.FOLLOW_RANGE, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.21F)
-                .add(Attributes.ATTACK_KNOCKBACK, 2.0D));
+                .add(Attributes.ATTACK_KNOCKBACK, 4.0D));
+    }
+
+    @Override
+    public void registerGoals() {
+        super.registerGoals();
+
+        this.goalSelector.addGoal(4,new MeleeAttackGoal(this, 1.1D,false));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
     }
 
     @Override
@@ -38,6 +50,8 @@ public class HaunterSkeleton extends BonesBrokenSkeletons {
     protected SoundEvent getStepSound() {
         return SoundEvents.SKELETON_STEP;
     }
+
+
 
 
 }

@@ -19,24 +19,22 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
-public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implements ArmedModel {
+public class HaunterSkeletonModel2 extends EntityModel<HaunterSkeleton> implements ArmedModel {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BonesUpdate.MODID, "haunterskeletonmodel"), "main");
 	private final ModelPart head;
+	private final ModelPart broken_state;
 	private final ModelPart body;
 	private final ModelPart left_arm;
 	private final ModelPart right_arm;
-	private final ModelPart right_hand;
 	private final ModelPart left_leg;
 	private final ModelPart right_leg;
-	private final ModelPart broken_state;
 
-	public HaunterSkeletonModel(ModelPart root) {
+	public HaunterSkeletonModel2(ModelPart root) {
 		this.head = root.getChild("head");
 		this.body = root.getChild("body");
 		this.left_arm = root.getChild("left_arm");
 		this.right_arm = root.getChild("right_arm");
-		this.right_hand = root.getChild("right_hand");
 		this.left_leg = root.getChild("left_leg");
 		this.right_leg = root.getChild("right_leg");
 		this.broken_state = root.getChild("broken_state");
@@ -67,8 +65,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		PartDefinition right_spine2_r1 = right_arm.addOrReplaceChild("right_spine2_r1", CubeListBuilder.create().texOffs(42, 18).addBox(-1.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, -1.5F, 1.5F, 0.0F, 0.3927F, 0.6981F));
 
 		PartDefinition right_spine1_r1 = right_arm.addOrReplaceChild("right_spine1_r1", CubeListBuilder.create().texOffs(42, 18).addBox(-1.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, -1.5F, -1.5F, 0.0F, -0.3927F, 0.6981F));
-
-		PartDefinition right_hand = partdefinition.addOrReplaceChild("right_hand", CubeListBuilder.create().texOffs(33, 19).addBox(-5.5F, -14.0F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
 		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.1F));
 
@@ -164,7 +160,7 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 	protected void setupAttackAnimation(HaunterSkeleton entity, float ageInTicks) {
 		if (!(this.attackTime <= 0.0F)) {
 			float f = this.attackTime;
-			//this.body.yRot = Mth.sin(Mth.sqrt(f) * ((float)Math.PI * 2F)) * 0.2F;
+			this.body.yRot = Mth.sin(Mth.sqrt(f) * ((float)Math.PI * 2F)) * 0.2F;
 
 			//this.right_arm.yRot += this.body.yRot;
 			//this.left_arm.yRot += this.body.yRot;
@@ -174,8 +170,8 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 			f *= f;
 			f = 1.0F - f;
 			//float f1 = Mth.sin(f * (float)Math.PI);
-			float f2 = -0.7F;// - Mth.cos(this.attackTime * ((float)Math.PI)/2.0F);
-			right_arm.xRot += f2;
+			float f2 = -0.7F - Mth.cos(this.attackTime * ((float)Math.PI)/2.0F);
+			right_arm.xRot -= f2;
 			//right_arm.yRot += this.body.yRot * 2.0F;
 			//right_arm.zRot += Mth.sin(this.attackTime * (float)Math.PI) * -0.4F;
 		}
@@ -183,7 +179,7 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack stack) {
-		ModelPart armPart = this.right_hand;
+		ModelPart armPart = (arm == HumanoidArm.LEFT) ? this.left_arm : this.right_arm;
 		stack.translate(armPart.x / 16.0F, armPart.y / 16.0F, (armPart.z+1.5F) / 16.0F);
 		if (armPart.xRot != 0.0F || armPart.yRot != 0.0F || armPart.zRot != 0.0F) {
 			stack.mulPose((new Quaternionf()).rotationZYX(armPart.zRot, armPart.yRot, armPart.xRot));
@@ -200,7 +196,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		left_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		right_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		right_hand.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		left_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		right_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		broken_state.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);

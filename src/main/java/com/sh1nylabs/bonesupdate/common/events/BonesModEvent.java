@@ -9,41 +9,21 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.StructureTags;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MapItem;
-import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
-import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -57,13 +37,6 @@ public class BonesModEvent {
         public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this after mod final test
             if (event.getEntity() instanceof BonesBrokenSkeletons || event.getEntity() instanceof Necromancer) {
                 LOGGER.info("-------Detecting a spawn: {} -----------", event.getEntity().getName());
-            }
-        }
-
-        @SubscribeEvent
-        public static void catchHurtEvent(LivingHurtEvent event) { //TODO: delete this after mod final test
-            if (event.getEntity() instanceof PolarBear) {
-                LOGGER.info("polar bear has been hurt by {}", event.getAmount());
             }
         }
 
@@ -110,12 +83,15 @@ public class BonesModEvent {
             event.put(BonesEntities.MINION.get(), Minion.getCustomAttributes().build());
             event.put(BonesEntities.NECROMANCER.get(), Necromancer.getCustomAttributes().build());
             event.put(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeleton.getCustomAttributes().build());
-            event.put(BonesEntities.HAUNTER.get(), HaunterSkeleton.getCustomAttributes().build());
+            event.put(BonesEntities.HAUNTER_SKELETON.get(), HaunterSkeleton.getCustomAttributes().build());
         }
 
         @SubscribeEvent
         public static void entitySpawnRestriction(SpawnPlacementRegisterEvent event) {
             event.register(BonesEntities.KNIGHT_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+            event.register(BonesEntities.HAUNTER_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
             event.register(BonesEntities.NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND,

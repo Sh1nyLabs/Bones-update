@@ -2,6 +2,7 @@ package com.sh1nylabs.bonesupdate.common.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -10,6 +11,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 import java.util.UUID;
 
@@ -47,5 +50,18 @@ public class HaunterSpearItem extends Item {
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.SPEAR;
+    }
+
+    /**
+     * Enchantments applicable on the Necromancer scepter:
+     * Category "WEAPON": "Looting"
+     * Category "BREAKABLE": "Mending", "Unbreaking"
+     *
+     * For enchantment compatibility, check enchantments classes.
+     */
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)  {
+        return enchantment.category == EnchantmentCategory.WEAPON
+                || enchantment.category == EnchantmentCategory.BREAKABLE;
     }
 }
