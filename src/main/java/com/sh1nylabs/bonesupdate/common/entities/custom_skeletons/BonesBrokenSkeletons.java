@@ -1,5 +1,6 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
+import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
@@ -37,8 +38,8 @@ import static java.lang.Math.max;
 public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     private static final EntityDataAccessor<Boolean> IS_BROKEN = SynchedEntityData.defineId(BonesBrokenSkeletons.class, EntityDataSerializers.BOOLEAN);
     private boolean clientSideBrokenState = false;
-    private static final float HEALTH_WHEN_SKELETON_BREAKS = 15.0F; // FIXED_VALUE
-    private static final int REVIVING_TIME_WHEN_BROKEN = 250; // FIXED_VALUE
+    protected static final float HEALTH_WHEN_SKELETON_BREAKS = 55.0F; // FIXED_VALUE
+    private static final int REVIVING_TIME_WHEN_BROKEN = 1000; // FIXED_VALUE
     private boolean friendly;
     private int timeBeforeSkeletonRevives;
 
@@ -127,7 +128,7 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
      */
     @Override
     public boolean isInvulnerableTo(DamageSource damageSource) {
-        return (this.isBroken() && !damageSource.is(DamageTypeTags.IS_FIRE)) || super.isInvulnerableTo(damageSource);
+        return (this.isBroken() && !damageSource.is(DamageTypeTags.IS_FIRE)  && !damageSource.is(DamageTypeTags.IS_EXPLOSION)) || super.isInvulnerableTo(damageSource);
     }
 
     /**
@@ -137,12 +138,12 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
      * @return new damage value
      */
     public float updateDamageIfBecomesBroken(float amount, DamageSource damageSource) {
-        if (!isBroken() && (getHealth()-amount < HEALTH_WHEN_SKELETON_BREAKS)) { //broke the skeleton
+        if (!isBroken() && (getHealth()-amount < HEALTH_WHEN_SKELETON_BREAKS)) { /* broke the skeleton */
             this.setBroken(true);
             if (damageSource.getEntity() instanceof Mob mob) {
                 mob.setTarget(null);
             }
-            this.timeBeforeSkeletonRevives = REVIVING_TIME_WHEN_BROKEN + random.nextInt(40);
+            this.timeBeforeSkeletonRevives = REVIVING_TIME_WHEN_BROKEN + random.nextInt(100);
             level.levelEvent(2009,blockPosition(),0);
             return max(getHealth()-HEALTH_WHEN_SKELETON_BREAKS,0.0F);
         }

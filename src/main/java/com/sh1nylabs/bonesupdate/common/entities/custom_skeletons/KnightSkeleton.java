@@ -40,7 +40,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
     public static AttributeSupplier.Builder getCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,35.0D) //FIX_VALUE
+                .add(Attributes.MAX_HEALTH,20.0D + HEALTH_WHEN_SKELETON_BREAKS) //FIX_VALUE
                 .add(Attributes.ATTACK_DAMAGE, 6.0D) //FIX_VALUE
                 .add(Attributes.MOVEMENT_SPEED, 0.21F) //FIX_VALUE
                 .add(Attributes.FOLLOW_RANGE,20.0F); //FIX_VALUE

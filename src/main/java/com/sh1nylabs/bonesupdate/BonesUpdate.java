@@ -12,7 +12,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate {
-    // Define mod id in a common place for everything to reference
+    /** version 1.2: what is new:
+     * - new mob: the Haunter
+     * - new tool: the Haunter spear (no recipe, obtained by drop from the haunter)
+     * - now broken skeletons can be hit by Explosions
+     * - now broken skeletons take a longer time to revive
+    */
     public static final String MODID = "bonesupdate";
 
     public BonesUpdate() {
