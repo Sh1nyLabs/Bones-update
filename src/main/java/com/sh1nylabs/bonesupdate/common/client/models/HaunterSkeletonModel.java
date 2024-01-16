@@ -40,6 +40,13 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.left_leg = root.getChild("left_leg");
 		this.right_leg = root.getChild("right_leg");
 		this.broken_state = root.getChild("broken_state");
+
+		this.right_leg.yRot = 0.005F;
+		this.left_leg.yRot = -0.005F;
+		this.right_leg.zRot = 0.005F;
+		this.left_leg.zRot = -0.005F;
+
+		this.right_hand.visible = false;
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -68,7 +75,7 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 
 		PartDefinition right_spine1_r1 = right_arm.addOrReplaceChild("right_spine1_r1", CubeListBuilder.create().texOffs(42, 18).addBox(-1.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, -1.5F, -1.5F, 0.0F, -0.3927F, 0.6981F));
 
-		PartDefinition right_hand = partdefinition.addOrReplaceChild("right_hand", CubeListBuilder.create().texOffs(33, 19).addBox(-5.5F, -14.0F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition right_hand = partdefinition.addOrReplaceChild("right_hand", CubeListBuilder.create().texOffs(33, 19).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 10.5F, 0.0F));
 
 		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.1F));
 
@@ -94,10 +101,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 	public void setupAnim(HaunterSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean flag2 = entity.isBroken();
 
-		this.right_leg.yRot = 0.005F;
-		this.left_leg.yRot = -0.005F;
-		this.right_leg.zRot = 0.005F;
-		this.left_leg.zRot = -0.005F;
 
 		boolean flag = entity.getFallFlyingTicks() > 4;
 		float f = 1.0F;
@@ -113,31 +116,22 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		float period = 0.667F;
 
 		if (flag2) {
-			this.right_arm.x = -2.0F;
-			this.right_arm.y = 12.0F;
-			this.right_arm.z = -4.0F;
-			this.right_arm.xRot = -1;
-			this.right_arm.yRot = 0.0F;
-			this.right_arm.zRot = 0.0F;
+			this.right_hand.x = -2.0F;
+			this.right_hand.y = 15.0F;
+			this.right_hand.z = 0.0F;
+			this.right_hand.xRot = -1.0F;
+
 		} else {
-			this.right_arm.x = -4.0F;
-			this.right_arm.y = 2.0F;
-			this.right_arm.z = 0.0F;
 			this.right_arm.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
-			this.right_arm.yRot = 0.0F;
-			this.right_arm.zRot = 0.0F;
+			setupAttackAnimation(entity, ageInTicks);
+			this.right_hand.x = -5.0F;
+			this.right_hand.y = 10.0F * Mth.cos(this.right_arm.xRot);
+			this.right_hand.z = 10.0F * Mth.sin(this.right_arm.xRot);
+			this.right_hand.xRot = 0.1F * Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
+
 		}
 
 		this.left_arm.xRot = Mth.cos(limbSwing * period) * limbSwingAmount / f;
-		this.left_arm.yRot = 0.0F;
-		this.left_arm.zRot = 0.0F;
-
-		this.body.xRot = 0.0F;
-		this.body.yRot = 0.0F;
-
-		this.head.x = 0.0F;
-		this.head.y = 0.0F;
-		this.head.z = 0.0F;
 
 		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
 		if (flag) {
@@ -157,8 +151,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.right_leg.visible =! flag2;
 
 		this.broken_state.visible = flag2;
-
-		setupAttackAnimation(entity, ageInTicks);
 	}
 
 	protected void setupAttackAnimation(HaunterSkeleton entity, float ageInTicks) {
@@ -174,17 +166,15 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 			f *= f;
 			f = 1.0F - f;
 			//float f1 = Mth.sin(f * (float)Math.PI);
-			float f2 = -0.7F;// - Mth.cos(this.attackTime * ((float)Math.PI)/2.0F);
+			float f2 = 0.3F - 1.1F * Mth.sin(f * ((float)Math.PI)/2.0F); //TODO: if f does not work, put attacktime
 			right_arm.xRot += f2;
-			//right_arm.yRot += this.body.yRot * 2.0F;
-			//right_arm.zRot += Mth.sin(this.attackTime * (float)Math.PI) * -0.4F;
 		}
 	}
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack stack) {
 		ModelPart armPart = this.right_hand;
-		stack.translate(armPart.x / 16.0F, armPart.y / 16.0F, (armPart.z+1.5F) / 16.0F);
+		stack.translate((armPart.x+1.0F) / 16.0F, (armPart.y-9.5F) / 16.0F, (armPart.z+1.5F) / 16.0F);
 		if (armPart.xRot != 0.0F || armPart.yRot != 0.0F || armPart.zRot != 0.0F) {
 			stack.mulPose((new Quaternionf()).rotationZYX(armPart.zRot, armPart.yRot, armPart.xRot));
 		}
