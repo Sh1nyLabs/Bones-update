@@ -1,0 +1,45 @@
+{
+  "block.bonesupdate.grave": "Tombe",
+  "block.bonesupdate.weeping_willow_leaves": "Feuilles de Saule Pleureur",
+  "block.bonesupdate.weeping_willow_small_vines": "Vigne de Saule Pleureur",
+  "block.bonesupdate.weeping_willow_vines": "Branches de Saule Pleureur",
+
+  "item.bonesupdate.amulet": "Amulette",
+  "item.bonesupdate.minion_sword": "Épée de Minion",
+  "item.bonesupdate.necromancer_scepter": "Sceptre de Nécromancie",
+  "item.bonesupdate.skeleton_soul": "Âme de Squelette",
+  "item.bonesupdate.soul_orb": "Orbe Des Âmes",
+
+  "entity.bonesupdate.knight_skeleton": "Squelette Paladin",
+  "entity.bonesupdate.minion": "Minion",
+  "entity.bonesupdate.necromancer": "Nécromancien",
+
+  "item.bonesupdate.knight_skeleton_spawn_egg": "Oeuf d'apparition de Squelette Paladin",
+  "item.bonesupdate.minion_spawn_egg": "Oeuf d'apparition de Minion",
+  "item.bonesupdate.necromancer_spawn_egg": "Oeuf d'apparition de Nécromancien",
+
+  "enchantment.bonesupdate.leader": "Commandant",
+  "enchantment.bonesupdate.subaltern": "Subalterne",
+  "enchantment.bonesupdate.serenity": "Sérénité",
+
+  "advancements.bonesupdate.root.description": "Bienvenue dans le mod Bones Update!",
+  "advancements.bonesupdate.root.title": "Bones Update",
+
+  "advancements.necromancy.find_weeping_willow_tree.title": "Rencontre sous l'arbre",
+  "advancements.necromancy.find_weeping_willow_tree.description": "Trouvez un Saule Pleureur, et rencontrez-y quelqu'un de spécial",
+  "advancements.necromancy.friends_or_foes.title":"Amis ou ennemis",
+  "advancements.necromancy.friends_or_foes.description": "Devenez amis avec un squelette particulier",
+  "advancements.necromancy.kill_a_necromancer.title": "Skills interdits",
+  "advancements.necromancy.kill_a_necromancer.description": "Tuez un Nécromancien",
+  "advancements.necromancy.rest_in_peace.title": "Repose en paix",
+  "advancements.necromancy.rest_in_peace.description": "Utilisez un objet particulier sur une Tombe...",
+  "advancements.necromancy.whos_the_necromancer_now.title": "C'est qui le nécromancien maintenant?",
+  "advancements.necromancy.whos_the_necromancer_now.description": "Ramenez à la vie un grand nombre de minions d'un coup",
+
+  "advancements.skull_quest.kill_all_bones_monsters.title": "Bestiaire complet",
+  "advancements.skull_quest.kill_all_bones_monsters.description": "Tuez chaque nouveau spécimen de monstre",
+  "advancements.skull_quest.kill_broken_skeleton.title": "Coup final",
+  "advancements.skull_quest.kill_broken_skeleton.description": "Tuez un squelette brisé",
+  "advancements.skull_quest.use_amulet.title": "Extraction d'âme",
+  "advancements.skull_quest.use_amulet.description": "Trouvez un moyen d'obtenir le butin d'un squelette brisé"
+}

@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 
 
 public class NecroScepterItem extends Item implements CanSummonMinions, CanPacifyGraves {
-    public static final int MAX_MINIONS_SUMMONED=3; //FIX_VALUE
+    public static final int MAX_MINIONS_SUMMONED = 3; //FIXED_VALUE
 
     public NecroScepterItem(Properties properties) {
         super(properties);
@@ -42,9 +42,12 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
      */
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if (stack.getAllEnchantments().containsKey(BonesEnchantments.SUBORDINATE.get()) && entity.isAlive() && entity instanceof BonesBrokenSkeletons friendlySkeleton && !friendlySkeleton.isFriendly()) {
+        if (stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get()) && entity.isAlive() && entity instanceof BonesBrokenSkeletons friendlySkeleton && !friendlySkeleton.isFriendly()) {
             friendlySkeleton.becomesFriendly(player.level);
-            useItemStack(stack, player, hand);
+
+            stack.hurtAndBreak(1, player, player1 -> {player1.broadcastBreakEvent(hand);});
+            player.getCooldowns().addCooldown(this, 120);
+
             return InteractionResult.sidedSuccess(player.level.isClientSide);
         }
         return InteractionResult.PASS;
@@ -71,12 +74,15 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (!level.isClientSide() && !stack.getAllEnchantments().containsKey(BonesEnchantments.SUBORDINATE.get())){
+        boolean hasLeader = stack.getAllEnchantments().containsKey(BonesEnchantments.LEADER.get());
+        if (!level.isClientSide() && !stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get())){
             this.summonMinion((ServerLevel) level, level.getRandom(),
-                    MAX_MINIONS_SUMMONED + (stack.getAllEnchantments().containsKey(BonesEnchantments.LEADER.get())? 4 : 0),
+                    MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
                     player.blockPosition(), MobSpawnType.MOB_SUMMONED);
 
-            this.useItemStack(stack, player,hand);
+            stack.hurtAndBreak((hasLeader ? 2 : 1), player, player1 -> {player1.broadcastBreakEvent(hand);});
+            player.getCooldowns().addCooldown(this, (hasLeader ? 140 : 100));
+
             return InteractionResultHolder.consume(player.getItemInHand(hand));
         } else {
             return InteractionResultHolder.success(player.getItemInHand(hand));
@@ -108,14 +114,4 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
                 || enchantment.category == EnchantmentCategory.BREAKABLE
                 || enchantment.category == BonesEnchantments.SKELETON_QUEST;
     }
-
-    public void useItemStack(ItemStack stack, Player player, InteractionHand hand) {
-        if (player != null) {
-            stack.hurtAndBreak(1, player, player1 -> {
-                player1.broadcastBreakEvent(hand);
-            });
-            player.getCooldowns().addCooldown(this, 100);
-        }
-    }
-
 }

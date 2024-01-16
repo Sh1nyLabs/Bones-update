@@ -10,10 +10,10 @@
       "item": "bonesupdate:soul_orb"
     },
     "Z": {
-      "item": "minecraft:netherite_ingot"
+      "item": "minecraft:obsidian"
     },
     "Y": {
-      "item": "minecraft:blaze_rod"
+      "item": "minecraft:stick"
     }
   },
   "result": {

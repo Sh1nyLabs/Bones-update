@@ -2,7 +2,6 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
-import com.mojang.logging.LogUtils;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import org.slf4j.Logger;
 
 import static java.lang.Math.max;
 
@@ -39,11 +37,10 @@ import static java.lang.Math.max;
 public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     private static final EntityDataAccessor<Boolean> IS_BROKEN = SynchedEntityData.defineId(BonesBrokenSkeletons.class, EntityDataSerializers.BOOLEAN);
     private boolean clientSideBrokenState = false;
-    private static final float HEALTH_WHEN_SKELETON_BREAKS = 15.0F; // FIX_VALUE
-    private static final int REVIVING_TIME_WHEN_BROKEN = 250; // FIX_VALUE
+    private static final float HEALTH_WHEN_SKELETON_BREAKS = 15.0F; // FIXED_VALUE
+    private static final int REVIVING_TIME_WHEN_BROKEN = 250; // FIXED_VALUE
     private boolean friendly;
     private int timeBeforeSkeletonRevives;
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public BonesBrokenSkeletons(EntityType<? extends AbstractSkeleton> entityType, Level level) {
         super(entityType, level);
@@ -175,7 +172,6 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
         ((ServerLevel) level).sendParticles(BonesParticles.PURPLE_SOUL.get(),
                 this.getX(), this.getY() + 0.5D, this.getZ(),
                 50, 0.0D, 0.1D, 0.0D, 0.20D);
-        LOGGER.info("should be revived");
     }
 
     /**

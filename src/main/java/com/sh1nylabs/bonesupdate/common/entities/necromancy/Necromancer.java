@@ -6,7 +6,6 @@ import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.common.blocks.GraveBlockEntity;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +32,6 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
@@ -116,6 +114,7 @@ public class Necromancer extends AbstractIllager {
 
     @Override
     public void tick() {
+
         if (timeBeforeNextCast != 0) {
             timeBeforeNextCast--;
         }
@@ -125,6 +124,7 @@ public class Necromancer extends AbstractIllager {
             level.addParticle(ParticleTypes.ENTITY_EFFECT,this.getX() -0.5D * (double) (Mth.cos(f))+0.8D*Mth.sin(0.4F*tickCount),this.getY()+2.5D,this.getZ() - 0.8D * (double) (Mth.sin(f)) + 0.8D*Mth.cos(0.4F*tickCount),0.3D, 0.35D, 0.65D);
         }
         super.tick();
+
     }
 
     @Override

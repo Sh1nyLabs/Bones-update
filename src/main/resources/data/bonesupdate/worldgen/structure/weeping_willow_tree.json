@@ -46,12 +46,6 @@
       "bounding_box": "full", // Use the bounding box of entire structure instead of individual pieces.
       "spawns": [
         {
-          "type": "bonesupdate:necromancer",
-          "weight": 2,
-          "minCount": 1,
-          "maxCount": 2
-        },
-        {
           "type": "minecraft:skeleton",
           "weight": 10,
           "minCount": 1,

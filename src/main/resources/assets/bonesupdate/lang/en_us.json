@@ -1,48 +1,50 @@
 {
   "block.bonesupdate.grave": "Grave",
-  "block.bonesupdate.weeping_willow_vines": "Weeping Willow Branch Vines",
-  "block.bonesupdate.weeping_willow_small_vines": "Weeping Willow Vines",
   "block.bonesupdate.weeping_willow_leaves": "Weeping Willow Leaves",
+  "block.bonesupdate.weeping_willow_small_vines": "Weeping Willow Vines",
+  "block.bonesupdate.weeping_willow_vines": "Weeping Willow Branch Vines",
 
-  "item.bonesupdate.soul_orb": "Soul Orb",
   "item.bonesupdate.amulet": "Amulet",
+  "item.bonesupdate.minion_sword": "Minion Sword",
   "item.bonesupdate.necromancer_scepter": "Necromancer Scepter",
   "item.bonesupdate.skeleton_soul": "Skeleton Soul",
+<<<<<<< HEAD
   "item.bonesupdate.minion_sword": "Minion Sword",
   "item.bonesupdate.haunter_spear": "Haunter Spear",
+=======
+  "item.bonesupdate.soul_orb": "Soul Orb",
+>>>>>>> main
 
+  "entity.bonesupdate.knight_skeleton": "Knight Skeleton",
   "entity.bonesupdate.minion": "Minion",
   "entity.bonesupdate.necromancer": "Necromancer",
-  "entity.bonesupdate.knight_skeleton": "Knight Skeleton",
 
+  "item.bonesupdate.knight_skeleton_spawn_egg": "Knight Skeleton Spawn Egg",
   "item.bonesupdate.minion_spawn_egg": "Minion Spawn Egg",
   "item.bonesupdate.necromancer_spawn_egg": "Necromancer Spawn Egg",
-  "item.bonesupdate.knight_skeleton_spawn_egg": "Knight Skeleton Spawn Egg",
 
-  "enchantment.bonesupdate.subordinate": "Subordinate",
-  "enchantment.bonesupdate.serenity": "Serenity",
   "enchantment.bonesupdate.leader": "Leader",
-
-  "filled_map.necromancer_crypte": "Crypte Explorer Map",
+  "enchantment.bonesupdate.subaltern": "Subaltern",
+  "enchantment.bonesupdate.serenity": "Serenity",
 
   "advancements.bonesupdate.root.description": "Welcome to the Bones Update Mod!",
   "advancements.bonesupdate.root.title": "Bones Update",
 
   "advancements.necromancy.find_weeping_willow_tree.title": "Meeting Under The Tree",
   "advancements.necromancy.find_weeping_willow_tree.description": "Find a Weeping Willow Tree, and meet there someone special",
+  "advancements.necromancy.friends_or_foes.title":"Friends Or Foes",
+  "advancements.necromancy.friends_or_foes.description": "Become friend with a particular skeleton",
   "advancements.necromancy.kill_a_necromancer.title": "Forbidden Skills",
   "advancements.necromancy.kill_a_necromancer.description": "Kill a necromancer",
   "advancements.necromancy.rest_in_peace.title": "Rest In Peace",
   "advancements.necromancy.rest_in_peace.description": "Use a special tool on a grave...",
   "advancements.necromancy.whos_the_necromancer_now.title": "Who's The Necromancer Now?",
   "advancements.necromancy.whos_the_necromancer_now.description": "Bring back to life a huge amount of minions at once",
-  "advancements.necromancy.friends_or_foes.title":"Friends Or Foes",
-  "advancements.necromancy.friends_or_foes.description": "Become friend with a skeleton mob",
 
-  "advancements.skull_quest.kill_broken_skeleton.title": "Final Blow",
-  "advancements.skull_quest.kill_broken_skeleton.description": "Kill a broken skeleton",
   "advancements.skull_quest.kill_all_bones_monsters.title": "Bestiary Complete",
   "advancements.skull_quest.kill_all_bones_monsters.description": "Kill each new monster specimen",
+  "advancements.skull_quest.kill_broken_skeleton.title": "Final Blow",
+  "advancements.skull_quest.kill_broken_skeleton.description": "Kill a broken skeleton",
   "advancements.skull_quest.use_amulet.title": "Soul Extraction",
   "advancements.skull_quest.use_amulet.description": "Find a way to get loot from a broken skeleton"
 }

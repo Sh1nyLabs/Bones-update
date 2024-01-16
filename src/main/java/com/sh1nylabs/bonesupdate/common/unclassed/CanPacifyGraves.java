@@ -3,7 +3,6 @@ package com.sh1nylabs.bonesupdate.common.unclassed;
 import com.sh1nylabs.bonesupdate.common.blocks.GraveBlock;
 import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -15,14 +14,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import static com.sh1nylabs.bonesupdate.common.blocks.GraveBlock.HAUNTED;
 
 public interface CanPacifyGraves {
-
-    /** Function used to damage the item after an usage.
-     *
-     * @param stack
-     * @param player
-     * @param hand
-     */
-    void useItemStack(ItemStack stack, Player player, InteractionHand hand);
 
     /** function used by some items to pacify graves (especially AmuletItem and NecroScepteritem)
      * If the item contains the enchantment 'SERENITY', it will change the grave from state
@@ -43,8 +34,12 @@ public interface CanPacifyGraves {
                 level.setBlockAndUpdate(blockpos, blockstate1);
                 level.gameEvent(GameEvent.BLOCK_CHANGE, blockpos, GameEvent.Context.of(player, blockstate1));
 
-                useItemStack(stack, player, context.getHand());
-
+                if (player != null) {
+                    stack.hurtAndBreak(1, player, player1 -> {
+                        player1.broadcastBreakEvent( context.getHand());
+                    });
+                    player.getCooldowns().addCooldown(stack.getItem(), 80);
+                }
                 return InteractionResult.SUCCESS;
             }
         }

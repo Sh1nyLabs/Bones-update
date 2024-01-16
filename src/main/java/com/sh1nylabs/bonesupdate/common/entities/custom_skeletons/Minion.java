@@ -61,6 +61,7 @@ public class Minion extends BonesBrokenSkeletons{
     }
 
     public void registerGoals() {
+
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this,1.7D,false));  //FIX_VALUE (speedModifier)
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D)); //FIX_VALUE (radius of search / walkSpeedModif / sprintspeedModif)
         this.goalSelector.addGoal(4, new MinionFollowsOwnerGoal(this));
@@ -70,6 +71,7 @@ public class Minion extends BonesBrokenSkeletons{
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
 
         this.registerSkeletonTargets();
+
 }
 
     @Override

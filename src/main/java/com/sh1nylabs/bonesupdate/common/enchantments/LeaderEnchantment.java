@@ -22,6 +22,6 @@ public class LeaderEnchantment extends Enchantment {
      * The 'Leader' enchantment is incompatible with the 'Subordinate' enchantment
      */
     public boolean checkCompatibility(Enchantment enchantement) {
-        return !(enchantement instanceof SubordinateEnchantment) && super.checkCompatibility(enchantement);
+        return !(enchantement instanceof Subaltern) && super.checkCompatibility(enchantement);
     }
 }
