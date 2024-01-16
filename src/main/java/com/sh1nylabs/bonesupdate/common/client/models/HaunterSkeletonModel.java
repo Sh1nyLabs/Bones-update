@@ -115,6 +115,10 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		}
 		float period = 0.667F;
 
+		this.right_hand.yRot = 0.0F;
+		this.right_arm.yRot = 0.0F;
+		this.left_arm.yRot = 0.0F;
+
 		if (flag2) {
 			this.right_hand.x = -2.0F;
 			this.right_hand.y = 15.0F;
@@ -156,18 +160,21 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 	protected void setupAttackAnimation(HaunterSkeleton entity, float ageInTicks) {
 		if (!(this.attackTime <= 0.0F)) {
 			float f = this.attackTime;
-			//this.body.yRot = Mth.sin(Mth.sqrt(f) * ((float)Math.PI * 2F)) * 0.2F;
+			this.body.yRot = Mth.cos((float)Math.PI/2F - Mth.sqrt(f) * ((float)Math.PI)) * 0.2F;
 
-			//this.right_arm.yRot += this.body.yRot;
-			//this.left_arm.yRot += this.body.yRot;
-			//this.left_arm.xRot += this.body.xRot;
+			this.right_arm.yRot += this.body.yRot;
+			this.right_hand.yRot += this.body.yRot;
+			this.left_arm.yRot += this.body.yRot;
+
 			f = 1.0F - this.attackTime;
 			f *= f;
 			f *= f;
 			f = 1.0F - f;
-			//float f1 = Mth.sin(f * (float)Math.PI);
-			float f2 = 0.3F - 1.1F * Mth.sin(f * ((float)Math.PI)/2.0F); //TODO: if f does not work, put attacktime
+
+			float f2 = 0.3F - 1.1F * Mth.sin(f * (float)Math.PI);
 			right_arm.xRot += f2;
+		} else {
+			this.body.yRot=0;
 		}
 	}
 

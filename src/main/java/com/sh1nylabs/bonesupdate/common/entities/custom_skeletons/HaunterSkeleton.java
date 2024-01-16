@@ -1,5 +1,6 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
+import com.sh1nylabs.bonesupdate.common.entities.goal.ProtectKnightGoal;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -9,9 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
@@ -37,7 +36,9 @@ public class HaunterSkeleton extends BonesBrokenSkeletons {
     public void registerGoals() {
         super.registerGoals();
 
-        this.goalSelector.addGoal(4,new MeleeAttackGoal(this, 1.1D,false));
+        this.goalSelector.addGoal(4, new ProtectKnightGoal(this,1.2D));
+
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.1D,false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
     }
 
