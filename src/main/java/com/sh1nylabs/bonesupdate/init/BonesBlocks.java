@@ -22,6 +22,7 @@ public class BonesBlocks {
 
     public static final RegistryObject<Block> GRAVE_BLOCK = BU_BLOCKS.register("grave", () -> new GraveBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F)));
     public static final RegistryObject<BlockEntityType<GraveBlockEntity>> GRAVE = BU_BLOCK_ENTITIES.register("grave", () -> BlockEntityType.Builder.of(GraveBlockEntity::new, GRAVE_BLOCK.get()).build(null));
+    public static final RegistryObject<Block> SPOOKY_LANTERN = BU_BLOCKS.register("spooky_lantern", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(3.0F)));
     public static final RegistryObject<Block> WEEPING_WILLOW_SMALL_VINES = BU_BLOCKS.register("weeping_willow_small_vines",() -> new WeepingWillowSmallVinesBlock(BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.COLOR_BLACK).randomTicks().noCollission().instabreak().sound(SoundType.VINE)));
     public static final RegistryObject<Block> WEEPING_WILLOW_VINES = BU_BLOCKS.register("weeping_willow_vines",() -> new WeepingWillowVinesBlock(BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.COLOR_BLACK).noCollission().instabreak().sound(SoundType.VINE)));
     public static final RegistryObject<Block> WEEPING_WILLOW_LEAVES = BU_BLOCKS.register("weeping_willow_leaves",() -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()));
