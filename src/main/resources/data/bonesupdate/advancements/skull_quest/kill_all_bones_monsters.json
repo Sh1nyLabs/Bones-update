@@ -1,6 +1,20 @@
 {
   "parent": "bonesupdate:skull_quest/kill_broken_skeleton",
   "criteria": {
+    "bonesupdate:haunter_skeleton": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:haunter_skeleton"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
     "bonesupdate:knight_skeleton": {
       "conditions": {
         "entity": [
@@ -61,6 +75,9 @@
     }
   },
   "requirements": [
+    [
+      "bonesupdate:haunter_skeleton"
+    ],
     [
       "bonesupdate:knight_skeleton"
     ],

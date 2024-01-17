@@ -1,15 +1,33 @@
 {
   "parent": "bonesupdate:root",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:player_interacted_with_entity",
+    "bonesupdate:haunter_skeleton": {
       "conditions": {
-        "item": {
-          "items": [
-            "bonesupdate:amulet"
-          ]
-        }
-      }
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:haunter_skeleton"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "bonesupdate:knight_skeleton": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:knight_skeleton"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
     }
   },
   "display": {
@@ -27,5 +45,11 @@
     "title": {
       "translate": "advancements.skull_quest.kill_broken_skeleton.title"
     }
-  }
+  },
+  "requirements": [
+    [
+      "bonesupdate:haunter_skeleton",
+      "bonesupdate:knight_skeleton"
+    ]
+  ]
 }

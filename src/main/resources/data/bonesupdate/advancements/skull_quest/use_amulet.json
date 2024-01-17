@@ -1,6 +1,19 @@
 {
   "parent": "bonesupdate:skull_quest/kill_broken_skeleton",
-  "criteria": {
+  "criteria":  {
+    "used_on_haunter": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:haunter_skeleton"
+        }
+      }
+    },
     "used_on_knight": {
       "trigger": "minecraft:player_interacted_with_entity",
       "conditions": {
@@ -30,6 +43,7 @@
   },
   "requirements": [
     [
+      "used_on_haunter",
       "used_on_knight",
       "used_on_minion"
     ]

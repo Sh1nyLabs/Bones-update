@@ -1,4 +1,9 @@
 {
+  "item.bonesupdate.haunter_skeleton_spawn_egg": "Haunter Skeleton Spawn Egg",
+  "item.bonesupdate.haunter_spear": "Haunter Spear",
+  "entity.bonesupdate.haunter_skeleton": "Haunter Skeleton",
+
+
   "block.bonesupdate.grave": "Grave",
   "block.bonesupdate.weeping_willow_leaves": "Weeping Willow Leaves",
   "block.bonesupdate.weeping_willow_small_vines": "Weeping Willow Vines",
@@ -8,7 +13,6 @@
   "item.bonesupdate.minion_sword": "Minion Sword",
   "item.bonesupdate.necromancer_scepter": "Necromancer Scepter",
   "item.bonesupdate.skeleton_soul": "Skeleton Soul",
-  "item.bonesupdate.haunter_spear": "Haunter Spear",
   "item.bonesupdate.soul_orb": "Soul Orb",
 
   "entity.bonesupdate.knight_skeleton": "Knight Skeleton",
