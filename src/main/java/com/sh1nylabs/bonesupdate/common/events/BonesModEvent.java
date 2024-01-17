@@ -1,5 +1,6 @@
 package com.sh1nylabs.bonesupdate.common.events;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.mojang.logging.LogUtils;
 import com.sh1nylabs.bonesupdate.BonesUpdate;

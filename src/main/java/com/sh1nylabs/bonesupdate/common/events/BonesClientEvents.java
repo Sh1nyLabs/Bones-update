@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.events;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.models.HaunterSkeletonModel;
 import com.sh1nylabs.bonesupdate.common.client.models.KnightSkeletonModel;

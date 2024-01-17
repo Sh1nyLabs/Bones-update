@@ -1,6 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
@@ -15,7 +16,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
-import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;

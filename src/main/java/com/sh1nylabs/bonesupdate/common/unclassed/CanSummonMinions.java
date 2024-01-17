@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.unclassed;
 
+/* Java interface written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import net.minecraft.core.BlockPos;

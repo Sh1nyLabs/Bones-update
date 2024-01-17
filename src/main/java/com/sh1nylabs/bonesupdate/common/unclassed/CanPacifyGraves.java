@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.unclassed;
 
+/* Java interface written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.common.blocks.GraveBlock;
 import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import net.minecraft.core.BlockPos;

@@ -1,8 +1,9 @@
 package com.sh1nylabs.bonesupdate.common.items;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;

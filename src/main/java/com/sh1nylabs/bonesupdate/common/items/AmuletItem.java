@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.items;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BonesBrokenSkeletons;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanPacifyGraves;
 import com.sh1nylabs.bonesupdate.init.BonesEnchantments;

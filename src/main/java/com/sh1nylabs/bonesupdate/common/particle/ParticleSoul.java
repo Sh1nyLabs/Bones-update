@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.particle;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;

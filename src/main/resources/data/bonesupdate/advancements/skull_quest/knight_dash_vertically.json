@@ -1,0 +1,42 @@
+{
+  "parent": "bonesupdate:skull_quest/kill_broken_skeleton",
+  "criteria":  {
+    "knight_dashes": {
+      "trigger": "minecraft:entity_hurt_player",
+      "conditions": {
+        "damage": {
+          "type": {
+            "source_entity": {
+              "type": "bonesupdate:knight_skeleton",
+              "distance": {
+                "min": 10.0,
+                "max": 15.0
+              }
+            }
+          }
+        }
+       }
+     }
+  },
+  "requirements": [
+    [
+      "knight_dashes"
+    ]
+  ],
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.skull_quest.knight_dashes_vertically.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:iron_sword",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.skull_quest.knight_dashes_vertically.title"
+    }
+  }
+}

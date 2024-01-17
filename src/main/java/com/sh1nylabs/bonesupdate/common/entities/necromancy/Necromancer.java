@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.entities.necromancy;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.common.entities.goal.NecromancerApproachAGraveGoal;
 import com.sh1nylabs.bonesupdate.common.entities.goal.NecromancerPlacesAGraveGoal;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;

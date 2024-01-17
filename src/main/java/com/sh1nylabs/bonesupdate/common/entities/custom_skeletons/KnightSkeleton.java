@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.common.entities.goal.KnightSkeletonDashesGoal;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import net.minecraft.nbt.CompoundTag;

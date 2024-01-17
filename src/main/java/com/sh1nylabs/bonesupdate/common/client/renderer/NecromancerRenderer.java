@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.client.renderer;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.models.NecromancerModel;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;

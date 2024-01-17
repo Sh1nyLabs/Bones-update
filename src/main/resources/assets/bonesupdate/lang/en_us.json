@@ -2,6 +2,8 @@
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Haunter Skeleton Spawn Egg",
   "item.bonesupdate.haunter_spear": "Haunter Spear",
   "entity.bonesupdate.haunter_skeleton": "Haunter Skeleton",
+  "advancements.skull_quest.knight_dashes_vertically.description": "Force a knight to jump 10 blocks or more to hurt you",
+  "advancements.skull_quest.knight_dashes_vertically.title": "Dasher and Jumper",
 
 
   "block.bonesupdate.grave": "Grave",

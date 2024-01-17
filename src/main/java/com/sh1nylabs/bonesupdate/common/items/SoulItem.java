@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.items;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.common.blocks.GraveBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

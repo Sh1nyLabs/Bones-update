@@ -1,5 +1,8 @@
 package com.sh1nylabs.bonesupdate.common.entities.goal;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
+
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;

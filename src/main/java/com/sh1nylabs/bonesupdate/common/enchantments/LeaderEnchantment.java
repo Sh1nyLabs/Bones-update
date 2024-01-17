@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.enchantments;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
 import net.minecraft.world.entity.EquipmentSlot;

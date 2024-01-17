@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.init;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;

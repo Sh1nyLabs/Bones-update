@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import com.sh1nylabs.bonesupdate.init.*;
 import net.minecraft.world.item.CreativeModeTabs;

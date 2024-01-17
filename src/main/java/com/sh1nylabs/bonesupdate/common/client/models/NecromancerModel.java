@@ -1,7 +1,6 @@
 package com.sh1nylabs.bonesupdate.common.client.models;
-// Made with Blockbench 4.7.4
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
+
+/* Java class written by sh1nylabs' team, using Blockbench 4.7.4. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
