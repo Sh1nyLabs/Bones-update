@@ -7,6 +7,7 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleto
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
+import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -20,6 +21,8 @@ public class BonesEntities {
 
     public static final RegistryObject<EntityType<Minion>> MINION = registerMonster("minion", Minion::new,0.35F,0.85F);
     public static final RegistryObject<EntityType<Necromancer>> NECROMANCER = registerMonster("necromancer", Necromancer::new);
+
+    public static final RegistryObject<EntityType<Reaper>> REAPER = registerMonster("reaper", Reaper::new);
     public static final RegistryObject<EntityType<KnightSkeleton>> KNIGHT_SKELETON = registerMonster("knight_skeleton", KnightSkeleton::new);
     public static final RegistryObject<EntityType<HaunterSkeleton>> HAUNTER_SKELETON = registerMonster("haunter_skeleton", HaunterSkeleton::new);
 

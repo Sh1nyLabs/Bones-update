@@ -3,14 +3,8 @@ package com.sh1nylabs.bonesupdate.common.events;
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
-import com.sh1nylabs.bonesupdate.common.client.models.HaunterSkeletonModel;
-import com.sh1nylabs.bonesupdate.common.client.models.KnightSkeletonModel;
-import com.sh1nylabs.bonesupdate.common.client.models.MinionModel;
-import com.sh1nylabs.bonesupdate.common.client.models.NecromancerModel;
-import com.sh1nylabs.bonesupdate.common.client.renderer.HaunterSkeletonRenderer;
-import com.sh1nylabs.bonesupdate.common.client.renderer.KnightSkeletonRenderer;
-import com.sh1nylabs.bonesupdate.common.client.renderer.MinionRenderer;
-import com.sh1nylabs.bonesupdate.common.client.renderer.NecromancerRenderer;
+import com.sh1nylabs.bonesupdate.common.client.models.*;
+import com.sh1nylabs.bonesupdate.common.client.renderer.*;
 import com.sh1nylabs.bonesupdate.common.particle.ParticleSoul;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import com.sh1nylabs.bonesupdate.common.particle.ParticleBar;
@@ -28,6 +22,7 @@ public class BonesClientEvents {
     public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(BonesEntities.MINION.get(), MinionRenderer::new);
         event.registerEntityRenderer(BonesEntities.NECROMANCER.get(), NecromancerRenderer::new);
+        event.registerEntityRenderer(BonesEntities.REAPER.get(), ReaperRenderer::new);
         event.registerEntityRenderer(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeletonRenderer::new);
         event.registerEntityRenderer(BonesEntities.HAUNTER_SKELETON.get(), HaunterSkeletonRenderer::new);
     }
@@ -36,6 +31,7 @@ public class BonesClientEvents {
     public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(MinionModel.LAYER_LOCATION,MinionModel::createBodyLayer);
         event.registerLayerDefinition(NecromancerModel.LAYER_LOCATION,NecromancerModel::createBodyLayer);
+        event.registerLayerDefinition(ReaperModel.LAYER_LOCATION,ReaperModel::createBodyLayer);
         event.registerLayerDefinition(KnightSkeletonModel.LAYER_LOCATION, KnightSkeletonModel::createBodyLayer);
         event.registerLayerDefinition(HaunterSkeletonModel.LAYER_LOCATION, HaunterSkeletonModel::createBodyLayer);
     }

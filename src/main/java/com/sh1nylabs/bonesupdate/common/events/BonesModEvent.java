@@ -9,6 +9,7 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleto
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
+import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -84,6 +85,7 @@ public class BonesModEvent {
         public static void entityAttributes(EntityAttributeCreationEvent event) {
             event.put(BonesEntities.MINION.get(), Minion.getCustomAttributes().build());
             event.put(BonesEntities.NECROMANCER.get(), Necromancer.getCustomAttributes().build());
+            event.put(BonesEntities.REAPER.get(), Reaper.getCustomAttributes().build());
             event.put(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeleton.getCustomAttributes().build());
             event.put(BonesEntities.HAUNTER_SKELETON.get(), HaunterSkeleton.getCustomAttributes().build());
         }
