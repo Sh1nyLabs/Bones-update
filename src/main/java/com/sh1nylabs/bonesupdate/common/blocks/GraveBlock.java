@@ -1,8 +1,12 @@
 package com.sh1nylabs.bonesupdate.common.blocks;
 
+import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
+import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
@@ -22,10 +26,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -80,6 +86,15 @@ public class GraveBlock extends Block implements EntityBlock {
         for (Villager villager: list){
             villager.getGossips().add(player.getUUID(), GossipType.MINOR_NEGATIVE, 25); // TODO:PROBLEM?
             villager.playSound(SoundEvents.VILLAGER_NO, 1.0F, villager.getVoicePitch());
+        }
+        if (state.getValue(HAUNTED) && level.getRandom().nextInt(4)==0 && !level.isClientSide()) {
+            Reaper reaper = BonesEntities.REAPER.get().create(level);
+            if (reaper!=null) {
+                reaper.moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), level.getRandom().nextFloat(), 0.0F);
+                ForgeEventFactory.onFinalizeSpawn(reaper, (ServerLevel) level, level.getCurrentDifficultyAt(blockPos), MobSpawnType.SPAWNER, null, null);
+                ((ServerLevel) level).tryAddFreshEntityWithPassengers(reaper);
+                level.gameEvent(reaper, GameEvent.ENTITY_PLACE, blockPos);
+            }
         }
         super.playerDestroy(level,player,blockPos,state,blockEntity,stack);
     }
