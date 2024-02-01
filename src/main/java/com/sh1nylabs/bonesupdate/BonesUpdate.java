@@ -2,6 +2,7 @@ package com.sh1nylabs.bonesupdate;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
+import com.mojang.logging.LogUtils;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import com.sh1nylabs.bonesupdate.init.*;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -10,6 +11,7 @@ import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.slf4j.Logger;
 
 
 @Mod(BonesUpdate.MODID)
@@ -22,6 +24,8 @@ public class BonesUpdate {
      * - now broken skeletons take a longer time to revive
     */
     public static final String MODID = "bonesupdate";
+    public static final Logger LOGGER = LogUtils.getLogger();
+
 
     public BonesUpdate() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
