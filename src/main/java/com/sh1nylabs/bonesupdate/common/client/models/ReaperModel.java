@@ -96,6 +96,11 @@ public class ReaperModel extends EntityModel<Reaper> implements ArmedModel {
 		this.headwear.xRot = this.head.xRot;
 		this.headwear.yRot = this.head.yRot;
 		this.headwear.zRot = this.head.zRot;
+		this.attackAnim();
+	}
+
+	private void attackAnim() {
+		//TODO: implement attack animation
 	}
 
 	@Override

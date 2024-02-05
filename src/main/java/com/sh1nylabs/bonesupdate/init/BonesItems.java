@@ -3,10 +3,7 @@ package com.sh1nylabs.bonesupdate.init;
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
-import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
-import com.sh1nylabs.bonesupdate.common.items.HaunterSpearItem;
-import com.sh1nylabs.bonesupdate.common.items.NecroScepterItem;
-import com.sh1nylabs.bonesupdate.common.items.SoulItem;
+import com.sh1nylabs.bonesupdate.common.items.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.BlockItem;
@@ -33,6 +30,8 @@ public class BonesItems {
             ()->new Item(new Item.Properties().durability(100)));
     public static final RegistryObject<Item> HAUNTER_SPEAR = BU_ITEMS.register("haunter_spear",
             ()-> new HaunterSpearItem(new Item.Properties().durability(100)));
+    public static final RegistryObject<Item> REAPER_SCYTHE = BU_ITEMS.register("reaper_scythe",
+            ()-> new Item(new Item.Properties().durability(100)));
 
     /** Register all block items using the function 'registerBlockItem' */
     public static final RegistryObject<Item> GRAVE_BLOCK_ITEM = registerBlockItem(BonesBlocks.GRAVE_BLOCK,"grave");

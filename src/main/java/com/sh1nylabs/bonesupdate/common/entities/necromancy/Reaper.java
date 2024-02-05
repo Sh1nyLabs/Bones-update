@@ -1,6 +1,9 @@
 package com.sh1nylabs.bonesupdate.common.entities.necromancy;
 
 import com.sh1nylabs.bonesupdate.common.entities.goal.ReaperAttackGoal;
+import com.sh1nylabs.bonesupdate.init.BonesItems;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -8,6 +11,8 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 public class Reaper extends FlyingMob implements Enemy {
@@ -33,6 +38,12 @@ public class Reaper extends FlyingMob implements Enemy {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
+    @Override
+    protected void populateDefaultEquipmentSlots(RandomSource rdmSequence, DifficultyInstance difficulty) {
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesItems.REAPER_SCYTHE.get()));
+    }
+
+    @Override
     public MobType getMobType() {
         return MobType.UNDEAD;
     }

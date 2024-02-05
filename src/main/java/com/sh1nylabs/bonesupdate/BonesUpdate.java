@@ -63,6 +63,7 @@ public class BonesUpdate {
             event.accept(BonesItems.KNIGHT_SKELETON_SPAWN_EGG);
             event.accept(BonesItems.HAUNTER_SPAWN_EGG);
             event.accept(BonesItems.NECROMANCER_SPAWN_EGG);
+            event.accept(BonesItems.REAPER_SPAWN_EGG);
         }
     }
 }
