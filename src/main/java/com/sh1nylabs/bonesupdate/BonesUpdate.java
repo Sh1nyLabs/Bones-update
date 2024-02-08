@@ -19,7 +19,6 @@ public class BonesUpdate {
     /** version 1.2: what is new:
      * - new mob: the Haunter
      * - new tool: the Haunter spear (no recipe, obtained by drop from the haunter)
-     * - new block: the spooky lantern.
      * - now broken skeletons can be hit by Explosions
      * - now broken skeletons take a longer time to revive
     */
