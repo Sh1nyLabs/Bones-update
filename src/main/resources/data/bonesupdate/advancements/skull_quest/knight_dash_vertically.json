@@ -1,28 +1,22 @@
 {
   "parent": "bonesupdate:skull_quest/kill_broken_skeleton",
-  "criteria":  {
+  "criteria": {
     "knight_dashes": {
-      "trigger": "minecraft:entity_hurt_player",
       "conditions": {
         "damage": {
-          "type": {
-            "source_entity": {
-              "type": "bonesupdate:knight_skeleton",
-              "distance": {
-                "min": 10.0,
-                "max": 15.0
+          "source_entity": {
+            "distance": {
+              "y": {
+                "min": 8.0
               }
-            }
+            },
+            "type": "bonesupdate:knight_skeleton"
           }
         }
-       }
-     }
+      },
+      "trigger": "minecraft:entity_hurt_player"
+    }
   },
-  "requirements": [
-    [
-      "knight_dashes"
-    ]
-  ],
   "display": {
     "announce_to_chat": true,
     "description": {
@@ -38,5 +32,10 @@
     "title": {
       "translate": "advancements.skull_quest.knight_dashes_vertically.title"
     }
-  }
+  },
+  "requirements": [
+    [
+      "knight_dashes"
+    ]
+  ]
 }

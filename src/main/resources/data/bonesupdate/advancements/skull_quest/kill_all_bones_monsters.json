@@ -58,6 +58,21 @@
       "trigger": "minecraft:player_killed_entity"
     }
   },
+  "bonesupdate:reaper": {
+    "conditions": {
+      "entity": [
+        {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "type": "bonesupdate:reaper"
+          }
+        }
+      ]
+    },
+    "trigger": "minecraft:player_killed_entity"
+  }
+},
   "display": {
     "announce_to_chat": true,
     "description": {
@@ -66,7 +81,7 @@
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "minecraft:diamond_sword",
+      "item": "minecraft:netherite_sword",
       "nbt": "{Damage:0}"
     },
     "show_toast": true,
@@ -86,8 +101,10 @@
     ],
     [
       "bonesupdate:necromancer"
+    ],
+    [
+    "bonesupdate:reaper"
     ]
-
   ],
   "rewards": {
     "experience": 100

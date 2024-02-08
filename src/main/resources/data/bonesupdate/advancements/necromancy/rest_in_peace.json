@@ -1,20 +1,23 @@
 {
   "parent": "bonesupdate:necromancy/kill_a_necromancer",
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:item_used_on_block",
+    "grave_not_haunted": {
       "conditions": {
         "item": {
           "items": [
+            "bonesupdate:amulet",
             "bonesupdate:necromancer_scepter"
-          ],
-          "enchantments": [
-            {
-              "enchantment": "bonesupdate:serenity"
-            }
           ]
+        },
+        "location": {
+          "block": {
+            "blocks": [
+              "bonesupdate:grave"
+            ]
+          }
         }
-      }
+      },
+      "trigger": "minecraft:item_used_on_block"
     }
   },
   "display": {
@@ -25,12 +28,16 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "bonesupdate:grave_flowers",
-      "nbt": "{Damage:0}"
+      "item": "bonesupdate:grave"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.necromancy.rest_in_peace.title"
     }
-  }
+  },
+  "requirements": [
+    [
+      "grave_not_haunted"
+    ]
+  ]
 }

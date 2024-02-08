@@ -1,7 +1,7 @@
 {
   "parent": "bonesupdate:necromancy/kill_a_necromancer",
-  "criteria": {
-    "requirement": {
+  "criteria":  {
+    "used_on_haunter": {
       "trigger": "minecraft:player_interacted_with_entity",
       "conditions": {
         "item": {
@@ -10,13 +10,59 @@
           ],
           "enchantments": [
             {
-              "enchantment": "bonesupdate:subordinate"
+              "enchantment": "bonesupdate:subaltern"
             }
           ]
+        },
+        "entity": {
+          "type": "bonesupdate:haunter_skeleton"
+        }
+      }
+    },
+    "used_on_knight": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:necromancer_scepter"
+          ],
+          "enchantments": [
+            {
+              "enchantment": "bonesupdate:subaltern"
+            }
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:knight_skeleton"
+        }
+      }
+    },
+    "used_on_minion": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:necromancer_scepter"
+          ],
+          "enchantments": [
+            {
+              "enchantment": "bonesupdate:subaltern"
+            }
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:minion"
         }
       }
     }
   },
+  "requirements": [
+    [
+      "used_on_haunter",
+      "used_on_knight",
+      "used_on_minion"
+    ]
+  ],
   "display": {
     "announce_to_chat": true,
     "description": {
