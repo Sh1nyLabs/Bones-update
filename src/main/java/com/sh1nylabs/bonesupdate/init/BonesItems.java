@@ -30,8 +30,6 @@ public class BonesItems {
             ()->new Item(new Item.Properties().durability(100)));
     public static final RegistryObject<Item> HAUNTER_SPEAR = BU_ITEMS.register("haunter_spear",
             ()-> new HaunterSpearItem(new Item.Properties().durability(100)));
-    public static final RegistryObject<Item> REAPER_SCYTHE = BU_ITEMS.register("reaper_scythe",
-            ()-> new Item(new Item.Properties().durability(100)));
 
     /** Register all block items using the function 'registerBlockItem' */
     public static final RegistryObject<Item> GRAVE_BLOCK_ITEM = registerBlockItem(BonesBlocks.GRAVE_BLOCK,"grave");

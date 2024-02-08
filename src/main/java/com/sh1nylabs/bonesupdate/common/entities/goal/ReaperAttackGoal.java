@@ -2,8 +2,10 @@ package com.sh1nylabs.bonesupdate.common.entities.goal;
 
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class ReaperAttackGoal extends Goal {
     Reaper reaper;
-    int ticksUntilNextAttack;
+    int ticksUntilNextAttack = 0;
 
     public ReaperAttackGoal(Reaper reaper) {
         this.reaper = reaper;}
@@ -39,12 +41,12 @@ public class ReaperAttackGoal extends Goal {
     @Override
     public void start() {
         LivingEntity target = reaper.getTarget();
-        ticksUntilNextAttack = 30;
         this.reaper.getMoveControl().setWantedPosition(target.getX(), target.getY(), target.getZ(), 1.0D);
     }
 
     @Override
     public void stop() {
+        ((ReaperMoveControl)reaper.getMoveControl()).waitNextPosition();
         reaper.setTarget(null);
     }
 
@@ -53,10 +55,12 @@ public class ReaperAttackGoal extends Goal {
         LivingEntity target = reaper.getTarget();
         if (target != null) {
             ticksUntilNextAttack--;
-            if (reaper.getBoundingBox().inflate(1.5D).intersects(target.getBoundingBox())) {
+            if (reaper.getBoundingBox().inflate(1.8D).intersects(target.getBoundingBox())) {
                 if (ticksUntilNextAttack <= 0) {
+                    reaper.swing(InteractionHand.MAIN_HAND);
                     reaper.doHurtTarget(target);
-                    ticksUntilNextAttack = 12;
+                    ticksUntilNextAttack =  10 * (int) reaper.getAttributeValue(Attributes.ATTACK_SPEED);
+                    ((ReaperMoveControl)reaper.getMoveControl()).waitNextPosition();
                 }
             } else {
                 this.reaper.getMoveControl().setWantedPosition(target.getX(), target.getY(), target.getZ(), 1.0D);
@@ -65,7 +69,6 @@ public class ReaperAttackGoal extends Goal {
     }
 
     public static class ReaperMoveControl extends MoveControl {
-        private int floatDuration;
 
         public ReaperMoveControl(Mob mob) {
             super(mob);
@@ -91,21 +94,24 @@ public class ReaperAttackGoal extends Goal {
                     float f9 = (float)(Mth.atan2(this.wantedZ - this.mob.getZ(), this.wantedX - this.mob.getX()) * (double)(180F / (float)Math.PI)) - 90.0F;
                     this.mob.setYRot(this.rotlerp(this.mob.getYRot(), f9, 90.0F));
                 } else {
-                    this.operation = MoveControl.Operation.WAIT;
+                    this.waitNextPosition();
                 }
             }
         }
 
-        private boolean canReach(Vec3 p_32771_, int p_32772_) {
+        protected void waitNextPosition() {
+            this.operation = MoveControl.Operation.WAIT;
+        }
+
+        private boolean canReach(Vec3 vector, int timeStep) {
             AABB aabb = this.mob.getBoundingBox();
 
-            for(int i = 1; i < p_32772_; ++i) {
-                aabb = aabb.move(p_32771_);
+            for(int i = 1; i < timeStep; ++i) {
+                aabb = aabb.move(vector);
                 if (!this.mob.level.noCollision(this.mob, aabb)) {
                     return false;
                 }
             }
-
             return true;
         }
     }

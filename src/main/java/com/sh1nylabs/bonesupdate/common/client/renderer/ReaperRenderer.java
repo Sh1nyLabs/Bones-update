@@ -16,7 +16,6 @@ public class ReaperRenderer extends MobRenderer<Reaper, ReaperModel>{
 
     public ReaperRenderer(EntityRendererProvider.Context context) {
         super(context,new ReaperModel(context.bakeLayer(ReaperModel.LAYER_LOCATION)), 0.5f);
-        this.addLayer(new ItemInHandLayer<>( this, context.getItemInHandRenderer()));
     }
 
     public ResourceLocation getTextureLocation(Reaper entity) {
