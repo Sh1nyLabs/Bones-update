@@ -22,7 +22,7 @@
     "description": {
       "translate": "advancements.skull_quest.knight_dashes_vertically.description"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "hidden": false,
     "icon": {
       "item": "minecraft:iron_sword",

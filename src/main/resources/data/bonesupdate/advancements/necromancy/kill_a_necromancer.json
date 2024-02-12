@@ -24,7 +24,7 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "bonesupdate:necromancer_scepter_inventory",
+      "item": "minecraft:iron_sword",
       "nbt": "{Damage:0}"
     },
     "show_toast": true,

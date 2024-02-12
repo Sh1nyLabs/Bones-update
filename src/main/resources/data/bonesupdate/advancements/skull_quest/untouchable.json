@@ -1,0 +1,39 @@
+{
+  "parent": "bonesupdate:root",
+  "criteria": {
+    "bonesupdate:inventory_items": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bonesupdate:necromancer_scepter",
+              "bonesupdate:haunter_spear"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.skull_quest.untouchable.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "bonesupdate:necromancer_scepter_inventory",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.skull_quest.untouchable.title"
+    }
+  },
+  "requirements": [
+    [
+      "bonesupdate:inventory_items"
+    ]
+  ]
+}

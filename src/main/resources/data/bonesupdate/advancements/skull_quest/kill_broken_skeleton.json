@@ -35,7 +35,7 @@
     "description": {
       "translate": "advancements.skull_quest.kill_broken_skeleton.description"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "minecraft:iron_sword",
