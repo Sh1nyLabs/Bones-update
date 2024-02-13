@@ -78,7 +78,7 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
 
     @Override
     public boolean canAttack(LivingEntity entity) {
-        return super.canAttack(entity) && (entity instanceof Player? canAttackPlayer(entity) : canAttackMonsters(entity));
+        return super.canAttack(entity) && isFriendly() != (entity instanceof Player || entity instanceof IronGolem);
     }
     public boolean canAttackPlayer(LivingEntity entity) {return !isFriendly();}
     public boolean canAttackMonsters(LivingEntity entity) {

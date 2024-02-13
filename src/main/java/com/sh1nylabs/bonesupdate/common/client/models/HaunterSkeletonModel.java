@@ -51,46 +51,34 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(8, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(8, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 18).mirror().addBox(0.0F, -1.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
 		.texOffs(41, 24).mirror().addBox(-0.001F, -2.0F, -2.0F, 3.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
 		.texOffs(41, 15).mirror().addBox(1.5F, 0.5F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
 		.texOffs(41, 20).addBox(0.0F, 8.0F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.2F)), PartPose.offset(4.0F, 1.0F, 0.0F));
-
-		PartDefinition left_spine2_r1 = left_arm.addOrReplaceChild("left_spine2_r1", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(3.0F, -1.5F, 1.5F, 0.0F, -0.3927F, -0.6981F));
-
-		PartDefinition left_spine1_r1 = left_arm.addOrReplaceChild("left_spine1_r1", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(3.0F, -1.5F, -1.5F, 0.0F, 0.3927F, -0.6981F));
+		left_arm.addOrReplaceChild("left_spine2_r1", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(3.0F, -1.5F, 1.5F, 0.0F, -0.3927F, -0.6981F));
+		left_arm.addOrReplaceChild("left_spine1_r1", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(3.0F, -1.5F, -1.5F, 0.0F, 0.3927F, -0.6981F));
 
 		PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(32, 18).addBox(-2.0F, -1.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F))
 		.texOffs(41, 24).addBox(-2.999F, -2.0F, -2.0F, 3.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
 		.texOffs(41, 20).mirror().addBox(-2.0F, 8.0F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.2F)).mirror(false)
 		.texOffs(41, 15).addBox(-3.5F, 0.5F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, 1.0F, 0.0F));
+		right_arm.addOrReplaceChild("right_spine2_r1", CubeListBuilder.create().texOffs(42, 18).addBox(-1.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, -1.5F, 1.5F, 0.0F, 0.3927F, 0.6981F));
+		right_arm.addOrReplaceChild("right_spine1_r1", CubeListBuilder.create().texOffs(42, 18).addBox(-1.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, -1.5F, -1.5F, 0.0F, -0.3927F, 0.6981F));
 
-		PartDefinition right_spine2_r1 = right_arm.addOrReplaceChild("right_spine2_r1", CubeListBuilder.create().texOffs(42, 18).addBox(-1.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, -1.5F, 1.5F, 0.0F, 0.3927F, 0.6981F));
-
-		PartDefinition right_spine1_r1 = right_arm.addOrReplaceChild("right_spine1_r1", CubeListBuilder.create().texOffs(42, 18).addBox(-1.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, -1.5F, -1.5F, 0.0F, -0.3927F, 0.6981F));
-
-		PartDefinition right_hand = partdefinition.addOrReplaceChild("right_hand", CubeListBuilder.create().texOffs(33, 19).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 10.5F, 0.0F));
-
-		PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.1F));
-
-		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.1F));
+		partdefinition.addOrReplaceChild("right_hand", CubeListBuilder.create().texOffs(33, 19).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 10.5F, 0.0F));
+		partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.1F));
+		partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.1F));
 
 		PartDefinition broken_state = partdefinition.addOrReplaceChild("broken_state", CubeListBuilder.create().texOffs(41, 24).mirror().addBox(3.999F, -3.0F, 3.0F, 3.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
 		.texOffs(41, 15).mirror().addBox(5.5F, -0.5F, 4.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 23.0F, 0.0F));
-
-		PartDefinition left_spine2_r2 = broken_state.addOrReplaceChild("left_spine2_r2", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(7.0F, -2.5F, 6.5F, 0.0F, -0.3927F, -0.6981F));
-
-		PartDefinition left_spine1_r2 = broken_state.addOrReplaceChild("left_spine1_r2", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(7.0F, -2.5F, 3.5F, 0.0F, 0.3927F, -0.6981F));
-
-		PartDefinition body_r1 = broken_state.addOrReplaceChild("body_r1", CubeListBuilder.create().texOffs(8, 16).addBox(-4.0F, -6.0F, -5.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 1.0F, 0.0F, -1.4399F, 0.0F, 0.0F));
-
-		PartDefinition left_bracelet_r1 = broken_state.addOrReplaceChild("left_bracelet_r1", CubeListBuilder.create().texOffs(41, 20).addBox(4.0F, -1.0F, -4.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.2F)), PartPose.offsetAndRotation(0.0F, 1.0F, 0.0F, 0.0F, -0.48F, 0.0F));
-
-		PartDefinition head_r1 = broken_state.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-8.0F, 1.0F, 0.0F, 0.0F, -0.5672F, 0.0F));
+		broken_state.addOrReplaceChild("left_spine2_r2", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(7.0F, -2.5F, 6.5F, 0.0F, -0.3927F, -0.6981F));
+		broken_state.addOrReplaceChild("left_spine1_r2", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(7.0F, -2.5F, 3.5F, 0.0F, 0.3927F, -0.6981F));
+		broken_state.addOrReplaceChild("body_r1", CubeListBuilder.create().texOffs(8, 16).addBox(-4.0F, -6.0F, -5.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 1.0F, 0.0F, -1.4399F, 0.0F, 0.0F));
+		broken_state.addOrReplaceChild("left_bracelet_r1", CubeListBuilder.create().texOffs(41, 20).addBox(4.0F, -1.0F, -4.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.2F)), PartPose.offsetAndRotation(0.0F, 1.0F, 0.0F, 0.0F, -0.48F, 0.0F));
+		broken_state.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-8.0F, 1.0F, 0.0F, 0.0F, -0.5672F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
@@ -98,8 +86,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 	@Override
 	public void setupAnim(HaunterSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean flag2 = entity.isBroken();
-
-
 		boolean flag = entity.getFallFlyingTicks() > 4;
 		float f = 1.0F;
 		if (flag) {
@@ -119,7 +105,7 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 
 		if (flag2) {
 			this.right_hand.x = -2.0F;
-			this.right_hand.y = 15.0F;
+			this.right_hand.y = 10.0F;
 			this.right_hand.z = 0.0F;
 			this.right_hand.xRot = -1.0F;
 
@@ -130,7 +116,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 			this.right_hand.y = 10.0F * Mth.cos(this.right_arm.xRot);
 			this.right_hand.z = 10.0F * Mth.sin(this.right_arm.xRot);
 			this.right_hand.xRot = 0.1F * Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
-
 		}
 
 		this.left_arm.xRot = Mth.cos(limbSwing * period) * limbSwingAmount / f;
@@ -156,7 +141,7 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 	}
 
 	protected void setupAttackAnimation(HaunterSkeleton entity, float ageInTicks) {
-		if (!(this.attackTime <= 0.0F)) {
+		if (this.attackTime > 0.0F) {
 			float f = this.attackTime;
 			this.body.yRot = Mth.cos((float)Math.PI/2F - Mth.sqrt(f) * ((float)Math.PI)) * 0.2F;
 
