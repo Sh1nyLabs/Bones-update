@@ -2,7 +2,6 @@ package com.sh1nylabs.bonesupdate.common.events;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
-import com.mojang.logging.LogUtils;
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BonesBrokenSkeletons;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleton;
@@ -22,11 +21,9 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -34,14 +31,6 @@ public class BonesModEvent {
 
     @Mod.EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesForgeEvents {
-        private static final Logger LOGGER = LogUtils.getLogger();
-
-        @SubscribeEvent
-        public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this after mod final test
-            if (event.getEntity() instanceof BonesBrokenSkeletons || event.getEntity() instanceof Necromancer) {
-                LOGGER.info("-------Detecting a spawn: {} -----------", event.getEntity().getName());
-            }
-        }
 
         /**
          * When a broken skeleton is hurt, he might switch to a broken state instead of dying.
