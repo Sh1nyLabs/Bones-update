@@ -85,6 +85,10 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
         return isFriendly() && !(entity instanceof AbstractSkeleton || entity instanceof Creeper || entity instanceof Necromancer);
     }
 
+    public boolean canBeSeenAsEnemy() {
+        return !isBroken() && super.canBeSeenAsEnemy();
+    }
+
     @Override
     public void registerGoals() {
 

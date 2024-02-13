@@ -13,12 +13,12 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_netherite_ingot": {
+    "has_obsidian": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:netherite_ingot"
+              "minecraft:obsidian"
             ]
           }
         ]
@@ -35,7 +35,7 @@
   "requirements": [
     [
       "has_soul_orb",
-      "has_netherite_ingot",
+      "has_obsidian",
       "has_the_recipe"
     ]
   ],
