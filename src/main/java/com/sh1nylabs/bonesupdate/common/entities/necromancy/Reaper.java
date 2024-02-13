@@ -1,11 +1,9 @@
 package com.sh1nylabs.bonesupdate.common.entities.necromancy;
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
+
 import com.sh1nylabs.bonesupdate.common.entities.goal.ReaperAttackGoal;
-import com.sh1nylabs.bonesupdate.init.BonesItems;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -14,12 +12,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-
-import javax.annotation.Nullable;
 
 public class Reaper extends FlyingMob implements Enemy {
     public Reaper(EntityType<? extends FlyingMob> entityType, Level level) {

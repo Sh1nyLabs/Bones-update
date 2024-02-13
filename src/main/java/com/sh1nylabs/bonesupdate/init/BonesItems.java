@@ -37,11 +37,11 @@ public class BonesItems {
     public static final RegistryObject<Item> WEEPING_WILLOW_LEAVES_ITEM = registerBlockItem(BonesBlocks.WEEPING_WILLOW_LEAVES,"weeping_willow_leaves");
 
     /** Register all spawn eggs using the function 'registerSpawnEggs' */
+    public static final RegistryObject<ForgeSpawnEggItem> HAUNTER_SPAWN_EGG = registerSpawnEgg(BonesEntities.HAUNTER_SKELETON,"haunter_skeleton_spawn_egg",0x6E6B6B,0x5642B3);
+    public static final RegistryObject<ForgeSpawnEggItem> KNIGHT_SKELETON_SPAWN_EGG = registerSpawnEgg(BonesEntities.KNIGHT_SKELETON,"knight_skeleton_spawn_egg",0x2E2E2E,0x5642B3);
     public static final RegistryObject<ForgeSpawnEggItem> MINION_SPAWN_EGG = registerSpawnEgg(BonesEntities.MINION,"minion_spawn_egg",0xC1C1C1,0xC5C5C5);
     public static final RegistryObject<ForgeSpawnEggItem> NECROMANCER_SPAWN_EGG = registerSpawnEgg(BonesEntities.NECROMANCER,"necromancer_spawn_egg",0x9B7A63,0xFFFFFF);
-    public static final RegistryObject<ForgeSpawnEggItem> REAPER_SPAWN_EGG = registerSpawnEgg(BonesEntities.REAPER,"reaper_spawn_egg",0xFFFFFF,0xFFFFFF);
-    public static final RegistryObject<ForgeSpawnEggItem> KNIGHT_SKELETON_SPAWN_EGG = registerSpawnEgg(BonesEntities.KNIGHT_SKELETON,"knight_skeleton_spawn_egg",0xD5D5D5,0xBF3939);
-    public static final RegistryObject<ForgeSpawnEggItem> HAUNTER_SPAWN_EGG = registerSpawnEgg(BonesEntities.HAUNTER_SKELETON,"haunter_skeleton_spawn_egg",0xD5D5D5,0xBF3939);
+    public static final RegistryObject<ForgeSpawnEggItem> REAPER_SPAWN_EGG = registerSpawnEgg(BonesEntities.REAPER,"reaper_spawn_egg",0x343244,0xBC5E5E);
 
     /** Register other items, with no use */
     public static final RegistryObject<Item> NECRO_SCEPTER_INVENTORY = BU_ITEMS.register("necromancer_scepter_inventory",
