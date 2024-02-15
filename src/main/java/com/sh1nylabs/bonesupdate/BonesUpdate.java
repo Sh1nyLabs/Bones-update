@@ -17,10 +17,21 @@ import org.slf4j.Logger;
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate {
     /** version 1.2: what is new:
+     *
+     * -- added content --
      * - new mob: the Haunter
+     * - new mob: the Reaper
      * - new tool: the Haunter spear (no recipe, obtained by drop from the haunter)
+     * - new block: the cursed lantern
+     *
+     * -- small updates --
      * - now broken skeletons can be hit by Explosions
      * - now broken skeletons take a longer time to revive
+     *
+     * -- bug fixes --
+     * - now broken skeletons can attack Iron Golems
+     * - now Entities no more take broken skeletons as targets (if they are broken)
+     * - advancement mistakes have been fixed.
     */
     public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -43,13 +54,14 @@ public class BonesUpdate {
     }
 
     private void addItemsInCreativeTab(CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS) {
+        if (event.getTab() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(BonesItems.GRAVE_BLOCK_ITEM);
-        } else if (event.getTab() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(BonesItems.WEEPING_WILLOW_LEAVES_ITEM);
             event.accept(BonesItems.WEEPING_WILLOW_VINES_ITEM);
         } else if (event.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(BonesItems.AMULET);
+        } else if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(BonesItems.CURSED_LANTERN_ITEM);
         } else if (event.getTab() == CreativeModeTabs.COMBAT) {
             event.accept(BonesItems.NECRO_SCEPTER);
             event.accept(BonesItems.HAUNTER_SPEAR);

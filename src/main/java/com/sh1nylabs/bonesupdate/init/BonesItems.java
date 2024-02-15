@@ -33,6 +33,7 @@ public class BonesItems {
 
     /** Register all block items using the function 'registerBlockItem' */
     public static final RegistryObject<Item> GRAVE_BLOCK_ITEM = registerBlockItem(BonesBlocks.GRAVE_BLOCK,"grave");
+    public static final RegistryObject<Item> CURSED_LANTERN_ITEM = registerBlockItem(BonesBlocks.CURSED_LANTERN,"cursed_lantern");
     public static final RegistryObject<Item> WEEPING_WILLOW_VINES_ITEM = registerBlockItem(BonesBlocks.WEEPING_WILLOW_SMALL_VINES ,"weeping_willow_vines");
     public static final RegistryObject<Item> WEEPING_WILLOW_LEAVES_ITEM = registerBlockItem(BonesBlocks.WEEPING_WILLOW_LEAVES,"weeping_willow_leaves");
 
