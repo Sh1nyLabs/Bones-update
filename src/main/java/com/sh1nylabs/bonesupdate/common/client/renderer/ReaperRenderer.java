@@ -7,12 +7,11 @@ import com.sh1nylabs.bonesupdate.common.client.models.ReaperModel;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class ReaperRenderer extends MobRenderer<Reaper, ReaperModel>{
 
-    public static final ResourceLocation TEXTURE=new ResourceLocation(BonesUpdate.MODID,"textures/entity/reaper.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BonesUpdate.MODID,"textures/entity/reaper.png");
 
     public ReaperRenderer(EntityRendererProvider.Context context) {
         super(context,new ReaperModel(context.bakeLayer(ReaperModel.LAYER_LOCATION)), 0.5f);

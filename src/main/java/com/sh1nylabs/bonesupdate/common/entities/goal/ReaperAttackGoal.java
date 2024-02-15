@@ -1,5 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.entities.goal;
 
+/* Java class written by sh1nylabs' team. All rights reserved. */
+
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
