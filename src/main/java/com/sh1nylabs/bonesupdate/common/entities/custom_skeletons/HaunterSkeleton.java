@@ -20,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class HaunterSkeleton extends BonesBrokenSkeletons {
-    //TODO: entities do not forget the target when broken
     public HaunterSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {
         super(entityType, level);
     }
@@ -48,6 +47,12 @@ public class HaunterSkeleton extends BonesBrokenSkeletons {
     protected void populateDefaultEquipmentSlots(RandomSource rdmSequence, DifficultyInstance difficulty) {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesItems.HAUNTER_SPEAR.get()));
     }
+
+    @Override
+    protected float getEquipmentDropChance(EquipmentSlot slot) {
+        return 0.0F;
+    }
+
 
     @Override
     protected SoundEvent getStepSound() {

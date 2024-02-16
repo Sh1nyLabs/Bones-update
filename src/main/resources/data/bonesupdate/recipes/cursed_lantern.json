@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ZYZ",
+    "YXY",
+    "ZYZ"
+  ],
+  "key": {
+    "X": {
+      "item": "bonesupdate:skeleton_soul"
+    },
+    "Z": {
+      "item": "bonesupdate:haunter_blade"
+    },
+    "Y": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "item": "bonesupdate:cursed_lantern"
+  }
+}
