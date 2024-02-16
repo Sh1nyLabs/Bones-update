@@ -23,6 +23,8 @@ public class BonesUpdate {
      * - new mob: the Reaper
      * - new tool: the Haunter spear (no recipe, obtained by drop from the haunter)
      * - new block: the cursed lantern
+     * - new item: the blade (dropped by haunters)
+     * - new item: the haunter blade (used for cursed lanterns)
      *
      * -- small updates --
      * - now broken skeletons can be hit by Explosions
@@ -69,6 +71,8 @@ public class BonesUpdate {
         } else if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
             event.accept(BonesItems.SKELETON_SOUL);
             event.accept(BonesItems.SOUL_ORB);
+            event.accept(BonesItems.BLADE);
+            event.accept(BonesItems.HAUNTER_BLADE);
         } else if (event.getTab() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(BonesItems.MINION_SPAWN_EGG);
             event.accept(BonesItems.KNIGHT_SKELETON_SPAWN_EGG);

@@ -28,6 +28,10 @@ public class BonesItems {
             ()-> new AmuletItem(new Item.Properties().durability(100)));
     public static final RegistryObject<Item> MINION_SWORD = BU_ITEMS.register("minion_sword",
             ()->new Item(new Item.Properties().durability(100)));
+    public static final RegistryObject<Item> BLADE = BU_ITEMS.register("blade",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+    public static final RegistryObject<Item> HAUNTER_BLADE = BU_ITEMS.register("haunter_blade",
+            () -> new Item(new Item.Properties().stacksTo(64)));
     public static final RegistryObject<Item> HAUNTER_SPEAR = BU_ITEMS.register("haunter_spear",
             ()-> new HaunterSpearItem(new Item.Properties().durability(100)));
 
