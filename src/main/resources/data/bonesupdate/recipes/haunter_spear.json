@@ -7,16 +7,16 @@
   ],
   "key": {
     "X": {
-      "item": "bonesupdate:soul_orb"
+      "item": "bonesupdate:haunter_blade"
     },
     "Z": {
-      "item": "minecraft:obsidian"
+      "item": "minecraft:amethyst_shard"
     },
     "Y": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "bonesupdate:necromancer_scepter"
+    "item": "bonesupdate:haunter_spear"
   }
 }

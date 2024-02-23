@@ -1,24 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_soul_orb": {
+    "has_haunter_blade": {
       "conditions": {
         "items": [
           {
             "items": [
-              "bonesupdate:soul_orb"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_obsidian": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:obsidian"
+              "bonesupdate:haunter_blade"
             ]
           }
         ]
@@ -27,21 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bonesupdate:necromancer_scepter"
+        "recipe": "bonesupdate:haunter_spear"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_soul_orb",
-      "has_obsidian",
+      "has_haunter_blade",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "bonesupdate:necromancer_scepter"
+      "bonesupdate:haunter_spear"
     ]
   }
 }
