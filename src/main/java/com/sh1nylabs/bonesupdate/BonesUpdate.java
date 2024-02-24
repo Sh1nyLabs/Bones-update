@@ -16,15 +16,15 @@ import org.slf4j.Logger;
 
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate {
-    /** version 1.2: what is new:
+    /** version 1.1: what is new:
      *
      * -- added content --
      * - new mob: the Haunter
      * - new mob: the Reaper
-     * - new tool: the Haunter spear (no recipe, obtained by drop from the haunter)
+     * - new tool: the Haunter spear (craftable from an item dropped by the Haunter)
      * - new block: the cursed lantern
-     * - new item: the blade (dropped by haunters)
-     * - new item: the haunter blade (used for cursed lanterns)
+     * - new item: the Blade (dropped by Haunters)
+     * - new item: the Haunter Blade (tradable with a cleric, used for cursed lanterns or haunter spear)
      *
      * -- small updates --
      * - now broken skeletons can be hit by Explosions
