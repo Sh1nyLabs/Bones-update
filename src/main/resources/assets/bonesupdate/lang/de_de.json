@@ -1,22 +1,30 @@
 {
+  "block.bonesupdate.cursed_lantern": "verfluchte Laterne",
   "block.bonesupdate.grave": "Grab",
   "block.bonesupdate.weeping_willow_leaves": "Trauerweide Blätter",
   "block.bonesupdate.weeping_willow_small_vines": "Trauerweidenreben",
   "block.bonesupdate.weeping_willow_vines": "Trauerweidenzweig",
 
   "item.bonesupdate.amulet": "Amulett",
+  "item.bonesupdate.blade": "Klinge",
+  "item.bonesupdate.haunter_blade": "Verfolgerklinge",
+  "item.bonesupdate.haunter_spear": "Verfolgerspeer",
   "item.bonesupdate.necromancer_scepter": "Nekromanten-Zepter",
   "item.bonesupdate.minion_sword": "Lakaienschwert",
   "item.bonesupdate.skeleton_soul": "Skelettseele",
   "item.bonesupdate.soul_orb": "Seelenorb",
 
+  "entity.bonesupdate.haunter_skeleton": "Verfolgerskelett",
   "entity.bonesupdate.knight_skeleton": "Ritterskelett",
   "entity.bonesupdate.minion": "Lakaien",
   "entity.bonesupdate.necromancer": "Nekromant",
+  "entity.bonesupdate.reaper": "Schnitter",
 
+  "item.bonesupdate.haunter_skeleton_spawn_egg": "Verfolgerskelett-Spawn-Ei",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Ritterskelett-Spawn-Ei",
   "item.bonesupdate.minion_spawn_egg": "Lakaien-Spawn-Ei",
   "item.bonesupdate.necromancer_spawn_egg": "Nekromant-Spawn-Ei",
+  "item.bonesupdate.reaper_spawn_egg": "Schnitter-Spawn-Ei",
 
   "enchantment.bonesupdate.leader": "Führer",
   "enchantment.bonesupdate.subaltern": "Subaltern",
@@ -40,6 +48,9 @@
   "advancements.skull_quest.kill_all_bones_monsters.description": "Töte jedes neue Monsterexemplar",
   "advancements.skull_quest.kill_broken_skeleton.title": "Letzter Schlag",
   "advancements.skull_quest.kill_broken_skeleton.description": "Ein gebrochenes Skelett töten",
-  "advancements.skull_quest.use_amulet.title": "Seelenextraktion",
+  "advancements.skull_quest.knight_dashes_vertically.title": "Dasher und Springer",
+  "advancements.skull_quest.knight_dashes_vertically.description": "Zwinge einen Ritterskelett, 8 Blöcke oder mehr zu springen, um dich zu verletzen.",
+  "advancements.skull_quest.untouchable.title": "Unberührbar",
+  "advancements.skull_quest.untouchable.description": "Sammle in deinem Inventar einen Speer und ein Zepter","advancements.skull_quest.use_amulet.title": "Seelenextraktion",
   "advancements.skull_quest.use_amulet.description": "Finde einen Weg, um Beute von einem zerbrochenen Skelett zu bekommen"
 }

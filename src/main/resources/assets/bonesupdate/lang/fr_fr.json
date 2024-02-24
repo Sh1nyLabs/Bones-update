@@ -1,22 +1,30 @@
 {
+  "block.bonesupdate.cursed_lantern": "Lanterne maudite",
   "block.bonesupdate.grave": "Tombe",
   "block.bonesupdate.weeping_willow_leaves": "Feuilles de Saule Pleureur",
   "block.bonesupdate.weeping_willow_small_vines": "Vigne de Saule Pleureur",
   "block.bonesupdate.weeping_willow_vines": "Branches de Saule Pleureur",
 
   "item.bonesupdate.amulet": "Amulette",
+  "item.bonesupdate.blade": "Lame",
+  "item.bonesupdate.haunter_blade": "Lame de Hanteur",
+  "item.bonesupdate.haunter_spear": "Lance de Faucheur",
   "item.bonesupdate.minion_sword": "Épée de Minion",
   "item.bonesupdate.necromancer_scepter": "Sceptre de Nécromancie",
   "item.bonesupdate.skeleton_soul": "Âme de Squelette",
   "item.bonesupdate.soul_orb": "Orbe Des Âmes",
 
+  "entity.bonesupdate.haunter_skeleton": "Squelette hanteur",
   "entity.bonesupdate.knight_skeleton": "Squelette Paladin",
   "entity.bonesupdate.minion": "Minion",
   "entity.bonesupdate.necromancer": "Nécromancien",
+  "entity.bonesupdate.reaper": "Faucheur",
 
+  "item.bonesupdate.haunter_skeleton_spawn_egg": "Oeuf d'apparition de Hanteur",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Oeuf d'apparition de Squelette Paladin",
   "item.bonesupdate.minion_spawn_egg": "Oeuf d'apparition de Minion",
   "item.bonesupdate.necromancer_spawn_egg": "Oeuf d'apparition de Nécromancien",
+  "item.bonesupdate.reaper_spawn_egg": "Oeuf d'apparition de Faucheur",
 
   "enchantment.bonesupdate.leader": "Commandant",
   "enchantment.bonesupdate.subaltern": "Subalterne",
@@ -40,6 +48,10 @@
   "advancements.skull_quest.kill_all_bones_monsters.description": "Tuez chaque nouveau spécimen de monstre",
   "advancements.skull_quest.kill_broken_skeleton.title": "Coup final",
   "advancements.skull_quest.kill_broken_skeleton.description": "Tuez un squelette brisé",
+  "advancements.skull_quest.knight_dashes_vertically.title": "Sprinteur et sauteur",
+  "advancements.skull_quest.knight_dashes_vertically.description": "Force un paladin à sauter 8 blocks ou plus pour te blesser",
+  "advancements.skull_quest.untouchable.title": "Intouchable",
+  "advancements.skull_quest.untouchable.description": "Rassemble dans ton inventaire une lance et un sceptre",
   "advancements.skull_quest.use_amulet.title": "Extraction d'âme",
   "advancements.skull_quest.use_amulet.description": "Trouvez un moyen d'obtenir le butin d'un squelette brisé"
 }

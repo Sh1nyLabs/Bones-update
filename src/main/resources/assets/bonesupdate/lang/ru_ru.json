@@ -1,22 +1,30 @@
 {
+  "block.bonesupdate.cursed_lantern": "Проклятый фонарь",
   "block.bonesupdate.grave": "могила",
   "block.bonesupdate.weeping_willow_leaves": "Листья плакучей ивы",
   "block.bonesupdate.weeping_willow_small_vines": "Плакучие ивовые лозы",
   "block.bonesupdate.weeping_willow_vines": "Ветка плакучей ивы",
 
   "item.bonesupdate.amulet": "Амулет",
+  "item.bonesupdate.blade": "Лезвие",
+  "item.bonesupdate.haunter_blade": "Клинок призрака",
+  "item.bonesupdate.haunter_spear": "Копье призрака",
   "item.bonesupdate.minion_sword": "Меч миньона",
   "item.bonesupdate.necromancer_scepter": "Скипетр некроманта",
   "item.bonesupdate.skeleton_soul": "Душа скелета",
   "item.bonesupdate.soul_orb": "Шар души",
 
+  "entity.bonesupdate.haunter_skeleton": "Скелет призрака",
   "entity.bonesupdate.knight_skeleton": "Рыцарь-скелет",
   "entity.bonesupdate.minion": "Миньон",
   "entity.bonesupdate.necromancer": "Некромант",
+  "entity.bonesupdate.reaper": "Жнец",
 
+  "item.bonesupdate.haunter_skeleton_spawn_egg": "Яйцо призыва Скелет призрака",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Яйцо призыва рыцарь-скелет",
   "item.bonesupdate.minion_spawn_egg": "Яйцо призыва миньон",
   "item.bonesupdate.necromancer_spawn_egg": "Яйцо призыва некромант",
+  "item.bonesupdate.reaper_spawn_egg": "Яйцо призыва Жнец",
 
   "enchantment.bonesupdate.leader": "Лидер",
   "enchantment.bonesupdate.subaltern": "Подчиненные",
@@ -40,6 +48,10 @@
   "advancements.skull_quest.kill_all_bones_monsters.description": "Убейте каждую новую особь монстра",
   "advancements.skull_quest.kill_broken_skeleton.title": "Последний удар",
   "advancements.skull_quest.kill_broken_skeleton.description": "Убить сломанный скелет",
+  "advancements.skull_quest.knight_dashes_vertically.title": "Дашер и джампер",
+  "advancements.skull_quest.knight_dashes_vertically.description": "Заставьте рыцаря прыгнуть на 8 блоков или больше, чтобы нанести вам урон.",
+  "advancements.skull_quest.untouchable.title": "Неприкасаемый",
+  "advancements.skull_quest.untouchable.description": "Соберите в инвентаре копье и скипетр.",
   "advancements.skull_quest.use_amulet.title": "Извлечение души",
   "advancements.skull_quest.use_amulet.description": "Найдите способ получить добычу с разбитого скелета"
 }

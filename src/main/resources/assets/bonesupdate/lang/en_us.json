@@ -1,29 +1,30 @@
 {
-  "item.bonesupdate.haunter_skeleton_spawn_egg": "Haunter Skeleton Spawn Egg",
-  "item.bonesupdate.haunter_spear": "Haunter Spear",
-  "entity.bonesupdate.haunter_skeleton": "Haunter Skeleton",
-  "advancements.skull_quest.knight_dashes_vertically.description": "Force a knight to jump 10 blocks or more to hurt you",
-  "advancements.skull_quest.knight_dashes_vertically.title": "Dasher and Jumper",
-
-
+  "block.bonesupdate.cursed_lantern": "Cursed Lantern",
   "block.bonesupdate.grave": "Grave",
   "block.bonesupdate.weeping_willow_leaves": "Weeping Willow Leaves",
   "block.bonesupdate.weeping_willow_small_vines": "Weeping Willow Vines",
   "block.bonesupdate.weeping_willow_vines": "Weeping Willow Branch Vines",
 
   "item.bonesupdate.amulet": "Amulet",
+  "item.bonesupdate.blade": "Blade",
+  "item.bonesupdate.haunter_blade": "Haunter Blade",
+  "item.bonesupdate.haunter_spear": "Haunter Spear",
   "item.bonesupdate.minion_sword": "Minion Sword",
   "item.bonesupdate.necromancer_scepter": "Necromancer Scepter",
   "item.bonesupdate.skeleton_soul": "Skeleton Soul",
   "item.bonesupdate.soul_orb": "Soul Orb",
 
+  "entity.bonesupdate.haunter_skeleton": "Haunter Skeleton",
   "entity.bonesupdate.knight_skeleton": "Knight Skeleton",
   "entity.bonesupdate.minion": "Minion",
   "entity.bonesupdate.necromancer": "Necromancer",
+  "entity.bonesupdate.reaper": "Reaper",
 
+  "item.bonesupdate.haunter_skeleton_spawn_egg": "Haunter Skeleton Spawn Egg",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Knight Skeleton Spawn Egg",
   "item.bonesupdate.minion_spawn_egg": "Minion Spawn Egg",
   "item.bonesupdate.necromancer_spawn_egg": "Necromancer Spawn Egg",
+  "item.bonesupdate.reaper_spawn_egg": "Reaper Spawn Egg",
 
   "enchantment.bonesupdate.leader": "Leader",
   "enchantment.bonesupdate.subaltern": "Subaltern",
@@ -47,6 +48,10 @@
   "advancements.skull_quest.kill_all_bones_monsters.description": "Kill each new monster specimen",
   "advancements.skull_quest.kill_broken_skeleton.title": "Final Blow",
   "advancements.skull_quest.kill_broken_skeleton.description": "Kill a broken skeleton",
+  "advancements.skull_quest.knight_dashes_vertically.title": "Dasher and Jumper",
+  "advancements.skull_quest.knight_dashes_vertically.description": "Force a knight to jump 8 blocks or more to hurt you",
+  "advancements.skull_quest.untouchable.title": "Untouchable",
+  "advancements.skull_quest.untouchable.description": "Collect in your inventory a spear and a scepter",
   "advancements.skull_quest.use_amulet.title": "Soul Extraction",
   "advancements.skull_quest.use_amulet.description": "Find a way to get loot from a broken skeleton"
 }
