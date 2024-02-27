@@ -23,14 +23,14 @@ public class ProtectKnightGoal extends Goal {
     @Override
     public boolean canUse() {
         RandomSource random = mob.getLevel().getRandom();
-        if ((knight == null || mob.distanceTo(knight) > 30.0D) && random.nextInt(20) == 0){ /* Used to dwindle the number of area checks */
+        if ((knight == null || mob.distanceTo(knight) > 30.0D) && random.nextInt(10) == 0){ /* Used to dwindle the number of area checks */
             AABB aabb = mob.getBoundingBox().inflate(10.0D,6.0D,10.0D);
             List<KnightSkeleton> list = mob.getLevel().getNearbyEntities(KnightSkeleton.class, TargetingConditions.forNonCombat().range(10.0D), mob, aabb).stream().filter((knight)->knight.canDash()).toList();
             if (!list.isEmpty()) {
                 knight = list.get(0);
             }
         }
-        return (knight != null && (knight.isDashing() || random.nextInt(10) == 0)); /* Goal used randomly (1 of 7) or when the knight dashes */
+        return (knight != null && (knight.isDashing() || random.nextInt(8) == 0)); /* Goal used randomly (1 of 7) or when the knight dashes */
     }
 
     @Override

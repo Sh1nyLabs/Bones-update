@@ -39,7 +39,7 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
     private static final EntityDataAccessor<Boolean> IS_BROKEN = SynchedEntityData.defineId(BonesBrokenSkeletons.class, EntityDataSerializers.BOOLEAN);
     private boolean clientSideBrokenState = false;
     protected static final float HEALTH_WHEN_SKELETON_BREAKS = 55.0F; // FIXED_VALUE
-    private static final int REVIVING_TIME_WHEN_BROKEN = 1000; // FIXED_VALUE
+    private static final int REVIVING_TIME_WHEN_BROKEN = 1050; // FIXED_VALUE
     private boolean friendly;
     private int timeBeforeSkeletonRevives;
 

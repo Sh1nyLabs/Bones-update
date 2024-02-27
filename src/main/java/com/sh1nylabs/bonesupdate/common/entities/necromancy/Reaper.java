@@ -23,7 +23,7 @@ public class Reaper extends FlyingMob implements Enemy {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH,28.0D) // FIX_VALUE
                 .add(Attributes.MOVEMENT_SPEED, 0.2D) // FIX_VALUE
-                .add(Attributes.ATTACK_DAMAGE, 6.0D) // FIX_VALUE
+                .add(Attributes.ATTACK_DAMAGE, 8.0D) // FIX_VALUE
                 .add(Attributes.ATTACK_SPEED, 1.7D); // FIX_VALUE, as ATTACK_SPEED * 10 ticks
     }
 

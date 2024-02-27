@@ -85,7 +85,7 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 
 	@Override
 	public void setupAnim(HaunterSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean flag2 = entity.isBroken();
+		boolean broken = entity.isBroken();
 		boolean flag = entity.getFallFlyingTicks() > 4;
 		float f = 1.0F;
 		if (flag) {
@@ -103,9 +103,9 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.right_arm.yRot = 0.0F;
 		this.left_arm.yRot = 0.0F;
 
-		if (flag2) {
+		if (broken) {
 			this.right_hand.x = -2.0F;
-			this.right_hand.y = 10.0F;
+			this.right_hand.y = 18.0F;
 			this.right_hand.z = 0.0F;
 			this.right_hand.xRot = -1.0F;
 
@@ -130,14 +130,14 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.right_leg.xRot = Mth.cos(limbSwing * period) * 1.4F * limbSwingAmount / f;
 		this.left_leg.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * 1.4F * limbSwingAmount / f;
 
-		this.head.visible =! flag2;
-		this.body.visible =! flag2;
-		this.left_arm.visible =! flag2;
-		this.right_arm.visible =! flag2;
-		this.left_leg.visible =! flag2;
-		this.right_leg.visible =! flag2;
+		this.head.visible =!broken;
+		this.body.visible =!broken;
+		this.left_arm.visible =!broken;
+		this.right_arm.visible =!broken;
+		this.left_leg.visible =!broken;
+		this.right_leg.visible =!broken;
 
-		this.broken_state.visible = flag2;
+		this.broken_state.visible = broken;
 	}
 
 	protected void setupAttackAnimation(HaunterSkeleton entity, float ageInTicks) {
