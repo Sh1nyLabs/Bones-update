@@ -19,11 +19,11 @@ import net.minecraftforge.registries.RegistryObject;
 public class BonesEntities {
     public static final DeferredRegister<EntityType<?>> BU_ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BonesUpdate.MODID);
 
-    public static final RegistryObject<EntityType<HaunterSkeleton>> HAUNTER_SKELETON = registerMonster("haunter_skeleton", HaunterSkeleton::new);
-    public static final RegistryObject<EntityType<KnightSkeleton>> KNIGHT_SKELETON = registerMonster("knight_skeleton", KnightSkeleton::new);
+    public static final RegistryObject<EntityType<HaunterSkeleton>> HAUNTER_SKELETON = registerMonster("haunter_skeleton", HaunterSkeleton::new, 0.6F, 1.99F);
+    public static final RegistryObject<EntityType<KnightSkeleton>> KNIGHT_SKELETON = registerMonster("knight_skeleton", KnightSkeleton::new, 0.6F, 1.99F);
     public static final RegistryObject<EntityType<Minion>> MINION = registerMonster("minion", Minion::new,0.35F,0.85F);
     public static final RegistryObject<EntityType<Necromancer>> NECROMANCER = registerMonster("necromancer", Necromancer::new);
-    public static final RegistryObject<EntityType<Reaper>> REAPER = registerMonster("reaper", Reaper::new);
+    public static final RegistryObject<EntityType<Reaper>> REAPER = registerMonster("reaper", Reaper::new, 0.6F, 1.4F);
 
     public static void registerWaveMembers() {
         Raid.RaiderType.create("NECROMANCER", NECROMANCER.get(), new int[]{0, 0, 1, 0, 1, 1, 2, 1}); //FIX_VALUES
