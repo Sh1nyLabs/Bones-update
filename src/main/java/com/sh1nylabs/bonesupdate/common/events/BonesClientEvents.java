@@ -25,6 +25,7 @@ public class BonesClientEvents {
         event.registerEntityRenderer(BonesEntities.REAPER.get(), ReaperRenderer::new);
         event.registerEntityRenderer(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeletonRenderer::new);
         event.registerEntityRenderer(BonesEntities.HAUNTER_SKELETON.get(), HaunterSkeletonRenderer::new);
+        event.registerEntityRenderer(BonesEntities.BROKEN_SKELETON.get(), BrokenSkeletonRenderer::new);
     }
 
     @SubscribeEvent
@@ -34,6 +35,7 @@ public class BonesClientEvents {
         event.registerLayerDefinition(ReaperModel.LAYER_LOCATION,ReaperModel::createBodyLayer);
         event.registerLayerDefinition(KnightSkeletonModel.LAYER_LOCATION, KnightSkeletonModel::createBodyLayer);
         event.registerLayerDefinition(HaunterSkeletonModel.LAYER_LOCATION, HaunterSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(BrokenSkeletonModel.LAYER_LOCATION, BrokenSkeletonModel::createBodyLayer);
     }
 
     @SubscribeEvent

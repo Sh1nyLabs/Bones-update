@@ -23,7 +23,7 @@ public class BonesUpdate {
      * - new mob: the Reaper
      * - new tool: the Haunter spear (craftable from an item dropped by the Haunter)
      * - new block: the cursed lantern
-     * - new item: the Blade (dropped by Haunters)
+     * - new item: the Blade
      * - new item: the Haunter Blade (tradable with a cleric, used for cursed lanterns or haunter spear)
      *
      * -- small updates --

@@ -3,20 +3,17 @@ package com.sh1nylabs.bonesupdate.common.events;
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
-import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BonesBrokenSkeletons;
-import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleton;
-import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.KnightSkeleton;
-import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.*;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -24,7 +21,9 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -53,6 +52,30 @@ public class BonesModEvent {
             }
         }
 
+        /**
+         * Catch a skeleton which is dying in order to replace it by a broken form.
+         * Cancels the event and replace the entity with a broken skeleton.
+         * When the broken skeleton revives, it replaces the original skeleton.
+         */
+        @SubscribeEvent
+        public static void SkeletonDiesEvent(LivingDeathEvent event) {
+            if ((!event.getEntity().getLevel().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && !(skeleton instanceof BrokenSkeleton)) {
+                event.setCanceled(true);
+                ServerLevel svrLevel = (ServerLevel) event.getEntity().getLevel();
+                BonesUpdate.LOGGER.info("skeleton dies:{}",skeleton.getType());
+                BrokenSkeleton broken = BonesEntities.BROKEN_SKELETON.get().create(svrLevel);
+                BonesUpdate.LOGGER.info("creating broken skeleton");
+                if (broken != null) {
+                    broken.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
+                    ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), MobSpawnType.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton.getType()), null);
+
+                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, broken);
+                    svrLevel.addFreshEntityWithPassengers(broken);
+                    svrLevel.gameEvent(broken, GameEvent.ENTITY_PLACE, broken.blockPosition());
+                    skeleton.discard();
+                }
+            }
+        }
         /**
          * When a pillager or a villager dies near a necromancer, it increases the necromancer's
          * minion spawn capacity.
@@ -104,6 +127,7 @@ public class BonesModEvent {
             event.put(BonesEntities.REAPER.get(), Reaper.getCustomAttributes().build());
             event.put(BonesEntities.KNIGHT_SKELETON.get(), KnightSkeleton.getCustomAttributes().build());
             event.put(BonesEntities.HAUNTER_SKELETON.get(), HaunterSkeleton.getCustomAttributes().build());
+            event.put(BonesEntities.BROKEN_SKELETON.get(), BrokenSkeleton.getCustomAttributes().build());
         }
 
         @SubscribeEvent

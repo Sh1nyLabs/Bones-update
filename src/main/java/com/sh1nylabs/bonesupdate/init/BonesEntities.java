@@ -3,6 +3,7 @@ package com.sh1nylabs.bonesupdate.init;
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleton;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
@@ -18,6 +19,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class BonesEntities {
     public static final DeferredRegister<EntityType<?>> BU_ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BonesUpdate.MODID);
+
+    public static final RegistryObject<EntityType<BrokenSkeleton>> BROKEN_SKELETON = BU_ENTITIES.register("broken_skeleton",
+            () -> EntityType.Builder.of(BrokenSkeleton::new,MobCategory.CREATURE).sized(1.1F,0.3F).build(BonesUpdate.MODID+":"+"broken_skeleton"));
 
     public static final RegistryObject<EntityType<HaunterSkeleton>> HAUNTER_SKELETON = registerMonster("haunter_skeleton", HaunterSkeleton::new, 0.6F, 1.99F);
     public static final RegistryObject<EntityType<KnightSkeleton>> KNIGHT_SKELETON = registerMonster("knight_skeleton", KnightSkeleton::new, 0.6F, 1.99F);
