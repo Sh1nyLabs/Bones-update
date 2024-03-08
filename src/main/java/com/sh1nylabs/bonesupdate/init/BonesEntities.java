@@ -21,7 +21,7 @@ public class BonesEntities {
     public static final DeferredRegister<EntityType<?>> BU_ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BonesUpdate.MODID);
 
     public static final RegistryObject<EntityType<BrokenSkeleton>> BROKEN_SKELETON = BU_ENTITIES.register("broken_skeleton",
-            () -> EntityType.Builder.of(BrokenSkeleton::new,MobCategory.CREATURE).sized(1.1F,0.3F).build(BonesUpdate.MODID+":"+"broken_skeleton"));
+            () -> EntityType.Builder.of(BrokenSkeleton::new,MobCategory.CREATURE).sized(0.6F,0.5F).build(BonesUpdate.MODID+":"+"broken_skeleton"));
 
     public static final RegistryObject<EntityType<HaunterSkeleton>> HAUNTER_SKELETON = registerMonster("haunter_skeleton", HaunterSkeleton::new, 0.6F, 1.99F);
     public static final RegistryObject<EntityType<KnightSkeleton>> KNIGHT_SKELETON = registerMonster("knight_skeleton", KnightSkeleton::new, 0.6F, 1.99F);

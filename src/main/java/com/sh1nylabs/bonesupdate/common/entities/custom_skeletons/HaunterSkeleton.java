@@ -26,7 +26,7 @@ public class HaunterSkeleton extends BonesBrokenSkeletons {
 
     public static AttributeSupplier.Builder getCustomAttributes() {
         return (Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0D + HEALTH_WHEN_SKELETON_BREAKS)
+                .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.ATTACK_DAMAGE,5.0D)
                 .add(Attributes.FOLLOW_RANGE, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.21F)

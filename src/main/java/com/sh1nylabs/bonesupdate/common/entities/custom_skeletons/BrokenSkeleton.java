@@ -2,8 +2,10 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
+import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -11,28 +13,31 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class BrokenSkeleton extends AbstractSkeleton {
-    private int timeBeforeSkeletonRevives; //TODO: What about skeleton head?
+    private int timeBeforeSkeletonRevives;
+    private LivingEntity inheritedKillCredit;
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.INT);
 
     public BrokenSkeleton(EntityType<? extends AbstractSkeleton> type, Level level) {
@@ -46,11 +51,14 @@ public class BrokenSkeleton extends AbstractSkeleton {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("Variant", this.entityData.get(DATA_ID_TYPE_VARIANT));
+        BonesUpdate.LOGGER.info("called save data. Saved Variant:{}",compoundTag.get("Variant"));
+        compoundTag.putInt("TimeToRevive", this.timeBeforeSkeletonRevives);
     }
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.entityData.set(DATA_ID_TYPE_VARIANT, compoundTag.getInt("Variant"));
+        this.timeBeforeSkeletonRevives = compoundTag.getInt("TimeToRevive");
     }
 
     public static AttributeSupplier.Builder getCustomAttributes() {
@@ -58,31 +66,52 @@ public class BrokenSkeleton extends AbstractSkeleton {
                 .add(Attributes.MAX_HEALTH, 55.0D));
     }
 
-    public SkeletonVariants getVariant() {return SkeletonVariants.getVariantFromValue(this.entityData.get(DATA_ID_TYPE_VARIANT));}
-    public void setVariant(SkeletonVariants variant) {
-        this.entityData.set(DATA_ID_TYPE_VARIANT, variant.value);
+    protected void dropAllDeathLoot(DamageSource damageSource) {
+        if (damageSource.getEntity() instanceof Creeper || (damageSource.getEntity() instanceof Player player &&
+                (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AmuletItem ||
+                 player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem))) {
+            super.dropAllDeathLoot(damageSource);
+        }
     }
 
-    protected void dropAllDeathLoot(DamageSource damageSource) {
-        if (damageSource.getEntity() instanceof Player player) {
-            if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AmuletItem ||
-                    player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem) {
-                super.dropAllDeathLoot(damageSource);
+    protected void dropCustomDeathLoot(DamageSource damageSource, int p_33575_, boolean p_33576_) {
+        super.dropCustomDeathLoot(damageSource, p_33575_, p_33576_);
+        Entity entity = damageSource.getEntity();
+        if (entity instanceof Creeper creeper) {
+            if (creeper.canDropMobsSkull()) {
+                creeper.increaseDroppedSkulls();
+                if (getSkeletonType() == EntityType.WITHER_SKELETON) {
+                    this.spawnAtLocation(Items.WITHER_SKELETON_SKULL);
+                } else if (getSkeletonType() != EntityType.STRAY) {
+                    this.spawnAtLocation(Items.SKELETON_SKULL);
+                }
             }
         }
     }
     public ResourceLocation getDefaultLootTable() {
         BonesUpdate.LOGGER.info("loot table called");
-        return getVariant().entityType.getDefaultLootTable();
+        return getSkeletonType().getDefaultLootTable();
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
         timeBeforeSkeletonRevives = 1050 + random.nextInt(100);
         if (spawnData instanceof BrokenSkeletonSpawnData skeletonData) { /* Defining which skeleton to create after revival */
-            this.setVariant(skeletonData.variant);
+            setSkeletonType(skeletonData.skeletonType);
+
+            this.inheritedKillCredit = skeletonData.inheritedKillCredit;
+            BonesUpdate.LOGGER.info("inheriting kill: {}", inheritedKillCredit);
+
+            this.setRemainingFireTicks((skeletonData.remainingFireTicks));
+            for(int i = 0; i < skeletonData.listtag.size(); ++i) {
+                CompoundTag compoundtag = skeletonData.listtag.getCompound(i);
+                MobEffectInstance mobeffectinstance = MobEffectInstance.load(compoundtag);
+                if (mobeffectinstance != null) {
+                    this.getActiveEffectsMap().put(mobeffectinstance.getEffect(), mobeffectinstance);
+                }
+            }
         } else {
-            this.setVariant(SkeletonVariants.NONE);
+            this.entityData.set(DATA_ID_TYPE_VARIANT, 1);
         }
         return spawnData;
     }
@@ -91,29 +120,43 @@ public class BrokenSkeleton extends AbstractSkeleton {
     public void tick() {
         if (!this.getLevel().isClientSide()) {
             if (timeBeforeSkeletonRevives <= 0 && this.isAlive()) {
-                if (getVariant().entityType == null) {
-                    this.kill();
-                } else {
-                    ServerLevel svrLevel = (ServerLevel) level;
-                    BonesUpdate.LOGGER.info("creating skeleton");
-                    AbstractSkeleton skeleton = getVariant().entityType.create(svrLevel);
-                    if (skeleton!=null) {
-                        skeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-                        ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
-
-                        net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, skeleton);
-                        svrLevel.addFreshEntityWithPassengers(skeleton);
-                        svrLevel.gameEvent(skeleton, GameEvent.ENTITY_PLACE, this.blockPosition());
-                        this.discard();
-                        svrLevel.sendParticles(BonesParticles.PURPLE_SOUL.get(),
-                                skeleton.getX(), skeleton.getY() + 0.5D, skeleton.getZ(),
-                                50, 0.0D, 0.1D, 0.0D, 0.20D);
+                ServerLevel svrLevel = (ServerLevel) level;
+                AbstractSkeleton skeleton = getSkeletonType().create(svrLevel);
+                if (skeleton!=null) {
+                    skeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                    for(MobEffectInstance mobeffectinstance : this.getActiveEffectsMap().values()) {
+                        skeleton.getActiveEffectsMap().put(mobeffectinstance.getEffect(), mobeffectinstance);
                     }
+                    ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
+
+                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, skeleton);
+                    svrLevel.addFreshEntityWithPassengers(skeleton);
+                    svrLevel.gameEvent(skeleton, GameEvent.ENTITY_PLACE, this.blockPosition());
+                    this.discard();
+                    svrLevel.sendParticles(BonesParticles.PURPLE_SOUL.get(),
+                            skeleton.getX(), skeleton.getY() + 0.5D, skeleton.getZ(),
+                            50, 0.0D, 0.1D, 0.0D, 0.20D);
+
                 }
             } else {
                 timeBeforeSkeletonRevives--;}
         }
         super.tick();
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        if (!this.isRemoved() && !this.dead && this.level instanceof ServerLevel) {
+            if (damageSource.getEntity() instanceof Player player) {
+                player.awardStat(Stats.ENTITY_KILLED.get(this.getSkeletonType()));
+            }
+        }
+        super.die(damageSource);
+    }
+
+    @Override
+    public LivingEntity getKillCredit() {
+        return inheritedKillCredit;
     }
 
     @Override
@@ -123,7 +166,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     @Override
     public boolean isSunBurnTick() {
-        return getVariant().entityType != EntityType.WITHER_SKELETON;
+        return getSkeletonType() != EntityType.WITHER_SKELETON && super.isSunBurnTick();
     }
 
     @Override
@@ -141,48 +184,54 @@ public class BrokenSkeleton extends AbstractSkeleton {
         return SoundEvents.SKELETON_STEP;
     }
 
-    public static class BrokenSkeletonSpawnData implements SpawnGroupData {
-        public SkeletonVariants variant;
-        public BrokenSkeletonSpawnData(EntityType<?> entityType) {
-            this.variant = SkeletonVariants.getVariantFromEntity(entityType);
-        }
+    /** Overriden so that eye height is modified when the skeleton is broken. */
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {return 0.3F;}
+
+
+    public final EntityType<? extends AbstractSkeleton> getSkeletonType() {
+        return switch (this.entityData.get(DATA_ID_TYPE_VARIANT)) { /* case 1 is SKELETON */
+            case 2 -> EntityType.STRAY;
+            case 3 -> EntityType.WITHER_SKELETON;
+            case 4 -> BonesEntities.HAUNTER_SKELETON.get();
+            case 5 -> BonesEntities.KNIGHT_SKELETON.get();
+            default -> EntityType.SKELETON;
+        };
     }
 
-    /**
-     * Enum to fill when new skeletons are added to the game.
-     */
-    public enum SkeletonVariants {
-        NONE(0, null),
-        SKELETON(1, EntityType.SKELETON),
-        STRAY(2, EntityType.STRAY),
-        WITHER_SKELETON(3, EntityType.WITHER_SKELETON);
-        public final int value;
-        public final EntityType<? extends AbstractSkeleton> entityType;
+    public final String getSkeletonTypeString() {
+        return getSkeletonType() == null? "none" : getSkeletonType().toString();
+    }
 
-        SkeletonVariants(int value, EntityType<? extends AbstractSkeleton> entityType) {
-            this.value = value;
-            this.entityType = entityType;
-        }
+    public final void setSkeletonType(EntityType<? extends AbstractSkeleton> skeletonType) {
+        this.entityData.set(DATA_ID_TYPE_VARIANT, switch (skeletonType.toString()) {
+            case "entity.minecraft.stray" -> 2;
+            case "entity.minecraft.wither_skeleton" -> 3;
+            case "entity.bonesupdate.haunter_skeleton" -> 4;
+            case "entity.bonesupdate.knight_skeleton" -> 5;
+            default -> 1;
+        });
+    }
 
-        public static SkeletonVariants getVariantFromValue(int value) {
-            return switch (value) {
-                case 1 -> SKELETON;
-                case 2 -> STRAY;
-                case 3 -> WITHER_SKELETON;
-                default -> NONE;
-            };
-        }
 
-        public static SkeletonVariants getVariantFromEntity(EntityType<?> entityType) {
-            if (entityType == EntityType.SKELETON) {
-                return (SKELETON);
-            } else if (entityType == EntityType.STRAY) {
-                return (STRAY);
-            } else if (entityType == EntityType.WITHER_SKELETON) {
-                return (WITHER_SKELETON);
-            } else {
-                return (NONE);
+    public static class BrokenSkeletonSpawnData implements SpawnGroupData {
+        public EntityType<? extends AbstractSkeleton> skeletonType;
+        public ListTag listtag;
+        public LivingEntity inheritedKillCredit;
+
+        public int remainingFireTicks;
+
+        public BrokenSkeletonSpawnData(AbstractSkeleton entity) {
+            this.skeletonType = (EntityType<? extends AbstractSkeleton>) entity.getType();
+            this.listtag = new ListTag();
+            this.remainingFireTicks = entity.getRemainingFireTicks();
+            this.inheritedKillCredit = entity.getKillCredit();
+
+            for(MobEffectInstance mobeffectinstance : entity.getActiveEffectsMap().values()) {
+                listtag.add(mobeffectinstance.save(new CompoundTag()));
             }
         }
     }
+
+
 }

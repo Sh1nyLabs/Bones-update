@@ -26,7 +26,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,33 +40,20 @@ public class BonesModEvent {
     public static class BonesForgeEvents {
 
         /**
-         * When a broken skeleton is hurt, he might switch to a broken state instead of dying.
-         * @param event the damage event
-         */
-        @SubscribeEvent
-        public static void SkeletonBrokeEvent(LivingDamageEvent event) {
-            if (event.getEntity() instanceof BonesBrokenSkeletons customSkeleton && !customSkeleton.getLevel().isClientSide()) {
-                float finalDamage = customSkeleton.updateDamageIfBecomesBroken(event.getAmount(),event.getSource());
-                event.setAmount(finalDamage);
-            }
-        }
-
-        /**
          * Catch a skeleton which is dying in order to replace it by a broken form.
          * Cancels the event and replace the entity with a broken skeleton.
-         * When the broken skeleton revives, it replaces the original skeleton.
+         * When the broken skeleton revives, it is removed from world and
+         *     replaced by the original skeleton.
          */
         @SubscribeEvent
         public static void SkeletonDiesEvent(LivingDeathEvent event) {
-            if ((!event.getEntity().getLevel().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && !(skeleton instanceof BrokenSkeleton)) {
+            if ((!event.getEntity().getLevel().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion)) {
                 event.setCanceled(true);
                 ServerLevel svrLevel = (ServerLevel) event.getEntity().getLevel();
-                BonesUpdate.LOGGER.info("skeleton dies:{}",skeleton.getType());
                 BrokenSkeleton broken = BonesEntities.BROKEN_SKELETON.get().create(svrLevel);
-                BonesUpdate.LOGGER.info("creating broken skeleton");
                 if (broken != null) {
                     broken.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
-                    ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), MobSpawnType.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton.getType()), null);
+                    ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), MobSpawnType.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton), null);
 
                     net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, broken);
                     svrLevel.addFreshEntityWithPassengers(broken);

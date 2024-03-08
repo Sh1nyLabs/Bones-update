@@ -85,7 +85,7 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 
 	@Override
 	public void setupAnim(HaunterSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean broken = entity.isBroken();
+		//boolean broken = entity.isBroken();
 		boolean flag = entity.getFallFlyingTicks() > 4;
 		float f = 1.0F;
 		if (flag) {
@@ -102,21 +102,23 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.right_hand.yRot = 0.0F;
 		this.right_arm.yRot = 0.0F;
 		this.left_arm.yRot = 0.0F;
-
+		/**
 		if (broken) {
+
 			this.right_hand.x = -2.0F;
 			this.right_hand.y = 18.0F;
 			this.right_hand.z = 0.0F;
 			this.right_hand.xRot = -1.0F;
 
 		} else {
-			this.right_arm.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
-			setupAttackAnimation(entity, ageInTicks);
-			this.right_hand.x = -5.0F;
-			this.right_hand.y = 10.0F * Mth.cos(this.right_arm.xRot);
-			this.right_hand.z = 10.0F * Mth.sin(this.right_arm.xRot);
-			this.right_hand.xRot = 0.1F * Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
-		}
+		 */
+		this.right_arm.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
+		setupAttackAnimation(entity, ageInTicks);
+		this.right_hand.x = -5.0F;
+		this.right_hand.y = 10.0F * Mth.cos(this.right_arm.xRot);
+		this.right_hand.z = 10.0F * Mth.sin(this.right_arm.xRot);
+		this.right_hand.xRot = 0.1F * Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
+
 
 		this.left_arm.xRot = Mth.cos(limbSwing * period) * limbSwingAmount / f;
 
@@ -130,14 +132,8 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.right_leg.xRot = Mth.cos(limbSwing * period) * 1.4F * limbSwingAmount / f;
 		this.left_leg.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * 1.4F * limbSwingAmount / f;
 
-		this.head.visible =!broken;
-		this.body.visible =!broken;
-		this.left_arm.visible =!broken;
-		this.right_arm.visible =!broken;
-		this.left_leg.visible =!broken;
-		this.right_leg.visible =!broken;
 
-		this.broken_state.visible = broken;
+		this.broken_state.visible = false; //TODO: remove broken part in model
 	}
 
 	protected void setupAttackAnimation(HaunterSkeleton entity, float ageInTicks) {

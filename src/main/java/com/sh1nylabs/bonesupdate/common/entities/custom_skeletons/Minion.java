@@ -36,12 +36,6 @@ public class Minion extends BonesBrokenSkeletons{
     }
 
     @Override
-    public boolean isBroken() {return false;}
-
-    @Override
-    public float updateDamageIfBecomesBroken(float amount,DamageSource damageSource) {return amount;}
-
-    @Override
     public boolean isSunBurnTick() {
         return false;
     }

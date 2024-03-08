@@ -22,11 +22,7 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
 
     @Override
     public boolean canContinueToUse() {
-        if (knight.isBroken()) {
-            return false;
-        } else {
-            return knight.isDashing() || super.canContinueToUse();
-        }
+        return knight.isDashing() || super.canContinueToUse();
     }
 
     /** When the knight dashes, a counter is decremented. At 0, it should launch its attack.

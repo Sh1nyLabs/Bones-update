@@ -42,7 +42,7 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
 
     public static AttributeSupplier.Builder getCustomAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH,20.0D + HEALTH_WHEN_SKELETON_BREAKS) //FIX_VALUE
+                .add(Attributes.MAX_HEALTH,20.0D) //FIX_VALUE
                 .add(Attributes.ATTACK_DAMAGE, 6.0D) //FIX_VALUE
                 .add(Attributes.MOVEMENT_SPEED, 0.21F) //FIX_VALUE
                 .add(Attributes.FOLLOW_RANGE,20.0F); //FIX_VALUE
@@ -95,17 +95,11 @@ public class KnightSkeleton extends BonesBrokenSkeletons {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         return spawnData;
     }
-    public boolean canDash() {return this.dashCooldown<0 && !this.isBroken();}
+    public boolean canDash() {return this.dashCooldown<0;}
 
     public void resetDashCooldown() {
         this.dashCooldown = DASH_RESET_DURATION;
         this.setIsDashing(false);
-    }
-
-    @Override
-    public void brokenSkeletonRevives() {
-        this.dashCooldown = 60;
-        super.brokenSkeletonRevives();
     }
 
     @Override
