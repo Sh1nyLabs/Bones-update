@@ -1,0 +1,108 @@
+{
+  "parent": "bonesupdate:skull_quest/use_amulet",
+  "criteria":  {
+    "used_on_skeleton": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_skeleton",
+          "nbt": "{Variant:1}"
+        }
+      }
+    },
+    "used_on_stray": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_skeleton",
+          "nbt": "{Variant:2}"
+        }
+      }
+    },
+    "used_on_wither_skeleton": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_skeleton",
+          "nbt": "{Variant:3}"
+        }
+      }
+    },
+    "used_on_haunter_skeleton": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_skeleton",
+          "nbt": "{Variant:4}"
+        }
+      }
+    },
+    "used_on_knight_skeleton": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_skeleton",
+          "nbt": "{Variant:5}"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "used_on_skeleton"
+    ],
+    [
+      "used_on_stray"
+    ],
+    [
+      "used_on_wither_skeleton"
+    ],
+    [
+      "used_on_haunter_skeleton"
+    ],
+    [
+      "used_on_knight_skeleton"
+    ]
+  ],
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.skull_quest.use_amulet_all_skeletons.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "bonesupdate:amulet",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.skull_quest.use_amulet_all_skeletons.title"
+    }
+  }
+}

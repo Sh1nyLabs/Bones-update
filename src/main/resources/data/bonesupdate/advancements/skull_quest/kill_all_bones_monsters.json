@@ -8,7 +8,8 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "bonesupdate:haunter_skeleton"
+              "type": "bonesupdate:broken_skeleton",
+              "nbt": "{Variant:4}"
             }
           }
         ]
@@ -22,7 +23,8 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "bonesupdate:knight_skeleton"
+              "type": "bonesupdate:broken_skeleton",
+              "nbt": "{Variant:5}"
             }
           }
         ]
@@ -56,24 +58,23 @@
         ]
       },
       "trigger": "minecraft:player_killed_entity"
+    },
+    "bonesupdate:reaper": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:reaper"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
     }
   },
-  "bonesupdate:reaper": {
-    "conditions": {
-      "entity": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "type": "bonesupdate:reaper"
-          }
-        }
-      ]
-    },
-    "trigger": "minecraft:player_killed_entity"
-  }
-},
-  "display": {
+"display": {
     "announce_to_chat": true,
     "description": {
       "translate": "advancements.skull_quest.kill_all_bones_monsters.description"

@@ -32,6 +32,7 @@ public class AmuletItem extends Item implements CanPacifyGraves {
      */
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
+        /**
         if (entity instanceof BonesBrokenSkeletons brokenSkeleton) {
             if (!player.level.isClientSide() && brokenSkeleton.isAlive() && brokenSkeleton.isBroken()) {
                 brokenSkeleton.setHealth(-1.0F);
@@ -41,12 +42,14 @@ public class AmuletItem extends Item implements CanPacifyGraves {
                 player.getCooldowns().addCooldown(this, 80); // FIX_VALUE
             }
             return InteractionResult.SUCCESS;
-        } else if (!player.level.isClientSide() && entity instanceof BrokenSkeleton brokenSkeleton) {
-            brokenSkeleton.setHealth(-1.0F);
+        } else  */
+         if (!player.level.isClientSide() && entity instanceof BrokenSkeleton brokenSkeleton && brokenSkeleton.isAlive()) {
+            brokenSkeleton.setHealth(0.0F);
             brokenSkeleton.die(player.level.damageSources().playerAttack(player));
 
             stack.hurtAndBreak(1, player, player1 -> {player1.broadcastBreakEvent(hand);});
             player.getCooldowns().addCooldown(this, 80); // FIX_VALUE
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }

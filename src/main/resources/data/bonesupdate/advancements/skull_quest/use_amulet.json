@@ -1,7 +1,7 @@
 {
   "parent": "bonesupdate:skull_quest/kill_broken_skeleton",
   "criteria":  {
-    "used_on_haunter": {
+    "used_on_broken_skeleton": {
       "trigger": "minecraft:player_interacted_with_entity",
       "conditions": {
         "item": {
@@ -10,42 +10,14 @@
           ]
         },
         "entity": {
-          "type": "bonesupdate:haunter_skeleton"
-        }
-      }
-    },
-    "used_on_knight": {
-      "trigger": "minecraft:player_interacted_with_entity",
-      "conditions": {
-        "item": {
-          "items": [
-            "bonesupdate:amulet"
-          ]
-        },
-        "entity": {
-          "type": "bonesupdate:knight_skeleton"
-        }
-      }
-    },
-    "used_on_minion": {
-      "trigger": "minecraft:player_interacted_with_entity",
-      "conditions": {
-        "item": {
-          "items": [
-            "bonesupdate:amulet"
-          ]
-        },
-        "entity": {
-          "type": "bonesupdate:minion"
+          "type": "bonesupdate:broken_skeleton"
         }
       }
     }
   },
   "requirements": [
     [
-      "used_on_haunter",
-      "used_on_knight",
-      "used_on_minion"
+      "used_on_broken_skeleton"
     ]
   ],
   "display": {

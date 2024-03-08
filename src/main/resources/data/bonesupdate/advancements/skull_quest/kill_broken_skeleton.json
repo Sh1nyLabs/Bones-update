@@ -1,28 +1,14 @@
 {
   "parent": "bonesupdate:root",
   "criteria": {
-    "bonesupdate:haunter_skeleton": {
+    "killed_broken_skeleton": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "bonesupdate:haunter_skeleton"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:player_killed_entity"
-    },
-    "bonesupdate:knight_skeleton": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "bonesupdate:knight_skeleton"
+              "type": "bonesupdate:broken_skeleton"
             }
           }
         ]
@@ -48,8 +34,7 @@
   },
   "requirements": [
     [
-      "bonesupdate:haunter_skeleton",
-      "bonesupdate:knight_skeleton"
+      "killed_broken_skeleton"
     ]
   ]
 }
