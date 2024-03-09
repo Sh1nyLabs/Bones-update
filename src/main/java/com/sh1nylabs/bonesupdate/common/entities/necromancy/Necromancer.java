@@ -81,7 +81,7 @@ public class Necromancer extends AbstractIllager {
     }
 
     @Override
-    public void applyRaidBuffs(int p_37844_, boolean p_37845_) {}
+    public void applyRaidBuffs(int waveNb, boolean bool) {}
 
     public boolean canIncreaseItsArmy() {
         if (timeBeforeNextCast <= 0) {

@@ -41,7 +41,7 @@ public class Minion extends BonesBrokenSkeletons{
     }
 
     @Override
-    protected void dropCustomDeathLoot(DamageSource source, int p_34175_, boolean p_34176_) {}
+    protected void dropCustomDeathLoot(DamageSource source, int lootingLevel, boolean hurtByPlayer) {}
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {
