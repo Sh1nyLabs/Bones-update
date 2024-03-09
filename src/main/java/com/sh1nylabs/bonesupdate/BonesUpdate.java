@@ -16,24 +16,17 @@ import org.slf4j.Logger;
 
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate {
-    /** version 1.1: what is new:
+    /** version 2.0: what is new:
      *
      * -- added content --
-     * - new mob: the Haunter
-     * - new mob: the Reaper
-     * - new tool: the Haunter spear (craftable from an item dropped by the Haunter)
-     * - new block: the cursed lantern
-     * - new item: the Blade
-     * - new item: the Haunter Blade (tradable with a cleric, used for cursed lanterns or haunter spear)
+     * - now vanilla skeletons can become broken.
      *
      * -- small updates --
-     * - now broken skeletons can be hit by Explosions
-     * - now broken skeletons take a longer time to revive
+     * - broken skeletons code has been reworked
+     * - friendly skeleton code has been reworked
      *
      * -- bug fixes --
-     * - now broken skeletons can attack Iron Golems
-     * - now Entities no more take broken skeletons as targets (if they are broken)
-     * - advancement mistakes have been fixed.
+     * -
     */
     public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
