@@ -163,12 +163,6 @@ public class Necromancer extends AbstractIllager {
             this.warmUpDelay = CAST_ANIMATION_TIME;
         }
 
-        public void applyLastSpawnConfigurations(Minion minion) {
-            minion.setOwner(necromancer);
-            minion.setFriendly(false);
-            necromancer.addMinionToStock(-1);
-        }
-
         public void delayNextSummon(RandomSource rdmSequence) {
             necromancer.timeBeforeNextCast = TIME_BETWEEN_TWO_CASTS_MIN + rdmSequence.nextInt(TIME_BETWEEN_TWO_CASTS_MAX-TIME_BETWEEN_TWO_CASTS_MIN);
         }
@@ -214,7 +208,7 @@ public class Necromancer extends AbstractIllager {
                         int rdmQuantity = Math.min(necromancer.minionStock, 2+rdmSource.nextInt(4)); // FIX_VALUE
                         this.summonMinion((ServerLevel) level, rdmSource,
                                 rdmQuantity,
-                                necromancer.getOnPos().above(), MobSpawnType.MOB_SUMMONED);
+                                necromancer.getOnPos().above(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));
                     }
                     summonWithAGrave = false;
                 }

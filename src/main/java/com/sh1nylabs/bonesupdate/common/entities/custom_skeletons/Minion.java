@@ -4,6 +4,8 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.common.entities.goal.MinionFollowsOwnerGoal;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
+import com.sh1nylabs.bonesupdate.common.items.NecroScepterItem;
+import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
@@ -26,7 +28,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
 
-public class Minion extends BonesBrokenSkeletons{
+public class Minion extends FriendlySkeleton {
     Necromancer owner; //TODO: right now, the owner can only be a Necromancer. Potentially extend this to Player
 
     public Minion(EntityType<? extends AbstractSkeleton> type, Level level) {
@@ -83,6 +85,15 @@ public class Minion extends BonesBrokenSkeletons{
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
+        if (spawnData instanceof MinionData minionData) {
+            this.setFriendly(minionData.summoningWay instanceof NecroScepterItem);
+            if (minionData.summoningWay instanceof Necromancer necromancer) {
+                this.setOwner(necromancer);
+                necromancer.addMinionToStock(-1);
+            } else {
+                this.setOwner(null);
+            }
+        }
         return spawnData;
     }
 
@@ -103,5 +114,13 @@ public class Minion extends BonesBrokenSkeletons{
             this.owner.addMinionToStock(1);
         } catch (Exception ignored) {}
         super.die(source);
+    }
+
+    public static class MinionData implements SpawnGroupData {
+        public CanSummonMinions summoningWay;
+
+        public MinionData(CanSummonMinions summoningWay) {
+            this.summoningWay = summoningWay;
+        }
     }
 }

@@ -23,7 +23,6 @@ public interface CanSummonMinions {
     Let the class add some characteristics to the minion to spawn, or compute some specific computations before
     the "Minion" spawn.
      */
-    void applyLastSpawnConfigurations(Minion minion);
 
     /**
     Function to delay the next "Minion" summoning
@@ -33,7 +32,7 @@ public interface CanSummonMinions {
     /**
     Function to add "Minion" to the world. The number of minions to spawn is defined by the int "quantity".
      */
-    default void summonMinion(ServerLevel level, RandomSource rdmSource, int quantity, BlockPos pos, MobSpawnType spawntype) {
+    default void summonMinion(ServerLevel level, RandomSource rdmSource, int quantity, BlockPos pos, MobSpawnType spawntype, Minion.MinionData minionData) {
         for (int i = 0; i < quantity; ++i) {
             for (int j = 0; j < 8; ++j) { /** 8 attempts to spawn the mob */ // FIX_VALUE
                 double positionX = pos.getX() + (rdmSource.nextDouble() - 0.5) * 4 + 0.5;
@@ -44,8 +43,7 @@ public interface CanSummonMinions {
                     Minion minion = BonesEntities.MINION.get().create(level);
                     if (minion != null) {
                         minion.moveTo(positionX, positionY, positionZ, rdmSource.nextFloat(), 0.0F);
-                        applyLastSpawnConfigurations(minion); /** In case that other things have to be done */
-                        ForgeEventFactory.onFinalizeSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, null, null);
+                        ForgeEventFactory.onFinalizeSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData, null);
                         level.tryAddFreshEntityWithPassengers(minion);
                         level.gameEvent(minion, GameEvent.ENTITY_PLACE, blockpos);
                         minion.spawnAnim();

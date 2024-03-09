@@ -19,7 +19,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class HaunterSkeleton extends BonesBrokenSkeletons {
+public class HaunterSkeleton extends FriendlySkeleton {
     public HaunterSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {
         super(entityType, level);
     }

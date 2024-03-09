@@ -29,7 +29,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
 
-public class KnightSkeleton extends BonesBrokenSkeletons {
+public class KnightSkeleton extends FriendlySkeleton {
     private static final int DASH_RESET_DURATION = 130;
     private static final int DASH_WARM_UP_TIME = 60; // FIX_VALUE
     private static final float DASH_BONUS_DAMAGE = 10.0F;

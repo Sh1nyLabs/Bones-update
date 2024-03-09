@@ -3,10 +3,11 @@ package com.sh1nylabs.bonesupdate.common.items;
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
-import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BonesBrokenSkeletons;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.FriendlySkeleton;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanPacifyGraves;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -44,8 +45,16 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
      */
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if (stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get()) && entity.isAlive() && entity instanceof BonesBrokenSkeletons friendlySkeleton && !friendlySkeleton.isFriendly()) {
-            friendlySkeleton.becomesFriendly(player.level);
+        if (stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get()) && entity.isAlive() && entity instanceof FriendlySkeleton friendlySkeleton && !friendlySkeleton.isFriendly()) {
+            Level level = player.getLevel();
+            if (!level.isClientSide()) {
+                friendlySkeleton.setFriendly(true);
+            } else {
+                level.addParticle(ParticleTypes.HEART, friendlySkeleton.getRandomX(1.0D), friendlySkeleton.getRandomY() + 0.1D, friendlySkeleton.getRandomZ(1.0D), friendlySkeleton.getRandom().nextGaussian() * 0.02D, friendlySkeleton.getRandom().nextGaussian() * 0.02D, friendlySkeleton.getRandom().nextGaussian() * 0.02D);
+                level.addParticle(ParticleTypes.HEART, friendlySkeleton.getRandomX(1.0D), friendlySkeleton.getRandomY() + 0.1D, friendlySkeleton.getRandomZ(1.0D), friendlySkeleton.getRandom().nextGaussian() * 0.02D, friendlySkeleton.getRandom().nextGaussian() * 0.02D, friendlySkeleton.getRandom().nextGaussian() * 0.02D);
+                level.addParticle(ParticleTypes.HEART, friendlySkeleton.getRandomX(1.0D), friendlySkeleton.getRandomY() + 0.1D, friendlySkeleton.getRandomZ(1.0D), friendlySkeleton.getRandom().nextGaussian() * 0.02D, friendlySkeleton.getRandom().nextGaussian() * 0.02D, friendlySkeleton.getRandom().nextGaussian() * 0.02D);
+            }
+
 
             stack.hurtAndBreak(1, player, player1 -> {player1.broadcastBreakEvent(hand);});
             player.getCooldowns().addCooldown(this, 120);
@@ -53,12 +62,6 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
             return InteractionResult.sidedSuccess(player.level.isClientSide);
         }
         return InteractionResult.PASS;
-    }
-
-    /** When summoned, a Minion is always friendly. */
-    public void applyLastSpawnConfigurations(Minion minion) {
-        minion.setOwner(null);
-        minion.setFriendly(true);
     }
 
     /** This function (inherited from CanSummonMinion interface) is not used in this Item class. */
@@ -80,7 +83,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
         if (!level.isClientSide() && !stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get())){
             this.summonMinion((ServerLevel) level, level.getRandom(),
                     MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
-                    player.blockPosition(), MobSpawnType.MOB_SUMMONED);
+                    player.blockPosition(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));
 
             stack.hurtAndBreak((hasLeader ? 2 : 1), player, player1 -> {player1.broadcastBreakEvent(hand);});
             player.getCooldowns().addCooldown(this, (hasLeader ? 140 : 100));

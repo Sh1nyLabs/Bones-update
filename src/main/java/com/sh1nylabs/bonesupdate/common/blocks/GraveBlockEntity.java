@@ -26,10 +26,6 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
 
     public boolean readyToSummon() {return (readyToSpawn && this.getBlockState().getValue(HAUNTED));}
 
-    public void applyLastSpawnConfigurations(Minion minion) {
-        minion.setOwner(null);
-        minion.setFriendly(false);
-    }
     @Override
     public void delayNextSummon(RandomSource rdmSource) {readyToSpawn = false;}
 
@@ -64,7 +60,7 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
                     || ((level.getBrightness(LightLayer.SKY,pos)-level.getSkyDarken())<(5+rdmSequence.nextInt(4))))) {
                 this.summonMinion((ServerLevel)level, rdmSequence,
                         1+rdmSequence.nextInt(SPAWN_COUNT-1),
-                        getBlockPos(), MobSpawnType.SPAWNER);
+                        getBlockPos(), MobSpawnType.SPAWNER, new Minion.MinionData(this));
             }
         }
     }
