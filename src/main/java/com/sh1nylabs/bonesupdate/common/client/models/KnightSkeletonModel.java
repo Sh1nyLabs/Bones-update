@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
 public class KnightSkeletonModel extends EntityModel<KnightSkeleton> implements ArmedModel {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
+
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BonesUpdate.MODID, "knightskeletonmodel"), "main");
 	private final ModelPart head;
 	private final ModelPart body;

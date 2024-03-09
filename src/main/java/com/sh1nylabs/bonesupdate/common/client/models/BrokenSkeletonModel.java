@@ -1,9 +1,22 @@
-// Made with Blockbench 4.9.4
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
+package com.sh1nylabs.bonesupdate.common.client.models;
 
+/* Java class written by sh1nylabs' team, using Blockbench 4.7.4. All rights reserved. */
 
-public class BrokenSkeletonModel<T extends Entity> extends EntityModel<T> {
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
+import com.sh1nylabs.bonesupdate.init.BonesEntities;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.HumanoidArm;
+import org.joml.Quaternionf;
+
+public class BrokenSkeletonModel<T extends BrokenSkeleton> extends EntityModel<T> implements ArmedModel {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "brokenskeletonmodel"), "main");
 	private final ModelPart broken_state;
@@ -14,6 +27,12 @@ public class BrokenSkeletonModel<T extends Entity> extends EntityModel<T> {
 		this.broken_state = root.getChild("broken_state");
 		this.haunter_parts = root.getChild("haunter_parts");
 		this.right_hand = root.getChild("right_hand");
+
+		this.right_hand.visible = false;
+		this.right_hand.x = -2.0F;
+		this.right_hand.y = 18.0F;
+		this.right_hand.z = 0.0F;
+		this.right_hand.xRot = -1.0F;
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -41,8 +60,23 @@ public class BrokenSkeletonModel<T extends Entity> extends EntityModel<T> {
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(BrokenSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		if (entity.getSkeletonType() != BonesEntities.HAUNTER_SKELETON.get()) {
+			this.haunter_parts.visible = false;
+		}
+	}
 
+	@Override
+	public void translateToHand(HumanoidArm arm, PoseStack stack) {
+		ModelPart armPart = this.right_hand;
+		stack.translate((armPart.x+1.0F) / 16.0F, (armPart.y-9.5F) / 16.0F, (armPart.z+1.5F) / 16.0F);
+		if (armPart.xRot != 0.0F || armPart.yRot != 0.0F || armPart.zRot != 0.0F) {
+			stack.mulPose((new Quaternionf()).rotationZYX(armPart.zRot, armPart.yRot, armPart.xRot));
+		}
+
+		if (armPart.xScale != 1.0F || armPart.yScale != 1.0F || armPart.zScale != 1.0F) {
+			stack.scale(0.85F,0.85F,0.85F);
+		}
 	}
 
 	@Override

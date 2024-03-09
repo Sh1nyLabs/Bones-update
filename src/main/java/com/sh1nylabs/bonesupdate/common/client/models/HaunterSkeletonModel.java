@@ -18,7 +18,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
 public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implements ArmedModel {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
+
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BonesUpdate.MODID, "haunterskeletonmodel"), "main");
 	private final ModelPart head;
 	private final ModelPart body;
@@ -27,7 +27,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 	private final ModelPart right_hand;
 	private final ModelPart left_leg;
 	private final ModelPart right_leg;
-	private final ModelPart broken_state;
 
 	public HaunterSkeletonModel(ModelPart root) {
 		this.head = root.getChild("head");
@@ -37,7 +36,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.right_hand = root.getChild("right_hand");
 		this.left_leg = root.getChild("left_leg");
 		this.right_leg = root.getChild("right_leg");
-		this.broken_state = root.getChild("broken_state");
 
 		this.right_leg.yRot = 0.005F;
 		this.left_leg.yRot = -0.005F;
@@ -72,14 +70,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.1F));
 		partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.1F));
 
-		PartDefinition broken_state = partdefinition.addOrReplaceChild("broken_state", CubeListBuilder.create().texOffs(41, 24).mirror().addBox(3.999F, -3.0F, 3.0F, 3.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
-		.texOffs(41, 15).mirror().addBox(5.5F, -0.5F, 4.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 23.0F, 0.0F));
-		broken_state.addOrReplaceChild("left_spine2_r2", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(7.0F, -2.5F, 6.5F, 0.0F, -0.3927F, -0.6981F));
-		broken_state.addOrReplaceChild("left_spine1_r2", CubeListBuilder.create().texOffs(42, 18).mirror().addBox(-0.5F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(7.0F, -2.5F, 3.5F, 0.0F, 0.3927F, -0.6981F));
-		broken_state.addOrReplaceChild("body_r1", CubeListBuilder.create().texOffs(8, 16).addBox(-4.0F, -6.0F, -5.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 1.0F, 0.0F, -1.4399F, 0.0F, 0.0F));
-		broken_state.addOrReplaceChild("left_bracelet_r1", CubeListBuilder.create().texOffs(41, 20).addBox(4.0F, -1.0F, -4.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.2F)), PartPose.offsetAndRotation(0.0F, 1.0F, 0.0F, 0.0F, -0.48F, 0.0F));
-		broken_state.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-8.0F, 1.0F, 0.0F, 0.0F, -0.5672F, 0.0F));
-
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 
@@ -102,16 +92,7 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.right_hand.yRot = 0.0F;
 		this.right_arm.yRot = 0.0F;
 		this.left_arm.yRot = 0.0F;
-		/**
-		if (broken) {
 
-			this.right_hand.x = -2.0F;
-			this.right_hand.y = 18.0F;
-			this.right_hand.z = 0.0F;
-			this.right_hand.xRot = -1.0F;
-
-		} else {
-		 */
 		this.right_arm.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * limbSwingAmount / f;
 		setupAttackAnimation(entity, ageInTicks);
 		this.right_hand.x = -5.0F;
@@ -132,8 +113,6 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		this.right_leg.xRot = Mth.cos(limbSwing * period) * 1.4F * limbSwingAmount / f;
 		this.left_leg.xRot = Mth.cos(limbSwing * period + (float)Math.PI) * 1.4F * limbSwingAmount / f;
 
-
-		this.broken_state.visible = false; //TODO: remove broken part in model
 	}
 
 	protected void setupAttackAnimation(HaunterSkeleton entity, float ageInTicks) {
@@ -179,6 +158,5 @@ public class HaunterSkeletonModel extends EntityModel<HaunterSkeleton> implement
 		right_hand.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		left_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		right_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		broken_state.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }
