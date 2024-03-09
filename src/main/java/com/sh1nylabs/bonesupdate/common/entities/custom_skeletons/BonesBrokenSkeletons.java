@@ -22,10 +22,10 @@ import net.minecraft.world.level.Level;
  * - The ability to become 'friendly' (as a dog or a golem) and to defend the player during battle.
   * Some behaviours may be overriden by dependant entities.
  */
-public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
+public abstract class FriendlySkeleton extends AbstractSkeleton {
     private boolean friendly;
 
-    public BonesBrokenSkeletons(EntityType<? extends AbstractSkeleton> entityType, Level level) {
+    public FriendlySkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -66,7 +66,7 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
         this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
 
         this.registerSkeletonTargets();
-        }
+    }
 
     protected void registerSkeletonTargets() {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -74,6 +74,4 @@ public abstract class BonesBrokenSkeletons extends AbstractSkeleton {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true,this::canAttackPlayer));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true,this::canAttackPlayer));
     }
-
-
 }
