@@ -4,10 +4,12 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.common.entities.goal.ProtectKnightGoal;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
+import com.sh1nylabs.bonesupdate.init.BonesSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -54,9 +56,20 @@ public class HaunterSkeleton extends FriendlySkeleton {
     }
 
 
+    protected SoundEvent getAmbientSound() {
+        return BonesSounds.HAUNTER_SKELETON_AMBIENT.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BonesSounds.HAUNTER_SKELETON_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return BonesSounds.HAUNTER_SKELETON_DEATH.get();
+    }
     @Override
     protected SoundEvent getStepSound() {
-        return SoundEvents.SKELETON_STEP;
+        return BonesSounds.HAUNTER_SKELETON_STEP.get();
     }
 
 
