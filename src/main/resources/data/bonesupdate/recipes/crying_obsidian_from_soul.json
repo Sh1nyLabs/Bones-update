@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "bonesupdate:skeleton_soul"
+    },
+    "#": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "X##",
+    "#X#",
+    "##X"
+  ],
+  "result": {
+    "count": 3,
+    "item": "minecraft:crying_obsidian"
+  }
+}

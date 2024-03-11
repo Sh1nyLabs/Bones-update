@@ -19,11 +19,13 @@ public class BonesUpdate {
     /** version 2.0: what is new:
      *
      * -- added content --
-     * - now vanilla skeletons can become broken.
+     * - now vanilla skeletons can become broken,
+     * - added recipes using skeleton soul to create crying obsidian or soul sand.
+     * - added various sound events for entities
      *
      * -- small updates --
-     * - broken skeletons code has been reworked
-     * - friendly skeleton code has been reworked
+     * - broken skeletons code has been reworked,
+     * - friendly skeleton code has been reworked.
      *
      * -- bug fixes --
      * -
@@ -41,6 +43,7 @@ public class BonesUpdate {
         BonesBlocks.BU_BLOCK_ENTITIES.register(modEventBus);
         BonesEnchantments.BU_ENCHANTMENTS.register(modEventBus);
         BonesParticles.BU_PARTICLES.register(modEventBus);
+        BonesSounds.BU_SOUNDS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

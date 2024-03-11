@@ -1,4 +1,14 @@
 {
+  "sounds.bonesupdate.knight_skeleton_ambient": "Knight Skeleton rattles",
+  "sounds.bonesupdate.knight_skeleton_step": "Knight Skeleton walks",
+  "sounds.bonesupdate.knight_skeleton_hurt": "Knight Skeleton hurts",
+  "sounds.bonesupdate.knight_skeleton_death": "Knight Skeleton dies",
+
+  "sounds.bonesupdate.haunter_skeleton_ambient": "Haunter Skeleton rattles",
+  "sounds.bonesupdate.haunter_skeleton_step": "Haunter Skeleton walks",
+  "sounds.bonesupdate.haunter_skeleton_hurt": "Haunter Skeleton hurts",
+  "sounds.bonesupdate.haunter_skeleton_death": "Haunter Skeleton dies",
+
   "block.bonesupdate.cursed_lantern": "Cursed Lantern",
   "block.bonesupdate.grave": "Grave",
   "block.bonesupdate.weeping_willow_leaves": "Weeping Willow Leaves",

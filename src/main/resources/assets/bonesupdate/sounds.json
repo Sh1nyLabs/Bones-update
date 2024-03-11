@@ -1,0 +1,65 @@
+{
+  "haunter_skeleton_step" : {
+    "subtitle": "sounds.bonesupdate.haunter_skeleton_step",
+    "sounds": [
+      "bonesupdate:haunter_skeleton/step1",
+      "bonesupdate:haunter_skeleton/step2",
+      "bonesupdate:haunter_skeleton/step3",
+      "bonesupdate:haunter_skeleton/step4"
+    ]
+  },
+  "haunter_skeleton_hurt" : {
+    "subtitle": "sounds.bonesupdate.haunter_skeleton_hurt",
+    "sounds": [
+      "bonesupdate:haunter_skeleton/hurt1",
+      "bonesupdate:haunter_skeleton/hurt2",
+      "bonesupdate:haunter_skeleton/hurt3",
+      "bonesupdate:haunter_skeleton/hurt4"
+    ]
+  },
+
+  "haunter_skeleton_death" : {
+    "subtitle": "sounds.bonesupdate.haunter_skeleton_death",
+    "sounds": [
+      "bonesupdate:haunter_skeleton/death"
+    ]
+  },
+  "haunter_skeleton_ambient" : {
+    "subtitle": "sounds.bonesupdate.haunter_skeleton_ambient",
+    "sounds": [
+      "bonesupdate:haunter_skeleton/say1",
+      "bonesupdate:haunter_skeleton/say2",
+      "bonesupdate:haunter_skeleton/say3"
+    ]
+  },
+  "knight_skeleton_step" : {
+    "subtitle": "sounds.bonesupdate.knight_skeleton_step",
+    "sounds": [
+      "bonesupdate:knight_skeleton/step1",
+      "bonesupdate:knight_skeleton/step2",
+      "bonesupdate:knight_skeleton/step3"
+    ]
+  },
+  "knight_skeleton_hurt" : {
+    "subtitle": "sounds.bonesupdate.knight_skeleton_hurt",
+    "sounds": [
+      "bonesupdate:knight_skeleton/hurt1",
+      "bonesupdate:knight_skeleton/hurt2"
+    ]
+  },
+
+  "knight_skeleton_death" : {
+    "subtitle": "sounds.bonesupdate.knight_skeleton_death",
+    "sounds": [
+      "bonesupdate:knight_skeleton/death"
+    ]
+  },
+  "knight_skeleton_ambient" : {
+    "subtitle": "sounds.bonesupdate.knight_skeleton_ambient",
+    "sounds": [
+      "bonesupdate:haunter_skeleton/say1",
+      "bonesupdate:haunter_skeleton/say2",
+      "bonesupdate:haunter_skeleton/say3"
+    ]
+  }
+}
