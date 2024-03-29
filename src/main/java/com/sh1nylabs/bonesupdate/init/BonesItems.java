@@ -41,6 +41,9 @@ public class BonesItems {
     public static final RegistryObject<Item> WEEPING_WILLOW_VINES_ITEM = registerBlockItem(BonesBlocks.WEEPING_WILLOW_SMALL_VINES ,"weeping_willow_vines");
     public static final RegistryObject<Item> WEEPING_WILLOW_LEAVES_ITEM = registerBlockItem(BonesBlocks.WEEPING_WILLOW_LEAVES,"weeping_willow_leaves");
 
+    public static final RegistryObject<Item> ERODED_FOSSIL_ITEM = registerBlockItem(BonesBlocks.ERODED_FOSSIL,"eroded_fossil");
+    public static final RegistryObject<Item> GUARDIAN_FOSSIL_ITEM = registerBlockItem(BonesBlocks.GUARDIAN_FOSSIL,"guardian_fossil");
+
     /** Register all spawn eggs using the function 'registerSpawnEggs' */
     public static final RegistryObject<ForgeSpawnEggItem> HAUNTER_SPAWN_EGG = registerSpawnEgg(BonesEntities.HAUNTER_SKELETON,"haunter_skeleton_spawn_egg",0xC1C1C1,0x5642B3);
     public static final RegistryObject<ForgeSpawnEggItem> KNIGHT_SKELETON_SPAWN_EGG = registerSpawnEgg(BonesEntities.KNIGHT_SKELETON,"knight_skeleton_spawn_egg",0x2E2E2E,0x5642B3);

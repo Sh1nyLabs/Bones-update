@@ -56,6 +56,8 @@ public class BonesUpdate {
             event.accept(BonesItems.GRAVE_BLOCK_ITEM);
             event.accept(BonesItems.WEEPING_WILLOW_LEAVES_ITEM);
             event.accept(BonesItems.WEEPING_WILLOW_VINES_ITEM);
+            event.accept(BonesItems.ERODED_FOSSIL_ITEM);
+            event.accept(BonesItems.GUARDIAN_FOSSIL_ITEM);
         } else if (event.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(BonesItems.AMULET);
         } else if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
