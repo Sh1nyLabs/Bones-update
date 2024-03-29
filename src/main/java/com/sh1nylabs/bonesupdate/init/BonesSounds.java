@@ -22,6 +22,8 @@ public class BonesSounds {
     public static final RegistryObject<SoundEvent> HAUNTER_SKELETON_DEATH = registerSoundEvent("haunter_skeleton_death");
     public static final RegistryObject<SoundEvent> HAUNTER_SKELETON_AMBIENT = registerSoundEvent("haunter_skeleton_ambient");
 
+    public static final RegistryObject<SoundEvent> BROKEN_SKELETON_REVIVES = registerSoundEvent("broken_skeleton_revives");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return BU_SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(BonesUpdate.MODID, name)));
 

@@ -61,5 +61,11 @@
       "bonesupdate:haunter_skeleton/say2",
       "bonesupdate:haunter_skeleton/say3"
     ]
+  },
+  "broken_skeleton_revives" : {
+    "subtitle": "sounds.bonesupdate.broken_skeleton_revives",
+    "sounds": [
+      "bonesupdate:broken_skeleton_revives"
+    ]
   }
 }
