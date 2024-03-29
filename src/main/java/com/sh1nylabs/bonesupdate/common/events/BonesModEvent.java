@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -27,6 +28,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,7 +40,12 @@ public class BonesModEvent {
 
     @Mod.EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesForgeEvents {
-
+        @SubscribeEvent
+        public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this after mod final test
+            if (event.getEntity() instanceof AbstractSkeleton && ! (event.getEntity() instanceof Skeleton)) {
+                BonesUpdate.LOGGER.info("-------Detecting a spawn: {} -----------", event.getEntity().getName());
+            }
+        }
         /**
          * Catch a skeleton which is dying in order to replace it by a broken form.
          * Cancels the event and replace the entity with a broken skeleton.
@@ -119,6 +126,9 @@ public class BonesModEvent {
         @SubscribeEvent
         public static void entitySpawnRestriction(SpawnPlacementRegisterEvent event) {
             event.register(BonesEntities.KNIGHT_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+            event.register(BonesEntities.BROKEN_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
             event.register(BonesEntities.HAUNTER_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,

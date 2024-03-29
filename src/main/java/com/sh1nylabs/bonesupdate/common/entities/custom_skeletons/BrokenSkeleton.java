@@ -4,6 +4,7 @@ import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
+import com.sh1nylabs.bonesupdate.init.BonesSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -39,6 +40,7 @@ import java.util.UUID;
 public class BrokenSkeleton extends AbstractSkeleton {
     private int timeBeforeSkeletonRevives;
     private LivingEntity inheritedKillCredit;
+    private boolean friendly = false;
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.INT);
 
     public BrokenSkeleton(EntityType<? extends AbstractSkeleton> type, Level level) {
@@ -46,7 +48,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_ID_TYPE_VARIANT, 0);
+        this.entityData.define(DATA_ID_TYPE_VARIANT, 1);
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
@@ -76,7 +78,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     /**
-     * Function overriden in order to
+     * Function overriden in order to drop skulls even when broken
      * @param damageSource
      * @param lootingLevel
      * @param hurtByPlayer
@@ -97,6 +99,11 @@ public class BrokenSkeleton extends AbstractSkeleton {
         }
     }
 
+    public void playRevivingSound() {
+        SoundEvent soundevent = BonesSounds.BROKEN_SKELETON_REVIVES.get();
+        this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
+    }
+
     @Override
     public void tick() {
         if (!this.getLevel().isClientSide()) {
@@ -107,6 +114,9 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     skeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
                     for(MobEffectInstance mobeffectinstance : this.getActiveEffectsMap().values()) {
                         skeleton.getActiveEffectsMap().put(mobeffectinstance.getEffect(), mobeffectinstance);
+                    }
+                    if (skeleton instanceof FriendlySkeleton friendlySk) {
+                        friendlySk.setFriendly(friendly);
                     }
                     ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
 
@@ -122,6 +132,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     svrLevel.sendParticles(BonesParticles.PURPLE_SOUL.get(),
                             skeleton.getX(), skeleton.getY() + 0.5D, skeleton.getZ(),
                             50, 0.0D, 0.1D, 0.0D, 0.20D);
+                    this.playRevivingSound();
 
                 }
             } else {
@@ -208,7 +219,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
         timeBeforeSkeletonRevives = 1025 + random.nextInt(100);
         if (spawnData instanceof BrokenSkeletonSpawnData skeletonData) { /* Defining which skeleton to create after revival */
             setSkeletonType(skeletonData.skeletonType);
-
+            this.friendly = skeletonData.friendly;
             this.inheritedKillCredit = skeletonData.inheritedKillCredit;
             this.setItemInHand(InteractionHand.MAIN_HAND,skeletonData.mainHandItem);
             this.setItemInHand(InteractionHand.OFF_HAND,skeletonData.offHandItem);
@@ -234,6 +245,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
         public ItemStack mainHandItem;
         public ItemStack offHandItem;
         public int remainingFireTicks;
+        public boolean friendly;
 
         public BrokenSkeletonSpawnData(AbstractSkeleton entity) {
             this.skeletonType = (EntityType<? extends AbstractSkeleton>) entity.getType();
@@ -242,6 +254,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
             this.inheritedKillCredit = entity.getKillCredit();
             this.mainHandItem = entity.getMainHandItem();
             this.offHandItem = entity.getOffhandItem();
+            this.friendly = (entity instanceof FriendlySkeleton friendlySk && friendlySk.isFriendly());
 
             for(MobEffectInstance mobeffectinstance : entity.getActiveEffectsMap().values()) {
                 listtag.add(mobeffectinstance.save(new CompoundTag()));
