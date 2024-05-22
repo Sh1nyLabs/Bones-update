@@ -1,22 +1,37 @@
 {
+	"parent": "minecraft:block/block",
 	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
 	"texture_size": [64, 16],
 	"textures": {
 		"0": "bonesupdate:block/eroded_fossil",
 		"particle": "bonesupdate:block/eroded_fossil"
 	},
-	"render_type": "minecraft:cutout",
 	"elements": [
 		{
-			"from": [3, 0, 1],
-			"to": [11, 4, 12],
+			"from": [3, 2, 1],
+			"to": [11, 2, 12],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 2, 8]},
 			"faces": {
-				"north": {"uv": [2.75, 11, 4.75, 15], "texture": "#0"},
-				"east": {"uv": [0, 11, 2.75, 15], "texture": "#0"},
-				"south": {"uv": [7.5, 11, 9.5, 15], "texture": "#0"},
-				"west": {"uv": [4.75, 11, 7.5, 15], "texture": "#0"},
+				"north": {"uv": [2.75, 11, 4.75, 11], "texture": "#0"},
+				"east": {"uv": [0, 11, 2.75, 11], "texture": "#0"},
+				"south": {"uv": [7.5, 11, 9.5, 11], "texture": "#0"},
+				"west": {"uv": [4.75, 11, 7.5, 11], "texture": "#0"},
 				"up": {"uv": [4.75, 11, 2.75, 0], "texture": "#0"},
 				"down": {"uv": [6.75, 0, 4.75, 11], "texture": "#0"}
+			}
+		},
+		{
+			"from": [11, -2, 2],
+			"to": [11, 2, 12],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 2, 8]},
+			"faces": {
+				"north": {"uv": [10.25, 0, 10.25, 4], "texture": "#0"},
+				"east": {"uv": [7.75, 0, 10.25, 4], "texture": "#0"},
+				"south": {"uv": [12.75, 0, 12.75, 4], "texture": "#0"},
+				"west": {"uv": [10.25, 0, 12.75, 4], "texture": "#0"},
+				"up": {"uv": [10.25, 0, 10.25, -10], "texture": "#0"},
+				"down": {"uv": [10.25, -10, 10.25, 0], "texture": "#0"}
 			}
 		}
 	]

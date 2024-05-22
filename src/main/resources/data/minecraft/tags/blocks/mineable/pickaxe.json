@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "bonesupdate:grave"
+    "bonesupdate:grave",
+    "bonesupdate:eroded_fossil",
+    "bonesupdate:guardian_fossil"
   ]
 }
