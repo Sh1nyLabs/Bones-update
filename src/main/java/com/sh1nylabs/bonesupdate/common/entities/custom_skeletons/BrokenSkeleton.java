@@ -233,7 +233,11 @@ public class BrokenSkeleton extends AbstractSkeleton {
                 }
             }
         } else {
-            this.entityData.set(DATA_ID_TYPE_VARIANT, 1);
+            if (this.level.dimension() == Level.NETHER) {
+                this.entityData.set(DATA_ID_TYPE_VARIANT, 1);
+            } else {
+                this.entityData.set(DATA_ID_TYPE_VARIANT, 4 + random.nextInt(3));
+            }
         }
         return spawnData;
     }
