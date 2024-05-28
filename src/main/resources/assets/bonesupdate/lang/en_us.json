@@ -52,6 +52,8 @@
   "advancements.necromancy.find_weeping_willow_tree.description": "Find a Weeping Willow Tree, and meet there someone special",
   "advancements.necromancy.friends_or_foes.title":"Friends Or Foes",
   "advancements.necromancy.friends_or_foes.description": "Become friend with a particular skeleton",
+  "advancements.necromancy.hurt_friendly_skeleton.title": "Traitor",
+  "advancements.necromancy.hurt_friendly_skeleton.description": "Hurt a skeleton who thought he was your friend",
   "advancements.necromancy.kill_a_necromancer.title": "Forbidden Skills",
   "advancements.necromancy.kill_a_necromancer.description": "Kill a necromancer",
   "advancements.necromancy.rest_in_peace.title": "Rest In Peace",
@@ -68,5 +70,7 @@
   "advancements.skull_quest.untouchable.title": "Untouchable",
   "advancements.skull_quest.untouchable.description": "Collect in your inventory a spear and a scepter",
   "advancements.skull_quest.use_amulet.title": "Soul Extraction",
-  "advancements.skull_quest.use_amulet.description": "Find a way to get loot from a broken skeleton"
+  "advancements.skull_quest.use_amulet.description": "Find a way to get loot from a broken skeleton",
+  "advancements.skull_quest.use_amulet_all_skeletons.description": "Reign Over Them",
+  "advancements.skull_quest.use_amulet_all_skeletons.title": "Use your amulet on every skeleton"
 }

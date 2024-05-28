@@ -17,11 +17,12 @@ import org.slf4j.Logger;
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate {
     /** version 2.0: what is new:
-     *
+     * # TODO: add grabber
      * -- added content --
      * - now vanilla skeletons can become broken,
      * - added recipes using skeleton soul to create crying obsidian or soul sand.
-     * - added various sound events for entities
+     * - added various sound events for added entities
+     * - new decoration blocks: various fossils
      *
      * -- small updates --
      * - broken skeletons code has been reworked,

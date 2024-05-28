@@ -1,0 +1,57 @@
+{
+  "parent": "bonesupdate:necromancy/friends_or_foes",
+  "criteria": {
+    "hurt_friendly_knight": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:knight_skeleton",
+              "nbt": "{Friendly:True}"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    },
+    "hurt_friendly_haunter": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:haunter_skeleton",
+              "nbt": "{Friendly:True}"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.necromancy.hurt_friendly_skeleton.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:iron_sword",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.necromancy.hurt_friendly_skeleton.title"
+    }
+  },
+  "requirements": [
+    [
+      "hurt_friendly_knight",
+      "hurt_friendly_haunter"
+    ]
+  ]
+}
