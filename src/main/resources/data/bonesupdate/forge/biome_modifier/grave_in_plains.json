@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": ["minecraft:plains","minecraft:meadow","minecraft:sunflower_plains","windswept_hills"], // ["minecraft:plains","minecraft:birch_forest", "minecraft:dark_forest"]
+  "features": "bonesupdate:grave_in_plains",
+  "step": "top_layer_modification"
+}
