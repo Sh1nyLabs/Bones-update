@@ -29,12 +29,14 @@
   "item.bonesupdate.skeleton_soul": "Skeleton Soul",
   "item.bonesupdate.soul_orb": "Soul Orb",
 
+  "entity.bonesupdate.grabber": "Grabber",
   "entity.bonesupdate.haunter_skeleton": "Haunter Skeleton",
   "entity.bonesupdate.knight_skeleton": "Knight Skeleton",
   "entity.bonesupdate.minion": "Minion",
   "entity.bonesupdate.necromancer": "Necromancer",
   "entity.bonesupdate.reaper": "Reaper",
 
+  "item.bonesupdate.grabber_spawn_egg": "Grabber Spawn Egg",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Haunter Skeleton Spawn Egg",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Knight Skeleton Spawn Egg",
   "item.bonesupdate.minion_spawn_egg": "Minion Spawn Egg",
