@@ -4,6 +4,9 @@ package com.sh1nylabs.bonesupdate.init;
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.items.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.BlockItem;
@@ -18,6 +21,7 @@ import java.util.function.Supplier;
 
 public class BonesItems {
     public static final DeferredRegister<Item> BU_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BonesUpdate.MODID);
+    public static final TagKey<Item> GRABBER_STEALS = ItemTags.create(new ResourceLocation(BonesUpdate.MODID,"grabber_steals"));
 
     public static final RegistryObject<Item> SKELETON_SOUL = BU_ITEMS.register("skeleton_soul",()-> new SoulItem(new Item.Properties()));
     public static final RegistryObject<Item> SOUL_ORB = BU_ITEMS.register("soul_orb",
@@ -45,6 +49,7 @@ public class BonesItems {
     public static final RegistryObject<Item> GUARDIAN_FOSSIL_ITEM = registerBlockItem(BonesBlocks.GUARDIAN_FOSSIL,"guardian_fossil");
 
     /** Register all spawn eggs using the function 'registerSpawnEggs' */
+    public static final RegistryObject<ForgeSpawnEggItem> GRABBER_SPAWN_EGG = registerSpawnEgg(BonesEntities.GRABBER,"grabber_spawn_egg",0xC1C1C1,0xC5C5C5);
     public static final RegistryObject<ForgeSpawnEggItem> HAUNTER_SPAWN_EGG = registerSpawnEgg(BonesEntities.HAUNTER_SKELETON,"haunter_skeleton_spawn_egg",0xC1C1C1,0x5642B3);
     public static final RegistryObject<ForgeSpawnEggItem> KNIGHT_SKELETON_SPAWN_EGG = registerSpawnEgg(BonesEntities.KNIGHT_SKELETON,"knight_skeleton_spawn_egg",0x2E2E2E,0x5642B3);
     public static final RegistryObject<ForgeSpawnEggItem> MINION_SPAWN_EGG = registerSpawnEgg(BonesEntities.MINION,"minion_spawn_egg",0xC1C1C1,0xC5C5C5);

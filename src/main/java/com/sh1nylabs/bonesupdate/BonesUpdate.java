@@ -13,16 +13,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
-
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate {
     /** version 2.0: what is new:
-     * # TODO: add grabber
+     *
      * -- added content --
      * - now vanilla skeletons can become broken,
      * - added recipes using skeleton soul to create crying obsidian or soul sand.
      * - added various sound events for added entities
      * - new decoration blocks: various fossils
+     * - new Mob: The Grabber
      *
      * -- small updates --
      * - broken skeletons code has been reworked,
@@ -45,6 +45,7 @@ public class BonesUpdate {
         BonesEnchantments.BU_ENCHANTMENTS.register(modEventBus);
         BonesParticles.BU_PARTICLES.register(modEventBus);
         BonesSounds.BU_SOUNDS.register(modEventBus);
+
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -73,6 +74,7 @@ public class BonesUpdate {
             event.accept(BonesItems.BLADE);
             event.accept(BonesItems.HAUNTER_BLADE);
         } else if (event.getTab() == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(BonesItems.GRABBER_SPAWN_EGG);
             event.accept(BonesItems.MINION_SPAWN_EGG);
             event.accept(BonesItems.KNIGHT_SKELETON_SPAWN_EGG);
             event.accept(BonesItems.HAUNTER_SPAWN_EGG);

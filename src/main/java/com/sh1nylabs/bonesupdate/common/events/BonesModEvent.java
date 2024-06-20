@@ -28,6 +28,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingUseTotemEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -40,12 +41,7 @@ public class BonesModEvent {
 
     @Mod.EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesForgeEvents {
-        @SubscribeEvent
-        public static void catchLiveEvent(MobSpawnEvent.FinalizeSpawn event) { //TODO: delete this after mod final test
-            if (event.getEntity() instanceof AbstractSkeleton && ! (event.getEntity() instanceof Skeleton)) {
-                BonesUpdate.LOGGER.info("-------Detecting a spawn: {} -----------", event.getEntity().getName());
-            }
-        }
+
         /**
          * Catch a skeleton which is dying in order to replace it by a broken form.
          * Cancels the event and replace the entity with a broken skeleton.
@@ -54,7 +50,7 @@ public class BonesModEvent {
          */
         @SubscribeEvent
         public static void SkeletonDiesEvent(LivingDeathEvent event) {
-            if ((!event.getEntity().getLevel().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion)) {
+            if ((!event.getEntity().getLevel().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion) && !(skeleton instanceof Grabber)) {
                 event.setCanceled(true);
                 ServerLevel svrLevel = (ServerLevel) event.getEntity().getLevel();
                 BrokenSkeleton broken = BonesEntities.BROKEN_SKELETON.get().create(svrLevel);
@@ -82,6 +78,13 @@ public class BonesModEvent {
                 for (LivingEntity necromancer:list) {
                     ((Necromancer) necromancer).addMinionToStock(2);
                 }
+            }
+        }
+
+        @SubscribeEvent
+        public static void grabberAbortTotemUse(LivingUseTotemEvent event) {
+            if (event.getEntity() instanceof Grabber) {
+                event.setCanceled(true);
             }
         }
 
@@ -115,6 +118,7 @@ public class BonesModEvent {
 
         @SubscribeEvent
         public static void entityAttributes(EntityAttributeCreationEvent event) {
+            event.put(BonesEntities.GRABBER.get(), Grabber.getCustomAttributes().build());
             event.put(BonesEntities.MINION.get(), Minion.getCustomAttributes().build());
             event.put(BonesEntities.NECROMANCER.get(), Necromancer.getCustomAttributes().build());
             event.put(BonesEntities.REAPER.get(), Reaper.getCustomAttributes().build());
@@ -129,6 +133,9 @@ public class BonesModEvent {
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
             event.register(BonesEntities.BROKEN_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+            event.register(BonesEntities.GRABBER.get(), SpawnPlacements.Type.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
             event.register(BonesEntities.HAUNTER_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,

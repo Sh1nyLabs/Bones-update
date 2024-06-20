@@ -20,6 +20,7 @@ public class BonesClientEvents {
 
     @SubscribeEvent
     public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(BonesEntities.GRABBER.get(), GrabberRenderer::new);
         event.registerEntityRenderer(BonesEntities.MINION.get(), MinionRenderer::new);
         event.registerEntityRenderer(BonesEntities.NECROMANCER.get(), NecromancerRenderer::new);
         event.registerEntityRenderer(BonesEntities.REAPER.get(), ReaperRenderer::new);
@@ -30,6 +31,7 @@ public class BonesClientEvents {
 
     @SubscribeEvent
     public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(GrabberModel.LAYER_LOCATION,GrabberModel::createBodyLayer);
         event.registerLayerDefinition(MinionModel.LAYER_LOCATION,MinionModel::createBodyLayer);
         event.registerLayerDefinition(NecromancerModel.LAYER_LOCATION,NecromancerModel::createBodyLayer);
         event.registerLayerDefinition(ReaperModel.LAYER_LOCATION,ReaperModel::createBodyLayer);
