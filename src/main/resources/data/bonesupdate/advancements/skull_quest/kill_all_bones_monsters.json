@@ -31,6 +31,20 @@
       },
       "trigger": "minecraft:player_killed_entity"
     },
+    "bonesupdate:grabber": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bonesupdate:grabber"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
     "bonesupdate:minion": {
       "conditions": {
         "entity": [
@@ -96,6 +110,9 @@
     ],
     [
       "bonesupdate:knight_skeleton"
+    ],
+    [
+      "bonesupdate:grabber"
     ],
     [
       "bonesupdate:minion"

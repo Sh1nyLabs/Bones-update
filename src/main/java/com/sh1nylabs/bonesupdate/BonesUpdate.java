@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate {
     /** version 2.0: what is new:
-     *
      * -- added content --
      * - now vanilla skeletons can become broken,
      * - added recipes using skeleton soul to create crying obsidian or soul sand.
