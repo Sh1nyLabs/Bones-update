@@ -14,12 +14,14 @@
   "item.bonesupdate.skeleton_soul": "Skelettseele",
   "item.bonesupdate.soul_orb": "Seelenorb",
 
+  "entity.bonesupdate.grabber": "Greifer",
   "entity.bonesupdate.haunter_skeleton": "Verfolgerskelett",
   "entity.bonesupdate.knight_skeleton": "Ritterskelett",
   "entity.bonesupdate.minion": "Lakaien",
   "entity.bonesupdate.necromancer": "Nekromant",
   "entity.bonesupdate.reaper": "Schnitter",
 
+  "item.bonesupdate.grabber_spawn_egg": "Greifer-Spawn-Ei",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Verfolgerskelett-Spawn-Ei",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Ritterskelett-Spawn-Ei",
   "item.bonesupdate.minion_spawn_egg": "Lakaien-Spawn-Ei",

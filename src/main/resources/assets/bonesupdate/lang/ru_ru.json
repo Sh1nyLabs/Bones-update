@@ -14,12 +14,14 @@
   "item.bonesupdate.skeleton_soul": "Душа скелета",
   "item.bonesupdate.soul_orb": "Шар души",
 
+  "entity.bonesupdate.grabber": "захват",
   "entity.bonesupdate.haunter_skeleton": "Скелет призрака",
   "entity.bonesupdate.knight_skeleton": "Рыцарь-скелет",
   "entity.bonesupdate.minion": "Миньон",
   "entity.bonesupdate.necromancer": "Некромант",
   "entity.bonesupdate.reaper": "Жнец",
 
+  "item.bonesupdate.grabber_spawn_egg": "Яйцо призыва захват",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Яйцо призыва Скелет призрака",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Яйцо призыва рыцарь-скелет",
   "item.bonesupdate.minion_spawn_egg": "Яйцо призыва миньон",

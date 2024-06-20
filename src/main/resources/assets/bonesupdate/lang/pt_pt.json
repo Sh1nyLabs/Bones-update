@@ -14,12 +14,14 @@
   "item.bonesupdate.skeleton_soul": "Alma de esqueleto",
   "item.bonesupdate.soul_orb": "Orbe da Alma",
 
+  "entity.bonesupdate.minion": "Arragador",
   "entity.bonesupdate.haunter_skeleton": "Esqueleto de Assombrador",
   "entity.bonesupdate.knight_skeleton": "Paladino Esqueleto",
-  "entity.bonesupdate.minion": "Minion",
+  "entity.bonesupdate.grabber": "Minion",
   "entity.bonesupdate.necromancer": "Necromante",
   "entity.bonesupdate.reaper": "Ceifeira",
 
+  "item.bonesupdate.grabber_spawn_egg": "Ovo de invocação de arragador",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Ovo gerador de esqueleto de assombrador",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Ovo de invocação de paladino esqueleto",
   "item.bonesupdate.minion_spawn_egg": "Ovo de invocação de minion",
