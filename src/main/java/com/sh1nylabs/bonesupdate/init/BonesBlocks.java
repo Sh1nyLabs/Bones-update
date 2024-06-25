@@ -25,6 +25,6 @@ public class BonesBlocks {
     public static final RegistryObject<Block> WEEPING_WILLOW_LEAVES = BU_BLOCKS.register("weeping_willow_leaves",() -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()));
 
     public static final RegistryObject<Block> ERODED_FOSSIL = BU_BLOCKS.register("eroded_fossil", () -> new ErodedFossilBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND).strength(0.7F).sound(SoundType.BONE_BLOCK)));
-    public static final RegistryObject<Block> GUARDIAN_FOSSIL = BU_BLOCKS.register("guardian_fossil", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND).strength(0.7F).sound(SoundType.BONE_BLOCK).noOcclusion()));
+    public static final RegistryObject<Block> GUARDIAN_FOSSIL = BU_BLOCKS.register("guardian_fossil", () -> new GuardianFossilBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND).strength(0.7F).sound(SoundType.BONE_BLOCK).noOcclusion()));
 
 }
