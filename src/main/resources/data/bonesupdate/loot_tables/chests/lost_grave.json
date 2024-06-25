@@ -11,14 +11,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 3.0,
+                "max": 2.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:diamond",
-          "weight": 5
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -27,14 +27,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 8.0,
-                "min": 4.0
+                "max": 4.0,
+                "min": 2.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "minecraft:arrow",
-          "weight": 2
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -59,7 +59,7 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
+                "max": 5.0,
                 "min": 2.0
               },
               "function": "minecraft:set_count"
@@ -75,7 +75,7 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
+                "max": 6.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
@@ -96,15 +96,23 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather_leggings"
+          "name": "bonesupdate:eroded_fossil",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather_boots"
+          "name": "minecraft:leather_leggings",
+          "weight": 7
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather_chestplate"
+          "name": "minecraft:leather_boots",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_chestplate",
+          "weight": 7
         },
         {
           "type": "minecraft:item",
@@ -113,8 +121,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 15.0
+                "max": 10.0,
+                "min": 2.0
               },
               "treasure": true
             }
@@ -129,8 +137,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 15.0
+                "max": 10.0,
+                "min": 2.0
               },
               "treasure": true
             }
@@ -145,8 +153,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 15.0
+                "max": 10.0,
+                "min": 2.0
               },
               "treasure": true
             }
@@ -161,8 +169,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 15.0
+                "max": 10.0,
+                "min": 2.0
               },
               "treasure": true
             }
@@ -177,8 +185,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 15.0
+                "max": 10.0,
+                "min": 2.0
               },
               "treasure": true
             }
@@ -193,8 +201,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 15.0
+                "max": 10.0,
+                "min": 2.0
               },
               "treasure": true
             }
@@ -209,8 +217,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 15.0
+                "max": 10.0,
+                "min": 2.0
               },
               "treasure": true
             }
@@ -225,8 +233,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 15.0
+                "max": 10.0,
+                "min": 2.0
               },
               "treasure": true
             }
@@ -237,7 +245,7 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 6.0,
+        "max": 7.0,
         "min": 2.0
       }
     }
