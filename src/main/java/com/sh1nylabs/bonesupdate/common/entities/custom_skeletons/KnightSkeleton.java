@@ -119,7 +119,7 @@ public class KnightSkeleton extends FriendlySkeleton {
 
     @Override
     public void tick() {
-        if (level.isClientSide()) {
+        if (level().isClientSide()) {
             if (isDashing()) { /* stuff to stop showing particles at appropriate time*/
                 if (particleSpawnDuration>=0) {
                     particleSpawnDuration--;
@@ -138,7 +138,7 @@ public class KnightSkeleton extends FriendlySkeleton {
     public void spawnWarmUpParticles() { /* Only Client-sided */
         float f1 = (float) (2*Mth.PI*random.nextDouble());
         double d1 = 0.2 + 0.65*random.nextDouble();
-        level.addParticle(BonesParticles.PURPLE_BAR.get(),
+        level().addParticle(BonesParticles.PURPLE_BAR.get(),
                 this.getX() + d1*Mth.cos(f1),
                 this.getY(),
                 this.getZ() + d1*Mth.sin(f1),

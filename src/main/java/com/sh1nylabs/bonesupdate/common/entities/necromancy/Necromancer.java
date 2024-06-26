@@ -85,7 +85,7 @@ public class Necromancer extends AbstractIllager {
 
     public boolean canIncreaseItsArmy() {
         if (timeBeforeNextCast <= 0) {
-            return(level.getNearbyEntities(Player.class, TargetingConditions.forNonCombat(),this,getBoundingBox().inflate(20.0D, 8.0D, 20.0D)).isEmpty()?
+            return(level().getNearbyEntities(Player.class, TargetingConditions.forNonCombat(),this,getBoundingBox().inflate(20.0D, 8.0D, 20.0D)).isEmpty()?
                     this.minionStock > (int) (3.0*MINION_STOCK_ON_SPAWN/4.0):
                     this.minionStock > 0);
         }
@@ -121,9 +121,9 @@ public class Necromancer extends AbstractIllager {
             timeBeforeNextCast--;
         }
 
-        if (level.isClientSide() && this.isCastingSpell()) { // Animation when the necromancer moves its scepter
+        if (level().isClientSide() && this.isCastingSpell()) { // Animation when the necromancer moves its scepter
             float f = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos((float)this.tickCount * 0.6662F) * 0.15F;
-            level.addParticle(ParticleTypes.ENTITY_EFFECT,this.getX() -0.5D * (double) (Mth.cos(f))+0.8D*Mth.sin(0.4F*tickCount),this.getY()+2.5D,this.getZ() - 0.8D * (double) (Mth.sin(f)) + 0.8D*Mth.cos(0.4F*tickCount),0.3D, 0.35D, 0.65D);
+            level().addParticle(ParticleTypes.ENTITY_EFFECT,this.getX() -0.5D * (double) (Mth.cos(f))+0.8D*Mth.sin(0.4F*tickCount),this.getY()+2.5D,this.getZ() - 0.8D * (double) (Mth.sin(f)) + 0.8D*Mth.cos(0.4F*tickCount),0.3D, 0.35D, 0.65D);
         }
         super.tick();
 
@@ -169,7 +169,7 @@ public class Necromancer extends AbstractIllager {
 
         @Override
         public boolean canUse() {
-            if (necromancer.level.getBlockEntity(gravePosition) instanceof GraveBlockEntity grave && grave.necromancerTriggerSummon(CAST_ANIMATION_TIME)) {
+            if (necromancer.level().getBlockEntity(gravePosition) instanceof GraveBlockEntity grave && grave.necromancerTriggerSummon(CAST_ANIMATION_TIME)) {
                 summonWithAGrave = true;
                 return true;
             }
@@ -200,13 +200,13 @@ public class Necromancer extends AbstractIllager {
 
         @Override
         public void tick() {
-            if (level instanceof ServerLevel) {
+            if (level() instanceof ServerLevel) {
                 this.warmUpDelay--;
                 if (this.warmUpDelay == 0) {
-                    RandomSource rdmSource = level.getRandom();
+                    RandomSource rdmSource = level().getRandom();
                     if (!summonWithAGrave) {
                         int rdmQuantity = Math.min(necromancer.minionStock, 2+rdmSource.nextInt(4)); // FIX_VALUE
-                        this.summonMinion((ServerLevel) level, rdmSource,
+                        this.summonMinion((ServerLevel) level(), rdmSource,
                                 rdmQuantity,
                                 necromancer.getOnPos().above(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));
                     }

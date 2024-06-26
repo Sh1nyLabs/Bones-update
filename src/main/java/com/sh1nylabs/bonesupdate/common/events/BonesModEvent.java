@@ -50,9 +50,9 @@ public class BonesModEvent {
          */
         @SubscribeEvent
         public static void SkeletonDiesEvent(LivingDeathEvent event) {
-            if ((!event.getEntity().getLevel().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion) && !(skeleton instanceof Grabber)) {
+            if ((!event.getEntity().level().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion) && !(skeleton instanceof Grabber)) {
                 event.setCanceled(true);
-                ServerLevel svrLevel = (ServerLevel) event.getEntity().getLevel();
+                ServerLevel svrLevel = (ServerLevel) event.getEntity().level();
                 BrokenSkeleton broken = BonesEntities.BROKEN_SKELETON.get().create(svrLevel);
                 if (broken != null) {
                     broken.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
@@ -74,7 +74,7 @@ public class BonesModEvent {
         public static void illagerDieEvent(LivingDeathEvent event) {
             LivingEntity illager = event.getEntity();
             if (illager instanceof AbstractIllager || illager instanceof AbstractVillager) {
-                List<? extends LivingEntity> list = illager.getLevel().getNearbyEntities(Necromancer.class, TargetingConditions.forNonCombat(),illager,illager.getBoundingBox().inflate(10.0D, 8.0D, 10.0D));
+                List<? extends LivingEntity> list = illager.level().getNearbyEntities(Necromancer.class, TargetingConditions.forNonCombat(),illager,illager.getBoundingBox().inflate(10.0D, 8.0D, 10.0D));
                 for (LivingEntity necromancer:list) {
                     ((Necromancer) necromancer).addMinionToStock(2);
                 }

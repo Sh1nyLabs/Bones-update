@@ -30,7 +30,7 @@ public class NecromancerPlacesAGraveGoal extends MoveToBlockGoal {
         Necromancer necromancer=(Necromancer) this.mob;
         BlockState blockstate=level.getBlockState(blockpos.below());
         BlockState blockstate1=level.getBlockState(blockpos);
-        Level entityGetter=necromancer.getLevel();
+        Level entityGetter=necromancer.level();
         boolean flag=level.getBlockStates(new AABB(blockpos).inflate(4.0D,3.0D,4.0D)).filter((blockstate2)->{return blockstate2.is(BonesBlocks.GRAVE_BLOCK.get());}).toList().isEmpty();
         boolean flag1=blockpos.distSqr(necromancer.blockPosition())>1;
         return(flag && flag1 && (!blockstate.isAir()) && blockstate1.isAir() && blockstate.isCollisionShapeFullBlock(level,blockpos.below()) && entityGetter.getEntities(necromancer, AABB.unitCubeFromLowerCorner(Vec3.atLowerCornerOf(blockpos))).isEmpty());
@@ -47,7 +47,7 @@ public class NecromancerPlacesAGraveGoal extends MoveToBlockGoal {
         if (this.isReachedTarget()) {
             mob.getNavigation().stop();
             BlockState blockstate= BonesBlocks.GRAVE_BLOCK.get().defaultBlockState();
-            mob.getLevel().setBlock(this.blockPos,blockstate,3);
+            mob.level().setBlock(this.blockPos,blockstate,3);
             ((Necromancer)mob).graveStock-=1;
         }
     }

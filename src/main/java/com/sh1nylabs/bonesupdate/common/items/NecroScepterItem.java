@@ -46,7 +46,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
         if (stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get()) && entity.isAlive() && entity instanceof FriendlySkeleton friendlySkeleton && !friendlySkeleton.isFriendly()) {
-            Level level = player.getLevel();
+            Level level = player.level();
             if (!level.isClientSide()) {
                 friendlySkeleton.setFriendly(true);
             } else {
@@ -59,7 +59,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
             stack.hurtAndBreak(1, player, player1 -> {player1.broadcastBreakEvent(hand);});
             player.getCooldowns().addCooldown(this, 120);
 
-            return InteractionResult.sidedSuccess(player.level.isClientSide);
+            return InteractionResult.sidedSuccess(player.level().isClientSide);
         }
         return InteractionResult.PASS;
     }

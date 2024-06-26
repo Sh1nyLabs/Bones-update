@@ -106,9 +106,9 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     @Override
     public void tick() {
-        if (!this.getLevel().isClientSide()) {
+        if (!this.level().isClientSide()) {
             if (timeBeforeSkeletonRevives <= 0 && this.isAlive()) {
-                ServerLevel svrLevel = (ServerLevel) level;
+                ServerLevel svrLevel = (ServerLevel) this.level();
                 AbstractSkeleton skeleton = getSkeletonType().create(svrLevel);
                 if (skeleton!=null) {
                     skeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
@@ -143,7 +143,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     @Override
     public void die(DamageSource damageSource) {
-        if (!this.isRemoved() && !this.dead && this.level instanceof ServerLevel) {
+        if (!this.isRemoved() && !this.dead && this.level() instanceof ServerLevel) {
             if (damageSource.getEntity() instanceof Player player) {
                 player.awardStat(Stats.ENTITY_KILLED.get(this.getSkeletonType()));
             }
@@ -233,7 +233,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                 }
             }
         } else {
-            if (this.level.dimension() == Level.NETHER) {
+            if (this.level().dimension() == Level.NETHER) {
                 this.entityData.set(DATA_ID_TYPE_VARIANT, 1);
             } else {
                 this.entityData.set(DATA_ID_TYPE_VARIANT, 4 + random.nextInt(3));

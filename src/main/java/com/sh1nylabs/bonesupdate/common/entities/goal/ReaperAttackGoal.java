@@ -80,7 +80,7 @@ public class ReaperAttackGoal extends Goal {
             if (this.operation == MoveControl.Operation.MOVE_TO) {
 
                 Vec3 vec3;
-                if (mob.getLevel().getBlockState(mob.getOnPos()).isAir() && mob.getLevel().getBlockState(mob.getOnPos().below()).isAir()) {
+                if (mob.level().getBlockState(mob.getOnPos()).isAir() && mob.level().getBlockState(mob.getOnPos().below()).isAir()) {
                     vec3 = new Vec3(this.wantedX - this.mob.getX(),
                                     this.wantedY - this.mob.getY(),
                                     this.wantedZ - this.mob.getZ());
@@ -110,7 +110,7 @@ public class ReaperAttackGoal extends Goal {
 
             for(int i = 1; i < timeStep; ++i) {
                 aabb = aabb.move(vector);
-                if (!this.mob.level.noCollision(this.mob, aabb)) {
+                if (!this.mob.level().noCollision(this.mob, aabb)) {
                     return false;
                 }
             }

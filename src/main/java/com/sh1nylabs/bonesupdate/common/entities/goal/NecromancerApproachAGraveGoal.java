@@ -33,7 +33,7 @@ public class NecromancerApproachAGraveGoal extends MoveToBlockGoal {
         super.tick();
         if (this.isReachedTarget()) { // the target might have been reached but can have been destroyed.
             mob.getNavigation().stop();
-            if (mob.getLevel().getBlockEntity(this.blockPos) instanceof GraveBlockEntity) {
+            if (mob.level().getBlockEntity(this.blockPos) instanceof GraveBlockEntity) {
                 ((Necromancer)mob).gravePosition = blockPos;
             }
         }

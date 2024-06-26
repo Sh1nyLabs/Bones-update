@@ -58,7 +58,7 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
 
             super.tick();
 
-            if (knight.canDash() && (knight.getTarget()!=null) && (knight.distanceTo(knight.getTarget()) < DASH_TRIGGER_DISTANCE) && (knight.distanceTo(knight.getTarget()) > 1.5D) && (knight.getLevel().getRandom().nextDouble()<0.5)) { // prepare dash procedure
+            if (knight.canDash() && (knight.getTarget()!=null) && (knight.distanceTo(knight.getTarget()) < DASH_TRIGGER_DISTANCE) && (knight.distanceTo(knight.getTarget()) > 1.5D) && (knight.level().getRandom().nextDouble()<0.5)) { // prepare dash procedure
                 knight.setIsDashing(true);
                 knight.reInitWarmUpTime();
                 knight.getNavigation().stop();
