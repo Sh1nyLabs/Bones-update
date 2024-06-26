@@ -7,7 +7,7 @@ import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import com.sh1nylabs.bonesupdate.init.*;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -52,27 +52,27 @@ public class BonesUpdate {
         modEventBus.addListener(this::addItemsInCreativeTab);
     }
 
-    private void addItemsInCreativeTab(CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab() == CreativeModeTabs.NATURAL_BLOCKS) {
+    private void addItemsInCreativeTab(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(BonesItems.GRAVE_BLOCK_ITEM);
             event.accept(BonesItems.WEEPING_WILLOW_LEAVES_ITEM);
             event.accept(BonesItems.WEEPING_WILLOW_VINES_ITEM);
             event.accept(BonesItems.ERODED_FOSSIL_ITEM);
             event.accept(BonesItems.GUARDIAN_FOSSIL_ITEM);
-        } else if (event.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+        } else if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(BonesItems.AMULET);
-        } else if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+        } else if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(BonesItems.CURSED_LANTERN_ITEM);
-        } else if (event.getTab() == CreativeModeTabs.COMBAT) {
+        } else if (event.getTabKey() == CreativeModeTabs.COMBAT) {
             event.accept(BonesItems.NECRO_SCEPTER);
             event.accept(BonesItems.HAUNTER_SPEAR);
             event.accept(BonesItems.MINION_SWORD);
-        } else if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
+        } else if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(BonesItems.SKELETON_SOUL);
             event.accept(BonesItems.SOUL_ORB);
             event.accept(BonesItems.BLADE);
             event.accept(BonesItems.HAUNTER_BLADE);
-        } else if (event.getTab() == CreativeModeTabs.SPAWN_EGGS) {
+        } else if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(BonesItems.GRABBER_SPAWN_EGG);
             event.accept(BonesItems.MINION_SPAWN_EGG);
             event.accept(BonesItems.KNIGHT_SKELETON_SPAWN_EGG);
