@@ -21,13 +21,13 @@ description=''' Explore a world where skeletons decided to come back to life to 
 [[dependencies.bonesupdate]]
     modId="forge"
     mandatory=true
-    versionRange="[45,)"
+    versionRange="[47,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.bonesupdate]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.4,1.20)"
+    versionRange="[1.20.1]"
     ordering="NONE"
     side="BOTH"
