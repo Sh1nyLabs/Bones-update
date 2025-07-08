@@ -10,8 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.EventHooks;
 
 /**
     An interface to define a common property between the Block Entity "Grave", the "Necromancer Scepter" item
@@ -41,7 +40,7 @@ public interface CanSummonMinions {
                 Minion minion = BonesRegistry.MINION.type().create(level);
                 if (minion != null) {
                     minion.moveTo(blockpos, rdmSource.nextFloat() * 3.0F, 0.0F);
-                    net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData);
+                    EventHooks.finalizeMobSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData);
                     level.tryAddFreshEntityWithPassengers(minion);
                     level.gameEvent(minion, GameEvent.ENTITY_PLACE, blockpos);
                     minion.spawnAnim();
