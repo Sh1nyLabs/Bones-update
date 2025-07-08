@@ -60,11 +60,16 @@ public class BonesRegistry {
     public static final BUBlockHelper<?> WEEPING_WILLOW_SMALL_VINES = new BUBlockHelper<>("weeping_willow_small_vines",() -> new WeepingWillowSmallVinesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).randomTicks().noCollission().instabreak()));
     public static final BUBlockHelper<?> WEEPING_WILLOW_VINES = new BUBlockHelper<>("weeping_willow_vines",() -> new WeepingWillowVinesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).noCollission().instabreak()));
     public static final BUBlockHelper<?> WEEPING_WILLOW_LEAVES = new BUBlockHelper<>("weeping_willow_leaves",() -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).randomTicks().noOcclusion()));
-    public static final BUBlockHelper<?> ERODED_FOSSIL = new BUBlockHelper<>("eroded_fossil", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE),
+    public static final BUBlockHelper<?> ERODED_FOSSIL = new BUBlockHelper<>("eroded_fossil", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion(),
             Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 15.0D),
             Block.box(4.0D, 0.0D, 1.0D, 12.0D, 4.0D, 12.0D),
             Block.box(1.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D),
             Block.box(4.0D, 0.0D, 4.0D, 15.0D, 4.0D, 12.0D)));
+    public static final BUBlockHelper<?> BROKEN_SKELETON_BLOCK = new BUBlockHelper<>("broken_skeleton", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion(),
+            Block.box(1.0D, 0.0D, 2.0D, 16.0D, 8.0D, 15.0D),
+            Block.box(0.0D, 0.0D, 1.0D, 15.0D, 8.0D, 14.0D),
+            Block.box(2.0D, 0.0D, 1.0D, 15.0D, 8.0D, 16.0D),
+            Block.box(1.0D, 0.0D, 0.0D, 14.0D, 8.0D, 15.0D)));
     public static final BUBlockHelper<?> GUARDIAN_FOSSIL = new BUBlockHelper<>("guardian_fossil", () -> new GuardianFossilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion()));
     public static final BUBlockHelper<?> PILLAGER_SK_HEAD = new BUBlockHelper<>("pillager_skeleton_head", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion(),
             Block.box(2.0D, 0.0D, 5.0D, 13.0D, 8.0D, 16.0D),

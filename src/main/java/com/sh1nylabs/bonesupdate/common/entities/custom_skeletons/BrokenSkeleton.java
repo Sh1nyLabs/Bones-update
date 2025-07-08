@@ -1,6 +1,5 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.nbt.CompoundTag;
@@ -26,6 +25,7 @@ import net.minecraft.world.entity.monster.Bogged;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -96,7 +96,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
         super.dropCustomDeathLoot(level, damageSource, hurtByPlayer);
         if (getSkeletonType() == EntityType.WITHER_SKELETON) {
             this.spawnAtLocation(Items.WITHER_SKELETON_SKULL);
-        } else {
+        } else if (getSkeletonType() != EntityType.BOGGED){
             this.spawnAtLocation(Items.SKELETON_SKULL);
         }
         /**
@@ -136,9 +136,12 @@ public class BrokenSkeleton extends AbstractSkeleton {
                         bogged.setSheared(boggedIsSheared());
                     }
                     EventHooks.finalizeMobSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null);
-
-                    skeleton.setItemInHand(InteractionHand.MAIN_HAND,this.getMainHandItem());
-                    skeleton.setItemInHand(InteractionHand.OFF_HAND,this.getOffhandItem());
+                    if (this.getMainHandItem() != ItemStack.EMPTY) {
+                        skeleton.setItemInHand(InteractionHand.MAIN_HAND,this.getMainHandItem());
+                    }
+                    if (this.getOffhandItem() != ItemStack.EMPTY) {
+                        skeleton.setItemInHand(InteractionHand.OFF_HAND,this.getOffhandItem());
+                    }
 
                     skeleton.setRemainingFireTicks(this.getRemainingFireTicks());
 
@@ -252,7 +255,10 @@ public class BrokenSkeleton extends AbstractSkeleton {
             if (this.level().dimension() == Level.NETHER) {
                 this.entityData.set(DATA_ID_TYPE_VARIANT, 1);
             } else {
-                this.entityData.set(DATA_ID_TYPE_VARIANT, 4 + random.nextInt(3));
+                this.entityData.set(DATA_ID_TYPE_VARIANT, 4 + random.nextInt(4));
+                if (getSkeletonType()==BonesRegistry.HAUNTER_SKELETON.type()) {
+                    this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesRegistry.HAUNTER_SPEAR.item()));
+                }
             }
         }
         return spawnData;

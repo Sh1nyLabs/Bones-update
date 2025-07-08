@@ -1,12 +1,16 @@
 package com.sh1nylabs.bonesupdate;
 
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -15,7 +19,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
@@ -26,24 +29,44 @@ public class BonesUpdate
 {
     /**
      * TODO: before mod publication
-     * - add new skeletons decorations (villager...)
-     * - add non-sheared model for broken bogged
      * - better grabber movement / goals
      * - better reaper loot
      * - skeletons souls lootable in lost graves? (1 per grave max)
      */
     public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
-    //public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<CreativeModeTab> BONESUPDATE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    /**
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.bonesupdate")) //The language key for the title of your CreativeModeTab
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BONESUPDATE_TAB = BONESUPDATE_TABS.register("bonesupdate_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.bonesupdate"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .icon(() -> BonesRegistry.SKELETON_SOUL.item().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
-            }).build());*/
+                output.accept(BonesRegistry.GRAVE_BLOCK.item());
+                output.accept(BonesRegistry.WEEPING_WILLOW_LEAVES.item());
+                output.accept(BonesRegistry.WEEPING_WILLOW_VINES.item());
+                output.accept(BonesRegistry.ERODED_FOSSIL.item());
+                output.accept(BonesRegistry.BROKEN_SKELETON_BLOCK.item());
+                output.accept(BonesRegistry.GUARDIAN_FOSSIL.item());
+                output.accept(BonesRegistry.PILLAGER_SK_HEAD.item());
+                output.accept(BonesRegistry.PILLAGER_SK_BODY.item());
+                output.accept(BonesRegistry.AMULET.item());
+                output.accept(BonesRegistry.CURSED_LANTERN.item());
+                output.accept(BonesRegistry.NECRO_SCEPTER.item());
+                output.accept(BonesRegistry.HAUNTER_SPEAR.item());
+                output.accept(BonesRegistry.MINION_SWORD.item());
+                output.accept(BonesRegistry.SKELETON_SOUL.item());
+                output.accept(BonesRegistry.SOUL_ORB.item());
+                output.accept(BonesRegistry.BLADE.item());
+                output.accept(BonesRegistry.HAUNTER_BLADE.item());
+                output.accept(BonesRegistry.GRABBER.egg());
+                output.accept(BonesRegistry.MINION.egg());
+                output.accept(BonesRegistry.BROKEN_SKELETON.egg());
+                output.accept(BonesRegistry.KNIGHT_SKELETON.egg());
+                output.accept(BonesRegistry.HAUNTER_SKELETON.egg());
+                output.accept(BonesRegistry.NECROMANCER.egg());
+                output.accept(BonesRegistry.REAPER.egg());
+            }).build());
 
     public BonesUpdate(IEventBus modEventBus, ModContainer modContainer)
     {
@@ -55,7 +78,7 @@ public class BonesUpdate
         BonesRegistry.BU_ITEMS.register(modEventBus);
         BonesRegistry.BU_PARTICLES.register(modEventBus);
         BonesRegistry.BU_SOUNDS.register(modEventBus);
-        //CREATIVE_MODE_TABS.register(modEventBus);
+        BONESUPDATE_TABS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 
@@ -63,11 +86,6 @@ public class BonesUpdate
 
         modContainer.registerConfig(ModConfig.Type.COMMON, BonesUpdateConfig.SPEC);
     }
-/**
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
-        Raid.RaiderType.create("NECROMANCER", BonesRegistry.NECROMANCER.type(), new int[]{0, 0, 1, 0, 1, 1, 2, 1}); //FIX_VALUES
-    }*/
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
@@ -76,6 +94,7 @@ public class BonesUpdate
             event.accept(BonesRegistry.WEEPING_WILLOW_LEAVES.item());
             event.accept(BonesRegistry.WEEPING_WILLOW_VINES.item());
             event.accept(BonesRegistry.ERODED_FOSSIL.item());
+            event.accept(BonesRegistry.BROKEN_SKELETON_BLOCK.item());
             event.accept(BonesRegistry.GUARDIAN_FOSSIL.item());
             event.accept(BonesRegistry.PILLAGER_SK_HEAD.item());
             event.accept(BonesRegistry.PILLAGER_SK_BODY.item());
@@ -95,6 +114,7 @@ public class BonesUpdate
         } else if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(BonesRegistry.GRABBER.egg());
             event.accept(BonesRegistry.MINION.egg());
+            event.accept(BonesRegistry.BROKEN_SKELETON.egg());
             event.accept(BonesRegistry.KNIGHT_SKELETON.egg());
             event.accept(BonesRegistry.HAUNTER_SKELETON.egg());
             event.accept(BonesRegistry.NECROMANCER.egg());

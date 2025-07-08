@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "bonesupdate:block/broken_skeleton",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "bonesupdate:block/broken_skeleton",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "bonesupdate:block/broken_skeleton"
+    },
+    "facing=west": {
+      "model": "bonesupdate:block/broken_skeleton",
+      "y": 90
+    }
+  }
+}

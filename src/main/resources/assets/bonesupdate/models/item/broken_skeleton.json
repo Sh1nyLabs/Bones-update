@@ -1,5 +1,5 @@
 {
-  "parent": "bonesupdate:block/pillager_skeleton_body",
+  "parent": "bonesupdate:block/broken_skeleton",
   "display": {
     "gui": {
       "rotation": [ 30, 225, 0 ],
@@ -22,7 +22,7 @@
       "scale": [ 0.8, 0.8, 0.8 ]
     },
     "firstperson_righthand": {
-      "rotation": [ 30, 70, 0 ],
+      "rotation": [ 0, 45, 0 ],
       "translation": [ 0, 7, 0 ],
       "scale": [ 0.80, 0.80, 0.80 ]
     },

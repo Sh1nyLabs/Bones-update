@@ -4,11 +4,15 @@
     "translate": "enchantment.bonesupdate.subaltern"
   },
   "effects": {
-    "minecraft:repair_with_xp": [
+    "minecraft:damage": [
       {
         "effect": {
-          "type": "minecraft:multiply",
-          "factor": 2.0
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 0.0,
+            "per_level_above_first": 0.0
+          }
         }
       }
     ]
