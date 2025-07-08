@@ -11,38 +11,6 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:diamond",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:arrow",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
                 "max": 7.0,
                 "min": 2.0
               },
@@ -82,22 +50,23 @@
             }
           ],
           "name": "minecraft:string",
-          "weight": 5
+          "weight": 8
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:saddle",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:skeleton_skull",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bonesupdate:eroded_fossil",
-          "weight": 5
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:arrow",
+          "weight": 7
         },
         {
           "type": "minecraft:item",
@@ -127,8 +96,51 @@
               "treasure": true
             }
           ],
+          "name": "minecraft:bow",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bonesupdate:eroded_fossil",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bonesupdate:pillager_skeleton_head",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bonesupdate:pillager_skeleton_body",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bonesupdate:skeleton_soul",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 10.0,
+                "min": 2.0
+              },
+              "treasure": true
+            }
+          ],
           "name": "minecraft:iron_sword",
-          "weight": 3
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -144,7 +156,7 @@
             }
           ],
           "name": "minecraft:iron_pickaxe",
-          "weight": 6
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -160,7 +172,7 @@
             }
           ],
           "name": "minecraft:iron_chestplate",
-          "weight": 6
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -176,7 +188,7 @@
             }
           ],
           "name": "minecraft:iron_leggings",
-          "weight": 6
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -192,7 +204,7 @@
             }
           ],
           "name": "minecraft:iron_helmet",
-          "weight": 6
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -208,7 +220,7 @@
             }
           ],
           "name": "minecraft:iron_axe",
-          "weight": 3
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -224,29 +236,39 @@
             }
           ],
           "name": "minecraft:iron_shovel",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:saddle",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:skeleton_skull",
           "weight": 3
         },
         {
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
+              "add": false,
+              "count": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 2.0
+                "max": 2.0,
+                "min": 1.0
               },
-              "treasure": true
+              "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:bow",
-          "weight": 6
+          "name": "minecraft:diamond",
+          "weight": 2
         }
       ],
       "rolls": {
         "type": "minecraft:uniform",
         "max": 7.0,
-        "min": 2.0
+        "min": 4.0
       }
     }
   ]
