@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#bonesupdate:allows_custom_skeletons",
+  "spawners": {
+    "type": "bonesupdate:knight_skeleton",
+    "weight": 3,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}

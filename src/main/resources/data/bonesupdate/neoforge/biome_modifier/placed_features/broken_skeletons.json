@@ -1,0 +1,13 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": ["minecraft:taiga",
+    "minecraft:birch_forest",
+    "minecraft:dark_forest",
+    "minecraft:badlands",
+    "minecraft:eroded_badlands",
+    "minecraft:wooded_badlands",
+    "minecraft:desert"
+  ],
+  "features": "bonesupdate:broken_skeletons",
+  "step": "top_layer_modification"
+}
