@@ -2,10 +2,8 @@ package com.sh1nylabs.bonesupdate.common.enchantments;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
-import com.sh1nylabs.bonesupdate.init.BonesItems;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemStack;
+import com.sh1nylabs.bonesupdate.common.enchantments.LeaderEnchantment;
+import com.sh1nylabs.bonesupdate.common.enchantments.SerenityEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 /**
@@ -13,18 +11,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
  * When used on the necromancer scepter, it no more summons minions.
  */
 public class SubalternEnchantment extends Enchantment {
-    public SubalternEnchantment(Rarity rarity, EquipmentSlot... slot) {
-        super(rarity, BonesEnchantments.NECROMANCY, slot);
+    public SubalternEnchantment(Enchantment.EnchantmentDefinition definition) {
+        super(definition);
     }
 
-    @Override
-    public boolean canEnchant(ItemStack stack) {
-        return stack.getItem() == BonesItems.NECRO_SCEPTER.get();
-    }
-
-    /**
-     * The 'Subordinate' enchantment is incompatible with the 'Serenity' or 'Leader' enchantments
-     */
+    /** The 'Subordinate' enchantment is incompatible with the 'Serenity' or 'Leader' enchantments */
     public boolean checkCompatibility(Enchantment enchantement) {
         return !(enchantement instanceof SerenityEnchantment) && !(enchantement instanceof LeaderEnchantment) && super.checkCompatibility(enchantement);
     }

@@ -5,6 +5,10 @@ import com.sh1nylabs.bonesupdate.init.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -15,7 +19,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(BonesUpdate.MODID)
@@ -59,9 +68,9 @@ public class BonesUpdate
         //modEventBus.addListener(this::commonSetup);
 
         BonesBlocks.BU_BLOCKS.register(modEventBus);
-        BonesItems.BU_ITEMS.register(modEventBus);
-        BonesEntities.BU_ENTITIES.register(modEventBus);
         BonesBlocks.BU_BLOCK_ENTITIES.register(modEventBus);
+        BonesEntities.BU_ENTITIES.register(modEventBus);
+        BonesItems.BU_ITEMS.register(modEventBus);
         BonesEnchantments.BU_ENCHANTMENTS.register(modEventBus);
         BonesParticles.BU_PARTICLES.register(modEventBus);
         BonesSounds.BU_SOUNDS.register(modEventBus);
@@ -97,6 +106,9 @@ public class BonesUpdate
             event.accept(BonesItems.HAUNTER_SPEAR);
             event.accept(BonesItems.MINION_SWORD);
         } else if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(buildEnchantedBook(BonesEnchantments.LEADER.get()));
+            event.accept(buildEnchantedBook(BonesEnchantments.SERENITY.get()));
+            event.accept(buildEnchantedBook(BonesEnchantments.SUBALTERN.get()));
             event.accept(BonesItems.SKELETON_SOUL);
             event.accept(BonesItems.SOUL_ORB);
             event.accept(BonesItems.BLADE);
@@ -109,5 +121,9 @@ public class BonesUpdate
             event.accept(BonesItems.NECROMANCER_SPAWN_EGG);
             event.accept(BonesItems.REAPER_SPAWN_EGG);
         }
+    }
+
+    private static ItemStack buildEnchantedBook(Enchantment enchantment) {
+        return EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, enchantment.getMaxLevel()));
     }
 }
