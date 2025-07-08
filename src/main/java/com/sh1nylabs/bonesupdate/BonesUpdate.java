@@ -40,6 +40,7 @@ import com.mojang.logging.LogUtils;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate
@@ -199,6 +200,6 @@ public class BonesUpdate
     }
 
     public class BonesRaiderTypes {
-        //public static final EnumProxy<Raid.RaiderType> NECROMANCER = new EnumProxy<>(Raid.RaiderType.class, (Supplier<EntityType<?>>)(BonesRegistry.NECROMANCER::type), new int[]{0, 0, 1, 0, 1, 1, 2, 1});
+        public static final EnumProxy<Raid.RaiderType> NECROMANCER = new EnumProxy<>(Raid.RaiderType.class, (Supplier<EntityType<?>>)(BonesRegistry.NECROMANCER::type), new int[]{0, 0, 1, 0, 1, 1, 2, 1});
     }
 }

@@ -1,0 +1,14 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/entity/raid/Raid$RaiderType",
+      "name": "BONESUPDATE_NECROMANCER",
+      "constructor": "(Ljava/util/function/Supplier;[I)V",
+      // The parameters to be used, provided as a reference to a method in the given class
+      "parameters": {
+        "class": "com/sh1nylabs/bonesupdate/BonesUpdate$BonesRaiderTypes",
+        "field": "NECROMANCER"
+      }
+    }
+  ]
+}
