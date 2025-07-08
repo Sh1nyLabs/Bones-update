@@ -9,6 +9,8 @@ import com.sh1nylabs.bonesupdate.common.blocks.GraveBlockEntity;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -58,7 +60,7 @@ public class Necromancer extends AbstractIllager {
         this.timeBeforeNextCast = tag.getInt("CastTicks");
         this.minionStock = tag.getInt("Stock");
         this.graveStock = tag.getInt("Grave_stock");
-        this.gravePosition = NbtUtils.readBlockPos(tag.getCompound("GravePos"));
+        this.gravePosition = NbtUtils.readBlockPos(tag, "GravePos").get();
     }
 
     public void addAdditionalSaveData(CompoundTag tag) {
@@ -69,9 +71,9 @@ public class Necromancer extends AbstractIllager {
         tag.put("GravePos", NbtUtils.writeBlockPos(this.gravePosition));
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_NECRO_SPELL_CASTING_ID, (byte)0);
+    protected void defineSynchedData(SynchedEntityData.Builder syncBuilder) {
+        super.defineSynchedData(syncBuilder);
+        syncBuilder.define(DATA_NECRO_SPELL_CASTING_ID, (byte)0);
     }
 
     public static AttributeSupplier.Builder getCustomAttributes() {
@@ -97,7 +99,7 @@ public class Necromancer extends AbstractIllager {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         this.minionStock = MINION_STOCK_ON_SPAWN; // FIX_VALUE
         this.graveStock = GRAVE_STOCK_ON_SPAWN; // FIX_VALUE
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
@@ -123,7 +125,7 @@ public class Necromancer extends AbstractIllager {
 
         if (level().isClientSide() && this.isCastingSpell()) { // Animation when the necromancer moves its scepter
             float f = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos((float)this.tickCount * 0.6662F) * 0.15F;
-            level().addParticle(ParticleTypes.ENTITY_EFFECT,this.getX() -0.5D * (double) (Mth.cos(f))+0.8D*Mth.sin(0.4F*tickCount),this.getY()+2.5D,this.getZ() - 0.8D * (double) (Mth.sin(f)) + 0.8D*Mth.cos(0.4F*tickCount),0.3D, 0.35D, 0.65D);
+            level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT,0.3F, 0.35F, 0.65F),this.getX() -0.5D * (double) (Mth.cos(f))+0.8D*Mth.sin(0.4F*tickCount),this.getY()+2.5D,this.getZ() - 0.8D * (double) (Mth.sin(f)) + 0.8D*Mth.cos(0.4F*tickCount),0.0D,0.0D,0.0D);
         }
         super.tick();
 

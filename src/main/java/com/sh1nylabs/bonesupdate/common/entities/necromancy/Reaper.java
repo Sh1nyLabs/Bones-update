@@ -35,10 +35,6 @@ public class Reaper extends FlyingMob implements Enemy {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    @Override
-    public MobType getMobType() {
-        return MobType.UNDEAD;
-    }
 
     @Override
     public void aiStep() {

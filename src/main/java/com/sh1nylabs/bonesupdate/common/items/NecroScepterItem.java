@@ -19,8 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 
 
@@ -45,7 +44,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
      */
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if (stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get()) && entity.isAlive() && entity instanceof FriendlySkeleton friendlySkeleton && !friendlySkeleton.isFriendly()) {
+        if (EnchantmentHelper.getItemEnchantmentLevel(BonesEnchantments.SUBALTERN.get(), stack) == 0 && entity.isAlive() && entity instanceof FriendlySkeleton friendlySkeleton && !friendlySkeleton.isFriendly()) {
             Level level = player.level();
             if (!level.isClientSide()) {
                 friendlySkeleton.setFriendly(true);
@@ -56,7 +55,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
             }
 
 
-            stack.hurtAndBreak(1, player, player1 -> {player1.broadcastBreakEvent(hand);});
+            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
             player.getCooldowns().addCooldown(this, 120);
 
             return InteractionResult.sidedSuccess(player.level().isClientSide);
@@ -79,13 +78,13 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        boolean hasLeader = stack.getAllEnchantments().containsKey(BonesEnchantments.LEADER.get());
-        if (!level.isClientSide() && !stack.getAllEnchantments().containsKey(BonesEnchantments.SUBALTERN.get())){
+        boolean hasLeader = (EnchantmentHelper.getItemEnchantmentLevel(BonesEnchantments.LEADER.get(), stack) == 0);
+        if (!level.isClientSide() &&EnchantmentHelper.getItemEnchantmentLevel(BonesEnchantments.SUBALTERN.get(), stack) != 0){
             this.summonMinion((ServerLevel) level, level.getRandom(),
                     MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
                     player.blockPosition(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));
 
-            stack.hurtAndBreak((hasLeader ? 2 : 1), player, player1 -> {player1.broadcastBreakEvent(hand);});
+            stack.hurtAndBreak((hasLeader ? 2 : 1), player, LivingEntity.getSlotForHand(hand));
             player.getCooldowns().addCooldown(this, (hasLeader ? 140 : 100));
 
             return InteractionResultHolder.consume(player.getItemInHand(hand));
@@ -105,18 +104,18 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
         return tryToPacifyGrave(context, context.getItemInHand(), context.getPlayer());
     }
 
-    /**
+    /** TODO: check if ok
      * Enchantments applicable on the Necromancer scepter:
      * Category "NECROMANCY": "Leader", "Subordinate"
      * Category "SKELETON_QUEST": "Serenity"
      * Category "BREAKABLE": "Mending", "Unbreaking"
      *
      * For enchantment compatibility, check enchantments classes.
-     */
+
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)  {
         return enchantment.category == BonesEnchantments.NECROMANCY
                 || enchantment.category == EnchantmentCategory.BREAKABLE
                 || enchantment.category == BonesEnchantments.SKELETON_QUEST;
-    }
+    }*/
 }

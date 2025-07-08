@@ -45,11 +45,6 @@ public class Minion extends FriendlySkeleton {
     @Override
     protected void dropCustomDeathLoot(DamageSource source, int lootingLevel, boolean hurtByPlayer) {}
 
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {
-        return 0.85F * 0.85F;
-    }
-
     public static AttributeSupplier.Builder getCustomAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,2.0D) //FIX_VALUE
@@ -83,7 +78,7 @@ public class Minion extends FriendlySkeleton {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         if (spawnData instanceof MinionData minionData) {
             this.setFriendly(minionData.summoningWay instanceof NecroScepterItem);

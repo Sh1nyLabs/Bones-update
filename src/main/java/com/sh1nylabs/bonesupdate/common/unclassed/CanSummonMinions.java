@@ -9,6 +9,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 
 /**
@@ -39,11 +41,11 @@ public interface CanSummonMinions {
                 double positionY = pos.getY() + rdmSource.nextGaussian() * 2 + 0.5;
                 double positionZ = pos.getZ() + (rdmSource.nextDouble() - 0.5) * 4 + 0.5;
                 BlockPos blockpos = BlockPos.containing(positionX, positionY, positionZ);
-                if (level.noCollision(BonesEntities.MINION.get().getAABB(positionX, positionY, positionZ)) && level.getBlockState(blockpos.below()).isValidSpawn(level, blockpos.below(), BonesEntities.MINION.get())) {
+                if (level.noCollision(AABB.unitCubeFromLowerCorner(new Vec3(positionX, positionY, positionZ)).inflate(0.35D)) && level.getBlockState(blockpos.below()).isValidSpawn(level, blockpos.below(), BonesEntities.MINION.get())) {
                     Minion minion = BonesEntities.MINION.get().create(level);
                     if (minion != null) {
                         minion.moveTo(positionX, positionY, positionZ, rdmSource.nextFloat(), 0.0F);
-                        ForgeEventFactory.onFinalizeSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData, null);
+                        ForgeEventFactory.onFinalizeSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData);
                         level.tryAddFreshEntityWithPassengers(minion);
                         level.gameEvent(minion, GameEvent.ENTITY_PLACE, blockpos);
                         minion.spawnAnim();

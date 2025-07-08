@@ -8,6 +8,7 @@ import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
+import net.minecraft.data.DataProvider;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
@@ -15,27 +16,28 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingUseTotemEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BonesModEvent {
 
@@ -56,7 +58,7 @@ public class BonesModEvent {
                 BrokenSkeleton broken = BonesEntities.BROKEN_SKELETON.get().create(svrLevel);
                 if (broken != null) {
                     broken.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
-                    ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), MobSpawnType.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton), null);
+                    ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), MobSpawnType.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
 
                     net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, broken);
                     svrLevel.addFreshEntityWithPassengers(broken);
@@ -94,13 +96,13 @@ public class BonesModEvent {
                 event.getTrades().get(2).add(new VillagerTrades.ItemListing() {
                     @Override
                     public MerchantOffer getOffer(Entity entity, RandomSource rdmSource) {
-                        return new MerchantOffer(new ItemStack(BonesItems.SKELETON_SOUL.get(), 2), new ItemStack(Items.EMERALD), 12, 12, 0.2F);
+                        return new MerchantOffer(new ItemCost(BonesItems.SKELETON_SOUL.get(), 2), new ItemStack(Items.EMERALD), 12, 12, 0.2F);
                     }
                 });
                 event.getTrades().get(5).add(new VillagerTrades.ItemListing() {
                     @Override
                     public MerchantOffer getOffer(Entity entity, RandomSource rdmSource) {
-                        return new MerchantOffer(new ItemStack(BonesItems.SKELETON_SOUL.get(), 4), new ItemStack(BonesItems.BLADE.get()), new ItemStack(BonesItems.HAUNTER_BLADE.get()), 12, 12, 0.2F);
+                        return new MerchantOffer(new ItemCost(BonesItems.SKELETON_SOUL.get(), 4), Optional.of(new ItemCost(BonesItems.BLADE.get(),1)), new ItemStack(BonesItems.HAUNTER_BLADE.get()), 12, 12, 0.2F);
                     }
                 });
             }
@@ -117,6 +119,14 @@ public class BonesModEvent {
         }
 
         @SubscribeEvent
+        public void gatherBonesData(GatherDataEvent event) {
+            event.getGenerator().addProvider(
+                    event.includeServer(),
+                    (DataProvider.Factory<BonesEntities.BonesEntityTagsProvider>) output -> new BonesEntities.BonesEntityTagsProvider(output, event.getLookupProvider())
+            );
+        }
+
+        @SubscribeEvent
         public static void entityAttributes(EntityAttributeCreationEvent event) {
             event.put(BonesEntities.GRABBER.get(), Grabber.getCustomAttributes().build());
             event.put(BonesEntities.MINION.get(), Minion.getCustomAttributes().build());
@@ -129,19 +139,19 @@ public class BonesModEvent {
 
         @SubscribeEvent
         public static void entitySpawnRestriction(SpawnPlacementRegisterEvent event) {
-            event.register(BonesEntities.KNIGHT_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,
+            event.register(BonesEntities.KNIGHT_SKELETON.get(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
-            event.register(BonesEntities.BROKEN_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,
+            event.register(BonesEntities.BROKEN_SKELETON.get(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
-            event.register(BonesEntities.GRABBER.get(), SpawnPlacements.Type.ON_GROUND,
+            event.register(BonesEntities.GRABBER.get(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
-            event.register(BonesEntities.HAUNTER_SKELETON.get(), SpawnPlacements.Type.ON_GROUND,
+            event.register(BonesEntities.HAUNTER_SKELETON.get(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
-            event.register(BonesEntities.NECROMANCER.get(), SpawnPlacements.Type.ON_GROUND,
+            event.register(BonesEntities.NECROMANCER.get(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         }

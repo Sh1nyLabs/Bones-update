@@ -1,6 +1,5 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
@@ -10,7 +9,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -32,10 +31,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class BrokenSkeleton extends AbstractSkeleton {
     private int timeBeforeSkeletonRevives;
@@ -46,9 +45,9 @@ public class BrokenSkeleton extends AbstractSkeleton {
     public BrokenSkeleton(EntityType<? extends AbstractSkeleton> type, Level level) {
         super(type, level);
     }
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_ID_TYPE_VARIANT, 1);
+    protected void defineSynchedData(SynchedEntityData.Builder syncBuilder) {
+        super.defineSynchedData(syncBuilder);
+        syncBuilder.define(DATA_ID_TYPE_VARIANT, 1);
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
@@ -118,7 +117,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     if (skeleton instanceof FriendlySkeleton friendlySk) {
                         friendlySk.setFriendly(friendly);
                     }
-                    ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                    ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null);
 
                     skeleton.setItemInHand(InteractionHand.MAIN_HAND,this.getMainHandItem());
                     skeleton.setItemInHand(InteractionHand.OFF_HAND,this.getOffhandItem());
@@ -152,7 +151,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     @Override
-    public ResourceLocation getDefaultLootTable() {
+    public ResourceKey<LootTable> getDefaultLootTable() {
         return getSkeletonType().getDefaultLootTable();
     }
 
@@ -186,10 +185,6 @@ public class BrokenSkeleton extends AbstractSkeleton {
         return SoundEvents.SKELETON_STEP;
     } //TODO: update sounds
 
-    /** Overriden so that eye height is modified when the skeleton is broken. */
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {return 0.3F;}
-
     public final String getSkeletonTypeString() {
         return getSkeletonType() == null? "none" : getSkeletonType().toString();
     }
@@ -215,7 +210,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         timeBeforeSkeletonRevives = 1025 + random.nextInt(100);
         if (spawnData instanceof BrokenSkeletonSpawnData skeletonData) { /* Defining which skeleton to create after revival */
             setSkeletonType(skeletonData.skeletonType);
@@ -261,7 +256,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
             this.friendly = (entity instanceof FriendlySkeleton friendlySk && friendlySk.isFriendly());
 
             for(MobEffectInstance mobeffectinstance : entity.getActiveEffectsMap().values()) {
-                listtag.add(mobeffectinstance.save(new CompoundTag()));
+                listtag.add(mobeffectinstance.save());
             }
         }
     }

@@ -4,7 +4,6 @@ package com.sh1nylabs.bonesupdate.common.items;
 
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanPacifyGraves;
-import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,8 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
+
 
 public class AmuletItem extends Item implements CanPacifyGraves {
     public AmuletItem(Properties properties) {
@@ -35,7 +33,7 @@ public class AmuletItem extends Item implements CanPacifyGraves {
             brokenSkeleton.setHealth(0.0F);
             brokenSkeleton.die(player.level().damageSources().playerAttack(player));
 
-            stack.hurtAndBreak(1, player, player1 -> {player1.broadcastBreakEvent(hand);});
+            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
             player.getCooldowns().addCooldown(this, 80); // FIX_VALUE
             return InteractionResult.SUCCESS;
         }
@@ -53,16 +51,16 @@ public class AmuletItem extends Item implements CanPacifyGraves {
         return tryToPacifyGrave(context, context.getItemInHand(), context.getPlayer());
     }
 
-    /**
+    /** TODO: check if ok
      * Enchantments applicable on the GravePacifier items:
      * Category "SKELETON_QUEST": "Serenity"
      * Category "BREAKABLE": "Mending", "Unbreaking"
      *
      * For enchantment compatibility, check enchantments classes.
-     */
+
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)  {
         return enchantment.category == EnchantmentCategory.BREAKABLE
                 || enchantment.category == BonesEnchantments.SKELETON_QUEST;
-    }
+    }*/
 }

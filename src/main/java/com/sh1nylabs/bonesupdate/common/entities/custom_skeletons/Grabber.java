@@ -2,15 +2,12 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.goal.GrabberCelebratesNewItemGoal;
 import com.sh1nylabs.bonesupdate.common.entities.goal.GrabberStealsItem;
 import com.sh1nylabs.bonesupdate.common.entities.goal.NearestStealableTargetGoal;
 import com.sh1nylabs.bonesupdate.common.entities.goal.SimpleMoveGoal;
 import com.sh1nylabs.bonesupdate.init.BonesItems;
-import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,7 +33,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.antlr.v4.codegen.model.Sync;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -50,20 +46,20 @@ public class Grabber extends AbstractSkeleton {
         super(type, level);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(IS_CELEBRATING, false);
-        this.entityData.define(ITEM_DISPLAY, ItemStack.EMPTY);
+    protected void defineSynchedData(SynchedEntityData.Builder syncBuilder) {
+        super.defineSynchedData(syncBuilder);
+        syncBuilder.define(IS_CELEBRATING, false);
+        syncBuilder.define(ITEM_DISPLAY, ItemStack.EMPTY);
     }
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.requestedItem = ItemStack.of(compoundTag.getCompound("requestedItem"));
+        super.readAdditionalSaveData(compoundTag); //TODO: test if works
+        this.requestedItem = ItemStack.parseOptional(this.registryAccess(), compoundTag.getCompound("requestedItem"));
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.put("requestedItem", this.requestedItem.save(new CompoundTag()));
+        compoundTag.put("requestedItem", this.requestedItem.save(this.registryAccess()));
     }
 
     public boolean isCelebratingNewItem() {
@@ -136,12 +132,6 @@ public class Grabber extends AbstractSkeleton {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions entityDimensions) {
-        return 1.5F;
-    }
-
-
-    @Override
     protected void dropCustomDeathLoot(DamageSource damageSource, int lootingLevel, boolean hurtByPlayer) {
         ItemStack itemstack = this.getOffhandItem();
         this.spawnAtLocation(itemstack);
@@ -155,7 +145,7 @@ public class Grabber extends AbstractSkeleton {
 
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         List<Item> grabber_steals = ForgeRegistries.ITEMS.tags().getTag(BonesItems.GRABBER_STEALS).stream().toList();
 
         this.setPocketItem(grabber_steals.get(random.nextInt(grabber_steals.size())));

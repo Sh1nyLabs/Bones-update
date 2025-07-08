@@ -6,9 +6,11 @@ import com.sh1nylabs.bonesupdate.common.blocks.GraveBlock;
 import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -27,7 +29,7 @@ public interface CanPacifyGraves {
      * @return InteractionResult : SUCCESS / PASS
      */
     default InteractionResult tryToPacifyGrave(UseOnContext context, ItemStack stack, Player player) {
-        if (stack.getAllEnchantments().containsKey(BonesEnchantments.SERENITY.get())) {
+        if (EnchantmentHelper.getItemEnchantmentLevel(BonesEnchantments.SERENITY.get(), stack) == 0) {
             Level level = context.getLevel();
             BlockPos blockpos = context.getClickedPos();
             BlockState blockstate = level.getBlockState(blockpos);
@@ -37,9 +39,7 @@ public interface CanPacifyGraves {
                 level.gameEvent(GameEvent.BLOCK_CHANGE, blockpos, GameEvent.Context.of(player, blockstate1));
 
                 if (player != null) {
-                    stack.hurtAndBreak(1, player, player1 -> {
-                        player1.broadcastBreakEvent( context.getHand());
-                    });
+                    stack.hurtAndBreak(1, player, stack.getEquipmentSlot());
                     player.getCooldowns().addCooldown(stack.getItem(), 80);
                 }
                 return InteractionResult.SUCCESS;

@@ -68,9 +68,9 @@ public class KnightSkeleton extends FriendlySkeleton {
         return BonesSounds.KNIGHT_SKELETON_STEP.get();
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(IS_DASHING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder syncBuilder) {
+        super.defineSynchedData(syncBuilder);
+        syncBuilder.define(IS_DASHING, false);
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
@@ -106,7 +106,7 @@ public class KnightSkeleton extends FriendlySkeleton {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         return spawnData;
     }
@@ -158,13 +158,13 @@ public class KnightSkeleton extends FriendlySkeleton {
         }
         float f1 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
         if (entity instanceof LivingEntity) {
-            hurtAmount += EnchantmentHelper.getDamageBonus(this.getMainHandItem(), ((LivingEntity)entity).getMobType());
+            hurtAmount += EnchantmentHelper.getDamageBonus(this.getMainHandItem(), entity.getType());
             f1 += (float)EnchantmentHelper.getKnockbackBonus(this);
         }
 
         int i = EnchantmentHelper.getFireAspect(this);
         if (i > 0) {
-            entity.setSecondsOnFire(i * 4);
+            entity.igniteForSeconds(i * 4);
         }
 
         boolean flag = entity.hurt(this.damageSources().mobAttack(this), hurtAmount);

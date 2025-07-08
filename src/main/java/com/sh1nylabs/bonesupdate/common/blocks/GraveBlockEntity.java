@@ -4,6 +4,7 @@ import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.init.BonesBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -29,14 +30,20 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
     @Override
     public void delayNextSummon(RandomSource rdmSource) {readyToSpawn = false;}
 
+    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
+        readyToSpawn=compoundTag.getBoolean("ReadyToSpawn");
+        necromancerDelay=compoundTag.getInt("NecromancerDelay");
+    }
+    /**
     public void load(CompoundTag compoundTag) {
         super.load(compoundTag);
         readyToSpawn=compoundTag.getBoolean("ReadyToSpawn");
         necromancerDelay=compoundTag.getInt("NecromancerDelay");
-    }
+    } */
     
-    protected void saveAdditional(CompoundTag compoundTag) {
-        super.saveAdditional(compoundTag);
+    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider holderProvider) {
+        super.saveAdditional(compoundTag, holderProvider);
         compoundTag.putBoolean("ReadyToSpawn", readyToSpawn);
         compoundTag.putInt("NecromancerDelay", necromancerDelay);
     }
