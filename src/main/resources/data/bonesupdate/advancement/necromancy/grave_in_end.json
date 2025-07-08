@@ -1,0 +1,40 @@
+{
+  "parent": "bonesupdate:necromancy/loot_lost_grave",
+  "criteria": {
+    "grave_in_the_end": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "bonesupdate:grave",
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "dimension": "minecraft:the_end"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "frame": "task",
+  "hidden": false,
+  "show_toast": true,
+  "display": {
+    "description": {
+      "translate": "advancements.bonesupdate.grave_in_end.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "bonesupdate:grave"
+    },
+    "title": {
+      "translate": "advancements.bonesupdate.grave_in_end.title"
+    }
+  },
+  "requirements": [
+    [
+      "grave_in_the_end"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "bonesupdate:root",
+  "criteria": {
+    "loot_grave": {
+      "conditions": {
+        "loot_table": "bonesupdate:chests/lost_grave"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.bonesupdate.loot_lost_grave.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "show_toast": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:chest"
+    },
+    "title": {
+      "translate": "advancements.bonesupdate.loot_lost_grave.title"
+    }
+  },
+  "requirements": [
+    [
+      "loot_grave"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

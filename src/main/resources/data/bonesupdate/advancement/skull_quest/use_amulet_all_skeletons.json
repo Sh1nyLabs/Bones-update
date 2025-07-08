@@ -70,6 +70,20 @@
           "nbt": "{Variant:5}"
         }
       }
+    },
+    "used_on_bogged": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_skeleton",
+          "nbt": "{Variant:6}"
+        }
+      }
     }
   },
   "requirements": [
@@ -87,6 +101,9 @@
     ],
     [
       "used_on_knight_skeleton"
+    ],
+    [
+      "used_on_bogged"
     ]
   ],
   "display": {
@@ -94,7 +111,7 @@
     "description": {
       "translate": "advancements.skull_quest.use_amulet_all_skeletons.description"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "hidden": false,
     "icon": {
       "count": 1,
