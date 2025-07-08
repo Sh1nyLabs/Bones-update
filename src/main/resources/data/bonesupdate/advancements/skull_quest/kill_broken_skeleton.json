@@ -24,8 +24,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:iron_sword",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "minecraft:iron_sword"
     },
     "show_toast": true,
     "title": {

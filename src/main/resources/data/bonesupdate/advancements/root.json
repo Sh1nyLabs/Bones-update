@@ -22,7 +22,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "bonesupdate:skeleton_soul"
+      "count": 1,
+      "id": "bonesupdate:skeleton_soul"
     },
     "show_toast": false,
     "title": {

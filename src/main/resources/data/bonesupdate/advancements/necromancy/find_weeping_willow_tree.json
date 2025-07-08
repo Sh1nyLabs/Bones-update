@@ -26,7 +26,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "bonesupdate:weeping_willow_vines"
+      "count": 1,
+      "id": "bonesupdate:weeping_willow_vines"
     },
     "show_toast": true,
     "title": {

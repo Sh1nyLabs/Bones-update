@@ -96,8 +96,8 @@
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "minecraft:netherite_sword",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "minecraft:netherite_sword"
     },
     "show_toast": true,
     "title": {

@@ -3,19 +3,25 @@
   "criteria": {
     "grave_not_haunted": {
       "conditions": {
-        "item": {
-          "items": [
-            "bonesupdate:amulet",
-            "bonesupdate:necromancer_scepter"
-          ]
-        },
-        "location": {
-          "block": {
-            "blocks": [
-              "bonesupdate:grave"
-            ]
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "bonesupdate:amulet",
+                "bonesupdate:necromancer_scepter"
+              ]
+            }
+          },
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "tag": "bonesupdate:grave"
+              }
+            }
           }
-        }
+        ]
       },
       "trigger": "minecraft:item_used_on_block"
     }
@@ -28,7 +34,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "bonesupdate:grave"
+      "count": 1,
+      "id": "bonesupdate:grave"
     },
     "show_toast": true,
     "title": {

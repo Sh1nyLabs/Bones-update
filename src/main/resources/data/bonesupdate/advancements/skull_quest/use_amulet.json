@@ -28,8 +28,8 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "bonesupdate:amulet",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "bonesupdate:amulet"
     },
     "show_toast": true,
     "title": {

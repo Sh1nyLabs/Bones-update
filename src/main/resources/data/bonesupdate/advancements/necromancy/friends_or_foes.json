@@ -71,8 +71,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "bonesupdate:necromancer_scepter_inventory",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "bonesupdate:necromancer_scepter_inventory"
     },
     "show_toast": true,
     "title": {
