@@ -7,10 +7,9 @@ import com.sh1nylabs.bonesupdate.common.entities.goal.NecromancerPlacesAGraveGoa
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.common.blocks.GraveBlockEntity;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
-import com.sh1nylabs.bonesupdate.init.BonesItems;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ColorParticleOption;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -108,7 +107,7 @@ public class Necromancer extends AbstractIllager {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource rdmSequence, DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesItems.NECRO_SCEPTER.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesRegistry.NECRO_SCEPTER.item()));
     }
 
     @Override

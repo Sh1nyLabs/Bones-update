@@ -1,9 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
-import com.sh1nylabs.bonesupdate.init.BonesEntities;
-import com.sh1nylabs.bonesupdate.init.BonesParticles;
-import com.sh1nylabs.bonesupdate.init.BonesSounds;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -99,7 +97,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     public void playRevivingSound() {
-        SoundEvent soundevent = BonesSounds.BROKEN_SKELETON_REVIVES.get();
+        SoundEvent soundevent = BonesRegistry.BROKEN_SKELETON_REVIVES.get();
         this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
     }
 
@@ -128,7 +126,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     svrLevel.addFreshEntityWithPassengers(skeleton);
                     svrLevel.gameEvent(skeleton, GameEvent.ENTITY_PLACE, this.blockPosition());
                     this.discard();
-                    svrLevel.sendParticles(BonesParticles.PURPLE_SOUL.get(),
+                    svrLevel.sendParticles(BonesRegistry.PURPLE_SOUL.particle(),
                             skeleton.getX(), skeleton.getY() + 0.5D, skeleton.getZ(),
                             50, 0.0D, 0.1D, 0.0D, 0.20D);
                     this.playRevivingSound();
@@ -193,8 +191,8 @@ public class BrokenSkeleton extends AbstractSkeleton {
         return switch (this.entityData.get(DATA_ID_TYPE_VARIANT)) { /* case 1 is SKELETON */
             case 2 -> EntityType.STRAY;
             case 3 -> EntityType.WITHER_SKELETON;
-            case 4 -> BonesEntities.HAUNTER_SKELETON.get();
-            case 5 -> BonesEntities.KNIGHT_SKELETON.get();
+            case 4 -> BonesRegistry.HAUNTER_SKELETON.type();
+            case 5 -> BonesRegistry.KNIGHT_SKELETON.type();
             default -> EntityType.SKELETON;
         };
     }

@@ -6,7 +6,7 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.FriendlySkeleton;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanPacifyGraves;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
-import com.sh1nylabs.bonesupdate.init.BonesEnchantments;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -44,7 +44,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
      */
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if (EnchantmentHelper.getItemEnchantmentLevel(BonesEnchantments.SUBALTERN.get(), stack) == 0 && entity.isAlive() && entity instanceof FriendlySkeleton friendlySkeleton && !friendlySkeleton.isFriendly()) {
+        if (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.SUBALTERN.enchantment(), stack) == 0 && entity.isAlive() && entity instanceof FriendlySkeleton friendlySkeleton && !friendlySkeleton.isFriendly()) {
             Level level = player.level();
             if (!level.isClientSide()) {
                 friendlySkeleton.setFriendly(true);
@@ -78,8 +78,8 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        boolean hasLeader = (EnchantmentHelper.getItemEnchantmentLevel(BonesEnchantments.LEADER.get(), stack) == 0);
-        if (!level.isClientSide() &&EnchantmentHelper.getItemEnchantmentLevel(BonesEnchantments.SUBALTERN.get(), stack) != 0){
+        boolean hasLeader = (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.LEADER.enchantment(), stack) == 0);
+        if (!level.isClientSide() &&EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.SUBALTERN.enchantment(), stack) != 0){
             this.summonMinion((ServerLevel) level, level.getRandom(),
                     MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
                     player.blockPosition(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));

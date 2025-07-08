@@ -2,7 +2,7 @@ package com.sh1nylabs.bonesupdate.common.blocks;
 
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
-import com.sh1nylabs.bonesupdate.init.BonesBlocks;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,7 +23,7 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
     private boolean readyToSpawn = false;
     private int necromancerDelay = -1;
 
-    public GraveBlockEntity(BlockPos position, BlockState state) {super(BonesBlocks.GRAVE.get(), position, state);}
+    public GraveBlockEntity(BlockPos position, BlockState state) {super(BonesRegistry.GRAVE_BLOCK.blockEntity(), position, state);}
 
     public boolean readyToSummon() {return (readyToSpawn && this.getBlockState().getValue(HAUNTED));}
 

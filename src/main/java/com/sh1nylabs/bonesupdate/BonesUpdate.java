@@ -1,17 +1,14 @@
 package com.sh1nylabs.bonesupdate;
 
-import com.sh1nylabs.bonesupdate.init.*;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -40,13 +37,13 @@ public class BonesUpdate
     {
         modEventBus.addListener(this::commonSetup);
 
-        BonesBlocks.BU_BLOCKS.register(modEventBus);
-        BonesBlocks.BU_BLOCK_ENTITIES.register(modEventBus);
-        BonesEntities.BU_ENTITIES.register(modEventBus);
-        BonesItems.BU_ITEMS.register(modEventBus);
-        BonesEnchantments.BU_ENCHANTMENTS.register(modEventBus);
-        BonesParticles.BU_PARTICLES.register(modEventBus);
-        BonesSounds.BU_SOUNDS.register(modEventBus);
+        BonesRegistry.BU_BLOCKS.register(modEventBus);
+        BonesRegistry.BU_BLOCK_ENTITIES.register(modEventBus);
+        BonesRegistry.BU_ENTITIES.register(modEventBus);
+        BonesRegistry.BU_ITEMS.register(modEventBus);
+        BonesRegistry.BU_ENCHANTMENTS.register(modEventBus);
+        BonesRegistry.BU_PARTICLES.register(modEventBus);
+        BonesRegistry.BU_SOUNDS.register(modEventBus);
         //CREATIVE_MODE_TABS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
@@ -58,46 +55,41 @@ public class BonesUpdate
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        BonesEntities.registerWaveMembers();
+        Raid.RaiderType.create("NECROMANCER", BonesRegistry.NECROMANCER.type(), new int[]{0, 0, 1, 0, 1, 1, 2, 1}); //FIX_VALUES
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
-            event.accept(BonesItems.GRAVE_BLOCK_ITEM.get());
-            event.accept(BonesItems.WEEPING_WILLOW_LEAVES_ITEM.get());
-            event.accept(BonesItems.WEEPING_WILLOW_VINES_ITEM.get());
-            event.accept(BonesItems.ERODED_FOSSIL_ITEM.get());
-            event.accept(BonesItems.GUARDIAN_FOSSIL_ITEM.get());
+            event.accept(BonesRegistry.GRAVE_BLOCK.item());
+            event.accept(BonesRegistry.WEEPING_WILLOW_LEAVES.item());
+            event.accept(BonesRegistry.WEEPING_WILLOW_VINES.item());
+            event.accept(BonesRegistry.ERODED_FOSSIL.item());
+            event.accept(BonesRegistry.GUARDIAN_FOSSIL.item());
         } else if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(BonesItems.AMULET.get());
+            event.accept(BonesRegistry.AMULET.item());
         } else if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            event.accept(BonesItems.CURSED_LANTERN_ITEM.get());
+            event.accept(BonesRegistry.CURSED_LANTERN.item());
         } else if (event.getTabKey() == CreativeModeTabs.COMBAT) {
-            event.accept(BonesItems.NECRO_SCEPTER.get());
-            event.accept(BonesItems.HAUNTER_SPEAR.get());
-            event.accept(BonesItems.MINION_SWORD.get());
+            event.accept(BonesRegistry.NECRO_SCEPTER.item());
+            event.accept(BonesRegistry.HAUNTER_SPEAR.item());
+            event.accept(BonesRegistry.MINION_SWORD.item());
         } else if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(buildEnchantedBook(BonesEnchantments.LEADER.get()));
-            event.accept(buildEnchantedBook(BonesEnchantments.SERENITY.get()));
-            event.accept(buildEnchantedBook(BonesEnchantments.SUBALTERN.get()));
-            event.accept(BonesItems.SKELETON_SOUL.get());
-            event.accept(BonesItems.SOUL_ORB.get());
-            event.accept(BonesItems.BLADE.get());
-            event.accept(BonesItems.HAUNTER_BLADE.get());
+            event.accept(BonesRegistry.LEADER.enchantedBook());
+            event.accept(BonesRegistry.SERENITY.enchantedBook());
+            event.accept(BonesRegistry.SUBALTERN.enchantedBook());
+            event.accept(BonesRegistry.SKELETON_SOUL.item());
+            event.accept(BonesRegistry.SOUL_ORB.item());
+            event.accept(BonesRegistry.BLADE.item());
+            event.accept(BonesRegistry.HAUNTER_BLADE.item());
         } else if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(BonesItems.GRABBER_SPAWN_EGG.get());
-            event.accept(BonesItems.MINION_SPAWN_EGG.get());
-            event.accept(BonesItems.KNIGHT_SKELETON_SPAWN_EGG.get());
-            event.accept(BonesItems.HAUNTER_SPAWN_EGG.get());
-            event.accept(BonesItems.NECROMANCER_SPAWN_EGG.get());
-            event.accept(BonesItems.REAPER_SPAWN_EGG.get());
+            event.accept(BonesRegistry.GRABBER.egg());
+            event.accept(BonesRegistry.MINION.egg());
+            event.accept(BonesRegistry.KNIGHT_SKELETON.egg());
+            event.accept(BonesRegistry.HAUNTER_SKELETON.egg());
+            event.accept(BonesRegistry.NECROMANCER.egg());
+            event.accept(BonesRegistry.REAPER.egg());
         }
-    }
-
-
-    private static ItemStack buildEnchantedBook(Enchantment enchantment) {
-        return EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, enchantment.getMaxLevel()));
     }
 
     @SubscribeEvent

@@ -6,8 +6,7 @@ import com.sh1nylabs.bonesupdate.common.entities.goal.MinionFollowsOwnerGoal;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.items.NecroScepterItem;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
-import com.sh1nylabs.bonesupdate.init.BonesItems;
-import net.minecraft.nbt.CompoundTag;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -74,7 +73,7 @@ public class Minion extends FriendlySkeleton {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource rdmSequence, DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesItems.MINION_SWORD.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesRegistry.MINION_SWORD.item()));
     }
 
     @Override

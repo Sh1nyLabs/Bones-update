@@ -1,7 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.sh1nylabs.bonesupdate.init.BonesBlocks;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
 
 public class WeepingWillowSmallVinesBlock extends GrowingPlantHeadBlock {
     private static final MapCodec<WeepingWillowSmallVinesBlock> CODEC = simpleCodec(WeepingWillowSmallVinesBlock::new);
@@ -34,7 +35,7 @@ public class WeepingWillowSmallVinesBlock extends GrowingPlantHeadBlock {
     }
 
     protected Block getBodyBlock() {
-        return BonesBlocks.WEEPING_WILLOW_VINES.get();
+        return BonesRegistry.WEEPING_WILLOW_VINES.block();
     }
 
     protected boolean canGrowInto(BlockState blockState) {
@@ -47,7 +48,7 @@ public class WeepingWillowSmallVinesBlock extends GrowingPlantHeadBlock {
         if (!this.canAttachTo(blockstate)) {
             return false;
         } else {
-            return blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BonesBlocks.WEEPING_WILLOW_LEAVES.get()) || blockstate.is(Blocks.OAK_LOG);
+            return blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BonesRegistry.WEEPING_WILLOW_LEAVES.block()) || blockstate.is(Blocks.OAK_LOG);
         }
     }
 

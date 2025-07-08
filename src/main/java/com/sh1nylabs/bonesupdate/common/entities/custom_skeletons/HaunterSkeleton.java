@@ -3,10 +3,8 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.common.entities.goal.ProtectKnightGoal;
-import com.sh1nylabs.bonesupdate.init.BonesItems;
-import com.sh1nylabs.bonesupdate.init.BonesSounds;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -47,7 +45,7 @@ public class HaunterSkeleton extends FriendlySkeleton {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource rdmSequence, DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesItems.HAUNTER_SPEAR.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesRegistry.HAUNTER_SPEAR.item()));
     }
 
     @Override
@@ -55,22 +53,23 @@ public class HaunterSkeleton extends FriendlySkeleton {
         return 0.0F;
     }
 
-
-    protected SoundEvent getAmbientSound() {
-        return BonesSounds.HAUNTER_SKELETON_AMBIENT.get();
-    }
-
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return BonesSounds.HAUNTER_SKELETON_HURT.get();
-    }
-
-    protected SoundEvent getDeathSound() {
-        return BonesSounds.HAUNTER_SKELETON_DEATH.get();
-    }
     @Override
     protected SoundEvent getStepSound() {
-        return BonesSounds.HAUNTER_SKELETON_STEP.get();
+        return BonesRegistry.HAUNTER_SKELETON.step();
     }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BonesRegistry.HAUNTER_SKELETON.hurt();
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BonesRegistry.HAUNTER_SKELETON.death();
+    }
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return BonesRegistry.HAUNTER_SKELETON.ambient();
+    }
+
 
 
 

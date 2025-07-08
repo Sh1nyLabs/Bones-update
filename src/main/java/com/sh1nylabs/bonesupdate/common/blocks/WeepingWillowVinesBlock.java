@@ -1,7 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.sh1nylabs.bonesupdate.init.BonesBlocks;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelReader;
@@ -25,7 +25,7 @@ public class WeepingWillowVinesBlock extends GrowingPlantBodyBlock {
     }
 
     protected GrowingPlantHeadBlock getHeadBlock() {
-        return (GrowingPlantHeadBlock) BonesBlocks.WEEPING_WILLOW_SMALL_VINES.get();
+        return (GrowingPlantHeadBlock) BonesRegistry.WEEPING_WILLOW_SMALL_VINES.block();
     }
 
     public boolean canSurvive(BlockState blockState, LevelReader level, BlockPos pos) {
@@ -34,7 +34,7 @@ public class WeepingWillowVinesBlock extends GrowingPlantBodyBlock {
         if (!this.canAttachTo(blockstate)) {
             return false;
         } else {
-            return blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BonesBlocks.WEEPING_WILLOW_LEAVES.get())  || blockstate.is(Blocks.OAK_LOG);
+            return blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BonesRegistry.WEEPING_WILLOW_LEAVES.block())  || blockstate.is(Blocks.OAK_LOG);
         }
     }
 }

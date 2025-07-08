@@ -6,7 +6,7 @@ import com.sh1nylabs.bonesupdate.common.entities.goal.GrabberCelebratesNewItemGo
 import com.sh1nylabs.bonesupdate.common.entities.goal.GrabberStealsItem;
 import com.sh1nylabs.bonesupdate.common.entities.goal.NearestStealableTargetGoal;
 import com.sh1nylabs.bonesupdate.common.entities.goal.SimpleMoveGoal;
-import com.sh1nylabs.bonesupdate.init.BonesItems;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -147,7 +147,7 @@ public class Grabber extends AbstractSkeleton {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        Optional<HolderSet.Named<Item>> grabber_steals = BuiltInRegistries.ITEM.getTag(BonesItems.GRABBER_STEALS);
+        Optional<HolderSet.Named<Item>> grabber_steals = BuiltInRegistries.ITEM.getTag(BonesRegistry.GRABBER_STEALS);
         grabber_steals.ifPresent(holders -> this.setPocketItem(holders.stream().toList().get(random.nextInt(holders.size())).value()));
         return spawnData;
     }

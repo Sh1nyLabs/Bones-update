@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.models.BrokenSkeletonModel;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
-import com.sh1nylabs.bonesupdate.init.BonesEntities;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -22,15 +22,15 @@ public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSk
         map.put(EntityType.SKELETON.toString(), new ResourceLocation("textures/entity/skeleton/skeleton.png"));
         map.put(EntityType.STRAY.toString(), new ResourceLocation("textures/entity/skeleton/stray.png"));
         map.put(EntityType.WITHER_SKELETON.toString(), new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
-        map.put(BonesEntities.HAUNTER_SKELETON.get().toString(), new ResourceLocation(BonesUpdate.MODID,"textures/entity/haunter_skeleton.png"));
-        map.put(BonesEntities.KNIGHT_SKELETON.get().toString(), new ResourceLocation(BonesUpdate.MODID,"textures/entity/knight_skeleton.png"));
+        map.put(BonesRegistry.HAUNTER_SKELETON.type().toString(), new ResourceLocation(BonesUpdate.MODID,"textures/entity/haunter_skeleton.png"));
+        map.put(BonesRegistry.KNIGHT_SKELETON.type().toString(), new ResourceLocation(BonesUpdate.MODID,"textures/entity/knight_skeleton.png"));
     });
 
     public BrokenSkeletonRenderer(EntityRendererProvider.Context context) {
         super(context,new BrokenSkeletonModel<>(context.bakeLayer(BrokenSkeletonModel.LAYER_LOCATION)), 0.5f);
         this.addLayer(new ItemInHandLayer<BrokenSkeleton, BrokenSkeletonModel<BrokenSkeleton>>(this, context.getItemInHandRenderer()) {
             public void render(PoseStack stack, MultiBufferSource bufferSource, int int1, BrokenSkeleton skeleton, float float1, float float2, float float3, float float4, float float5, float float6) {
-                if (skeleton.getSkeletonType() == BonesEntities.HAUNTER_SKELETON.get()) {
+                if (skeleton.getSkeletonType() == BonesRegistry.HAUNTER_SKELETON.type()) {
                     super.render(stack, bufferSource, int1, skeleton, float1, float2, float3, float4, float5, float6);
                 }
             }

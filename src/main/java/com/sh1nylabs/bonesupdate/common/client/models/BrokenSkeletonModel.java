@@ -5,7 +5,7 @@ package com.sh1nylabs.bonesupdate.common.client.models;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
-import com.sh1nylabs.bonesupdate.init.BonesEntities;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -61,7 +61,7 @@ public class BrokenSkeletonModel<T extends BrokenSkeleton> extends EntityModel<T
 
 	@Override
 	public void setupAnim(BrokenSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (entity.getSkeletonType() != BonesEntities.HAUNTER_SKELETON.get()) {
+		if (entity.getSkeletonType() != BonesRegistry.HAUNTER_SKELETON.type()) {
 			this.haunter_parts.visible = false;
 		}
 	}

@@ -2,16 +2,13 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.goal.KnightSkeletonDashesGoal;
-import com.sh1nylabs.bonesupdate.init.BonesParticles;
-import com.sh1nylabs.bonesupdate.init.BonesSounds;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -50,23 +47,24 @@ public class KnightSkeleton extends FriendlySkeleton {
                 .add(Attributes.MOVEMENT_SPEED, 0.21F) //FIX_VALUE
                 .add(Attributes.FOLLOW_RANGE,20.0F); //FIX_VALUE
     }
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return BonesSounds.KNIGHT_SKELETON_AMBIENT.get();
-    }
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return BonesSounds.KNIGHT_SKELETON_HURT.get();
-    }
-    @Override
-    protected SoundEvent getDeathSound() {
-        return BonesSounds.KNIGHT_SKELETON_DEATH.get();
-    }
 
     @Override
     protected SoundEvent getStepSound() {
-        return BonesSounds.KNIGHT_SKELETON_STEP.get();
+        return BonesRegistry.KNIGHT_SKELETON.step();
     }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BonesRegistry.KNIGHT_SKELETON.hurt();
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BonesRegistry.KNIGHT_SKELETON.death();
+    }
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return BonesRegistry.KNIGHT_SKELETON.ambient();
+    }
+
 
     protected void defineSynchedData(SynchedEntityData.Builder syncBuilder) {
         super.defineSynchedData(syncBuilder);
@@ -138,7 +136,7 @@ public class KnightSkeleton extends FriendlySkeleton {
     public void spawnWarmUpParticles() { /* Only Client-sided */
         float f1 = (float) (2*Mth.PI*random.nextDouble());
         double d1 = 0.2 + 0.65*random.nextDouble();
-        level().addParticle(BonesParticles.PURPLE_BAR.get(),
+        level().addParticle(BonesRegistry.PURPLE_BAR.particle(),
                 this.getX() + d1*Mth.cos(f1),
                 this.getY(),
                 this.getZ() + d1*Mth.sin(f1),

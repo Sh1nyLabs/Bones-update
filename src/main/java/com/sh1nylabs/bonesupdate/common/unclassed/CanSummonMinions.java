@@ -3,7 +3,7 @@ package com.sh1nylabs.bonesupdate.common.unclassed;
 /* Java interface written by sh1nylabs' team. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
-import com.sh1nylabs.bonesupdate.init.BonesEntities;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -41,8 +41,8 @@ public interface CanSummonMinions {
                 double positionY = pos.getY() + rdmSource.nextGaussian() * 2 + 0.5;
                 double positionZ = pos.getZ() + (rdmSource.nextDouble() - 0.5) * 4 + 0.5;
                 BlockPos blockpos = BlockPos.containing(positionX, positionY, positionZ);
-                if (level.noCollision(AABB.unitCubeFromLowerCorner(new Vec3(positionX, positionY, positionZ)).inflate(0.35D)) && level.getBlockState(blockpos.below()).isValidSpawn(level, blockpos.below(), BonesEntities.MINION.get())) {
-                    Minion minion = BonesEntities.MINION.get().create(level);
+                if (level.noCollision(AABB.unitCubeFromLowerCorner(new Vec3(positionX, positionY, positionZ)).inflate(0.35D)) && level.getBlockState(blockpos.below()).isValidSpawn(level, blockpos.below(), BonesRegistry.MINION.type())) {
+                    Minion minion = BonesRegistry.MINION.type().create(level);
                     if (minion != null) {
                         minion.moveTo(positionX, positionY, positionZ, rdmSource.nextFloat(), 0.0F);
                         EventHooks.finalizeMobSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData);

@@ -1,7 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.blocks;
 
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
-import com.sh1nylabs.bonesupdate.init.BonesEntities;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -88,7 +88,7 @@ public class GraveBlock extends Block implements EntityBlock {
             villager.playSound(SoundEvents.VILLAGER_NO, 1.0F, villager.getVoicePitch());
         }
         if (state.getValue(HAUNTED) && level.getRandom().nextInt(4)==0 && !level.isClientSide()) {
-            Reaper reaper = BonesEntities.REAPER.get().create(level);
+            Reaper reaper = BonesRegistry.REAPER.type().create(level);
             if (reaper!=null) {
                 reaper.moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), level.getRandom().nextFloat(), 0.0F);
                 EventHooks.finalizeMobSpawn(reaper, (ServerLevel) level, level.getCurrentDifficultyAt(blockPos), MobSpawnType.SPAWNER, null);
