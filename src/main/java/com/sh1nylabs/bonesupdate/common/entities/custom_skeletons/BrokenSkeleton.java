@@ -1,5 +1,6 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
+import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.nbt.CompoundTag;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.Bogged;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -40,29 +42,39 @@ public class BrokenSkeleton extends AbstractSkeleton {
     private boolean friendly = false;
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.INT);
 
+    private static final EntityDataAccessor<Boolean> DATA_BOGGED_SHEARED = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.BOOLEAN);
+
     public BrokenSkeleton(EntityType<? extends AbstractSkeleton> type, Level level) {
         super(type, level);
     }
+
     protected void defineSynchedData(SynchedEntityData.Builder syncBuilder) {
         super.defineSynchedData(syncBuilder);
         syncBuilder.define(DATA_ID_TYPE_VARIANT, 1);
+        syncBuilder.define(DATA_BOGGED_SHEARED, false);
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("Variant", this.entityData.get(DATA_ID_TYPE_VARIANT));
+        compoundTag.putBoolean("sheared", this.boggedIsSheared());
         compoundTag.putInt("TimeToRevive", this.timeBeforeSkeletonRevives);
     }
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.entityData.set(DATA_ID_TYPE_VARIANT, compoundTag.getInt("Variant"));
+        this.entityData.set(DATA_BOGGED_SHEARED, compoundTag.getBoolean("sheared"));
         this.timeBeforeSkeletonRevives = compoundTag.getInt("TimeToRevive");
     }
 
     public static AttributeSupplier.Builder getCustomAttributes() {
         return (Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 55.0D));
+    }
+
+    public boolean boggedIsSheared() {
+        return this.entityData.get(DATA_BOGGED_SHEARED);
     }
 
     @Override
@@ -82,6 +94,12 @@ public class BrokenSkeleton extends AbstractSkeleton {
     @Override
     protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean hurtByPlayer) {
         super.dropCustomDeathLoot(level, damageSource, hurtByPlayer);
+        if (getSkeletonType() == EntityType.WITHER_SKELETON) {
+            this.spawnAtLocation(Items.WITHER_SKELETON_SKULL);
+        } else {
+            this.spawnAtLocation(Items.SKELETON_SKULL);
+        }
+        /**
         Entity entity = damageSource.getEntity();
         if (entity instanceof Creeper creeper) {
             if (creeper.canDropMobsSkull()) {
@@ -92,7 +110,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     this.spawnAtLocation(Items.SKELETON_SKULL);
                 }
             }
-        }
+        }*/
     }
 
     public void playRevivingSound() {
@@ -113,6 +131,9 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     }
                     if (skeleton instanceof FriendlySkeleton friendlySk) {
                         friendlySk.setFriendly(friendly);
+                    }
+                    if (skeleton instanceof Bogged bogged) {
+                        bogged.setSheared(boggedIsSheared());
                     }
                     EventHooks.finalizeMobSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null);
 
@@ -180,10 +201,10 @@ public class BrokenSkeleton extends AbstractSkeleton {
     @Override
     protected SoundEvent getStepSound() {
         return SoundEvents.SKELETON_STEP;
-    } //TODO: update sounds
+    }
 
     public final String getSkeletonTypeString() {
-        return getSkeletonType() == null? "none" : getSkeletonType().toString();
+        return getSkeletonType() == null ? "none" : getSkeletonType().toString();
     }
 
     public final EntityType<? extends AbstractSkeleton> getSkeletonType() {
@@ -192,6 +213,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
             case 3 -> EntityType.WITHER_SKELETON;
             case 4 -> BonesRegistry.HAUNTER_SKELETON.type();
             case 5 -> BonesRegistry.KNIGHT_SKELETON.type();
+            case 6 -> EntityType.BOGGED;
             default -> EntityType.SKELETON;
         };
     }
@@ -202,16 +224,18 @@ public class BrokenSkeleton extends AbstractSkeleton {
             case "entity.minecraft.wither_skeleton" -> 3;
             case "entity.bonesupdate.haunter_skeleton" -> 4;
             case "entity.bonesupdate.knight_skeleton" -> 5;
+            case "entity.minecraft.bogged" -> 6;
             default -> 1;
         });
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        timeBeforeSkeletonRevives = 1025 + random.nextInt(100);
+        timeBeforeSkeletonRevives = 905 + random.nextInt(200);
         if (spawnData instanceof BrokenSkeletonSpawnData skeletonData) { /* Defining which skeleton to create after revival */
             setSkeletonType(skeletonData.skeletonType);
             this.friendly = skeletonData.friendly;
+            this.entityData.set(DATA_BOGGED_SHEARED, skeletonData.bogged_sheared);
             this.inheritedKillCredit = skeletonData.inheritedKillCredit;
             this.setItemInHand(InteractionHand.MAIN_HAND,skeletonData.mainHandItem);
             this.setItemInHand(InteractionHand.OFF_HAND,skeletonData.offHandItem);
@@ -242,6 +266,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
         public ItemStack offHandItem;
         public int remainingFireTicks;
         public boolean friendly;
+        public boolean bogged_sheared = false;
 
         public BrokenSkeletonSpawnData(AbstractSkeleton entity) {
             this.skeletonType = (EntityType<? extends AbstractSkeleton>) entity.getType();
@@ -251,6 +276,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
             this.mainHandItem = entity.getMainHandItem();
             this.offHandItem = entity.getOffhandItem();
             this.friendly = (entity instanceof FriendlySkeleton friendlySk && friendlySk.isFriendly());
+            this.bogged_sheared = (entity instanceof Bogged bogged && bogged.isSheared());
 
             for(MobEffectInstance mobeffectinstance : entity.getActiveEffectsMap().values()) {
                 listtag.add(mobeffectinstance.save());

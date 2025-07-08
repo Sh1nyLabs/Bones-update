@@ -22,6 +22,7 @@ public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSk
         map.put(EntityType.SKELETON.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png"));
         map.put(EntityType.STRAY.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/stray.png"));
         map.put(EntityType.WITHER_SKELETON.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/wither_skeleton.png"));
+        map.put(EntityType.BOGGED.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/bogged.png"));
         map.put(BonesRegistry.HAUNTER_SKELETON.type().toString(), ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/haunter_skeleton.png"));
         map.put(BonesRegistry.KNIGHT_SKELETON.type().toString(), ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/knight_skeleton.png"));
     });
