@@ -30,6 +30,9 @@ public class BUConfig {
             .comment("Entities to spawn in a squad (HARD difficulty), in the following order: Skeleton, Knight Skeleton, Haunter Skeleton, Minion.")
             .defineList("entityNbListHard", List.of(4, 2, 2, 10), (value)-> {return value instanceof Integer integ && integ >= 0;});
 
+    private static final ForgeConfigSpec.ConfigValue<Float> MIN_DIFFICULTY_FOR_SKELETON_TO_BREAK = BUILDER
+            .comment("Minimal difficulty for any skeleton to break")
+            .define("skeletonBreakDifficultyMin", 0.3F);
     // a list of strings that are treated as resource locations for items. TODO: change it for creative tabs
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
             .comment("A list of items to log on common setup.")
@@ -39,6 +42,7 @@ public class BUConfig {
 
     public static int squadSpawnChance;
     public static float squadDifficultyMin;
+    public static double skeletonBreakDifficultyMin;
 
 
     public static Set<Item> items;
@@ -54,6 +58,8 @@ public class BUConfig {
         BonesUpdate.LOGGER.info("config loading done");
         squadSpawnChance = SQUAD_SPAWN_CHANCE.get();
         squadDifficultyMin = MIN_DIFFICULTY_FOR_SQUAD_TO_SPAWN.get();
+        skeletonBreakDifficultyMin = Math.max(0.0F, Math.min(MIN_DIFFICULTY_FOR_SKELETON_TO_BREAK.get(), 1.0F));
+
         // convert the list of strings into a set of items
         items = ITEM_STRINGS.get().stream()
                 .map(itemName -> BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemName)))

@@ -1,11 +1,16 @@
 package com.sh1nylabs.bonesupdate;
 
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
+import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
@@ -31,10 +36,8 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Supplier;
 
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate
@@ -149,6 +152,14 @@ public class BonesUpdate
             }
         }
         return null;
+    }
+
+    public static boolean skeletonAllowedToBecomeBroken(AbstractSkeleton skeleton, DifficultyInstance difficultyInstance) {
+        boolean validEntity = !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion) && !(skeleton instanceof Grabber);
+        int value = 1+Mth.ceil(50.0F * (1.0F - difficultyInstance.getSpecialMultiplier()));
+        LOGGER.info("breaking proba: {}, {}, {}", value, BUConfig.skeletonBreakDifficultyMin,  difficultyInstance.getSpecialMultiplier());
+        boolean validDifficulty = difficultyInstance.getSpecialMultiplier() > BUConfig.skeletonBreakDifficultyMin && skeleton.getRandom().nextInt(value)==0;
+        return validEntity && validDifficulty;
     }
 
     @SubscribeEvent

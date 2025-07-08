@@ -72,7 +72,7 @@ public class BonesModEvent {
          */
         @SubscribeEvent
         public static void SkeletonDiesEvent(LivingDeathEvent event) {
-            if ((!event.getEntity().level().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion) && !(skeleton instanceof Grabber)) {
+            if ((!event.getEntity().level().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && BonesUpdate.skeletonAllowedToBecomeBroken(skeleton, event.getEntity().level().getCurrentDifficultyAt(event.getEntity().getOnPos()))) {
                 event.setCanceled(true);
                 ServerLevel svrLevel = (ServerLevel) event.getEntity().level();
                 BrokenSkeleton broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel);
