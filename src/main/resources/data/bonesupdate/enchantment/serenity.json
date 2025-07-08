@@ -1,5 +1,5 @@
 {
-  "anvil_cost": 4,
+  "anvil_cost": 6,
   "description": {
     "translate": "enchantment.bonesupdate.serenity"
   },
@@ -24,7 +24,7 @@
   },
   "max_level": 1,
   "min_cost": {
-    "base": 25,
+    "base": 19,
     "per_level_above_first": 25
   },
   "slots": [
