@@ -32,7 +32,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 
@@ -135,7 +134,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     if (skeleton instanceof Bogged bogged) {
                         bogged.setSheared(boggedIsSheared());
                     }
-                    EventHooks.finalizeMobSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null);
+                    net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null);
                     if (this.getMainHandItem() != ItemStack.EMPTY) {
                         skeleton.setItemInHand(InteractionHand.MAIN_HAND,this.getMainHandItem());
                     }
@@ -145,7 +144,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
                     skeleton.setRemainingFireTicks(this.getRemainingFireTicks());
 
-                    EventHooks.onLivingConvert(this, skeleton);
+                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, skeleton);
                     svrLevel.addFreshEntityWithPassengers(skeleton);
                     svrLevel.gameEvent(skeleton, GameEvent.ENTITY_PLACE, this.blockPosition());
                     this.discard();

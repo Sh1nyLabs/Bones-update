@@ -34,8 +34,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -45,12 +46,12 @@ public class BonesRegistry {
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Registries %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
-    public static final DeferredRegister<Block> BU_BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, BonesUpdate.MODID);
-    public static final DeferredRegister<BlockEntityType<?>> BU_BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, BonesUpdate.MODID);
-    public static final DeferredRegister<EntityType<?>> BU_ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, BonesUpdate.MODID);
-    public static final DeferredRegister<Item> BU_ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, BonesUpdate.MODID);
-    public static final DeferredRegister<ParticleType<?>> BU_PARTICLES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, BonesUpdate.MODID);
-    public static final DeferredRegister<SoundEvent> BU_SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, BonesUpdate.MODID);
+    public static final DeferredRegister<Block> BU_BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BonesUpdate.MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BU_BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BonesUpdate.MODID);
+    public static final DeferredRegister<EntityType<?>> BU_ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BonesUpdate.MODID);
+    public static final DeferredRegister<Item> BU_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BonesUpdate.MODID);
+    public static final DeferredRegister<ParticleType<?>> BU_PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, BonesUpdate.MODID);
+    public static final DeferredRegister<SoundEvent> BU_SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, BonesUpdate.MODID);
 
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Blocks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
@@ -136,7 +137,7 @@ public class BonesRegistry {
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sounds %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> BROKEN_SKELETON_REVIVES = BU_SOUNDS.register("broken_skeleton_revives", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "broken_skeleton_revives")));
+    public static final RegistryObject<SoundEvent> BROKEN_SKELETON_REVIVES = BU_SOUNDS.register("broken_skeleton_revives", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "broken_skeleton_revives")));
 
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EntityTags %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
@@ -165,7 +166,7 @@ public class BonesRegistry {
         }
 
         public void addTags(HolderLookup.Provider provider) {
-            this.tag(SUBALTERN_INCOMPATIBLE).add(SUBALTERN.ench());
+            //this.tag(SUBALTERN_INCOMPATIBLE).add(SUBALTERN.ench());
         }
     }
 }

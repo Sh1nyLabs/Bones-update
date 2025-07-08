@@ -15,21 +15,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.asm.enumextension.EnumProxy;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
-
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -51,7 +50,7 @@ public class BonesUpdate
     public static List<EntityType<? extends AbstractSkeleton>> SQUAD_SKELETONS;
     public static HashMap<EntityType<? extends AbstractSkeleton>, Integer> SKELETONS_PER_SQUAD = new HashMap<>();
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BONESUPDATE_TAB = BONESUPDATE_TABS.register("bonesupdate_tab", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> BONESUPDATE_TAB = BONESUPDATE_TABS.register("bonesupdate_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.bonesupdate"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> BonesRegistry.SKELETON_SOUL.item().getDefaultInstance())
@@ -82,8 +81,8 @@ public class BonesUpdate
                 output.accept(BonesRegistry.REAPER.egg());
             }).build());
 
-    public BonesUpdate(IEventBus modEventBus, ModContainer modContainer) {
-        //modEventBus.addListener(this::commonSetup);
+    public BonesUpdate() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         BonesRegistry.BU_BLOCKS.register(modEventBus);
         BonesRegistry.BU_BLOCK_ENTITIES.register(modEventBus);
@@ -93,11 +92,11 @@ public class BonesUpdate
         BonesRegistry.BU_SOUNDS.register(modEventBus);
         BONESUPDATE_TABS.register(modEventBus);
 
-        NeoForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(this);
 
         modEventBus.addListener(this::addCreative);
 
-        modContainer.registerConfig(ModConfig.Type.COMMON, BUConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BUConfig.SPEC);
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
@@ -172,6 +171,6 @@ public class BonesUpdate
     }
 
     public class BonesRaiderTypes {
-        public static final EnumProxy<Raid.RaiderType> NECROMANCER = new EnumProxy<>(Raid.RaiderType.class, (Supplier<EntityType<?>>)(BonesRegistry.NECROMANCER::type), new int[]{0, 0, 1, 0, 1, 1, 2, 1});
+        //public static final EnumProxy<Raid.RaiderType> NECROMANCER = new EnumProxy<>(Raid.RaiderType.class, (Supplier<EntityType<?>>)(BonesRegistry.NECROMANCER::type), new int[]{0, 0, 1, 0, 1, 1, 2, 1});
     }
 }

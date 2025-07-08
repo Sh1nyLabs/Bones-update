@@ -79,7 +79,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        boolean hasLeader = (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.LEADER.toHolder(player.registryAccess()), stack) >= 0);
+        boolean hasLeader = (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.LEADER.toHolder(player.registryAccess()), stack) > 0);
         if (!level.isClientSide() && EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.SUBALTERN.toHolder(player.registryAccess()), stack) == 0){
             this.summonMinion((ServerLevel) level, level.getRandom(),
                     MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
