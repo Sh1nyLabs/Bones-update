@@ -49,6 +49,10 @@ public class BonesUpdate
      * Mod 1.2.2: what is new:
      * Mecanics: skeletons break less often, and will break only after a certain time left inside a chunk.
      *
+     * Mod 1.2.2: what is new:
+     * Mecanics: skeletons break less often, and will break only after a certain time left inside a chunk.
+     *
+     *  Reaper loot: red bone
      */
     public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -78,6 +82,7 @@ public class BonesUpdate
                 output.accept(BonesRegistry.SOUL_ORB.item());
                 output.accept(BonesRegistry.BLADE.item());
                 output.accept(BonesRegistry.HAUNTER_BLADE.item());
+                output.accept(BonesRegistry.RED_BONE.item());
                 output.accept(BonesRegistry.GRABBER.egg());
                 output.accept(BonesRegistry.MINION.egg());
                 output.accept(BonesRegistry.BROKEN_SKELETON.egg());
@@ -128,6 +133,7 @@ public class BonesUpdate
             event.accept(BonesRegistry.SOUL_ORB.item());
             event.accept(BonesRegistry.BLADE.item());
             event.accept(BonesRegistry.HAUNTER_BLADE.item());
+            event.accept(BonesRegistry.RED_BONE.item());
         } else if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(BonesRegistry.GRABBER.egg());
             event.accept(BonesRegistry.MINION.egg());

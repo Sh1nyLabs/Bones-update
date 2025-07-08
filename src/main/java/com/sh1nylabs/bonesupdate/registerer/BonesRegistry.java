@@ -123,10 +123,13 @@ public class BonesRegistry {
     public static final BUItemHelper BLADE = new BUItemHelper("blade",
             () -> new Item(new Item.Properties().stacksTo(64)));
     public static final BUItemHelper HAUNTER_BLADE = new BUItemHelper("haunter_blade",
-            () -> new Item(new Item.Properties().stacksTo(64).attributes(HaunterSpearItem.createAttributes())));
+            () -> new Item(new Item.Properties().stacksTo(64)));
     public static final BUItemHelper HAUNTER_SPEAR = new BUItemHelper("haunter_spear",
-            ()-> new HaunterSpearItem(new Item.Properties().durability(100)));
+            ()-> new HaunterSpearItem(new Item.Properties().durability(100).attributes(HaunterSpearItem.createAttributes())));
     public static final BUItemHelper NECRO_SCEPTER_INVENTORY = new BUItemHelper("necromancer_scepter_inventory",
+            ()-> new Item(new Item.Properties()));
+
+    public static final BUItemHelper RED_BONE = new BUItemHelper("red_bone",
             ()-> new Item(new Item.Properties()));
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Particles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
