@@ -41,9 +41,9 @@ import javax.annotation.Nullable;
 public class Necromancer extends AbstractIllager {
     private static final EntityDataAccessor<Byte> DATA_NECRO_SPELL_CASTING_ID = SynchedEntityData.defineId(Necromancer.class, EntityDataSerializers.BYTE);
     private static final int CAST_ANIMATION_TIME = 60; // FIX_VALUE
-    private static final int TIME_BETWEEN_TWO_CASTS_MIN = 500; // FIX_VALUE
-    private static final int TIME_BETWEEN_TWO_CASTS_MAX = 800; // FIX_VALUE
-    private static final int MINION_STOCK_ON_SPAWN = 15; // FIX_VALUE
+    private static final int TIME_BETWEEN_TWO_CASTS_MIN = 200; // FIX_VALUE
+    private static final int TIME_BETWEEN_TWO_CASTS_MAX = 600; // FIX_VALUE
+    private static final int MINION_STOCK_ON_SPAWN = 30; // FIX_VALUE
     private static final int GRAVE_STOCK_ON_SPAWN = 6; // FIX_VALUE
     private int timeBeforeNextCast = 100; // FIX_VALUE
     private int minionStock = MINION_STOCK_ON_SPAWN;
@@ -77,7 +77,7 @@ public class Necromancer extends AbstractIllager {
 
     @Override
     public void applyRaidBuffs(ServerLevel serverLevel, int waveNb, boolean b) {
-
+        this.addMinionToStock(5 * waveNb);
     }
 
     public static AttributeSupplier.Builder getCustomAttributes() {
@@ -156,7 +156,7 @@ public class Necromancer extends AbstractIllager {
         return this.entityData.get(DATA_NECRO_SPELL_CASTING_ID) > 0;
     }
 
-    private class NecromancerSummons extends Goal implements CanSummonMinions {
+    public class NecromancerSummons extends Goal implements CanSummonMinions {
         private final Necromancer necromancer;
         private int warmUpDelay;
         private boolean summonWithAGrave = false;
@@ -178,6 +178,8 @@ public class Necromancer extends AbstractIllager {
             }
             return necromancer.canIncreaseItsArmy();
         }
+
+        public Necromancer getNecromancer() {return this.necromancer;}
 
         @Override
         public boolean canContinueToUse() {
@@ -208,7 +210,7 @@ public class Necromancer extends AbstractIllager {
                 if (this.warmUpDelay == 0) {
                     RandomSource rdmSource = level().getRandom();
                     if (!summonWithAGrave) {
-                        int rdmQuantity = Math.min(necromancer.minionStock, 2+rdmSource.nextInt(4)); // FIX_VALUE
+                        int rdmQuantity = Math.min(necromancer.minionStock, (necromancer.hasActiveRaid() ? 5 : 3) + rdmSource.nextInt(4)); // FIX_VALUE
                         this.summonMinion((ServerLevel) level(), rdmSource,
                                 rdmQuantity,
                                 necromancer.getOnPos().above(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));

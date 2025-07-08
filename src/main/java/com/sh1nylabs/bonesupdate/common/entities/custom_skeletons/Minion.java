@@ -2,6 +2,7 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
+import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.goal.MinionFollowsOwnerGoal;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.items.NecroScepterItem;
@@ -49,13 +50,13 @@ public class Minion extends FriendlySkeleton {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,2.0D) //FIX_VALUE
                 .add(Attributes.ATTACK_DAMAGE, 1.5D) //FIX_VALUE
-                .add(Attributes.MOVEMENT_SPEED, 0.2F) //FIX_VALUE
+                .add(Attributes.MOVEMENT_SPEED, 0.28F) //FIX_VALUE
                 .add(Attributes.ATTACK_KNOCKBACK,0D); //FIX_VALUE
     }
 
     public void registerGoals() {
 
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this,1.7D,false));  //FIX_VALUE (speedModifier)
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this,1.3D,false));  //FIX_VALUE (speedModifier)
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D)); //FIX_VALUE (radius of search / walkSpeedModif / sprintspeedModif)
         this.goalSelector.addGoal(4, new MinionFollowsOwnerGoal(this));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
@@ -82,9 +83,10 @@ public class Minion extends FriendlySkeleton {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         if (spawnData instanceof MinionData minionData) {
             this.setFriendly(minionData.summoningWay instanceof NecroScepterItem);
-            if (minionData.summoningWay instanceof Necromancer necromancer) {
-                this.setOwner(necromancer);
-                necromancer.addMinionToStock(-1);
+            if (minionData.summoningWay instanceof Necromancer.NecromancerSummons necromancer_goal) {
+                this.setOwner(necromancer_goal.getNecromancer());
+                BonesUpdate.LOGGER.info("spawned via necromancer");
+                necromancer_goal.getNecromancer().addMinionToStock(-1);
             } else {
                 this.setOwner(null);
             }

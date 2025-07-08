@@ -5,6 +5,8 @@ package com.sh1nylabs.bonesupdate.common.entities.goal;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -61,6 +63,7 @@ public class ReaperAttackGoal extends Goal {
                 if (ticksUntilNextAttack <= 0) {
                     reaper.swing(InteractionHand.MAIN_HAND);
                     reaper.doHurtTarget(target);
+                    target.addEffect(new MobEffectInstance(MobEffects.WITHER, 100), reaper);
                     ticksUntilNextAttack =  10 * (int) reaper.getAttributeValue(Attributes.ATTACK_SPEED);
                     ((ReaperMoveControl)reaper.getMoveControl()).waitNextPosition();
                 }

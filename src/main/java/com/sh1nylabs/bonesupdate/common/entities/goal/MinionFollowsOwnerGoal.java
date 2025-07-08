@@ -14,10 +14,10 @@ public class MinionFollowsOwnerGoal extends Goal {
         this.minion = minion;
     }
 
-    public boolean canUse() {return (this.minion.getOwner()!=null && minion.level().getRandom().nextInt(70)<2);}
+    public boolean canUse() {return (this.minion.getOwner() != null && (minion.getOwner().hasActiveRaid() || minion.level().getRandom().nextInt(70) < 2));}
 
     public boolean canContinueToUse() {
-        return minion.getOwner()!=null && minion.distanceTo(minion.getOwner())>3;
+        return minion.getOwner()!=null && minion.distanceTo(minion.getOwner()) > 3;
     }
 
     public void start() {
@@ -30,7 +30,7 @@ public class MinionFollowsOwnerGoal extends Goal {
     public void tick() {
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
-            this.minion.getNavigation().moveTo(this.minion.getOwner(), 1.0D);
+            this.minion.getNavigation().moveTo(this.minion.getOwner(), 1.3D);
         }
     }
 }
