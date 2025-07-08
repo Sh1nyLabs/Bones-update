@@ -28,6 +28,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -86,6 +87,13 @@ public class BonesModEvent {
         public static void grabberAbortTotemUse(LivingUseTotemEvent event) {
             if (event.getEntity() instanceof Grabber) {
                 event.setCanceled(true);
+            }
+        }
+
+        @SubscribeEvent
+        public static void KnightSkeletonDamageIncreased(LivingDamageEvent.Pre event) {
+            if (event.getSource().getEntity() instanceof KnightSkeleton knight && knight.isDashing()) {
+                event.setNewDamage(event.getNewDamage() + KnightSkeleton.DASH_BONUS_DAMAGE);
             }
         }
 

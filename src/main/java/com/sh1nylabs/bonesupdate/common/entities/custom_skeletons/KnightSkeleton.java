@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 public class KnightSkeleton extends FriendlySkeleton {
     private static final int DASH_RESET_DURATION = 130;
     private static final int DASH_WARM_UP_TIME = 60; // FIX_VALUE
-    private static final float DASH_BONUS_DAMAGE = 10.0F;
+    public static final float DASH_BONUS_DAMAGE = 8.0F;
     private static final EntityDataAccessor<Boolean> IS_DASHING = SynchedEntityData.defineId(KnightSkeleton.class, EntityDataSerializers.BOOLEAN);
     private int dashCooldown = DASH_RESET_DURATION;
     private int warmUpTime = DASH_WARM_UP_TIME;
@@ -142,45 +142,6 @@ public class KnightSkeleton extends FriendlySkeleton {
                 this.getY(),
                 this.getZ() + d1*Mth.sin(f1),
                 0.0D, 0.15D, 0.0D);
-    }
-
-    /**
-     * Function overriden in order to introduce dash bonus damage.
-     * @param entity : entity hurt
-     * @return boolean
-     */ //TODO: try to use LivingDamageEvent instead of copying this stuff
-    @Override
-    public boolean doHurtTarget(Entity entity) {
-        float hurtAmount = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        if (this.isDashing()) {
-            hurtAmount += DASH_BONUS_DAMAGE;
-        }
-        DamageSource damagesource = this.damageSources().mobAttack(this);
-        Level var5 = this.level();
-        if (var5 instanceof ServerLevel serverlevel) {
-            hurtAmount = EnchantmentHelper.modifyDamage(serverlevel, this.getWeaponItem(), entity, damagesource, hurtAmount);
-        }
-
-        boolean flag = entity.hurt(damagesource, hurtAmount);
-        if (flag) {
-            float f1 = this.getKnockback(entity, damagesource);
-            if (f1 > 0.0F && entity instanceof LivingEntity) {
-                LivingEntity livingentity = (LivingEntity)entity;
-                livingentity.knockback((double)(f1 * 0.5F), (double)Mth.sin(this.getYRot() * 0.017453292F), (double)(-Mth.cos(this.getYRot() * 0.017453292F)));
-                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
-            }
-
-            Level var7 = this.level();
-            if (var7 instanceof ServerLevel) {
-                ServerLevel serverlevel1 = (ServerLevel)var7;
-                EnchantmentHelper.doPostAttackEffects(serverlevel1, entity, damagesource);
-            }
-
-            this.setLastHurtMob(entity);
-            this.playAttackSound();
-        }
-
-        return flag;
     }
 
     public void reInitWarmUpTime(int value) {this.warmUpTime = value;}
