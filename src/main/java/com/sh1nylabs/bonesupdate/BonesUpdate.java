@@ -81,8 +81,8 @@ public class BonesUpdate
                 output.accept(BonesRegistry.REAPER.egg());
             }).build());
 
-    public BonesUpdate() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public BonesUpdate(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus = context.getModEventBus();
 
         BonesRegistry.BU_BLOCKS.register(modEventBus);
         BonesRegistry.BU_BLOCK_ENTITIES.register(modEventBus);
@@ -96,7 +96,7 @@ public class BonesUpdate
 
         modEventBus.addListener(this::addCreative);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BUConfig.SPEC);
+        context.registerConfig(ModConfig.Type.COMMON, BUConfig.SPEC);
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
