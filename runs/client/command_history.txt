@@ -1,0 +1,5 @@
+/weather rain
+/experience set Dev 50 levels
+/gamemode survival
+/gamemode creative
+/effect give Dev minecraft:bad_omen

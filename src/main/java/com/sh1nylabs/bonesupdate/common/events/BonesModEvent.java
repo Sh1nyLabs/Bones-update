@@ -25,23 +25,24 @@ import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingUseTotemEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.util.List;
 import java.util.Optional;
 
 public class BonesModEvent {
 
-    @Mod.EventBusSubscriber(modid = BonesUpdate.MODID)
+    @EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesForgeEvents {
 
         /**
@@ -58,9 +59,9 @@ public class BonesModEvent {
                 BrokenSkeleton broken = BonesEntities.BROKEN_SKELETON.get().create(svrLevel);
                 if (broken != null) {
                     broken.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
-                    ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), MobSpawnType.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
+                    EventHooks.finalizeMobSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), MobSpawnType.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
 
-                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, broken);
+                    EventHooks.onLivingConvert(skeleton, broken);
                     svrLevel.addFreshEntityWithPassengers(broken);
                     svrLevel.gameEvent(broken, GameEvent.ENTITY_PLACE, broken.blockPosition());
                     skeleton.discard();
@@ -109,17 +110,11 @@ public class BonesModEvent {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = BonesUpdate.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = BonesUpdate.MODID, bus = EventBusSubscriber.Bus.MOD)
     public static class BonesCommonEvents {
-        @SubscribeEvent
-        public static void commonSetup(FMLCommonSetupEvent event) {
-            event.enqueueWork(() -> {
-                BonesEntities.registerWaveMembers();
-            });
-        }
 
         @SubscribeEvent
-        public void gatherBonesData(GatherDataEvent event) {
+        public static void gatherBonesData(GatherDataEvent event) {
             event.getGenerator().addProvider(
                     event.includeServer(),
                     (DataProvider.Factory<BonesEntities.BonesEntityTagsProvider>) output -> new BonesEntities.BonesEntityTagsProvider(output, event.getLookupProvider())

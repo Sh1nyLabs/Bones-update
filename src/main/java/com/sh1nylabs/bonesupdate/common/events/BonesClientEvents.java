@@ -9,13 +9,13 @@ import com.sh1nylabs.bonesupdate.common.particle.ParticleSoul;
 import com.sh1nylabs.bonesupdate.init.BonesParticles;
 import com.sh1nylabs.bonesupdate.common.particle.ParticleBar;
 import com.sh1nylabs.bonesupdate.init.BonesEntities;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = BonesUpdate.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = BonesUpdate.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class BonesClientEvents {
 
     @SubscribeEvent

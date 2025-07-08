@@ -31,7 +31,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -91,7 +91,7 @@ public class GraveBlock extends Block implements EntityBlock {
             Reaper reaper = BonesEntities.REAPER.get().create(level);
             if (reaper!=null) {
                 reaper.moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), level.getRandom().nextFloat(), 0.0F);
-                ForgeEventFactory.onFinalizeSpawn(reaper, (ServerLevel) level, level.getCurrentDifficultyAt(blockPos), MobSpawnType.SPAWNER, null);
+                EventHooks.finalizeMobSpawn(reaper, (ServerLevel) level, level.getCurrentDifficultyAt(blockPos), MobSpawnType.SPAWNER, null);
                 ((ServerLevel) level).tryAddFreshEntityWithPassengers(reaper);
                 level.gameEvent(reaper, GameEvent.ENTITY_PLACE, blockPos);
             }
