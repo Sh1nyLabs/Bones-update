@@ -45,7 +45,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
      */
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if (EnchantmentHelper.getItemEnchantmentLevel(player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(BonesRegistry.SUBALTERN), stack) == 0 && entity.isAlive() && entity instanceof FriendlySkeleton friendlySkeleton && !friendlySkeleton.isFriendly()) {
+        if (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.SUBALTERN.toHolder(player.registryAccess()), stack) == 0 && entity.isAlive() && entity instanceof FriendlySkeleton friendlySkeleton && !friendlySkeleton.isFriendly()) {
             Level level = player.level();
             if (!level.isClientSide()) {
                 friendlySkeleton.setFriendly(true);
@@ -79,8 +79,8 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        boolean hasLeader = (EnchantmentHelper.getItemEnchantmentLevel(player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(BonesRegistry.LEADER), stack) >= 0);
-        if (!level.isClientSide() &&EnchantmentHelper.getItemEnchantmentLevel(player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(BonesRegistry.SUBALTERN), stack) != 0){
+        boolean hasLeader = (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.LEADER.toHolder(player.registryAccess()), stack) >= 0);
+        if (!level.isClientSide() &&EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.SUBALTERN.toHolder(player.registryAccess()), stack) != 0){
             this.summonMinion((ServerLevel) level, level.getRandom(),
                     MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
                     player.blockPosition(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));

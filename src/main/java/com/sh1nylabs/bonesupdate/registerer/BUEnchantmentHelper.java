@@ -1,21 +1,28 @@
 package com.sh1nylabs.bonesupdate.registerer;
 
+import com.sh1nylabs.bonesupdate.BonesUpdate;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.function.Supplier;
 
-/**
+
 
 public class BUEnchantmentHelper {
-    private final DeferredHolder<Enchantment, Enchantment> enchantment;
+    private final ResourceKey<Enchantment> enchantment;
 
-    public BUEnchantmentHelper(String name, Supplier<Enchantment> supplier) {
-        enchantment = BU_ENCHANTMENTS.register(name, supplier);
+    public BUEnchantmentHelper(String name) {
+        enchantment = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name));
     }
 
-    public Enchantment enchantment() {
-        return enchantment.get();
+    public Holder<Enchantment> toHolder(RegistryAccess registryAccess) {
+        return registryAccess.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantment);
     }
-    //public ItemStack enchantedBook() {return EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment.get(), enchantment.get().getMaxLevel()));}
-}*/
+
+    public ResourceKey<Enchantment> ench() {return enchantment;}
+}

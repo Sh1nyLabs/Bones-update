@@ -30,7 +30,7 @@ public interface CanPacifyGraves {
      * @return InteractionResult : SUCCESS / PASS
      */
     default InteractionResult tryToPacifyGrave(UseOnContext context, ItemStack stack, Player player) {
-        if (EnchantmentHelper.getItemEnchantmentLevel(player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(BonesRegistry.SERENITY), stack) >= 0) {
+        if (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.SERENITY.toHolder(player.registryAccess()), stack) >= 0) {
             Level level = context.getLevel();
             BlockPos blockpos = context.getClickedPos();
             BlockState blockstate = level.getBlockState(blockpos);
