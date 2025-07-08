@@ -6,8 +6,7 @@
     "minecraft:badlands",
     "minecraft:eroded_badlands",
     "minecraft:wooded_badlands",
-    "minecraft:desert",
-    "minecraft:soul_sand_valley"
+    "minecraft:desert"
   ],
   "features": "bonesupdate:broken_skeletons",
   "step": "top_layer_modification"

@@ -1,0 +1,8 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": [
+    "minecraft:lukewarm_ocean"
+  ],
+  "features": "bonesupdate:guardian_fossil",
+  "step": "top_layer_modification"
+}
