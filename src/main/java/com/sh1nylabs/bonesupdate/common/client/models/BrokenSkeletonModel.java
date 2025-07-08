@@ -18,7 +18,7 @@ import org.joml.Quaternionf;
 
 public class BrokenSkeletonModel<T extends BrokenSkeleton> extends EntityModel<T> implements ArmedModel {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "brokenskeletonmodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "brokenskeletonmodel"), "main");
 	private final ModelPart broken_state;
 	private final ModelPart haunter_parts;
 	private final ModelPart right_hand;
@@ -80,9 +80,9 @@ public class BrokenSkeletonModel<T extends BrokenSkeleton> extends EntityModel<T
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		broken_state.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		haunter_parts.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		right_hand.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		broken_state.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		haunter_parts.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		right_hand.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 }

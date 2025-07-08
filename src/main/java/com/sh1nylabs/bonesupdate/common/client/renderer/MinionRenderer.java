@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class MinionRenderer extends MobRenderer<Minion, MinionModel> {
 
-    public static final ResourceLocation TEXTURE=new ResourceLocation(BonesUpdate.MODID,"textures/entity/minion.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/minion.png");
 
     public MinionRenderer(EntityRendererProvider.Context context) {
         super(context,new MinionModel(context.bakeLayer(MinionModel.LAYER_LOCATION)), 0.5f);

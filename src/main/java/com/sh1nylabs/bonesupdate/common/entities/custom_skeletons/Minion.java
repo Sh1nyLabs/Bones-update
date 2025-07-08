@@ -7,6 +7,7 @@ import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.items.NecroScepterItem;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -42,7 +43,7 @@ public class Minion extends FriendlySkeleton {
     }
 
     @Override
-    protected void dropCustomDeathLoot(DamageSource source, int lootingLevel, boolean hurtByPlayer) {}
+    protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean hurtByPlayer) {}
 
     public static AttributeSupplier.Builder getCustomAttributes() {
         return Monster.createMonsterAttributes()

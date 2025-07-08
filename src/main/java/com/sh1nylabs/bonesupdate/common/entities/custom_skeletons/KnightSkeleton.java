@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -147,33 +148,36 @@ public class KnightSkeleton extends FriendlySkeleton {
      * Function overriden in order to introduce dash bonus damage.
      * @param entity : entity hurt
      * @return boolean
-     */
+     */ //TODO: try to use LivingDamageEvent instead of copying this stuff
     @Override
     public boolean doHurtTarget(Entity entity) {
         float hurtAmount = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         if (this.isDashing()) {
             hurtAmount += DASH_BONUS_DAMAGE;
         }
-        float f1 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (entity instanceof LivingEntity) {
-            hurtAmount += EnchantmentHelper.getDamageBonus(this.getMainHandItem(), entity.getType());
-            f1 += (float)EnchantmentHelper.getKnockbackBonus(this);
+        DamageSource damagesource = this.damageSources().mobAttack(this);
+        Level var5 = this.level();
+        if (var5 instanceof ServerLevel serverlevel) {
+            hurtAmount = EnchantmentHelper.modifyDamage(serverlevel, this.getWeaponItem(), entity, damagesource, hurtAmount);
         }
 
-        int i = EnchantmentHelper.getFireAspect(this);
-        if (i > 0) {
-            entity.igniteForSeconds(i * 4);
-        }
-
-        boolean flag = entity.hurt(this.damageSources().mobAttack(this), hurtAmount);
+        boolean flag = entity.hurt(damagesource, hurtAmount);
         if (flag) {
+            float f1 = this.getKnockback(entity, damagesource);
             if (f1 > 0.0F && entity instanceof LivingEntity) {
-                ((LivingEntity)entity).knockback((double)(f1 * 0.5F), (double) Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));
-                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
+                LivingEntity livingentity = (LivingEntity)entity;
+                livingentity.knockback((double)(f1 * 0.5F), (double)Mth.sin(this.getYRot() * 0.017453292F), (double)(-Mth.cos(this.getYRot() * 0.017453292F)));
+                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
             }
 
-            this.doEnchantDamageEffects(this, entity);
+            Level var7 = this.level();
+            if (var7 instanceof ServerLevel) {
+                ServerLevel serverlevel1 = (ServerLevel)var7;
+                EnchantmentHelper.doPostAttackEffects(serverlevel1, entity, damagesource);
+            }
+
             this.setLastHurtMob(entity);
+            this.playAttackSound();
         }
 
         return flag;

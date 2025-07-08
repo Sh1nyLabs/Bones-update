@@ -28,10 +28,10 @@ public class BUEntityHelper<T extends Mob> {
         entityType = BU_ENTITIES.register(name, () -> builder.build(BonesUpdate.MODID+":"+name));
         spawnEgg = BU_ITEMS.register(name + "_spawn_egg",
                 ()-> new DeferredSpawnEggItem(entityType, FastColor.ARGB32.opaque(backgroundColor),FastColor.ARGB32.opaque(highlightColor),new Item.Properties()));
-        step = BU_SOUNDS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(BonesUpdate.MODID, name + "_step")));
-        hurt = BU_SOUNDS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(BonesUpdate.MODID, name + "_hurt")));
-        death = BU_SOUNDS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(BonesUpdate.MODID, name + "_death")));
-        ambient = BU_SOUNDS.register(name + "_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(BonesUpdate.MODID, name + "_ambient")));
+        step = BU_SOUNDS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_step")));
+        hurt = BU_SOUNDS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_hurt")));
+        death = BU_SOUNDS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_death")));
+        ambient = BU_SOUNDS.register(name + "_ambient", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_ambient")));
     }
 
     public EntityType<T> type() {

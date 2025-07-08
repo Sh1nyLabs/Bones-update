@@ -19,7 +19,7 @@ import org.joml.Quaternionf;
 
 public class NecromancerModel extends EntityModel<Necromancer> implements ArmedModel {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BonesUpdate.MODID, "necromancermodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "necromancermodel"), "main");
 	private final ModelPart head;
 	private final ModelPart hat;
 	private final ModelPart nose;
@@ -68,15 +68,15 @@ public class NecromancerModel extends EntityModel<Necromancer> implements ArmedM
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		hat.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		nose.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		left_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		right_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		left_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		right_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		hat.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		nose.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		left_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		right_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		left_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		right_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 
 	@Override

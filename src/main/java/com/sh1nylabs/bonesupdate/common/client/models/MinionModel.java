@@ -20,7 +20,7 @@ import org.joml.Quaternionf;
 
 public class MinionModel extends EntityModel<Minion> implements ArmedModel {
 
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BonesUpdate.MODID, "minion_model"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "minion_model"), "main");
 	private final ModelPart hat;
 	private final ModelPart head;
 	private final ModelPart body;
@@ -151,13 +151,13 @@ public class MinionModel extends EntityModel<Minion> implements ArmedModel {
 
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		hat.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		right_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		left_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		left_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		right_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		hat.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		right_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		left_leg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		left_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		right_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 }

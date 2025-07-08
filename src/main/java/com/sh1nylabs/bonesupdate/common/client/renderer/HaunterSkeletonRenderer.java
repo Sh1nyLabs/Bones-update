@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class HaunterSkeletonRenderer extends MobRenderer<HaunterSkeleton, HaunterSkeletonModel> {
 
-    public static final ResourceLocation TEXTURE=new ResourceLocation(BonesUpdate.MODID,"textures/entity/haunter_skeleton.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/haunter_skeleton.png");
 
     public HaunterSkeletonRenderer(EntityRendererProvider.Context context) {
         super(context,new HaunterSkeletonModel(context.bakeLayer(HaunterSkeletonModel.LAYER_LOCATION)), 0.5f);

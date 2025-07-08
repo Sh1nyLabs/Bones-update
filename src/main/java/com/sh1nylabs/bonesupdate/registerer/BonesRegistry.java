@@ -2,9 +2,6 @@ package com.sh1nylabs.bonesupdate.registerer;
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.blocks.*;
-import com.sh1nylabs.bonesupdate.common.enchantments.LeaderEnchantment;
-import com.sh1nylabs.bonesupdate.common.enchantments.SerenityEnchantment;
-import com.sh1nylabs.bonesupdate.common.enchantments.SubalternEnchantment;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.*;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
@@ -15,8 +12,11 @@ import com.sh1nylabs.bonesupdate.common.items.SoulItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.EntityTypeTags;
@@ -25,7 +25,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
@@ -48,7 +47,6 @@ public class BonesRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BU_BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, BonesUpdate.MODID);
     public static final DeferredRegister<EntityType<?>> BU_ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, BonesUpdate.MODID);
     public static final DeferredRegister<Item> BU_ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, BonesUpdate.MODID);
-    public static final DeferredRegister<Enchantment> BU_ENCHANTMENTS = DeferredRegister.create(BuiltInRegistries.ENCHANTMENT, BonesUpdate.MODID);
     public static final DeferredRegister<ParticleType<?>> BU_PARTICLES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, BonesUpdate.MODID);
     public static final DeferredRegister<SoundEvent> BU_SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, BonesUpdate.MODID);
 
@@ -75,12 +73,19 @@ public class BonesRegistry {
     public static final BUEntityHelper<Reaper> REAPER = new BUEntityHelper<>("reaper", 0x343244,0xBC5E5E, EntityType.Builder.of(Reaper::new,MobCategory.MONSTER).sized(0.6F, 1.4F));
 
 
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Enchantments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+    public static final ResourceKey<Enchantment> SERENITY = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "serenity"));
+    public static final ResourceKey<Enchantment> SUBALTERN = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "subaltern"));
+    public static final ResourceKey<Enchantment> LEADER = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "leader"));
+
+
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ItemTags %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
-    public static final TagKey<Item> GRABBER_STEALS = ItemTags.create(new ResourceLocation(BonesUpdate.MODID,"grabber_steals"));
-    public static final TagKey<Item> NECROMANCY_ENCHANTABLE = ItemTags.create(new ResourceLocation(BonesUpdate.MODID,"necromancy_enchantable"));
-    public static final TagKey<Item> SKELETON_QUEST_ENCHANTABLE = ItemTags.create(new ResourceLocation(BonesUpdate.MODID,"skeleton_quest_enchantable"));
-
+    public static final TagKey<Item> GRABBER_STEALS = ItemTags.create(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"grabber_steals"));
+    public static final TagKey<Item> NECROMANCY = ItemTags.create(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"necromancy"));
+    public static final TagKey<Item> SKELETON_QUEST = ItemTags.create(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"skeleton_quest"));
+    public static final TagKey<Enchantment> SUBALTERN_INCOMPATIBLE = TagKey.create(Registries.ENCHANTMENT,ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "exclusive_set/subaltern_incompatible"));
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Items %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
@@ -102,17 +107,6 @@ public class BonesRegistry {
     public static final BUItemHelper NECRO_SCEPTER_INVENTORY = new BUItemHelper("necromancer_scepter_inventory",
             ()-> new Item(new Item.Properties()));
 
-
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Enchantments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
-
-    public static final BUEnchantmentHelper SERENITY = new BUEnchantmentHelper("serenity",
-            () -> new SerenityEnchantment(Enchantment.definition(SKELETON_QUEST_ENCHANTABLE, 4, 1, Enchantment.dynamicCost(12, 7), Enchantment.constantCost(20), 2, EquipmentSlot.MAINHAND)));
-    public static final BUEnchantmentHelper SUBALTERN = new BUEnchantmentHelper("subaltern",
-            () -> new SubalternEnchantment(Enchantment.definition(NECROMANCY_ENCHANTABLE, 4, 1, Enchantment.dynamicCost(12, 7), Enchantment.constantCost(20), 2, EquipmentSlot.MAINHAND)));
-    public static final BUEnchantmentHelper LEADER = new BUEnchantmentHelper("leader",
-            () -> new LeaderEnchantment(Enchantment.definition(NECROMANCY_ENCHANTABLE, 4, 1, Enchantment.dynamicCost(12, 7), Enchantment.constantCost(20), 2, EquipmentSlot.MAINHAND)));
-
-
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Particles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
     public static final BUParticleHelper PURPLE_BAR = new BUParticleHelper("purple_bar");
@@ -121,7 +115,7 @@ public class BonesRegistry {
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sounds %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> BROKEN_SKELETON_REVIVES = BU_SOUNDS.register("broken_skeleton_revives", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(BonesUpdate.MODID, "broken_skeleton_revives")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> BROKEN_SKELETON_REVIVES = BU_SOUNDS.register("broken_skeleton_revives", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "broken_skeleton_revives")));
 
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EntityTags %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
@@ -140,6 +134,17 @@ public class BonesRegistry {
                     .add(GRABBER.type())
                     .add(HAUNTER_SKELETON.type())
                     .add(KNIGHT_SKELETON.type());
+        }
+    }
+
+    public static class BonesEnchantmentTagsProvider extends EnchantmentTagsProvider {
+
+        public BonesEnchantmentTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+            super(output, provider);
+        }
+
+        public void addTags(HolderLookup.Provider provider) {
+            this.tag(SUBALTERN_INCOMPATIBLE).add(SUBALTERN);
         }
     }
 }

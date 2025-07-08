@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class NecromancerRenderer extends MobRenderer<Necromancer, NecromancerModel>{
 
-    public static final ResourceLocation TEXTURE=new ResourceLocation(BonesUpdate.MODID,"textures/entity/necromancer.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/necromancer.png");
 
     public NecromancerRenderer(EntityRendererProvider.Context context) {
         super(context,new NecromancerModel(context.bakeLayer(NecromancerModel.LAYER_LOCATION)), 0.5f);

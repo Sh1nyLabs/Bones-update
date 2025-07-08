@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class KnightSkeletonRenderer extends MobRenderer<KnightSkeleton, KnightSkeletonModel> {
 
-    public static final ResourceLocation TEXTURE=new ResourceLocation(BonesUpdate.MODID,"textures/entity/knight_skeleton.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/knight_skeleton.png");
 
     public KnightSkeletonRenderer(EntityRendererProvider.Context context) {
         super(context,new KnightSkeletonModel(context.bakeLayer(KnightSkeletonModel.LAYER_LOCATION)), 0.5f);

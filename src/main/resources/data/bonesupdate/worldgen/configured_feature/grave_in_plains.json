@@ -8,11 +8,12 @@
     "prioritize_tip": false,
     "layers": [
       {
-        "height": 1,
+        "height": 10,
         "provider": {
           "type": "minecraft:simple_state_provider",
           "state": {
-            "Name": "bonesupdate:grave"
+            "Name": "minecraft:shroomlight"
+            //"bonesupdate:grave"
           }
         }
       }

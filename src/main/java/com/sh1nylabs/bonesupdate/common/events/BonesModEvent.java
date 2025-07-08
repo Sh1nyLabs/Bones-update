@@ -27,9 +27,10 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -130,22 +131,23 @@ public class BonesModEvent {
         }
 
         @SubscribeEvent
-        public static void entitySpawnRestriction(SpawnPlacementRegisterEvent event) {
+        public static void entitySpawnRestriction(RegisterSpawnPlacementsEvent event) {
             event.register(BonesRegistry.KNIGHT_SKELETON.type(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                    Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+                    Monster::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(BonesRegistry.BROKEN_SKELETON.type(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                    Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+                    Monster::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(BonesRegistry.GRABBER.type(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                    Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+                    Monster::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(BonesRegistry.HAUNTER_SKELETON.type(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                    Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+                    Monster::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(BonesRegistry.NECROMANCER.type(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                    Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+                    Monster::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }
+
     }
 }

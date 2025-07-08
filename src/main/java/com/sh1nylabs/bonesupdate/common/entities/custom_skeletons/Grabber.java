@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -133,7 +134,7 @@ public class Grabber extends AbstractSkeleton {
     }
 
     @Override
-    protected void dropCustomDeathLoot(DamageSource damageSource, int lootingLevel, boolean hurtByPlayer) {
+    protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean hurtByPlayer) {
         ItemStack itemstack = this.getOffhandItem();
         this.spawnAtLocation(itemstack);
         setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);

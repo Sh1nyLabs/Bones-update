@@ -9,7 +9,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "structure": "bonesupdate:weeping_willow_tree"
+                "structures": "bonesupdate:weeping_willow_tree"
               }
             }
           }
@@ -19,17 +19,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.necromancy.find_weeping_willow_tree.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "count": 1,
       "id": "bonesupdate:weeping_willow_vines"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.necromancy.find_weeping_willow_tree.title"
     }
@@ -38,5 +34,6 @@
     [
       "weeping_willow_tree"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

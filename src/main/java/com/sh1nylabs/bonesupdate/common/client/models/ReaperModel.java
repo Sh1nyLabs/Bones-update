@@ -15,7 +15,7 @@ import net.minecraft.util.Mth;
 
 public class ReaperModel extends EntityModel<Reaper> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "reapermodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "reapermodel"), "main");
 	private final ModelPart head;
 	private final ModelPart headwear;
 	private final ModelPart body;
@@ -104,12 +104,12 @@ public class ReaperModel extends EntityModel<Reaper> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		headwear.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		armor.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		right_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		left_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		headwear.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		armor.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		right_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		left_arm.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 }

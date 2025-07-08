@@ -75,14 +75,16 @@ public class Necromancer extends AbstractIllager {
         syncBuilder.define(DATA_NECRO_SPELL_CASTING_ID, (byte)0);
     }
 
+    @Override
+    public void applyRaidBuffs(ServerLevel serverLevel, int waveNb, boolean b) {
+
+    }
+
     public static AttributeSupplier.Builder getCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH,25.0D) // FIX_VALUE
                 .add(Attributes.MOVEMENT_SPEED, 0.4F); // FIX_VALUE
     }
-
-    @Override
-    public void applyRaidBuffs(int waveNb, boolean bool) {}
 
     public boolean canIncreaseItsArmy() {
         if (timeBeforeNextCast <= 0) {

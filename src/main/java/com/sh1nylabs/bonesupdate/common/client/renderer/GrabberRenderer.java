@@ -22,7 +22,7 @@ import org.joml.Quaternionf;
 
 public class GrabberRenderer extends MobRenderer<Grabber, GrabberModel> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BonesUpdate.MODID,"textures/entity/grabber.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/grabber.png");
 
     public GrabberRenderer(EntityRendererProvider.Context context) {
         super(context,new GrabberModel(context.bakeLayer(GrabberModel.LAYER_LOCATION)), 0.5f);

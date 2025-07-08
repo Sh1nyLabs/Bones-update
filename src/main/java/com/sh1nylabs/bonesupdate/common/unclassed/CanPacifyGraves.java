@@ -5,6 +5,8 @@ package com.sh1nylabs.bonesupdate.common.unclassed;
 import com.sh1nylabs.bonesupdate.common.blocks.GraveBlock;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +30,7 @@ public interface CanPacifyGraves {
      * @return InteractionResult : SUCCESS / PASS
      */
     default InteractionResult tryToPacifyGrave(UseOnContext context, ItemStack stack, Player player) {
-        if (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.SERENITY.enchantment(), stack) == 0) {
+        if (EnchantmentHelper.getItemEnchantmentLevel(player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(BonesRegistry.SERENITY), stack) >= 0) {
             Level level = context.getLevel();
             BlockPos blockpos = context.getClickedPos();
             BlockState blockstate = level.getBlockState(blockpos);

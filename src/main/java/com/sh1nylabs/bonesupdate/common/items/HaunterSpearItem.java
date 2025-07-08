@@ -3,6 +3,9 @@ package com.sh1nylabs.bonesupdate.common.items;
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.google.common.collect.Multimap;
+import com.sh1nylabs.bonesupdate.BonesUpdate;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +21,8 @@ import java.util.UUID;
 
 public class HaunterSpearItem extends Item {
     //private final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    protected static final UUID BASE_KNOCKBACK_UUID = UUID.fromString("00000037-73D4-4F60-4A7C-BF5CF930186D");
+    //protected static final UUID BASE_KNOCKBACK_UUID = UUID.fromString("00000037-73D4-4F60-4A7C-BF5CF930186D");
+    protected static final ResourceLocation BASE_KNOCKBACK_ID = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"base_knockback");
 
     public HaunterSpearItem(Properties properties) {
         super(properties);
@@ -32,9 +36,9 @@ public class HaunterSpearItem extends Item {
 
     public static ItemAttributeModifiers createAttributes() {
         return ItemAttributeModifiers.builder()
-                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 5.0D, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-                .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.4D, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-                .add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(BASE_KNOCKBACK_UUID, "Tool modifier", 3.0D, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID,  5.0D, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, -1.4D, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(BASE_KNOCKBACK_ID, 3.0D, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .build();
     }
 

@@ -1,9 +1,12 @@
 package com.sh1nylabs.bonesupdate;
 
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
@@ -17,11 +20,25 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
+import java.util.function.Supplier;
+
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate
 {
+    /**
+     * TODO: before mod publication
+     * - minions follow better the necromancer (especially during raids)
+     * - add new skeletons decorations (pillager, villager...)
+     * - check wether the bogged can become broken
+     * - add wither effect to reaper hits
+     * - better grabber movement / goals
+     * - better reaper loot
+     * - increased loot + exp for regular skeletons
+     * - upgrade necromancer goals (more graves to place, more minions to spawn)
+     * - skeletons souls lootable in lost graves? (1 per grave max)
+     */
     public static final String MODID = "bonesupdate";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     //public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     /**
@@ -35,13 +52,12 @@ public class BonesUpdate
 
     public BonesUpdate(IEventBus modEventBus, ModContainer modContainer)
     {
-        modEventBus.addListener(this::commonSetup);
+        //modEventBus.addListener(this::commonSetup);
 
         BonesRegistry.BU_BLOCKS.register(modEventBus);
         BonesRegistry.BU_BLOCK_ENTITIES.register(modEventBus);
         BonesRegistry.BU_ENTITIES.register(modEventBus);
         BonesRegistry.BU_ITEMS.register(modEventBus);
-        BonesRegistry.BU_ENCHANTMENTS.register(modEventBus);
         BonesRegistry.BU_PARTICLES.register(modEventBus);
         BonesRegistry.BU_SOUNDS.register(modEventBus);
         //CREATIVE_MODE_TABS.register(modEventBus);
@@ -52,11 +68,11 @@ public class BonesUpdate
 
         modContainer.registerConfig(ModConfig.Type.COMMON, BonesUpdateConfig.SPEC);
     }
-
+/**
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         Raid.RaiderType.create("NECROMANCER", BonesRegistry.NECROMANCER.type(), new int[]{0, 0, 1, 0, 1, 1, 2, 1}); //FIX_VALUES
-    }
+    }*/
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
@@ -75,9 +91,6 @@ public class BonesUpdate
             event.accept(BonesRegistry.HAUNTER_SPEAR.item());
             event.accept(BonesRegistry.MINION_SWORD.item());
         } else if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(BonesRegistry.LEADER.enchantedBook());
-            event.accept(BonesRegistry.SERENITY.enchantedBook());
-            event.accept(BonesRegistry.SUBALTERN.enchantedBook());
             event.accept(BonesRegistry.SKELETON_SOUL.item());
             event.accept(BonesRegistry.SOUL_ORB.item());
             event.accept(BonesRegistry.BLADE.item());
@@ -95,7 +108,14 @@ public class BonesUpdate
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
     {
+        //RegistryAccess registryAccess = event.getServer().registryAccess();
+
         // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+        BonesUpdate.LOGGER.info("HELLO from server starting");
+    }
+
+    public class BonesRaiderTypes {
+        public static final EnumProxy<Raid.RaiderType> NECROMANCER = new EnumProxy<>(Raid.RaiderType.class, (Supplier<EntityType<?>>)(BonesRegistry.NECROMANCER::type), new int[]{0, 0, 1, 0, 1, 1, 2, 1});
+
     }
 }

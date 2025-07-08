@@ -50,17 +50,4 @@ public class AmuletItem extends Item implements CanPacifyGraves {
     public InteractionResult useOn(UseOnContext context) {
         return tryToPacifyGrave(context, context.getItemInHand(), context.getPlayer());
     }
-
-    /** TODO: check if ok
-     * Enchantments applicable on the GravePacifier items:
-     * Category "SKELETON_QUEST": "Serenity"
-     * Category "BREAKABLE": "Mending", "Unbreaking"
-     *
-     * For enchantment compatibility, check enchantments classes.
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)  {
-        return enchantment.category == EnchantmentCategory.BREAKABLE
-                || enchantment.category == BonesEnchantments.SKELETON_QUEST;
-    }*/
 }

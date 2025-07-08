@@ -66,23 +66,22 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     @Override
-    protected void dropAllDeathLoot(DamageSource damageSource) {
+    protected void dropAllDeathLoot(ServerLevel level, DamageSource damageSource) {
         if (damageSource.getEntity() instanceof Creeper || (damageSource.getEntity() instanceof Player player &&
                 (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AmuletItem ||
                  player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem))) {
-            super.dropAllDeathLoot(damageSource);
+            super.dropAllDeathLoot(level, damageSource);
         }
     }
 
     /**
      * Function overriden in order to drop skulls even when broken
      * @param damageSource
-     * @param lootingLevel
      * @param hurtByPlayer
      */
     @Override
-    protected void dropCustomDeathLoot(DamageSource damageSource, int lootingLevel, boolean hurtByPlayer) {
-        super.dropCustomDeathLoot(damageSource, lootingLevel, hurtByPlayer);
+    protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean hurtByPlayer) {
+        super.dropCustomDeathLoot(level, damageSource, hurtByPlayer);
         Entity entity = damageSource.getEntity();
         if (entity instanceof Creeper creeper) {
             if (creeper.canDropMobsSkull()) {
