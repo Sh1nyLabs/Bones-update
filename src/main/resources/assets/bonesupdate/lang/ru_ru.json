@@ -1,6 +1,25 @@
 {
+  "itemGroup.bonesupdate": "Обновление костей",
+
+  "sounds.bonesupdate.knight_skeleton_ambient": "Рыцарь-скелет стучит костями",
+  "sounds.bonesupdate.knight_skeleton_step": "Рыцарь-скелет ходит",
+  "sounds.bonesupdate.knight_skeleton_hurt": "Рыцарь-скелет ранен",
+  "sounds.bonesupdate.knight_skeleton_death": "Рыцарь-скелет погибает",
+
+  "sounds.bonesupdate.haunter_skeleton_ambient": "Скелет призрака костями",
+  "sounds.bonesupdate.haunter_skeleton_step": "Скелет призрака ходит",
+  "sounds.bonesupdate.haunter_skeleton_hurt": "Скелет призрака ранен",
+  "sounds.bonesupdate.haunter_skeleton_death": "Скелет призрака погибает",
+
+  "sounds.bonesupdate.broken_skeleton_revives": "Сломанный скелет возрождается",
+
   "block.bonesupdate.cursed_lantern": "Проклятый фонарь",
+  "block.bonesupdate.eroded_fossil": "Ископаемое",
   "block.bonesupdate.grave": "могила",
+  "block.bonesupdate.guardian_fossil": "Окаменелость-хранитель",
+  "block.bonesupdate.broken_skeleton": "Сломанный скелет",
+  "block.bonesupdate.pillager_skeleton_body": "Тело скелета пиллагера",
+  "block.bonesupdate.pillager_skeleton_head": "Голова скелета пиллара",
   "block.bonesupdate.weeping_willow_leaves": "Листья плакучей ивы",
   "block.bonesupdate.weeping_willow_small_vines": "Плакучие ивовые лозы",
   "block.bonesupdate.weeping_willow_vines": "Ветка плакучей ивы",
@@ -15,6 +34,7 @@
   "item.bonesupdate.soul_orb": "Шар души",
 
   "entity.bonesupdate.grabber": "захват",
+  "entity.bonesupdate.broken_skeleton": "Сломанный скелет",
   "entity.bonesupdate.haunter_skeleton": "Скелет призрака",
   "entity.bonesupdate.knight_skeleton": "Рыцарь-скелет",
   "entity.bonesupdate.minion": "Миньон",
@@ -22,6 +42,7 @@
   "entity.bonesupdate.reaper": "Жнец",
 
   "item.bonesupdate.grabber_spawn_egg": "Яйцо призыва захват",
+  "item.bonesupdate.broken_skeleton_spawn_egg": "Яйцо призыва Сломанный скелет",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Яйцо призыва Скелет призрака",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Яйцо призыва рыцарь-скелет",
   "item.bonesupdate.minion_spawn_egg": "Яйцо призыва миньон",
@@ -35,6 +56,10 @@
   "advancements.bonesupdate.root.description": "Добро пожаловать в мод Bones Update!",
   "advancements.bonesupdate.root.title": "Bones Update",
 
+  "advancements.bonesupdate.grave_in_end.title": "Смерть - это конец,",
+  "advancements.bonesupdate.grave_in_end.description": "Помещение могилы в конец",
+  "advancements.bonesupdate.loot_lost_grave.title": "Мародер могил",
+  "advancements.bonesupdate.loot_lost_grave.description": "Разграбление потерянной могилы",
   "advancements.necromancy.find_weeping_willow_tree.title": "Встреча под деревом",
   "advancements.necromancy.find_weeping_willow_tree.description": "Найти Плакучая ива дерево и встретить там кого-то особенного",
   "advancements.necromancy.friends_or_foes.title":"Друзья или враги",

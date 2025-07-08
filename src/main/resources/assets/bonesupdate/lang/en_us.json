@@ -34,6 +34,7 @@
   "item.bonesupdate.soul_orb": "Soul Orb",
 
   "entity.bonesupdate.grabber": "Grabber",
+  "entity.bonesupdate.broken_skeleton": "Broken Skeleton",
   "entity.bonesupdate.haunter_skeleton": "Haunter Skeleton",
   "entity.bonesupdate.knight_skeleton": "Knight Skeleton",
   "entity.bonesupdate.minion": "Minion",
@@ -55,6 +56,10 @@
   "advancements.bonesupdate.root.description": "Welcome to the Bones Update Mod!",
   "advancements.bonesupdate.root.title": "Bones Update",
 
+  "advancements.bonesupdate.grave_in_end.title": "Death Is The End",
+  "advancements.bonesupdate.grave_in_end.description": "Place a Grave into the End",
+  "advancements.bonesupdate.loot_lost_grave.title": "Grave Looter",
+  "advancements.bonesupdate.loot_lost_grave.description": "Loot a Lost Grave",
   "advancements.necromancy.find_weeping_willow_tree.title": "Meeting Under The Tree",
   "advancements.necromancy.find_weeping_willow_tree.description": "Find a Weeping Willow Tree, and meet there someone special",
   "advancements.necromancy.friends_or_foes.title":"Friends Or Foes",

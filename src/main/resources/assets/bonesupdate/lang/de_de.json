@@ -1,6 +1,25 @@
 {
+  "itemGroup.bonesupdate": "Bones Update",
+
+  "sounds.bonesupdate.knight_skeleton_ambient": "Ritterskelett klappert",
+  "sounds.bonesupdate.knight_skeleton_step": "Ritterskelett wandelt",
+  "sounds.bonesupdate.knight_skeleton_hurt": "Ritterskelett nimmt Schaden",
+  "sounds.bonesupdate.knight_skeleton_death": "Ritterskelett stirbt",
+
+  "sounds.bonesupdate.haunter_skeleton_ambient": "Verfolgerskelett klappert",
+  "sounds.bonesupdate.haunter_skeleton_step": "Verfolgerskelett wandelt",
+  "sounds.bonesupdate.haunter_skeleton_hurt": "Verfolgerskelett nimmt Schaden",
+  "sounds.bonesupdate.haunter_skeleton_death": "Verfolgerskelett stirbt",
+
+  "sounds.bonesupdate.broken_skeleton_revives": "Gebrochenes Skelett lebt wieder auf",
+
   "block.bonesupdate.cursed_lantern": "verfluchte Laterne",
+  "block.bonesupdate.eroded_fossil": "Erodiertes Fossil",
   "block.bonesupdate.grave": "Grab",
+  "block.bonesupdate.guardian_fossil": "Wächter-Fossil",
+  "block.bonesupdate.broken_skeleton": "Zerbrochenes Skelett",
+  "block.bonesupdate.pillager_skeleton_body": "Pillager Skelett Körper",
+  "block.bonesupdate.pillager_skeleton_head": "Pillager-Skelett Kopf",
   "block.bonesupdate.weeping_willow_leaves": "Trauerweide Blätter",
   "block.bonesupdate.weeping_willow_small_vines": "Trauerweidenreben",
   "block.bonesupdate.weeping_willow_vines": "Trauerweidenzweig",
@@ -15,6 +34,7 @@
   "item.bonesupdate.soul_orb": "Seelenorb",
 
   "entity.bonesupdate.grabber": "Greifer",
+  "entity.bonesupdate.broken_skeleton": "Zerbrochenes Skelett",
   "entity.bonesupdate.haunter_skeleton": "Verfolgerskelett",
   "entity.bonesupdate.knight_skeleton": "Ritterskelett",
   "entity.bonesupdate.minion": "Lakaien",
@@ -22,6 +42,7 @@
   "entity.bonesupdate.reaper": "Schnitter",
 
   "item.bonesupdate.grabber_spawn_egg": "Greifer-Spawn-Ei",
+  "item.bonesupdate.broken_skeleton_spawn_egg": "Zerbrochenes-Skelett-Spawn-Ei",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Verfolgerskelett-Spawn-Ei",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Ritterskelett-Spawn-Ei",
   "item.bonesupdate.minion_spawn_egg": "Lakaien-Spawn-Ei",
@@ -35,6 +56,10 @@
   "advancements.bonesupdate.root.description": "Willkommen bei Bones Update Mod!",
   "advancements.bonesupdate.root.title": "Bones Update",
 
+  "advancements.bonesupdate.grave_in_end.title": "Der Tod ist das Ende,",
+  "advancements.bonesupdate.grave_in_end.description": "Ein Grab in das Ende legen",
+  "advancements.bonesupdate.loot_lost_grave.title": "Grabräuber",
+  "advancements.bonesupdate.loot_lost_grave.description": "Plündern eines verlorenen Grabes",
   "advancements.necromancy.find_weeping_willow_tree.title": "Treffen unter dem Baum",
   "advancements.necromancy.find_weeping_willow_tree.description": "Finden Sie einen Trauerweidenbaum und treffen Sie dort jemand Besonderen",
   "advancements.necromancy.friends_or_foes.title":"Freunde oder Feinde",

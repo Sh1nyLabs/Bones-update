@@ -1,6 +1,22 @@
-{
+{"sounds.bonesupdate.knight_skeleton_ambient": "Cliquetis de squelette paladin",
+  "sounds.bonesupdate.knight_skeleton_step": "Squelette paladin qui marche",
+  "sounds.bonesupdate.knight_skeleton_hurt": "Squelette paladin blessé",
+  "sounds.bonesupdate.knight_skeleton_death": "Squelette paladin qui meurt",
+
+  "sounds.bonesupdate.haunter_skeleton_ambient": "Cliquetis de squelette hanteur",
+  "sounds.bonesupdate.haunter_skeleton_step": "Squelette hanteur qui marche",
+  "sounds.bonesupdate.haunter_skeleton_hurt": "Squelette hanteur blessé",
+  "sounds.bonesupdate.haunter_skeleton_death": "Squelette hanteur qui meurt",
+
+  "sounds.bonesupdate.broken_skeleton_revives": "Squelette brisé revit",
+
   "block.bonesupdate.cursed_lantern": "Lanterne maudite",
+  "block.bonesupdate.eroded_fossil": "Fossile érodé",
   "block.bonesupdate.grave": "Tombe",
+  "block.bonesupdate.guardian_fossil": "Fossile de Gardien",
+  "block.bonesupdate.broken_skeleton": "Corps de squelette de pillard",
+  "block.bonesupdate.pillager_skeleton_body": "Tête de squelette de pillard",
+  "block.bonesupdate.pillager_skeleton_head": "Squelette brisé",
   "block.bonesupdate.weeping_willow_leaves": "Feuilles de Saule Pleureur",
   "block.bonesupdate.weeping_willow_small_vines": "Vigne de Saule Pleureur",
   "block.bonesupdate.weeping_willow_vines": "Branches de Saule Pleureur",
@@ -15,6 +31,7 @@
   "item.bonesupdate.soul_orb": "Orbe Des Âmes",
 
   "entity.bonesupdate.grabber": "Attrapeur",
+  "entity.bonesupdate.broken_skeleton": "Squelette brisé",
   "entity.bonesupdate.haunter_skeleton": "Squelette hanteur",
   "entity.bonesupdate.knight_skeleton": "Squelette Paladin",
   "entity.bonesupdate.minion": "Minion",
@@ -22,6 +39,7 @@
   "entity.bonesupdate.reaper": "Faucheur",
 
   "item.bonesupdate.grabber_spawn_egg": "Oeuf d'apparition d'Attrapeur",
+  "item.bonesupdate.broken_skeleton_spawn_egg": "Oeuf d'apparition de squelette brisé",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Oeuf d'apparition de Hanteur",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Oeuf d'apparition de Squelette Paladin",
   "item.bonesupdate.minion_spawn_egg": "Oeuf d'apparition de Minion",
@@ -35,6 +53,10 @@
   "advancements.bonesupdate.root.description": "Bienvenue dans le mod Bones Update!",
   "advancements.bonesupdate.root.title": "Bones Update",
 
+  "advancements.bonesupdate.grave_in_end.title": "La mort, c'est la fin",
+  "advancements.bonesupdate.grave_in_end.description": "Place une tombe dans l'End",
+  "advancements.bonesupdate.loot_lost_grave.title": "Pilleur de tombes",
+  "advancements.bonesupdate.loot_lost_grave.description": "Pille une tombe perdue",
   "advancements.necromancy.find_weeping_willow_tree.title": "Rencontre sous l'arbre",
   "advancements.necromancy.find_weeping_willow_tree.description": "Trouvez un Saule Pleureur, et rencontrez-y quelqu'un de spécial",
   "advancements.necromancy.friends_or_foes.title":"Amis ou ennemis",

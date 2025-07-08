@@ -1,6 +1,25 @@
 {
+  "itemGroup.bonesupdate": "Bones Update",
+
+  "sounds.bonesupdate.knight_skeleton_ambient": "Paladino Esqueleto chocalha",
+  "sounds.bonesupdate.knight_skeleton_step": "Paladino Esqueleto caminha",
+  "sounds.bonesupdate.knight_skeleton_hurt": "Paladino Esqueleto aleija-se",
+  "sounds.bonesupdate.knight_skeleton_death": "Paladino Esqueleto morre",
+
+  "sounds.bonesupdate.haunter_skeleton_ambient": "Esqueleto de Assombrador chocalha",
+  "sounds.bonesupdate.haunter_skeleton_step": "Esqueleto de Assombrador caminha",
+  "sounds.bonesupdate.haunter_skeleton_hurt": "Esqueleto de Assombrador aleija-se",
+  "sounds.bonesupdate.haunter_skeleton_death": "Esqueleto de Assombrador morre",
+
+  "sounds.bonesupdate.broken_skeleton_revives": "Esqueleto partido revive",
+
   "block.bonesupdate.cursed_lantern": "Lanterna Amaldiçoada",
+  "block.bonesupdate.eroded_fossil": "Fóssil Eroded",
   "block.bonesupdate.grave": "Túmulo",
+  "block.bonesupdate.guardian_fossil": "Fóssil de Guardião",
+  "block.bonesupdate.broken_skeleton": "Esqueleto partido",
+  "block.bonesupdate.pillager_skeleton_body": "Corpo de esqueleto de Pillager",
+  "block.bonesupdate.pillager_skeleton_head": "Cabeça de esqueleto de Pillager",
   "block.bonesupdate.weeping_willow_leaves": "Folhas de salgueiro-chorão",
   "block.bonesupdate.weeping_willow_small_vines": "Vinhas de salgueiro-chorão",
   "block.bonesupdate.weeping_willow_vines": "Ramo de salgueiro-chorão",
@@ -14,14 +33,16 @@
   "item.bonesupdate.skeleton_soul": "Alma de esqueleto",
   "item.bonesupdate.soul_orb": "Orbe da Alma",
 
-  "entity.bonesupdate.minion": "Arragador",
+  "entity.bonesupdate.grabber": "Arragador",
+  "entity.bonesupdate.broken_skeleton": "Esqueleto partido",
   "entity.bonesupdate.haunter_skeleton": "Esqueleto de Assombrador",
   "entity.bonesupdate.knight_skeleton": "Paladino Esqueleto",
-  "entity.bonesupdate.grabber": "Minion",
+  "entity.bonesupdate.minion": "Minion",
   "entity.bonesupdate.necromancer": "Necromante",
   "entity.bonesupdate.reaper": "Ceifeira",
 
   "item.bonesupdate.grabber_spawn_egg": "Ovo de invocação de arragador",
+  "item.bonesupdate.broken_skeleton_spawn_egg": "Ovo gerador de esqueleto partido",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Ovo gerador de esqueleto de assombrador",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Ovo de invocação de paladino esqueleto",
   "item.bonesupdate.minion_spawn_egg": "Ovo de invocação de minion",
@@ -35,6 +56,10 @@
   "advancements.bonesupdate.root.description": "Bem-vindo ao Mod de Bones Update !",
   "advancements.bonesupdate.root.title": "Bones Update",
 
+  "advancements.bonesupdate.grave_in_end.title": "A morte é o fim,",
+  "advancements.bonesupdate.grave_in_end.description": "Colocar uma sepultura no fim",
+  "advancements.bonesupdate.loot_lost_grave.title": "Saqueador de sepulturas",
+  "advancements.bonesupdate.loot_lost_grave.description": "Saquear uma sepultura perdida",
   "advancements.necromancy.find_weeping_willow_tree.title": "Encontro debaixo da árvore",
   "advancements.necromancy.find_weeping_willow_tree.description": "Encontre um Weeping Willow Tree, e encontre aí alguém especial",
   "advancements.necromancy.friends_or_foes.title":"Amigos ou inimigos",
