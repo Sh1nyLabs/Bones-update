@@ -1,5 +1,6 @@
 package com.sh1nylabs.bonesupdate.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import com.sh1nylabs.bonesupdate.init.BonesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,9 +13,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class WeepingWillowVinesBlock extends GrowingPlantBodyBlock {
+    private static final MapCodec<WeepingWillowVinesBlock> CODEC = simpleCodec(WeepingWillowVinesBlock::new);
     public static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
     public WeepingWillowVinesBlock(Properties properties) {
         super(properties, Direction.DOWN, SHAPE, false);
+    }
+
+    @Override
+    protected MapCodec<? extends GrowingPlantBodyBlock> codec() {
+        return CODEC;
     }
 
     protected GrowingPlantHeadBlock getHeadBlock() {
