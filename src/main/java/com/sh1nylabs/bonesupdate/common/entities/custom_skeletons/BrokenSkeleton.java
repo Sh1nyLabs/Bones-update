@@ -78,10 +78,14 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     @Override
     protected void dropAllDeathLoot(ServerLevel level, DamageSource damageSource) {
-        if (damageSource.getEntity() instanceof Creeper || (damageSource.getEntity() instanceof Player player &&
+        boolean playerGotAmulet = (damageSource.getEntity() instanceof Player player &&
                 (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AmuletItem ||
-                 player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem))) {
+                        player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem));
+        if (damageSource.getEntity() instanceof Creeper || playerGotAmulet) {
             super.dropAllDeathLoot(level, damageSource);
+        }
+        if (playerGotAmulet) {
+            this.spawnAtLocation(BonesRegistry.SKELETON_SOUL.item());
         }
     }
 
@@ -98,18 +102,6 @@ public class BrokenSkeleton extends AbstractSkeleton {
         } else if (getSkeletonType() != EntityType.BOGGED){
             this.spawnAtLocation(Items.SKELETON_SKULL);
         }
-        /**
-        Entity entity = damageSource.getEntity();
-        if (entity instanceof Creeper creeper) {
-            if (creeper.canDropMobsSkull()) {
-                creeper.increaseDroppedSkulls();
-                if (getSkeletonType() == EntityType.WITHER_SKELETON) {
-                    this.spawnAtLocation(Items.WITHER_SKELETON_SKULL);
-                } else if (getSkeletonType() != EntityType.STRAY) {
-                    this.spawnAtLocation(Items.SKELETON_SKULL);
-                }
-            }
-        }*/
     }
 
     public void playRevivingSound() {

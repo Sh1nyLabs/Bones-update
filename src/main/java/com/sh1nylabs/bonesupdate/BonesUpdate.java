@@ -46,6 +46,9 @@ public class BonesUpdate
      * TODO: before mod publication
      * - better grabber movement / goals
      * - better reaper loot
+     * Mod 1.2.2: what is new:
+     * Mecanics: skeletons break less often, and will break only after a certain time left inside a chunk.
+     *
      */
     public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -156,9 +159,10 @@ public class BonesUpdate
 
     public static boolean skeletonAllowedToBecomeBroken(AbstractSkeleton skeleton, DifficultyInstance difficultyInstance) {
         boolean validEntity = !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion) && !(skeleton instanceof Grabber);
-        int value = 1+Mth.ceil(50.0F * (1.0F - difficultyInstance.getSpecialMultiplier()));
-        LOGGER.info("breaking proba: {}, {}, {}", value, BUConfig.skeletonBreakDifficultyMin,  difficultyInstance.getSpecialMultiplier());
-        boolean validDifficulty = difficultyInstance.getSpecialMultiplier() > BUConfig.skeletonBreakDifficultyMin && skeleton.getRandom().nextInt(value)==0;
+        int value = Mth.ceil(100.0F * difficultyInstance.getSpecialMultiplier());
+        int value2 = skeleton.getRandom().nextInt(100);
+        LOGGER.info("values: {}, {}, {}", value, BUConfig.skeletonBreakDifficultyMin, value2);
+        boolean validDifficulty = difficultyInstance.getSpecialMultiplier() > BUConfig.skeletonBreakDifficultyMin && value2 <= value;
         return validEntity && validDifficulty;
     }
 
