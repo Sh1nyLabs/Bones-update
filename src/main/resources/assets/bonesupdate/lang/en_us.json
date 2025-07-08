@@ -11,6 +11,8 @@
 
   "sounds.bonesupdate.broken_skeleton_revives": "Broken Skeleton revives",
 
+  "itemGroup.bonesupdate": "Bones Update",
+
   "block.bonesupdate.cursed_lantern": "Cursed Lantern",
   "block.bonesupdate.eroded_fossil": "Eroded Fossil",
   "block.bonesupdate.grave": "Grave",
@@ -38,6 +40,7 @@
   "entity.bonesupdate.reaper": "Reaper",
 
   "item.bonesupdate.grabber_spawn_egg": "Grabber Spawn Egg",
+  "item.bonesupdate.broken_skeleton_spawn_egg": "Broken Skeleton Spawn Egg",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Haunter Skeleton Spawn Egg",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Knight Skeleton Spawn Egg",
   "item.bonesupdate.minion_spawn_egg": "Minion Spawn Egg",

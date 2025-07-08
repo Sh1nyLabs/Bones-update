@@ -80,7 +80,7 @@ public class BonesRegistry {
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Entities %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
-    public static final BUEntityHelper<BrokenSkeleton> BROKEN_SKELETON = new BUEntityHelper<>("broken_skeleton", 0xC1C1C1, 0x5642B3, EntityType.Builder.of(BrokenSkeleton::new,MobCategory.MONSTER).sized(0.6F,0.5F));
+    public static final BUEntityHelper<BrokenSkeleton> BROKEN_SKELETON = new BUEntityHelper<>("broken_skeleton", 0xC1C1C1, 0xC1C1C1, EntityType.Builder.of(BrokenSkeleton::new,MobCategory.MONSTER).sized(0.6F,0.5F));
     public static final BUEntityHelper<HaunterSkeleton> HAUNTER_SKELETON = new BUEntityHelper<>("haunter_skeleton", 0xC1C1C1, 0x5642B3, EntityType.Builder.of(HaunterSkeleton::new,MobCategory.MONSTER).sized(0.6F, 1.99F));
     public static final BUEntityHelper<KnightSkeleton> KNIGHT_SKELETON = new BUEntityHelper<>("knight_skeleton", 0x2E2E2E,0x5642B3, EntityType.Builder.of(KnightSkeleton::new,MobCategory.MONSTER).sized(0.6F, 1.99F));
     public static final BUEntityHelper<Grabber> GRABBER = new BUEntityHelper<>("grabber", 0xC1C1C1,0xA46826, EntityType.Builder.of(Grabber::new,MobCategory.MONSTER).sized(0.7F ,1.6F).eyeHeight(1.5F));
