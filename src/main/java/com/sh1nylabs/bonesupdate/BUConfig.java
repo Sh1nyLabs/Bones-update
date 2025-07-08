@@ -44,6 +44,10 @@ public class BUConfig {
     public static float squadDifficultyMin;
     public static double skeletonBreakDifficultyMin;
 
+    public static double grabber_ceil_tilt_angle = 0.8;
+    public static double grabber_ceil_heading_angle = 0.9;
+    public static double grabber_vision_max_dist = 50.0;
+
 
     public static Set<Item> items;
 

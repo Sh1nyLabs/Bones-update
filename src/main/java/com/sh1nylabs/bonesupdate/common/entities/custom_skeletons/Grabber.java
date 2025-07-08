@@ -2,10 +2,8 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.common.entities.goal.GrabberCelebratesNewItemGoal;
-import com.sh1nylabs.bonesupdate.common.entities.goal.GrabberStealsItem;
-import com.sh1nylabs.bonesupdate.common.entities.goal.NearestStealableTargetGoal;
-import com.sh1nylabs.bonesupdate.common.entities.goal.SimpleMoveGoal;
+import com.sh1nylabs.bonesupdate.BUConfig;
+import com.sh1nylabs.bonesupdate.common.entities.goal.*;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -39,6 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
+
 public class Grabber extends AbstractSkeleton {
     private ItemStack requestedItem = ItemStack.EMPTY;
     private static final EntityDataAccessor<ItemStack> ITEM_DISPLAY = SynchedEntityData.defineId(Grabber.class, EntityDataSerializers.ITEM_STACK);
@@ -55,8 +54,9 @@ public class Grabber extends AbstractSkeleton {
     }
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag); //TODO: test if works
-        this.requestedItem = ItemStack.parseOptional(this.registryAccess(), compoundTag.getCompound("requestedItem"));
+        super.readAdditionalSaveData(compoundTag);
+        CompoundTag compoundTag1 = compoundTag.getCompound("requestedItem");
+        setPocketItem(ItemStack.parseOptional(this.registryAccess(), compoundTag1));
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
@@ -94,6 +94,11 @@ public class Grabber extends AbstractSkeleton {
         }
     }
 
+    public void setPocketItem(ItemStack itemstack) {
+        this.requestedItem = itemstack;
+        this.entityData.set(ITEM_DISPLAY, requestedItem);
+    }
+
     public static AttributeSupplier.Builder getCustomAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,15.0D) //FIX_VALUE
@@ -106,7 +111,7 @@ public class Grabber extends AbstractSkeleton {
         this.goalSelector.addGoal(2, new GrabberStealsItem(this));
         this.goalSelector.addGoal(2, new RestrictSunGoal(this));
         this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.0D, 1.0D, this::isLookingAtMe));
+        this.goalSelector.addGoal(4, new GrabberMovesBehindPlayerGoal(this, 16.0F, 1.0D, 1.0D, this::playerCanSeeMe));
         this.goalSelector.addGoal(4, new SimpleMoveGoal(this, 1.2F, 0.1F));
         this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D)); //FIX_VALUE (radius of search / walkSpeedModif / sprintspeedModif)
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
@@ -115,18 +120,21 @@ public class Grabber extends AbstractSkeleton {
         this.targetSelector.addGoal(1, new NearestStealableTargetGoal(this));
     }
 
-    public boolean isLookingAtMe(LivingEntity entity) {
+    public boolean playerCanSeeMe(LivingEntity entity) {
         if (entity instanceof Player player) {
-            Vec3 vec3 = player.getViewVector(1.0F).normalize();
-            Vec3 vec31 = new Vec3(this.getX() - player.getX(), this.getEyeY() - player.getEyeY(), this.getZ() - player.getZ());
-            double d0 = vec31.length();
-            vec31 = vec31.normalize();
-            double d1 = vec3.dot(vec31);
-            if (d1 > (1.0D - 0.025D / d0) && player.hasLineOfSight(this)) {
-                return true;
-            }
+            return player.hasLineOfSight(this) && entityInsidePlayerWindow(player.getViewVector(1.0F).normalize(), player.position(), player);
         }
         return false;
+    }
+
+    public boolean entityInsidePlayerWindow(Vec3 vecView, Vec3 position, Player player) {
+        Vec3 vec31 = new Vec3(this.getX() - position.x(), this.getEyeY() - position.y(), this.getZ() - position.z());
+        vec31 = vec31.normalize();
+
+        boolean pitch_okay = Math.abs(Math.atan2(vecView.y(), vecView.distanceToSqr(0, vecView.y(), 0))) - Math.atan2(vec31.y(), vec31.distanceToSqr(0, vec31.y(), 0)) < BUConfig.grabber_ceil_tilt_angle;
+        boolean heading_okay = Math.abs(Math.atan2(vecView.z(), vecView.x()) - Math.atan2(vec31.z(), vec31.x())) < BUConfig.grabber_ceil_heading_angle;
+
+        return pitch_okay && heading_okay && vec31.length() < BUConfig.grabber_vision_max_dist;
     }
 
     @Override
