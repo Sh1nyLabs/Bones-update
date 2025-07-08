@@ -1,4 +1,5 @@
-   ![bonesupdate_sh1nylabs.png](images%2Fbonesupdate_sh1nylabs.png)
+
+![bonesupdate_sh1nylabs.png](images%2Fbonesupdate_sh1nylabs.png)
 ![fight_new_mobs.png](images%2Ffight_new_mobs.png)
 ![discover_new_skeletons.png](images%2Fdiscover_new_skeletons.png)
 ![collect_new_items.png](images%2Fcollect_new_items.png)
