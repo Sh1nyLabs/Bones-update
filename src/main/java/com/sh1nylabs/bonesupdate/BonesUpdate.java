@@ -1,7 +1,6 @@
 package com.sh1nylabs.bonesupdate;
 
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
@@ -27,14 +26,10 @@ public class BonesUpdate
 {
     /**
      * TODO: before mod publication
-     * - minions follow better the necromancer (especially during raids)
-     * - add new skeletons decorations (pillager, villager...)
-     * - check wether the bogged can become broken
-     * - add wither effect to reaper hits
+     * - add new skeletons decorations (villager...)
+     * - add non-sheared model for broken bogged
      * - better grabber movement / goals
      * - better reaper loot
-     * - increased loot + exp for regular skeletons
-     * - upgrade necromancer goals (more graves to place, more minions to spawn)
      * - skeletons souls lootable in lost graves? (1 per grave max)
      */
     public static final String MODID = "bonesupdate";
@@ -82,6 +77,8 @@ public class BonesUpdate
             event.accept(BonesRegistry.WEEPING_WILLOW_VINES.item());
             event.accept(BonesRegistry.ERODED_FOSSIL.item());
             event.accept(BonesRegistry.GUARDIAN_FOSSIL.item());
+            event.accept(BonesRegistry.PILLAGER_SK_HEAD.item());
+            event.accept(BonesRegistry.PILLAGER_SK_BODY.item());
         } else if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(BonesRegistry.AMULET.item());
         } else if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {

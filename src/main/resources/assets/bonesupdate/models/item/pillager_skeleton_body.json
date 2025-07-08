@@ -1,5 +1,5 @@
 {
-  "parent": "bonesupdate:block/eroded_fossil",
+  "parent": "bonesupdate:block/pillager_skeleton_body",
   "display": {
     "gui": {
       "rotation": [ 30, 225, 0 ],
@@ -22,7 +22,7 @@
       "scale": [ 0.8, 0.8, 0.8 ]
     },
     "firstperson_righthand": {
-      "rotation": [ 0, 45, 0 ],
+      "rotation": [ 30, 70, 0 ],
       "translation": [ 0, 7, 0 ],
       "scale": [ 0.80, 0.80, 0.80 ]
     },

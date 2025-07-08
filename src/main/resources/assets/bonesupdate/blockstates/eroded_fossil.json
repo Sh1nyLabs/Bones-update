@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "bonesupdate:block/eroded_fossil",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "bonesupdate:block/eroded_fossil",
+      "y": 180
+    },
+    "facing=south": {
       "model": "bonesupdate:block/eroded_fossil"
+    },
+    "facing=west": {
+      "model": "bonesupdate:block/eroded_fossil",
+      "y": 90
     }
   }
 }

@@ -1,5 +1,4 @@
 {
-
   "sounds.bonesupdate.knight_skeleton_ambient": "Knight Skeleton rattles",
   "sounds.bonesupdate.knight_skeleton_step": "Knight Skeleton walks",
   "sounds.bonesupdate.knight_skeleton_hurt": "Knight Skeleton hurts",
@@ -16,6 +15,8 @@
   "block.bonesupdate.eroded_fossil": "Eroded Fossil",
   "block.bonesupdate.grave": "Grave",
   "block.bonesupdate.guardian_fossil": "Guardian Fossil",
+  "block.bonesupdate.pillager_skeleton_body": "Pillager Skeleton Body",
+  "block.bonesupdate.pillager_skeleton_head": "Pillager Skeleton Head",
   "block.bonesupdate.weeping_willow_leaves": "Weeping Willow Leaves",
   "block.bonesupdate.weeping_willow_small_vines": "Weeping Willow Vines",
   "block.bonesupdate.weeping_willow_vines": "Weeping Willow Branch Vines",

@@ -16,7 +16,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.EntityTypeTags;
@@ -30,8 +29,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -58,8 +60,22 @@ public class BonesRegistry {
     public static final BUBlockHelper<?> WEEPING_WILLOW_SMALL_VINES = new BUBlockHelper<>("weeping_willow_small_vines",() -> new WeepingWillowSmallVinesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).randomTicks().noCollission().instabreak()));
     public static final BUBlockHelper<?> WEEPING_WILLOW_VINES = new BUBlockHelper<>("weeping_willow_vines",() -> new WeepingWillowVinesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).noCollission().instabreak()));
     public static final BUBlockHelper<?> WEEPING_WILLOW_LEAVES = new BUBlockHelper<>("weeping_willow_leaves",() -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).randomTicks().noOcclusion()));
-    public static final BUBlockHelper<?> ERODED_FOSSIL = new BUBlockHelper<>("eroded_fossil", () -> new ErodedFossilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BONE_BLOCK)));
-    public static final BUBlockHelper<?> GUARDIAN_FOSSIL = new BUBlockHelper<>("guardian_fossil", () -> new GuardianFossilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BONE_BLOCK).noOcclusion()));
+    public static final BUBlockHelper<?> ERODED_FOSSIL = new BUBlockHelper<>("eroded_fossil", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE),
+            Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 15.0D),
+            Block.box(4.0D, 0.0D, 1.0D, 12.0D, 4.0D, 12.0D),
+            Block.box(1.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D),
+            Block.box(4.0D, 0.0D, 4.0D, 15.0D, 4.0D, 12.0D)));
+    public static final BUBlockHelper<?> GUARDIAN_FOSSIL = new BUBlockHelper<>("guardian_fossil", () -> new GuardianFossilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion()));
+    public static final BUBlockHelper<?> PILLAGER_SK_HEAD = new BUBlockHelper<>("pillager_skeleton_head", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion(),
+            Block.box(2.0D, 0.0D, 5.0D, 13.0D, 8.0D, 16.0D),
+            Block.box(3.0D, 0.0D, 0.0D, 14.0D, 8.0D, 11.0D),
+            Block.box(0.0D, 0.0D, 2.0D, 11.0D, 8.0D, 13.0D),
+            Block.box(5.0D, 0.0D, 3.0D, 16.0D, 8.0D, 14.0D)));
+    public static final BUBlockHelper<?> PILLAGER_SK_BODY = new BUBlockHelper<>("pillager_skeleton_body", () -> new BonesOrientableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BONE_BLOCK).noOcclusion(),
+            Block.box(6.0D, 0.0D, 0.0D, 15.0D, 6.0D, 11.0D),
+            Block.box(1.0D, 0.0D, 5.0D, 10.0D, 6.0D, 16.0D),
+            Block.box(5.0D, 0.0D, 6.0D, 16.0D, 6.0D, 15.0D),
+            Block.box(0.0D, 0.0D, 1.0D, 11.0D, 6.0D, 10.0D)));
 
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Entities %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
@@ -75,9 +91,9 @@ public class BonesRegistry {
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Enchantments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
-    public static final ResourceKey<Enchantment> SERENITY = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "serenity"));
-    public static final ResourceKey<Enchantment> SUBALTERN = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "subaltern"));
-    public static final ResourceKey<Enchantment> LEADER = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "leader"));
+    public static final BUEnchantmentHelper SERENITY = new BUEnchantmentHelper( "serenity");
+    public static final BUEnchantmentHelper SUBALTERN = new BUEnchantmentHelper( "subaltern");
+    public static final BUEnchantmentHelper LEADER = new BUEnchantmentHelper( "leader");
 
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ItemTags %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
@@ -144,7 +160,7 @@ public class BonesRegistry {
         }
 
         public void addTags(HolderLookup.Provider provider) {
-            this.tag(SUBALTERN_INCOMPATIBLE).add(SUBALTERN);
+            this.tag(SUBALTERN_INCOMPATIBLE).add(SUBALTERN.ench());
         }
     }
 }
