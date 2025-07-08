@@ -1,11 +1,20 @@
 package com.sh1nylabs.bonesupdate;
 
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -22,6 +31,10 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Supplier;
 
 @Mod(BonesUpdate.MODID)
@@ -31,11 +44,12 @@ public class BonesUpdate
      * TODO: before mod publication
      * - better grabber movement / goals
      * - better reaper loot
-     * - skeletons souls lootable in lost graves? (1 per grave max)
      */
     public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> BONESUPDATE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static List<EntityType<? extends AbstractSkeleton>> SQUAD_SKELETONS;
+    public static HashMap<EntityType<? extends AbstractSkeleton>, Integer> SKELETONS_PER_SQUAD = new HashMap<>();
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BONESUPDATE_TAB = BONESUPDATE_TABS.register("bonesupdate_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.bonesupdate"))
@@ -68,8 +82,7 @@ public class BonesUpdate
                 output.accept(BonesRegistry.REAPER.egg());
             }).build());
 
-    public BonesUpdate(IEventBus modEventBus, ModContainer modContainer)
-    {
+    public BonesUpdate(IEventBus modEventBus, ModContainer modContainer) {
         //modEventBus.addListener(this::commonSetup);
 
         BonesRegistry.BU_BLOCKS.register(modEventBus);
@@ -84,11 +97,10 @@ public class BonesUpdate
 
         modEventBus.addListener(this::addCreative);
 
-        modContainer.registerConfig(ModConfig.Type.COMMON, BonesUpdateConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, BUConfig.SPEC);
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event)
-    {
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(BonesRegistry.GRAVE_BLOCK.item());
             event.accept(BonesRegistry.WEEPING_WILLOW_LEAVES.item());
@@ -122,17 +134,44 @@ public class BonesUpdate
         }
     }
 
+    @Nullable
+    public static BlockPos randomValidPosForSpawn(ServerLevel level, BlockPos pos, int maxX, int maxY, int maxZ, double inflation, EntityType<? extends LivingEntity> entityType, int nbTries) {
+        RandomSource rdmSource = level.getRandom();
+        for (int i = 0; i< nbTries; i++) {
+            double newX = pos.getX() + (rdmSource.nextDouble() - 0.5) * 2 * maxX;
+            double newY = pos.getY() + (rdmSource.nextDouble() - 0.5) * 2 * maxY;
+            double newZ = pos.getZ() + (rdmSource.nextDouble() - 0.5) * 2 * maxZ;
+            BlockPos randomPos;
+            for (int j=-1; j <= 1; j++) { // Tries to get a valid pos by locally varying height
+                randomPos = BlockPos.containing(newX, newY + j, newZ);
+                if (level.noCollision(AABB.unitCubeFromLowerCorner(new Vec3(newX, newY + j, newZ)).inflate(inflation)) && level.getBlockState(randomPos.below()).isValidSpawn(level, randomPos.below(), entityType)) {
+                    return randomPos;
+                }
+            }
+        }
+        return null;
+    }
+
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
-    {
-        //RegistryAccess registryAccess = event.getServer().registryAccess();
+    public void onServerStarting(ServerStartingEvent event) {
 
         // Do something when the server starts
-        BonesUpdate.LOGGER.info("HELLO from server starting");
+        //BonesUpdate.LOGGER.info("HELLO from server starting");
+        if (event.getServer().getLevel(Level.OVERWORLD).getDifficulty() == Difficulty.HARD) {
+            SKELETONS_PER_SQUAD.put(EntityType.SKELETON, BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(0));
+            SKELETONS_PER_SQUAD.put(BonesRegistry.KNIGHT_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(1));
+            SKELETONS_PER_SQUAD.put(BonesRegistry.HAUNTER_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(2));
+            SKELETONS_PER_SQUAD.put(BonesRegistry.MINION.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(3));
+        } else {
+            SKELETONS_PER_SQUAD.put(EntityType.SKELETON, BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(0));
+            SKELETONS_PER_SQUAD.put(BonesRegistry.KNIGHT_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(1));
+            SKELETONS_PER_SQUAD.put(BonesRegistry.HAUNTER_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(2));
+            SKELETONS_PER_SQUAD.put(BonesRegistry.MINION.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(3));
+        }
+
     }
 
     public class BonesRaiderTypes {
         public static final EnumProxy<Raid.RaiderType> NECROMANCER = new EnumProxy<>(Raid.RaiderType.class, (Supplier<EntityType<?>>)(BonesRegistry.NECROMANCER::type), new int[]{0, 0, 1, 0, 1, 1, 2, 1});
-
     }
 }
