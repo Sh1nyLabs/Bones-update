@@ -1,9 +1,6 @@
 {
   "pack": {
-    "description": {
-      "text": "bones update mod pack"
-    },
-    "forge:server_data_pack_format": 12,
-    "pack_format": 13
+    "description": "${mod_id} resources",
+    "pack_format": 22
   }
 }
