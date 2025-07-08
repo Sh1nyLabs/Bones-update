@@ -56,6 +56,18 @@
           "weight": 1,
           "minCount": 1,
           "maxCount": 1
+        },
+        {
+          "type": "bonesupdate:necromancer",
+          "weight": 1,
+          "minCount": 1,
+          "maxCount": 1
+        },
+        {
+          "type": "bonesupdate:minion",
+          "weight": 10,
+          "minCount": 3,
+          "maxCount": 5
         }
       ]
     }
