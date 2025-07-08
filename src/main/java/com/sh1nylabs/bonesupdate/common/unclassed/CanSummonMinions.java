@@ -2,6 +2,7 @@ package com.sh1nylabs.bonesupdate.common.unclassed;
 
 /* Java interface written by sh1nylabs' team. All rights reserved. */
 
+import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
@@ -36,21 +37,15 @@ public interface CanSummonMinions {
      */
     default void summonMinion(ServerLevel level, RandomSource rdmSource, int quantity, BlockPos pos, MobSpawnType spawntype, Minion.MinionData minionData) {
         for (int i = 0; i < quantity; ++i) {
-            for (int j = 0; j < 8; ++j) { /** 8 attempts to spawn the mob */ // FIX_VALUE
-                double positionX = pos.getX() + (rdmSource.nextDouble() - 0.5) * 4 + 0.5;
-                double positionY = pos.getY() + rdmSource.nextGaussian() * 2 + 0.5;
-                double positionZ = pos.getZ() + (rdmSource.nextDouble() - 0.5) * 4 + 0.5;
-                BlockPos blockpos = BlockPos.containing(positionX, positionY, positionZ);
-                if (level.noCollision(AABB.unitCubeFromLowerCorner(new Vec3(positionX, positionY, positionZ)).inflate(0.35D)) && level.getBlockState(blockpos.below()).isValidSpawn(level, blockpos.below(), BonesRegistry.MINION.type())) {
-                    Minion minion = BonesRegistry.MINION.type().create(level);
-                    if (minion != null) {
-                        minion.moveTo(positionX, positionY, positionZ, rdmSource.nextFloat(), 0.0F);
-                        EventHooks.finalizeMobSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData);
-                        level.tryAddFreshEntityWithPassengers(minion);
-                        level.gameEvent(minion, GameEvent.ENTITY_PLACE, blockpos);
-                        minion.spawnAnim();
-                    }
-                    break;
+            BlockPos blockpos = BonesUpdate.randomValidPosForSpawn(level, pos, 2, 2, 2, 0.35D, BonesRegistry.MINION.type(), 8);
+            if (blockpos != null) {
+                Minion minion = BonesRegistry.MINION.type().create(level);
+                if (minion != null) {
+                    minion.moveTo(blockpos, rdmSource.nextFloat() * 3.0F, 0.0F);
+                    EventHooks.finalizeMobSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData);
+                    level.tryAddFreshEntityWithPassengers(minion);
+                    level.gameEvent(minion, GameEvent.ENTITY_PLACE, blockpos);
+                    minion.spawnAnim();
                 }
             }
         }

@@ -2,11 +2,13 @@ package com.sh1nylabs.bonesupdate.common.events;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
+import com.sh1nylabs.bonesupdate.BUConfig;
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.*;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.data.DataProvider;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -15,6 +17,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -28,10 +31,10 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -43,6 +46,27 @@ public class BonesModEvent {
 
     @EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesForgeEvents {
+
+        @SubscribeEvent
+        public static void SpawnSkeletonSquadEvent(FinalizeSpawnEvent event) {
+            if (event.getLevel() instanceof ServerLevel serverLevel && (event.getEntity() instanceof Skeleton skeleton) && event.getDifficulty().isHarderThan(BUConfig.squadDifficultyMin) && event.getLevel().getRandom().nextInt(BUConfig.squadSpawnChance) == 0) {
+                BlockPos blockpos;
+                for (EntityType<? extends AbstractSkeleton> entityType : BonesUpdate.SKELETONS_PER_SQUAD.keySet()) {
+                    for (int i = 0; i < BonesUpdate.SKELETONS_PER_SQUAD.get(entityType); i++) {
+                        blockpos = BonesUpdate.randomValidPosForSpawn(serverLevel, skeleton.getOnPos().above(), 4, 3, 4, 0.5, entityType, 20);
+                        if (blockpos != null) {
+                            AbstractSkeleton new_skeleton = entityType.create(serverLevel);
+                            if (new_skeleton != null) {
+                                new_skeleton.moveTo(blockpos, serverLevel.getRandom().nextFloat() * 3.0F, 0.0F);
+                                EventHooks.finalizeMobSpawn(new_skeleton, serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), MobSpawnType.EVENT, null);
+                                serverLevel.tryAddFreshEntityWithPassengers(new_skeleton);
+                                serverLevel.gameEvent(new_skeleton, GameEvent.ENTITY_PLACE, blockpos);
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         /**
          * Catch a skeleton which is dying in order to replace it by a broken form.

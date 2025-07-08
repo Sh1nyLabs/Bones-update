@@ -85,7 +85,6 @@ public class Minion extends FriendlySkeleton {
             this.setFriendly(minionData.summoningWay instanceof NecroScepterItem);
             if (minionData.summoningWay instanceof Necromancer.NecromancerSummons necromancer_goal) {
                 this.setOwner(necromancer_goal.getNecromancer());
-                BonesUpdate.LOGGER.info("spawned via necromancer");
                 necromancer_goal.getNecromancer().addMinionToStock(-1);
             } else {
                 this.setOwner(null);
