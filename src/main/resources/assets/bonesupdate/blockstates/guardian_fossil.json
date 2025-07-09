@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
-      "model": "bonesupdate:block/guardian_fossil"
+    "facing=east": {
+      "model": "bonesupdate:block/guardian_fossil/guardian_fossil_east"
+    },
+    "facing=north": {
+      "model": "bonesupdate:block/guardian_fossil/guardian_fossil_north"
+    },
+    "facing=south": {
+      "model": "bonesupdate:block/guardian_fossil/guardian_fossil_south"
+    },
+    "facing=west": {
+      "model": "bonesupdate:block/guardian_fossil/guardian_fossil_west"
     }
   }
 }
