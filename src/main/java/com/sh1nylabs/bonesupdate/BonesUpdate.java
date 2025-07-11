@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
@@ -168,11 +167,13 @@ public class BonesUpdate
 
     public static boolean skeletonAllowedToBecomeBroken(AbstractSkeleton skeleton, DifficultyInstance difficultyInstance) {
         boolean validEntity = !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion) && !(skeleton instanceof Grabber);
-        int value = Mth.ceil(100.0F * difficultyInstance.getSpecialMultiplier());
-        int value2 = skeleton.getRandom().nextInt(100);
-        LOGGER.info("values: {}, {}, {}", value, BUConfig.skeletonBreakDifficultyMin, value2);
-        boolean validDifficulty = difficultyInstance.getSpecialMultiplier() > BUConfig.skeletonBreakDifficultyMin && value2 <= value;
-        return validEntity && validDifficulty;
+        boolean validDifficulty = difficultyInstance.getEffectiveDifficulty() > BUConfig.skeletonBreakDifficultyMin;// nextIntBetweenInclusive
+        if (validEntity && validDifficulty)
+        {
+            int likelihood = (int) (BUConfig.skeletonBreakRandomChanceMin + (BUConfig.skeletonBreakRandomChanceMax - BUConfig.skeletonBreakRandomChanceMin)/(5.5 - BUConfig.skeletonBreakDifficultyMin) * (Math.min(difficultyInstance.getEffectiveDifficulty(), 5.5F) - BUConfig.skeletonBreakDifficultyMin));
+            return skeleton.getRandom().nextInt(100) < likelihood;
+        }
+        return false;
     }
 
     @SubscribeEvent
