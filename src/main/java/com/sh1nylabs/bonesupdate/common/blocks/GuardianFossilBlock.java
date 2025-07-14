@@ -20,8 +20,7 @@ public class GuardianFossilBlock extends Block implements SimpleWaterloggedBlock
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public GuardianFossilBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
-                                          .setValue(WATERLOGGED, Boolean.valueOf(false)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Nullable
