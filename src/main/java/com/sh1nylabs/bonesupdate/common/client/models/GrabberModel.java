@@ -2,20 +2,15 @@ package com.sh1nylabs.bonesupdate.common.client.models;
 
 /* Java class written by sh1nylabs' team, using Blockbench 4.7.4. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.render_states.GrabberRenderState;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class GrabberModel extends HumanoidModel<GrabberRenderState> implements ArmedModel {
-
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "grabber"), "main");
 
 	public GrabberModel(ModelPart root) {
 		super(root);

@@ -2,22 +2,18 @@ package com.sh1nylabs.bonesupdate.common.client.models;
 
 /* Java class written by sh1nylabs' team, using Blockbench 4.7.4. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
 public class MinionModel extends HumanoidModel<HumanoidRenderState> implements ArmedModel {
 
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "minion_model"), "main");
 	private final ModelPart left_arm;
 	private final ModelPart right_arm;
 
@@ -31,7 +27,6 @@ public class MinionModel extends HumanoidModel<HumanoidRenderState> implements A
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		//partdefinition.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(5, 20).addBox(-2.0F, -4.002F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.2F)), PartPose.offset(0.0F, 13.0F, 0.0F));
 		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -4.002F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.0F))
 		.texOffs(13, 0).addBox(-0.5F, -0.5F, -2.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.0F, 0.0F));
 		partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(4, 9).addBox(-2.0F, 0.999F, -1.0F, 4.0F, 5.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.0F, 0.0F));

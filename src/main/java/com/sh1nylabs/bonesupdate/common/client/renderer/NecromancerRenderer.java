@@ -2,23 +2,20 @@ package com.sh1nylabs.bonesupdate.common.client.renderer;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.models.NecromancerModel;
 import com.sh1nylabs.bonesupdate.common.client.render_states.NecromancerRenderState;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.IllagerRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.AbstractIllager;
 
-public class NecromancerRenderer extends IllagerRenderer<Necromancer, NecromancerRenderState>
-{
-
-    public static final ResourceLocation NECROMANCER_TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/necromancer.png");
+public class NecromancerRenderer extends IllagerRenderer<Necromancer, NecromancerRenderState> {
 
     public NecromancerRenderer(EntityRendererProvider.Context context) {
-        super(context,new NecromancerModel<>(context.bakeLayer(NecromancerModel.LAYER_LOCATION)), 0.5f);
+        super(context,new NecromancerModel<>(context.bakeLayer(BonesRegistry.NECROMANCER.modelLayerLocation())), 0.5f);
         this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
     }
 
@@ -35,7 +32,7 @@ public class NecromancerRenderer extends IllagerRenderer<Necromancer, Necromance
     }
 
     public ResourceLocation getTextureLocation(NecromancerRenderState entity) {
-    return NECROMANCER_TEXTURE;
+    return BonesRegistry.NECROMANCER.textureLocation();
     }
 
 }

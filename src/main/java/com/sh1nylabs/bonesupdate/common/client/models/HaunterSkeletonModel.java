@@ -3,22 +3,18 @@ package com.sh1nylabs.bonesupdate.common.client.models;
 /* Java class written by sh1nylabs' team, using Blockbench 4.7.4. All rights reserved. */
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
 public class HaunterSkeletonModel extends HumanoidModel<HumanoidRenderState> implements ArmedModel {
 
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "haunterskeletonmodel"), "main");
 	private final ModelPart rightHand;
 
 	public HaunterSkeletonModel(ModelPart root) {

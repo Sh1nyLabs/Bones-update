@@ -4,10 +4,10 @@ package com.sh1nylabs.bonesupdate.common.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.models.GrabberModel;
 import com.sh1nylabs.bonesupdate.common.client.render_states.GrabberRenderState;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -25,17 +25,15 @@ import net.minecraft.world.item.ItemStack;
 
 public class GrabberRenderer extends MobRenderer<Grabber, GrabberRenderState, GrabberModel> {
 
-    public static final ResourceLocation GRABBER_TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/grabber.png");
-
     public GrabberRenderer(EntityRendererProvider.Context context) {
-        super(context,new GrabberModel(context.bakeLayer(GrabberModel.LAYER_LOCATION)), 0.5f);
+        super(context, new GrabberModel(context.bakeLayer(BonesRegistry.GRABBER.modelLayerLocation())), 0.5f);
         this.addLayer(new GrabberPocketItemLayer( this, context.getItemRenderer()));
         this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
     }
 
     @Override
     public ResourceLocation getTextureLocation(GrabberRenderState grabberState) {
-        return GRABBER_TEXTURE;
+        return BonesRegistry.GRABBER.textureLocation();
     }
 
     @Override

@@ -20,6 +20,7 @@ import net.minecraft.world.entity.EntityType;
 import java.util.Map;
 
 public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSkeletonRenderState, BrokenSkeletonModel<BrokenSkeletonRenderState>>{
+
     private static final Map<String, ResourceLocation> LOCATION_BY_SKELETON = Util.make(Maps.newHashMap(), (map) -> {
         map.put(EntityType.SKELETON.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png"));
         map.put(EntityType.STRAY.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/stray.png"));
@@ -30,7 +31,7 @@ public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSk
     });
 
     public BrokenSkeletonRenderer(EntityRendererProvider.Context context) {
-        super(context,new BrokenSkeletonModel<>(context.bakeLayer(BrokenSkeletonModel.LAYER_LOCATION)), 0.5f);
+        super(context,new BrokenSkeletonModel<>(context.bakeLayer(BonesRegistry.BROKEN_SKELETON.modelLayerLocation())), 0.5f);
         this.addLayer(new ItemInHandLayer<>(this, context.getItemRenderer()) {
             public void render(
                     PoseStack p_116330_, MultiBufferSource p_116331_, int p_116332_, BrokenSkeletonRenderState skeleton, float p_116334_, float p_116335_

@@ -2,21 +2,18 @@ package com.sh1nylabs.bonesupdate.common.client.renderer;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.models.HaunterSkeletonModel;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.HaunterSkeleton;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.ResourceLocation;
 
-public class HaunterSkeletonRenderer extends HumanoidMobRenderer<HaunterSkeleton, HumanoidRenderState, HaunterSkeletonModel>
-{
-    public static final ResourceLocation HAUNTER_TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/haunter_skeleton.png");
-
+public class HaunterSkeletonRenderer extends HumanoidMobRenderer<HaunterSkeleton, HumanoidRenderState, HaunterSkeletonModel> {
     public HaunterSkeletonRenderer(EntityRendererProvider.Context context) {
-        super(context,new HaunterSkeletonModel(context.bakeLayer(HaunterSkeletonModel.LAYER_LOCATION)), 0.5f);
+        super(context, new HaunterSkeletonModel(context.bakeLayer(BonesRegistry.HAUNTER_SKELETON.modelLayerLocation())), 0.5f);
         this.addLayer(new ItemInHandLayer<>(this, context.getItemRenderer()));
     }
 
@@ -27,7 +24,7 @@ public class HaunterSkeletonRenderer extends HumanoidMobRenderer<HaunterSkeleton
 
     @Override
     public ResourceLocation getTextureLocation(HumanoidRenderState entity) {
-        return HAUNTER_TEXTURE;
+        return BonesRegistry.HAUNTER_SKELETON.textureLocation();
     }
 
 }

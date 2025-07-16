@@ -2,19 +2,15 @@ package com.sh1nylabs.bonesupdate.common.client.models;
 
 /* Java class written by sh1nylabs' team, using Blockbench 4.7.4. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.render_states.ReaperRenderState;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class ReaperModel extends EntityModel<ReaperRenderState> {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "reapermodel"), "main");
+
 	private final ModelPart head;
 	private final ModelPart headwear;
 	private final ModelPart body;

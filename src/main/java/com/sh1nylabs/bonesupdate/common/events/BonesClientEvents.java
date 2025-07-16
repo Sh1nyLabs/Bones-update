@@ -33,13 +33,13 @@ public class BonesClientEvents {
 
     @SubscribeEvent
     public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(GrabberModel.LAYER_LOCATION,GrabberModel::createBodyLayer);
-        event.registerLayerDefinition(MinionModel.LAYER_LOCATION,MinionModel::createBodyLayer);
-        event.registerLayerDefinition(NecromancerModel.LAYER_LOCATION,NecromancerModel::createBodyLayer);
-        event.registerLayerDefinition(ReaperModel.LAYER_LOCATION,ReaperModel::createBodyLayer);
-        event.registerLayerDefinition(KnightSkeletonModel.LAYER_LOCATION, KnightSkeletonModel::createBodyLayer);
-        event.registerLayerDefinition(HaunterSkeletonModel.LAYER_LOCATION, HaunterSkeletonModel::createBodyLayer);
-        event.registerLayerDefinition(BrokenSkeletonModel.LAYER_LOCATION, BrokenSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(BonesRegistry.GRABBER.modelLayerLocation(), GrabberModel::createBodyLayer);
+        event.registerLayerDefinition(BonesRegistry.MINION.modelLayerLocation(), MinionModel::createBodyLayer);
+        event.registerLayerDefinition(BonesRegistry.NECROMANCER.modelLayerLocation(), NecromancerModel::createBodyLayer);
+        event.registerLayerDefinition(BonesRegistry.REAPER.modelLayerLocation(), ReaperModel::createBodyLayer);
+        event.registerLayerDefinition(BonesRegistry.KNIGHT_SKELETON.modelLayerLocation(), KnightSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(BonesRegistry.HAUNTER_SKELETON.modelLayerLocation(), HaunterSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(BonesRegistry.BROKEN_SKELETON.modelLayerLocation(), BrokenSkeletonModel::createBodyLayer);
     }
 
     @SubscribeEvent
