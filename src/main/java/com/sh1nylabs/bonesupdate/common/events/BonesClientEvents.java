@@ -8,11 +8,14 @@ import com.sh1nylabs.bonesupdate.common.client.renderer.*;
 import com.sh1nylabs.bonesupdate.common.particle.ParticleSoul;
 import com.sh1nylabs.bonesupdate.common.particle.ParticleBar;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @EventBusSubscriber(modid = BonesUpdate.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class BonesClientEvents {
@@ -43,5 +46,19 @@ public class BonesClientEvents {
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(BonesRegistry.PURPLE_BAR.particle(),  ParticleBar.Provider::new);
         event.registerSpriteSet(BonesRegistry.PURPLE_SOUL.particle(),  ParticleSoul.Provider::new);
+    }
+
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event)
+    {
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.CURSED_LANTERN.block(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.PILLAGER_SK_BODY.block(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.PILLAGER_SK_HEAD.block(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.GUARDIAN_FOSSIL.block(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.BROKEN_SKELETON_BLOCK.block(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.ERODED_FOSSIL.block(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.WEEPING_WILLOW_LEAVES.block(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.WEEPING_WILLOW_VINES.block(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(BonesRegistry.WEEPING_WILLOW_SMALL_VINES.block(), RenderType.cutout());
     }
 }
