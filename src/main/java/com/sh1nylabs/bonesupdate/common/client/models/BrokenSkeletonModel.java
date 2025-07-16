@@ -3,9 +3,8 @@ package com.sh1nylabs.bonesupdate.common.client.models;
 /* Java class written by sh1nylabs' team, using Blockbench 4.7.4. All rights reserved. */
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sh1nylabs.bonesupdate.BonesUpdate;
-import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
+import com.sh1nylabs.bonesupdate.common.client.render_states.BrokenSkeletonRenderState;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
@@ -18,7 +17,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
-public class BrokenSkeletonModel<T extends BrokenSkeleton> extends EntityModel<T> implements ArmedModel {
+public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends EntityModel<BrokenSkeletonRenderState> implements ArmedModel {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "brokenskeletonmodel"), "main");
 	private final ModelPart broken_state;
@@ -27,6 +26,7 @@ public class BrokenSkeletonModel<T extends BrokenSkeleton> extends EntityModel<T
 	private final ModelPart mushrooms;
 
 	public BrokenSkeletonModel(ModelPart root) {
+		super(root);
 		this.broken_state = root.getChild("broken_state");
 		this.haunter_parts = root.getChild("haunter_parts");
 		this.right_hand = root.getChild("right_hand");
@@ -63,12 +63,14 @@ public class BrokenSkeletonModel<T extends BrokenSkeleton> extends EntityModel<T
 	}
 
 	@Override
-	public void setupAnim(BrokenSkeleton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (entity.getSkeletonType() != BonesRegistry.HAUNTER_SKELETON.type()) {
+	public void setupAnim(BrokenSkeletonRenderState entity) {
+
+		if (entity.skeletonType != BonesRegistry.HAUNTER_SKELETON.type()) {
 			this.haunter_parts.visible = false;
 		}
-		this.mushrooms.visible = entity.getSkeletonType() == EntityType.BOGGED && !entity.boggedIsSheared();
+		this.mushrooms.visible = entity.skeletonType == EntityType.BOGGED && !entity.boggedIsSheared;
 	}
+
 
 	@Override
 	public void translateToHand(HumanoidArm arm, PoseStack stack) {
@@ -81,13 +83,5 @@ public class BrokenSkeletonModel<T extends BrokenSkeleton> extends EntityModel<T
 		if (armPart.xScale != 1.0F || armPart.yScale != 1.0F || armPart.zScale != 1.0F) {
 			stack.scale(0.85F,0.85F,0.85F);
 		}
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		broken_state.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		haunter_parts.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		right_hand.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		mushrooms.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 }

@@ -23,13 +23,12 @@ public class GrabberMovesBehindPlayerGoal extends AvoidEntityGoal<Player> {
 
     @Override
     public boolean canUse() {
-        this.toAvoid = this.mob
-                .level()
-                .getNearestEntity(
+        this.toAvoid = getServerLevel(this.mob)
+                 .getNearestEntity(
                         this.mob
                                 .level()
-                                .getEntitiesOfClass(this.avoidClass, this.mob.getBoundingBox().inflate(this.maxDist, 3.0, this.maxDist), player -> ((Grabber) mob).playerCanSeeMe(player)),
-                        TargetingConditions.forCombat().range(this.maxDist).selector(EntitySelector.NO_CREATIVE_OR_SPECTATOR::test),
+                                .getEntitiesOfClass(Player.class, this.mob.getBoundingBox().inflate(this.maxDist, 3.0, this.maxDist), player -> ((Grabber) mob).playerCanSeeMe(player) && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(player)),
+                        TargetingConditions.forCombat().range(this.maxDist),
                         this.mob,
                         this.mob.getX(),
                         this.mob.getY(),

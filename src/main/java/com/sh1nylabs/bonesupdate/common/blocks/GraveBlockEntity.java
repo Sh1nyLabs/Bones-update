@@ -10,7 +10,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -68,7 +68,7 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
                     || ((level.getBrightness(LightLayer.SKY,pos)-level.getSkyDarken())<(5+rdmSequence.nextInt(4))))) {
                 this.summonMinion((ServerLevel)level, rdmSequence,
                         1+rdmSequence.nextInt(SPAWN_COUNT-1),
-                        getBlockPos(), MobSpawnType.SPAWNER, new Minion.MinionData(this));
+                        getBlockPos(), EntitySpawnReason.SPAWNER, new Minion.MinionData(this));
             }
         }
     }

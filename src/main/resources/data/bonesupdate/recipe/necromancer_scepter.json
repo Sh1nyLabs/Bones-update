@@ -1,21 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": "bonesupdate:soul_orb",
+    "Z": "minecraft:obsidian",
+    "Y": "minecraft:stick"
+  },
   "pattern": [
     "ZXZ",
     " Y ",
     " Y "
   ],
-  "key": {
-    "X": {
-      "item": "bonesupdate:soul_orb"
-    },
-    "Z": {
-      "item": "minecraft:obsidian"
-    },
-    "Y": {
-      "item": "minecraft:stick"
-    }
-  },
   "result": {
     "count": 1,
     "id": "bonesupdate:necromancer_scepter"

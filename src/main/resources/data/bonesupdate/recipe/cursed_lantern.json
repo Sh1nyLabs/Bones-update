@@ -1,21 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": "bonesupdate:skeleton_soul",
+    "Z": "bonesupdate:haunter_blade",
+    "Y": "minecraft:iron_nugget"
+  },
   "pattern": [
     "ZYZ",
     "YXY",
     "ZYZ"
   ],
-  "key": {
-    "X": {
-      "item": "bonesupdate:skeleton_soul"
-    },
-    "Z": {
-      "item": "bonesupdate:haunter_blade"
-    },
-    "Y": {
-      "item": "minecraft:iron_nugget"
-    }
-  },
   "result": {
     "count": 1,
     "id": "bonesupdate:cursed_lantern"

@@ -34,7 +34,7 @@ public class AmuletItem extends Item implements CanPacifyGraves {
             brokenSkeleton.die(player.level().damageSources().playerAttack(player));
 
             stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-            player.getCooldowns().addCooldown(this, 80); // FIX_VALUE
+            player.getCooldowns().addCooldown(stack, 80); // FIX_VALUE
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;

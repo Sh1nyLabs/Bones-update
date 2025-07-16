@@ -1,15 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "bonesupdate:soul_orb"
-    },
-    {
-      "item": "minecraft:obsidian"
-    },
-    {
-      "item": "minecraft:lead"
-    }
+    "bonesupdate:soul_orb",
+    "minecraft:obsidian",
+    "minecraft:lead"
   ],
   "result": {
     "count": 1,

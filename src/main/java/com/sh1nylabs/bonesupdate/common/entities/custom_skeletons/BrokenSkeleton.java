@@ -31,9 +31,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.function.IntFunction;
 
 public class BrokenSkeleton extends AbstractSkeleton {
     private int timeBeforeSkeletonRevives;
@@ -84,8 +89,26 @@ public class BrokenSkeleton extends AbstractSkeleton {
         if (damageSource.getEntity() instanceof Creeper || playerGotAmulet) {
             super.dropAllDeathLoot(level, damageSource);
         }
-        if (playerGotAmulet) {
-            this.spawnAtLocation(BonesRegistry.SKELETON_SOUL.item());
+    }
+
+    /* COPIED from Minecraft's LivingEntity Source Code */
+    @Override
+    protected void dropFromLootTable(ServerLevel level, DamageSource source, boolean hurtByPlayer) {
+        Optional<ResourceKey<LootTable>> optional = this.getSkeletonType().getDefaultLootTable();
+        if (!optional.isEmpty()) {
+            LootTable loottable = level.getServer().reloadableRegistries().getLootTable(optional.get());
+            LootParams.Builder lootparams$builder = new LootParams.Builder(level)
+                    .withParameter(LootContextParams.THIS_ENTITY, this)
+                    .withParameter(LootContextParams.ORIGIN, this.position())
+                    .withParameter(LootContextParams.DAMAGE_SOURCE, source)
+                    .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, source.getEntity())
+                    .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, source.getDirectEntity());
+            if (hurtByPlayer && this.lastHurtByPlayer != null) {
+                lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+            }
+
+            LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
+            loottable.getRandomItems(lootparams, this.getLootTableSeed(), p_358880_ -> this.spawnAtLocation(level, p_358880_));
         }
     }
 
@@ -97,10 +120,17 @@ public class BrokenSkeleton extends AbstractSkeleton {
     @Override
     protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean hurtByPlayer) {
         super.dropCustomDeathLoot(level, damageSource, hurtByPlayer);
+
+        boolean playerGotAmulet = (damageSource.getEntity() instanceof Player player &&
+                (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AmuletItem ||
+                        player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem));
         if (getSkeletonType() == EntityType.WITHER_SKELETON) {
-            this.spawnAtLocation(Items.WITHER_SKELETON_SKULL);
+            this.spawnAtLocation(level, Items.WITHER_SKELETON_SKULL);
         } else if (getSkeletonType() != EntityType.BOGGED){
-            this.spawnAtLocation(Items.SKELETON_SKULL);
+            this.spawnAtLocation(level, Items.SKELETON_SKULL);
+        }
+        if (playerGotAmulet) {
+            this.spawnAtLocation(level, BonesRegistry.SKELETON_SOUL.item());
         }
     }
 
@@ -114,7 +144,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
         if (!this.level().isClientSide()) {
             if (timeBeforeSkeletonRevives <= 0 && this.isAlive()) {
                 ServerLevel svrLevel = (ServerLevel) this.level();
-                AbstractSkeleton skeleton = getSkeletonType().create(svrLevel);
+                AbstractSkeleton skeleton = getSkeletonType().create(svrLevel, EntitySpawnReason.CONVERSION);
                 if (skeleton!=null) {
                     skeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
                     for(MobEffectInstance mobeffectinstance : this.getActiveEffectsMap().values()) {
@@ -126,7 +156,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     if (skeleton instanceof Bogged bogged) {
                         bogged.setSheared(boggedIsSheared());
                     }
-                    net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.CONVERSION, null);
+                    net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), EntitySpawnReason.CONVERSION, null);
                     if (this.getMainHandItem() != ItemStack.EMPTY) {
                         skeleton.setItemInHand(InteractionHand.MAIN_HAND,this.getMainHandItem());
                     }
@@ -163,11 +193,6 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     @Override
-    public ResourceKey<LootTable> getDefaultLootTable() {
-        return getSkeletonType().getDefaultLootTable();
-    }
-
-    @Override
     public LivingEntity getKillCredit() {
         return (inheritedKillCredit != null ? inheritedKillCredit : super.getKillCredit());
     }
@@ -188,17 +213,13 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource damageSource) {
-        return (!damageSource.is(DamageTypeTags.IS_FIRE)  && !damageSource.is(DamageTypeTags.IS_EXPLOSION)) || super.isInvulnerableTo(damageSource);
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource damageSource) {
+        return (!damageSource.is(DamageTypeTags.IS_FIRE)  && !damageSource.is(DamageTypeTags.IS_EXPLOSION)) || super.isInvulnerableTo(level, damageSource);
     }
 
     @Override
     protected SoundEvent getStepSound() {
         return SoundEvents.SKELETON_STEP;
-    }
-
-    public final String getSkeletonTypeString() {
-        return getSkeletonType() == null ? "none" : getSkeletonType().toString();
     }
 
     public final EntityType<? extends AbstractSkeleton> getSkeletonType() {
@@ -224,7 +245,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnData) {
         timeBeforeSkeletonRevives = 905 + random.nextInt(200);
         if (spawnData instanceof BrokenSkeletonSpawnData skeletonData) { /* Defining which skeleton to create after revival */
             setSkeletonType(skeletonData.skeletonType);

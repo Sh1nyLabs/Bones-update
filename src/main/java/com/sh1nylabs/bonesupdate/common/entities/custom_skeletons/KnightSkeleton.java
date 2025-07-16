@@ -8,7 +8,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
@@ -105,7 +103,7 @@ public class KnightSkeleton extends FriendlySkeleton {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnData) {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         return spawnData;
     }
@@ -135,8 +133,8 @@ public class KnightSkeleton extends FriendlySkeleton {
     }
 
     public void spawnWarmUpParticles() { /* Only Client-sided */
-        float f1 = (float) (2*Mth.PI*random.nextDouble());
-        double d1 = 0.2 + 0.65*random.nextDouble();
+        float f1 = (float) (Mth.TWO_PI * random.nextDouble());
+        double d1 = 0.2 + 0.65 * random.nextDouble();
         level().addParticle(BonesRegistry.PURPLE_BAR.particle(),
                 this.getX() + d1*Mth.cos(f1),
                 this.getY(),

@@ -79,7 +79,7 @@ public class Minion extends FriendlySkeleton {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnData) {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         if (spawnData instanceof MinionData minionData) {
             this.setFriendly(minionData.summoningWay instanceof NecroScepterItem);
@@ -93,8 +93,8 @@ public class Minion extends FriendlySkeleton {
         return spawnData;
     }
 
-    public boolean checkSpawnRules(LevelAccessor level, MobSpawnType spawnType) {
-        return spawnType != MobSpawnType.NATURAL;
+    public boolean checkSpawnRules(LevelAccessor level, EntitySpawnReason spawnType) {
+        return spawnType != EntitySpawnReason.NATURAL;
     }
 
     public void setOwner(@Nullable Necromancer necromancer) {

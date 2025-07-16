@@ -46,10 +46,10 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
 
                 if (knight.getWarmUpTime() == 0) { // warm up time ended
                     this.resetAttackCooldown();
-                    this.knight.doHurtTarget(knight.getTarget());
+                    knight.doHurtTarget(getServerLevel(this.mob), knight.getTarget());
 
                     BlockPos position = knight.getTarget().getOnPos(); // tp behind player
-                    this.knight.moveTo(position.getX(),position.getY()+1,position.getZ());
+                    knight.moveTo(position.getX(),position.getY()+1,position.getZ());
                     knight.resetDashCooldown();
                     this.start(); // to recompute a path navigation
                 }

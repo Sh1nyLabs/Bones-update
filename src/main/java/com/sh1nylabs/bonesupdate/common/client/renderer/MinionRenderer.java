@@ -8,18 +8,25 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.ResourceLocation;
 
-public class MinionRenderer extends MobRenderer<Minion, MinionModel> {
+public class MinionRenderer extends MobRenderer<Minion, HumanoidRenderState, MinionModel> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/minion.png");
+    public static final ResourceLocation MINION_TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/minion.png");
 
     public MinionRenderer(EntityRendererProvider.Context context) {
         super(context,new MinionModel(context.bakeLayer(MinionModel.LAYER_LOCATION)), 0.5f);
-        this.addLayer(new ItemInHandLayer<>( this, context.getItemInHandRenderer()));
+        this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
     }
 
-    public ResourceLocation getTextureLocation(Minion entity) {
-        return TEXTURE;
+    @Override
+    public HumanoidRenderState createRenderState() {
+        return new HumanoidRenderState();
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(HumanoidRenderState entity) {
+        return MINION_TEXTURE;
     }
 }

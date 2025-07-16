@@ -4,23 +4,38 @@ package com.sh1nylabs.bonesupdate.common.client.renderer;
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.models.NecromancerModel;
+import com.sh1nylabs.bonesupdate.common.client.render_states.NecromancerRenderState;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.IllagerRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.AbstractIllager;
 
-public class NecromancerRenderer extends MobRenderer<Necromancer, NecromancerModel>{
+public class NecromancerRenderer extends IllagerRenderer<Necromancer, NecromancerRenderState>
+{
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/necromancer.png");
+    public static final ResourceLocation NECROMANCER_TEXTURE = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/necromancer.png");
 
     public NecromancerRenderer(EntityRendererProvider.Context context) {
-        super(context,new NecromancerModel(context.bakeLayer(NecromancerModel.LAYER_LOCATION)), 0.5f);
-        this.addLayer(new ItemInHandLayer<>( this, context.getItemInHandRenderer()));
+        super(context,new NecromancerModel<>(context.bakeLayer(NecromancerModel.LAYER_LOCATION)), 0.5f);
+        this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
     }
 
-    public ResourceLocation getTextureLocation(Necromancer entity) {
-    return TEXTURE;
+    @Override
+    public NecromancerRenderState createRenderState() {
+        return new NecromancerRenderState();
+    }
+
+    @Override
+    public void extractRenderState(Necromancer necromancer, NecromancerRenderState necromancerRenderState, float value) {
+        super.extractRenderState(necromancer, necromancerRenderState, value);
+        necromancerRenderState.armPose = AbstractIllager.IllagerArmPose.NEUTRAL;
+        necromancerRenderState.isCastingSpell = necromancer.isCastingSpell();
+    }
+
+    public ResourceLocation getTextureLocation(NecromancerRenderState entity) {
+    return NECROMANCER_TEXTURE;
     }
 
 }

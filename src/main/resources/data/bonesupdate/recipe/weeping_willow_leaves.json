@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": {
-      "item": "bonesupdate:weeping_willow_vines"
-    }
+    "#": "bonesupdate:weeping_willow_vines"
   },
   "pattern": [
     "###",

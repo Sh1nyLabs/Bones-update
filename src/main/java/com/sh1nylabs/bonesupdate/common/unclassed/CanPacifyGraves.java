@@ -41,7 +41,7 @@ public interface CanPacifyGraves {
 
                 if (player != null) {
                     stack.hurtAndBreak(1, player, stack.getEquipmentSlot());
-                    player.getCooldowns().addCooldown(stack.getItem(), 80);
+                    player.getCooldowns().addCooldown(stack, 80);
                 }
                 return InteractionResult.SUCCESS;
             }

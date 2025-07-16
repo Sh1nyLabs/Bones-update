@@ -29,12 +29,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -84,18 +84,8 @@ public class Grabber extends AbstractSkeleton {
 
     public ItemStack getPocketItem() {return entityData.get(ITEM_DISPLAY);}
 
-    public void setPocketItem(Item item) {
-        if (item==null) {
-            this.requestedItem = ItemStack.EMPTY;
-            this.entityData.set(ITEM_DISPLAY, requestedItem);
-        } else {
-            this.requestedItem = new ItemStack(item);
-            this.entityData.set(ITEM_DISPLAY, requestedItem);
-        }
-    }
-
     public void setPocketItem(ItemStack itemstack) {
-        this.requestedItem = itemstack;
+        this.requestedItem = Objects.requireNonNullElse(itemstack, ItemStack.EMPTY);
         this.entityData.set(ITEM_DISPLAY, requestedItem);
     }
 
@@ -103,7 +93,7 @@ public class Grabber extends AbstractSkeleton {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH,15.0D) //FIX_VALUE
                 .add(Attributes.ATTACK_DAMAGE, 1.5D) //FIX_VALUE
-                .add(Attributes.MOVEMENT_SPEED, 0.25F); //FIX_VALUE
+                .add(Attributes.MOVEMENT_SPEED, 0.28F); //FIX_VALUE
     }
 
     public void registerGoals() {
@@ -144,7 +134,7 @@ public class Grabber extends AbstractSkeleton {
     @Override
     protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean hurtByPlayer) {
         ItemStack itemstack = this.getOffhandItem();
-        this.spawnAtLocation(itemstack);
+        this.spawnAtLocation(level, itemstack);
         setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
     }
 
@@ -155,9 +145,9 @@ public class Grabber extends AbstractSkeleton {
 
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        Optional<HolderSet.Named<Item>> grabber_steals = BuiltInRegistries.ITEM.getTag(BonesRegistry.GRABBER_STEALS);
-        grabber_steals.ifPresent(holders -> this.setPocketItem(holders.stream().toList().get(random.nextInt(holders.size())).value()));
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnData) {
+        Optional<HolderSet.Named<Item>> grabber_steals = BuiltInRegistries.ITEM.get(BonesRegistry.GRABBER_STEALS);
+        grabber_steals.ifPresent(holders -> this.setPocketItem(new ItemStack(holders.stream().toList().get(random.nextInt(holders.size())).value())));
         return spawnData;
     }
 }

@@ -8,7 +8,7 @@ import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
@@ -32,11 +32,11 @@ public interface CanSummonMinions {
     /**
     Function to add "Minion" to the world. The number of minions to spawn is defined by the int "quantity".
      */
-    default void summonMinion(ServerLevel level, RandomSource rdmSource, int quantity, BlockPos pos, MobSpawnType spawntype, Minion.MinionData minionData) {
+    default void summonMinion(ServerLevel level, RandomSource rdmSource, int quantity, BlockPos pos, EntitySpawnReason spawntype, Minion.MinionData minionData) {
         for (int i = 0; i < quantity; ++i) {
             BlockPos blockpos = BonesUpdate.randomValidPosForSpawn(level, pos, 2, 2, 2, 0.35D, BonesRegistry.MINION.type(), 8);
             if (blockpos != null) {
-                Minion minion = BonesRegistry.MINION.type().create(level);
+                Minion minion = BonesRegistry.MINION.type().create(level, EntitySpawnReason.MOB_SUMMONED);
                 if (minion != null) {
                     minion.moveTo(blockpos, rdmSource.nextFloat() * 3.0F, 0.0F);
                     net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData);

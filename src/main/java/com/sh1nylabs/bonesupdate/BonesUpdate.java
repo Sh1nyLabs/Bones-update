@@ -45,22 +45,10 @@ import java.util.function.Supplier;
 public class BonesUpdate
 {
     /**
-     * TODO: before mod publication
-     * - better grabber movement / goals
-     * - better reaper loot
-     * Mod 1.2.2: what is new:
-     * Mecanics: skeletons break less often, and will break only after a certain time left inside a chunk.
-     *
-     * Mod 1.2.2: what is new:
-     * Mecanics: skeletons break less often, and will break only after a certain time left inside a chunk.
-     *
-     *  Reaper loot: red bone
      */
     public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> BONESUPDATE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-    public static List<EntityType<? extends AbstractSkeleton>> SQUAD_SKELETONS;
-    public static HashMap<EntityType<? extends AbstractSkeleton>, Integer> SKELETONS_PER_SQUAD = new HashMap<>();
 
     public static final RegistryObject<CreativeModeTab> BONESUPDATE_TAB = BONESUPDATE_TABS.register("bonesupdate_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.bonesupdate"))
@@ -168,7 +156,7 @@ public class BonesUpdate
 
     public static boolean skeletonAllowedToBecomeBroken(AbstractSkeleton skeleton, DifficultyInstance difficultyInstance) {
         boolean validEntity = !(skeleton instanceof BrokenSkeleton)  && !(skeleton instanceof Minion) && !(skeleton instanceof Grabber);
-        boolean validDifficulty = difficultyInstance.getEffectiveDifficulty() > BUConfig.skeletonBreakDifficultyMin;// nextIntBetweenInclusive
+        boolean validDifficulty = difficultyInstance.getEffectiveDifficulty() > BUConfig.skeletonBreakDifficultyMin;
         if (validEntity && validDifficulty)
         {
             int likelihood = (int) (BUConfig.skeletonBreakRandomChanceMin + (BUConfig.skeletonBreakRandomChanceMax - BUConfig.skeletonBreakRandomChanceMin)/(5.5 - BUConfig.skeletonBreakDifficultyMin) * (Math.min(difficultyInstance.getEffectiveDifficulty(), 5.5F) - BUConfig.skeletonBreakDifficultyMin));
@@ -182,17 +170,6 @@ public class BonesUpdate
 
         // Do something when the server starts
         //BonesUpdate.LOGGER.info("HELLO from server starting");
-        if (event.getServer().getLevel(Level.OVERWORLD).getDifficulty() == Difficulty.HARD) {
-            SKELETONS_PER_SQUAD.put(EntityType.SKELETON, BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(0));
-            SKELETONS_PER_SQUAD.put(BonesRegistry.KNIGHT_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(1));
-            SKELETONS_PER_SQUAD.put(BonesRegistry.HAUNTER_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(2));
-            SKELETONS_PER_SQUAD.put(BonesRegistry.MINION.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(3));
-        } else {
-            SKELETONS_PER_SQUAD.put(EntityType.SKELETON, BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(0));
-            SKELETONS_PER_SQUAD.put(BonesRegistry.KNIGHT_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(1));
-            SKELETONS_PER_SQUAD.put(BonesRegistry.HAUNTER_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(2));
-            SKELETONS_PER_SQUAD.put(BonesRegistry.MINION.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(3));
-        }
     }
 
     private void commonSetup(ModConfigEvent event) {

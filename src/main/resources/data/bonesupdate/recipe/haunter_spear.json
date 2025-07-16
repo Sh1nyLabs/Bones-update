@@ -1,21 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": "bonesupdate:haunter_blade",
+    "Z": "minecraft:amethyst_shard",
+    "Y": "minecraft:stick"
+  },
   "pattern": [
     "ZXZ",
     " Y ",
     " Y "
   ],
-  "key": {
-    "X": {
-      "item": "bonesupdate:haunter_blade"
-    },
-    "Z": {
-      "item": "minecraft:amethyst_shard"
-    },
-    "Y": {
-      "item": "minecraft:stick"
-    }
-  },
   "result": {
     "count": 1,
     "id": "bonesupdate:haunter_spear"

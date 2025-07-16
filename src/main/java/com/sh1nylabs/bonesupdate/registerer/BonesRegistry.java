@@ -11,7 +11,6 @@ import com.sh1nylabs.bonesupdate.common.items.NecroScepterItem;
 import com.sh1nylabs.bonesupdate.common.items.SoulItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
@@ -21,6 +20,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -56,32 +56,36 @@ public class BonesRegistry {
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Blocks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
-    public static final BUBlockHelper<GraveBlockEntity> GRAVE_BLOCK = new BUBlockHelper<>("grave", () -> new GraveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).requiresCorrectToolForDrops().strength(3.0F)), GraveBlockEntity::new);
-    public static final BUBlockHelper<?> CURSED_LANTERN = new BUBlockHelper<>("cursed_lantern", () -> new CursedLanternBlock((BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).noOcclusion().lightLevel((light) -> {return 10;}))));
-    public static final BUBlockHelper<?> WEEPING_WILLOW_SMALL_VINES = new BUBlockHelper<>("weeping_willow_small_vines",() -> new WeepingWillowSmallVinesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).randomTicks().noCollission().instabreak()));
-    public static final BUBlockHelper<?> WEEPING_WILLOW_VINES = new BUBlockHelper<>("weeping_willow_vines",() -> new WeepingWillowVinesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).noCollission().instabreak()));
-    public static final BUBlockHelper<?> WEEPING_WILLOW_LEAVES = new BUBlockHelper<>("weeping_willow_leaves",() -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).randomTicks().noOcclusion()));
-    public static final BUBlockHelper<?> ERODED_FOSSIL = new BUBlockHelper<>("eroded_fossil", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion(),
-            Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 15.0D),
-            Block.box(4.0D, 0.0D, 1.0D, 12.0D, 4.0D, 12.0D),
-            Block.box(1.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D),
-            Block.box(4.0D, 0.0D, 4.0D, 15.0D, 4.0D, 12.0D)));
-    public static final BUBlockHelper<?> BROKEN_SKELETON_BLOCK = new BUBlockHelper<>("broken_skeleton", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion(),
-            Block.box(1.0D, 0.0D, 2.0D, 16.0D, 8.0D, 15.0D),
-            Block.box(0.0D, 0.0D, 1.0D, 15.0D, 8.0D, 14.0D),
-            Block.box(2.0D, 0.0D, 1.0D, 15.0D, 8.0D, 16.0D),
-            Block.box(1.0D, 0.0D, 0.0D, 14.0D, 8.0D, 15.0D)));
-    public static final BUBlockHelper<?> GUARDIAN_FOSSIL = new BUBlockHelper<>("guardian_fossil", () -> new GuardianFossilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion()));
-    public static final BUBlockHelper<?> PILLAGER_SK_HEAD = new BUBlockHelper<>("pillager_skeleton_head", () -> new BonesOrientableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion(),
-            Block.box(2.0D, 0.0D, 5.0D, 13.0D, 8.0D, 16.0D),
-            Block.box(3.0D, 0.0D, 0.0D, 14.0D, 8.0D, 11.0D),
-            Block.box(0.0D, 0.0D, 2.0D, 11.0D, 8.0D, 13.0D),
-            Block.box(5.0D, 0.0D, 3.0D, 16.0D, 8.0D, 14.0D)));
-    public static final BUBlockHelper<?> PILLAGER_SK_BODY = new BUBlockHelper<>("pillager_skeleton_body", () -> new BonesOrientableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BONE_BLOCK).noOcclusion(),
-            Block.box(6.0D, 0.0D, 0.0D, 15.0D, 6.0D, 11.0D),
-            Block.box(1.0D, 0.0D, 5.0D, 10.0D, 6.0D, 16.0D),
-            Block.box(5.0D, 0.0D, 6.0D, 16.0D, 6.0D, 15.0D),
-            Block.box(0.0D, 0.0D, 1.0D, 11.0D, 6.0D, 10.0D)));
+    public static final BUBlockHelper<GraveBlockEntity> GRAVE_BLOCK = new BUBlockHelper<>("grave", GraveBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).requiresCorrectToolForDrops().strength(3.0F), GraveBlockEntity::new);
+    public static final BUBlockHelper<?> CURSED_LANTERN = new BUBlockHelper<>("cursed_lantern", CursedLanternBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).noOcclusion().lightLevel((light) -> {return 10;}));
+    public static final BUBlockHelper<?> WEEPING_WILLOW_SMALL_VINES = new BUBlockHelper<>("weeping_willow_small_vines", WeepingWillowSmallVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).randomTicks().noCollission().instabreak());
+    public static final BUBlockHelper<?> WEEPING_WILLOW_VINES = new BUBlockHelper<>("weeping_willow_vines", WeepingWillowVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).noCollission().instabreak());
+    public static final BUBlockHelper<?> WEEPING_WILLOW_LEAVES = new BUBlockHelper<>("weeping_willow_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).randomTicks().noOcclusion());
+    public static final BUBlockHelper<?> ERODED_FOSSIL = new BUBlockHelper<>("eroded_fossil", (properties) -> new BonesOrientableBlock(properties,
+                Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 15.0D),
+                Block.box(4.0D, 0.0D, 1.0D, 12.0D, 4.0D, 12.0D),
+                Block.box(1.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D),
+                Block.box(4.0D, 0.0D, 4.0D, 15.0D, 4.0D, 12.0D)),
+            BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion());
+    public static final BUBlockHelper<?> BROKEN_SKELETON_BLOCK = new BUBlockHelper<>("broken_skeleton", (properties) -> new BonesOrientableBlock(properties,
+                Block.box(1.0D, 0.0D, 2.0D, 16.0D, 8.0D, 15.0D),
+                Block.box(0.0D, 0.0D, 1.0D, 15.0D, 8.0D, 14.0D),
+                Block.box(2.0D, 0.0D, 1.0D, 15.0D, 8.0D, 16.0D),
+                Block.box(1.0D, 0.0D, 0.0D, 14.0D, 8.0D, 15.0D)),
+            BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion());
+    public static final BUBlockHelper<?> GUARDIAN_FOSSIL = new BUBlockHelper<>("guardian_fossil", GuardianFossilBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion());
+    public static final BUBlockHelper<?> PILLAGER_SK_HEAD = new BUBlockHelper<>("pillager_skeleton_head", (properties) -> new BonesOrientableBlock(properties,
+                Block.box(2.0D, 0.0D, 5.0D, 13.0D, 8.0D, 16.0D),
+                Block.box(3.0D, 0.0D, 0.0D, 14.0D, 8.0D, 11.0D),
+                Block.box(0.0D, 0.0D, 2.0D, 11.0D, 8.0D, 13.0D),
+                Block.box(5.0D, 0.0D, 3.0D, 16.0D, 8.0D, 14.0D)),
+            BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SKELETON).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.STONE).noOcclusion());
+    public static final BUBlockHelper<?> PILLAGER_SK_BODY = new BUBlockHelper<>("pillager_skeleton_body", (properties) -> new BonesOrientableBlock(properties,
+                Block.box(6.0D, 0.0D, 0.0D, 15.0D, 6.0D, 11.0D),
+                Block.box(1.0D, 0.0D, 5.0D, 10.0D, 6.0D, 16.0D),
+                Block.box(5.0D, 0.0D, 6.0D, 16.0D, 6.0D, 15.0D),
+                Block.box(0.0D, 0.0D, 1.0D, 11.0D, 6.0D, 10.0D)),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.BONE_BLOCK).noOcclusion());
 
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Entities %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
@@ -110,27 +114,27 @@ public class BonesRegistry {
     public static final TagKey<Enchantment> SUBALTERN_INCOMPATIBLE = TagKey.create(Registries.ENCHANTMENT,ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, "exclusive_set/subaltern_incompatible"));
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Items %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+    public static final BUItemHelper SKELETON_SOUL = new BUItemHelper("skeleton_soul", SoulItem::new, new Item.Properties());
+    public static final BUItemHelper SOUL_ORB = new BUItemHelper("soul_orb", Item::new,
+            new Item.Properties().stacksTo(16));
+    public static final BUItemHelper NECRO_SCEPTER = new BUItemHelper("necromancer_scepter", NecroScepterItem::new,
+            new Item.Properties().durability(50));
+    public static final BUItemHelper AMULET = new BUItemHelper("amulet", AmuletItem::new,
+            new Item.Properties().durability(100));
+    public static final BUItemHelper MINION_SWORD = new BUItemHelper("minion_sword", Item::new,
+            new Item.Properties().durability(100));
+    public static final BUItemHelper BLADE = new BUItemHelper("blade", Item::new,
+            new Item.Properties().stacksTo(64));
+    public static final BUItemHelper HAUNTER_BLADE = new BUItemHelper("haunter_blade", Item::new,
+            new Item.Properties().stacksTo(64));
+    public static final BUItemHelper HAUNTER_SPEAR = new BUItemHelper("haunter_spear", HaunterSpearItem::new,
+            new Item.Properties().durability(100).attributes(HaunterSpearItem.createAttributes()));
+    public static final BUItemHelper NECRO_SCEPTER_INVENTORY = new BUItemHelper("necromancer_scepter_inventory", Item::new,
+            new Item.Properties());
 
-    public static final BUItemHelper SKELETON_SOUL = new BUItemHelper("skeleton_soul",()-> new SoulItem(new Item.Properties()));
-    public static final BUItemHelper SOUL_ORB = new BUItemHelper("soul_orb",
-            () -> new Item(new Item.Properties().stacksTo(16)));
-    public static final BUItemHelper NECRO_SCEPTER = new BUItemHelper("necromancer_scepter",
-            ()-> new NecroScepterItem(new Item.Properties().durability(50)));
-    public static final BUItemHelper AMULET = new BUItemHelper("amulet",
-            ()-> new AmuletItem(new Item.Properties().durability(100)));
-    public static final BUItemHelper MINION_SWORD = new BUItemHelper("minion_sword",
-            ()->new Item(new Item.Properties().durability(100)));
-    public static final BUItemHelper BLADE = new BUItemHelper("blade",
-            () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final BUItemHelper HAUNTER_BLADE = new BUItemHelper("haunter_blade",
-            () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final BUItemHelper HAUNTER_SPEAR = new BUItemHelper("haunter_spear",
-            ()-> new HaunterSpearItem(new Item.Properties().durability(100).attributes(HaunterSpearItem.createAttributes())));
-    public static final BUItemHelper NECRO_SCEPTER_INVENTORY = new BUItemHelper("necromancer_scepter_inventory",
-            ()-> new Item(new Item.Properties()));
+    public static final BUItemHelper RED_BONE = new BUItemHelper("red_bone", Item::new,
+            new Item.Properties());
 
-    public static final BUItemHelper RED_BONE = new BUItemHelper("red_bone",
-            ()-> new Item(new Item.Properties()));
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Particles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 

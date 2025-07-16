@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "bonesupdate:necromancer_scepter",
-    "bonesupdate:amulet",
     "bonesupdate:haunter_spear"
   ]
 }

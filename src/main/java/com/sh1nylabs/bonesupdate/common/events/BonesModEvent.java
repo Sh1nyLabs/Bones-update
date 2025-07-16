@@ -45,17 +45,18 @@ public class BonesModEvent {
 
         @SubscribeEvent
         public static void SpawnSkeletonSquadEvent(MobSpawnEvent.FinalizeSpawn event) {
-            if (event.getLevel() instanceof ServerLevel serverLevel && (event.getEntity() instanceof Skeleton skeleton) && event.getDifficulty().isHarderThan(BUConfig.squadDifficultyMin)
+            if (event.getLevel() instanceof ServerLevel serverLevel && (event.getEntity() instanceof Skeleton skeleton) && event.getDifficulty().isHarderThan((float) BUConfig.squadDifficultyMin)
                     && (event.getLevel().getRandom().nextInt(BUConfig.squadSpawnChance) == 0)) {
                 BlockPos blockpos;
-                for (EntityType<? extends AbstractSkeleton> entityType : BonesUpdate.SKELETONS_PER_SQUAD.keySet()) {
-                    for (int i = 0; i < BonesUpdate.SKELETONS_PER_SQUAD.get(entityType); i++) {
+
+                for (EntityType<? extends AbstractSkeleton> entityType : BUConfig.SKELETONS_PER_SQUAD.keySet()) {
+                    for (int i = 0; i < BUConfig.getSkeletonNbPerSquad(event.getDifficulty().getDifficulty(), entityType); i++) {
                         blockpos = BonesUpdate.randomValidPosForSpawn(serverLevel, skeleton.getOnPos().above(), 4, 3, 4, 0.5, entityType, 20);
                         if (blockpos != null) {
-                            AbstractSkeleton new_skeleton = entityType.create(serverLevel);
+                            AbstractSkeleton new_skeleton = entityType.create(serverLevel, EntitySpawnReason.NATURAL);
                             if (new_skeleton != null) {
                                 new_skeleton.moveTo(blockpos, serverLevel.getRandom().nextFloat() * 3.0F, 0.0F);
-                                net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(new_skeleton, serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), MobSpawnType.EVENT, null);
+                                net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(new_skeleton, serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.EVENT, null);
                                 serverLevel.tryAddFreshEntityWithPassengers(new_skeleton);
                                 serverLevel.gameEvent(new_skeleton, GameEvent.ENTITY_PLACE, blockpos);
                             }
@@ -76,10 +77,10 @@ public class BonesModEvent {
             if ((!event.getEntity().level().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && BonesUpdate.skeletonAllowedToBecomeBroken(skeleton, event.getEntity().level().getCurrentDifficultyAt(event.getEntity().getOnPos()))) {
                 event.setCanceled(true);
                 ServerLevel svrLevel = (ServerLevel) event.getEntity().level();
-                BrokenSkeleton broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel);
+                BrokenSkeleton broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
                 if (broken != null) {
                     broken.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
-                    net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), MobSpawnType.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
+                    net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), EntitySpawnReason.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
 
                     net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, broken);
                     svrLevel.addFreshEntityWithPassengers(broken);
@@ -96,8 +97,8 @@ public class BonesModEvent {
         @SubscribeEvent
         public static void illagerDieEvent(LivingDeathEvent event) {
             LivingEntity illager = event.getEntity();
-            if (illager instanceof AbstractIllager || illager instanceof AbstractVillager) {
-                List<? extends LivingEntity> list = illager.level().getNearbyEntities(Necromancer.class, TargetingConditions.forNonCombat(),illager,illager.getBoundingBox().inflate(10.0D, 8.0D, 10.0D));
+            if (illager.level() instanceof ServerLevel serverLevel && (illager instanceof AbstractIllager || illager instanceof AbstractVillager)) {
+                List<? extends LivingEntity> list = serverLevel.getNearbyEntities(Necromancer.class, TargetingConditions.forNonCombat(),illager,illager.getBoundingBox().inflate(10.0D, 8.0D, 10.0D));
                 for (LivingEntity necromancer:list) {
                     ((Necromancer) necromancer).addMinionToStock(2);
                 }

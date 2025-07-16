@@ -4,6 +4,7 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -53,6 +54,8 @@ public abstract class FriendlySkeleton extends AbstractSkeleton {
      *          friendly = false -> entity = Player or IronGolem
      *
      */
+    public boolean canAttackEntity(LivingEntity entity, ServerLevel level) {return canAttackEntity(entity);}
+
     public boolean canAttackEntity(LivingEntity entity) {
         return isFriendly() ?
                 entity instanceof Monster && !(entity instanceof AbstractSkeleton || entity instanceof Creeper || entity instanceof Necromancer)
@@ -69,9 +72,9 @@ public abstract class FriendlySkeleton extends AbstractSkeleton {
 
     protected void registerSkeletonTargets() {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, true,this::canAttackEntity));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true,this::canAttackEntity));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true,this::canAttackEntity));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, true, this::canAttackEntity));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true, this::canAttackEntity));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true, this::canAttackEntity));
     }
 
 

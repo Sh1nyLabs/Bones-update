@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -18,7 +18,7 @@ public class BonesOrientableBlock extends Block {
     private final VoxelShape FACE_S;
     private final VoxelShape FACE_E;
     private final VoxelShape FACE_W;
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 
     public BonesOrientableBlock(Properties properties, VoxelShape shape_n, VoxelShape shape_s, VoxelShape shape_e, VoxelShape shape_w) {
         super(properties);

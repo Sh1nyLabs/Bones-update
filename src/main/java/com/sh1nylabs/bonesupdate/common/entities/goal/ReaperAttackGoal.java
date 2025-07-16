@@ -62,7 +62,7 @@ public class ReaperAttackGoal extends Goal {
             if (reaper.getBoundingBox().inflate(1.8D).intersects(target.getBoundingBox())) {
                 if (ticksUntilNextAttack <= 0) {
                     reaper.swing(InteractionHand.MAIN_HAND);
-                    reaper.doHurtTarget(target);
+                    reaper.doHurtTarget(getServerLevel(target), target);
                     target.addEffect(new MobEffectInstance(MobEffects.WITHER, 100), reaper);
                     ticksUntilNextAttack =  10 * (int) reaper.getAttributeValue(Attributes.ATTACK_SPEED);
                     ((ReaperMoveControl)reaper.getMoveControl()).waitNextPosition();

@@ -8,14 +8,12 @@ import com.sh1nylabs.bonesupdate.common.unclassed.CanPacifyGraves;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -57,9 +55,9 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
 
 
             stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-            player.getCooldowns().addCooldown(this, 120);
+            player.getCooldowns().addCooldown(stack, 120);
 
-            return InteractionResult.sidedSuccess(player.level().isClientSide);
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }
@@ -77,20 +75,19 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
      * @return InteractionResultHolder : SUCCESS / PASS
      */
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         boolean hasLeader = (EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.LEADER.toHolder(player.registryAccess()), stack) > 0);
         if (!level.isClientSide() && EnchantmentHelper.getItemEnchantmentLevel(BonesRegistry.SUBALTERN.toHolder(player.registryAccess()), stack) == 0){
             this.summonMinion((ServerLevel) level, level.getRandom(),
                     MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
-                    player.blockPosition(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));
+                    player.blockPosition(), EntitySpawnReason.MOB_SUMMONED, new Minion.MinionData(this));
 
             stack.hurtAndBreak((hasLeader ? 2 : 1), player, LivingEntity.getSlotForHand(hand));
-            player.getCooldowns().addCooldown(this, (hasLeader ? 140 : 100));
-
-            return InteractionResultHolder.consume(player.getItemInHand(hand));
+            player.getCooldowns().addCooldown(stack, (hasLeader ? 140 : 100));
+            return InteractionResult.CONSUME;
         } else {
-            return InteractionResultHolder.success(player.getItemInHand(hand));
+            return InteractionResult.SUCCESS;
         }
     }
 

@@ -88,7 +88,7 @@ public class Necromancer extends AbstractIllager {
 
     public boolean canIncreaseItsArmy() {
         if (timeBeforeNextCast <= 0) {
-            return(level().getNearbyEntities(Player.class, TargetingConditions.forNonCombat(),this,getBoundingBox().inflate(20.0D, 8.0D, 20.0D)).isEmpty()?
+            return(level().getEntitiesOfClass(Player.class, getBoundingBox().inflate(20.0D, 8.0D, 20.0D)).isEmpty()?
                     this.minionStock > (int) (3.0*MINION_STOCK_ON_SPAWN/4.0):
                     this.minionStock > 0);
         }
@@ -100,7 +100,7 @@ public class Necromancer extends AbstractIllager {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnData) {
         this.minionStock = MINION_STOCK_ON_SPAWN; // FIX_VALUE
         this.graveStock = GRAVE_STOCK_ON_SPAWN; // FIX_VALUE
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
@@ -213,7 +213,7 @@ public class Necromancer extends AbstractIllager {
                         int rdmQuantity = Math.min(necromancer.minionStock, (necromancer.hasActiveRaid() ? 5 : 3) + rdmSource.nextInt(4)); // FIX_VALUE
                         this.summonMinion((ServerLevel) level(), rdmSource,
                                 rdmQuantity,
-                                necromancer.getOnPos().above(), MobSpawnType.MOB_SUMMONED, new Minion.MinionData(this));
+                                necromancer.getOnPos().above(), EntitySpawnReason.MOB_SUMMONED, new Minion.MinionData(this));
                     }
                     summonWithAGrave = false;
                 }
