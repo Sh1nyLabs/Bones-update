@@ -34,6 +34,8 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -64,6 +66,13 @@ public class BonesModEvent {
                     }
                 }
             }
+        }
+
+        @SubscribeEvent
+        public static void onConfigReload(ModConfigEvent.Reloading event)
+        {
+            BUConfig.loadConfig();
+            BonesUpdate.LOGGER.info("Reloaded config for mod " + BonesUpdate.MODID);
         }
 
         /**

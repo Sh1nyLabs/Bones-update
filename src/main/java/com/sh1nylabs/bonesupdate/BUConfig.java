@@ -54,7 +54,7 @@ public class BUConfig {
     public static HashMap<EntityType<? extends AbstractSkeleton>, Integer> SKELETONS_PER_SQUAD_HARD = new HashMap<>();
     public static HashMap<EntityType<? extends AbstractSkeleton>, Integer> SKELETONS_PER_SQUAD = new HashMap<>();
 
-    static void loadConfig()
+    public static void loadConfig()
     {
         squadSpawnChance = SQUAD_SPAWN_CHANCE.get();
         squadDifficultyMin = MIN_DIFFICULTY_FOR_SQUAD_TO_SPAWN.get();
