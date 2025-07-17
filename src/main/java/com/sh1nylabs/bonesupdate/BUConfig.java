@@ -3,10 +3,11 @@ package com.sh1nylabs.bonesupdate;
 import java.util.HashMap;
 import java.util.List;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.neoforged.fml.config.IConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.Builder;
+import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.Difficulty;
@@ -39,7 +40,7 @@ public class BUConfig {
             .comment("Likelihood (maximum, for difficulty 5.5 and more) for a skeleton to become broken")
             .defineInRange("skeletonBreakRandomChanceMax", 100, 1, 100);
 
-    static final ForgeConfigSpec SPEC = BUILDER.build();
+    static final IConfigSpec SPEC = BUILDER.build();
 
     public static int squadSpawnChance;
     public static double squadDifficultyMin;

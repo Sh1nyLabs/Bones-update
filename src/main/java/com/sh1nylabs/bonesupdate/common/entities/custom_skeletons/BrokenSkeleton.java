@@ -156,7 +156,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                     if (skeleton instanceof Bogged bogged) {
                         bogged.setSheared(boggedIsSheared());
                     }
-                    net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), EntitySpawnReason.CONVERSION, null);
+                    net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(skeleton, svrLevel, svrLevel.getCurrentDifficultyAt(this.blockPosition()), EntitySpawnReason.CONVERSION, null);
                     if (this.getMainHandItem() != ItemStack.EMPTY) {
                         skeleton.setItemInHand(InteractionHand.MAIN_HAND,this.getMainHandItem());
                     }
@@ -166,7 +166,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
                     skeleton.setRemainingFireTicks(this.getRemainingFireTicks());
 
-                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(this, skeleton);
+                    net.neoforged.neoforge.event.EventHooks.onLivingConvert(this, skeleton);
                     svrLevel.addFreshEntityWithPassengers(skeleton);
                     svrLevel.gameEvent(skeleton, GameEvent.ENTITY_PLACE, this.blockPosition());
                     this.discard();
