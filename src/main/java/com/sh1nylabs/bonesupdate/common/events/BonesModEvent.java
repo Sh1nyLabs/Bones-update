@@ -27,15 +27,17 @@ import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -46,7 +48,7 @@ public class BonesModEvent {
     public static class BonesForgeEvents {
 
         @SubscribeEvent
-        public static void SpawnSkeletonSquadEvent(MobSpawnEvent.FinalizeSpawn event) {
+        public static void SpawnSkeletonSquadEvent(FinalizeSpawnEvent event) {
             if (event.getLevel() instanceof ServerLevel serverLevel && (event.getEntity() instanceof Skeleton skeleton) && event.getDifficulty().isHarderThan((float) BUConfig.squadDifficultyMin)
                     && (event.getLevel().getRandom().nextInt(BUConfig.squadSpawnChance) == 0)) {
                 BlockPos blockpos;
@@ -58,7 +60,7 @@ public class BonesModEvent {
                             AbstractSkeleton new_skeleton = entityType.create(serverLevel, EntitySpawnReason.NATURAL);
                             if (new_skeleton != null) {
                                 new_skeleton.moveTo(blockpos, serverLevel.getRandom().nextFloat() * 3.0F, 0.0F);
-                                net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(new_skeleton, serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.EVENT, null);
+                                net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(new_skeleton, serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.EVENT, null);
                                 serverLevel.tryAddFreshEntityWithPassengers(new_skeleton);
                                 serverLevel.gameEvent(new_skeleton, GameEvent.ENTITY_PLACE, blockpos);
                             }
@@ -89,9 +91,9 @@ public class BonesModEvent {
                 BrokenSkeleton broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
                 if (broken != null) {
                     broken.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
-                    net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), EntitySpawnReason.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
+                    net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), EntitySpawnReason.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
 
-                    net.minecraftforge.event.ForgeEventFactory.onLivingConvert(skeleton, broken);
+                    net.neoforged.neoforge.event.EventHooks.onLivingConvert(skeleton, broken);
                     svrLevel.addFreshEntityWithPassengers(broken);
                     svrLevel.gameEvent(broken, GameEvent.ENTITY_PLACE, broken.blockPosition());
                     skeleton.discard();
@@ -122,9 +124,9 @@ public class BonesModEvent {
         }
 
         @SubscribeEvent
-        public static void KnightSkeletonDamageIncreased(LivingHurtEvent event) {
+        public static void KnightSkeletonDamageIncreased(LivingDamageEvent.Pre event) {
             if (event.getSource().getEntity() instanceof KnightSkeleton knight && knight.isDashing()) {
-                event.setAmount(event.getAmount() + KnightSkeleton.DASH_BONUS_DAMAGE);
+                event.setNewDamage(event.getNewDamage() + KnightSkeleton.DASH_BONUS_DAMAGE);
             }
         }
 
@@ -147,7 +149,7 @@ public class BonesModEvent {
         }
     }
 
-    @EventBusSubscriber(modid = BonesUpdate.MODID, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesCommonEvents {
 
         @SubscribeEvent
@@ -170,7 +172,7 @@ public class BonesModEvent {
         }
 
         @SubscribeEvent
-        public static void entitySpawnRestriction(SpawnPlacementRegisterEvent   event) {
+        public static void entitySpawnRestriction(RegisterSpawnPlacementsEvent event) {
             Set<EntityType<? extends Mob>> entityTypes = Set.of(BonesRegistry.KNIGHT_SKELETON.type(),
                                               BonesRegistry.BROKEN_SKELETON.type(),
                                               BonesRegistry.GRABBER.type(),
@@ -179,7 +181,7 @@ public class BonesModEvent {
 
             entityTypes.forEach((type) -> {event.register(type, SpawnPlacementTypes.ON_GROUND,
                                                           Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                                                          Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);});
+                                                          Monster::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);});
         }
 
     }
