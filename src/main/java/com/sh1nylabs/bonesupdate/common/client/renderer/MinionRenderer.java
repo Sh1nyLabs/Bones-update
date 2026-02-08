@@ -17,7 +17,7 @@ public class MinionRenderer extends MobRenderer<Minion, HumanoidRenderState, Min
 
     public MinionRenderer(EntityRendererProvider.Context context) {
         super(context, new MinionModel(context.bakeLayer(getLayerLocation(BonesRegistry.MINION))), 0.5f);
-        this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
+        this.addLayer(new ItemInHandLayer<>( this));
     }
 
     @Override

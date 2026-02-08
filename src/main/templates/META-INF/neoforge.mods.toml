@@ -14,7 +14,7 @@ enumExtensions="META-INF/enumextensions.json"
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"
-    versionRange="${neo_version}"
+    versionRange="[${neo_version},)" #mandatory
     ordering="NONE"
     side="BOTH"
 

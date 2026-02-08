@@ -18,7 +18,7 @@ public class KnightSkeletonRenderer extends HumanoidMobRenderer<KnightSkeleton, 
 
     public KnightSkeletonRenderer(EntityRendererProvider.Context context) {
         super(context,new KnightSkeletonModel(context.bakeLayer(getLayerLocation(BonesRegistry.KNIGHT_SKELETON))), 0.5f);
-        this.addLayer(new ItemInHandLayer<>(this, context.getItemRenderer()));
+        this.addLayer(new ItemInHandLayer<>(this));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class NecromancerRenderer extends IllagerRenderer<Necromancer, Necromance
 
     public NecromancerRenderer(EntityRendererProvider.Context context) {
         super(context,new NecromancerModel<>(context.bakeLayer(getLayerLocation(BonesRegistry.NECROMANCER))), 0.5f);
-        this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
+        this.addLayer(new ItemInHandLayer<>( this));
     }
 
     @Override
