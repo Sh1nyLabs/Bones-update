@@ -34,7 +34,7 @@ public class BUEntityHelper<T extends Mob>
         entityName = name;
         modelLocation = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, entityName + "model"), "main");
         spawnEgg = BU_ITEMS.register(eggName(name),
-                ()-> new SpawnEggItem(entityType.get(), backgroundColor, highlightColor,new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, eggName(name))))));
+                ()-> new SpawnEggItem(entityType.get(), new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, eggName(name))))));
         step = BU_SOUNDS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_step")));
         hurt = BU_SOUNDS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_hurt")));
         death = BU_SOUNDS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_death")));

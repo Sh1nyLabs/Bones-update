@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 public class HaunterSkeletonRenderer extends HumanoidMobRenderer<HaunterSkeleton, HumanoidRenderState, HaunterSkeletonModel> {
     public HaunterSkeletonRenderer(EntityRendererProvider.Context context) {
         super(context, new HaunterSkeletonModel(context.bakeLayer(BonesRegistry.HAUNTER_SKELETON.modelLayerLocation())), 0.5f);
-        this.addLayer(new ItemInHandLayer<>(this, context.getItemRenderer()));
+        this.addLayer(new ItemInHandLayer<>(this));
     }
 
     @Override

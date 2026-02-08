@@ -153,11 +153,8 @@ public class BonesModEvent {
     public static class BonesCommonEvents {
 
         @SubscribeEvent
-        public static void gatherBonesData(GatherDataEvent event) {
-            event.getGenerator().addProvider(
-                    event.includeServer(),
-                    (DataProvider.Factory<BonesRegistry.BonesEntityTagsProvider>) output -> new BonesRegistry.BonesEntityTagsProvider(output, event.getLookupProvider())
-            );
+        public static void gatherBonesData(GatherDataEvent.Client event) {
+            event.createProvider(BonesRegistry.BonesEntityTagsProvider::new);
         }
 
         @SubscribeEvent

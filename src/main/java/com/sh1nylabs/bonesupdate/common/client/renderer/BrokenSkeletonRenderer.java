@@ -32,7 +32,7 @@ public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSk
 
     public BrokenSkeletonRenderer(EntityRendererProvider.Context context) {
         super(context,new BrokenSkeletonModel<>(context.bakeLayer(BonesRegistry.BROKEN_SKELETON.modelLayerLocation())), 0.5f);
-        this.addLayer(new ItemInHandLayer<>(this, context.getItemRenderer()) {
+        this.addLayer(new ItemInHandLayer<BrokenSkeletonRenderState, BrokenSkeletonModel<BrokenSkeletonRenderState>>(this) {
             public void render(
                     PoseStack p_116330_, MultiBufferSource p_116331_, int p_116332_, BrokenSkeletonRenderState skeleton, float p_116334_, float p_116335_
             ) {
