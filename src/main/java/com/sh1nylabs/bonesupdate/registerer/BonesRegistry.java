@@ -14,7 +14,6 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -162,17 +161,6 @@ public class BonesRegistry {
                     .add(GRABBER.type())
                     .add(HAUNTER_SKELETON.type())
                     .add(KNIGHT_SKELETON.type());
-        }
-    }
-
-    public static class BonesEnchantmentTagsProvider extends EnchantmentTagsProvider {
-
-        public BonesEnchantmentTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
-            super(output, provider);
-        }
-
-        public void addTags(HolderLookup.Provider provider) {
-            //this.tag(SUBALTERN_INCOMPATIBLE).add(SUBALTERN.ench());
         }
     }
 }
