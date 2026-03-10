@@ -12,21 +12,21 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.registries.RegistryObject;
 
 import static com.sh1nylabs.bonesupdate.registerer.BonesRegistry.*;
 
 public class BUEntityHelper<T extends Mob>
 {
-    private final DeferredHolder<EntityType<?>, EntityType<T>> entityType;
+    private final RegistryObject<EntityType<T>> entityType;
     private final String entityName;
     private final ModelLayerLocation modelLocation;
-    private final DeferredHolder<Item, SpawnEggItem> spawnEgg;
+    private final RegistryObject<SpawnEggItem> spawnEgg;
 
-    private DeferredHolder<SoundEvent, SoundEvent> step;
-    private DeferredHolder<SoundEvent, SoundEvent> hurt;
-    private DeferredHolder<SoundEvent, SoundEvent> death;
-    private DeferredHolder<SoundEvent, SoundEvent> ambient;
+    private RegistryObject<SoundEvent> step;
+    private RegistryObject<SoundEvent> hurt;
+    private RegistryObject<SoundEvent> death;
+    private RegistryObject<SoundEvent> ambient;
 
     private static String eggName(String name) {return name + "_spawn_egg";}
     public BUEntityHelper(String name, int backgroundColor, int highlightColor, EntityType.Builder<T> builder) {
