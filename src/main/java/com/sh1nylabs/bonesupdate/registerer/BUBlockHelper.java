@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -17,9 +17,9 @@ import java.util.function.Function;
 import static com.sh1nylabs.bonesupdate.registerer.BonesRegistry.*;
 
 public class BUBlockHelper<T extends BlockEntity> {
-    private final DeferredHolder<Block, Block> block;
-    private final DeferredHolder<Item, BlockItem> item;
-    private final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BlockEntity>> blockEntity;
+    private final RegistryObject<Block> block;
+    private final RegistryObject<BlockItem> item;
+    private final RegistryObject<BlockEntityType<? extends BlockEntity>> blockEntity;
 
     public BUBlockHelper(String name, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties blockProperties) {
         block = BU_BLOCKS.register(name, () -> function.apply(blockProperties.setId(ResourceKey.create(BU_BLOCKS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name)))));
