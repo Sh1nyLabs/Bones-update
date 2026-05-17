@@ -38,7 +38,7 @@ public interface CanSummonMinions {
             if (blockpos != null) {
                 Minion minion = BonesRegistry.MINION.type().create(level, EntitySpawnReason.MOB_SUMMONED);
                 if (minion != null) {
-                    minion.moveTo(blockpos, rdmSource.nextFloat() * 3.0F, 0.0F);
+                    minion.snapTo(blockpos, rdmSource.nextFloat() * 3.0F, 0.0F);
                     net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(minion, level, level.getCurrentDifficultyAt(blockpos), spawntype, minionData);
                     level.tryAddFreshEntityWithPassengers(minion);
                     level.gameEvent(minion, GameEvent.ENTITY_PLACE, blockpos);

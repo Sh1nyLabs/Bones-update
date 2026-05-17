@@ -36,8 +36,9 @@ public class GrabberModel extends HumanoidModel<GrabberRenderState> implements A
 
 		PartDefinition cube_r1 = pocket.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(52, 23).addBox(-2.0F, -2.0F, -1.0F, 3.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, -1.0F, -2.0F, 0.0F, 0.0F, -0.1745F));
 
-		partdefinition.clearChild("hat");
-		head.clearChild("hat");
+		head.addOrReplaceChild(
+				"hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 0.0F, 0.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.ZERO
+		);
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 

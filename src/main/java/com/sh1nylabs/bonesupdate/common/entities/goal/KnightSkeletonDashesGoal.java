@@ -49,7 +49,7 @@ public class KnightSkeletonDashesGoal extends MeleeAttackGoal {
                     knight.doHurtTarget(getServerLevel(this.mob), knight.getTarget());
 
                     BlockPos position = knight.getTarget().getOnPos(); // tp behind player
-                    knight.moveTo(position.getX(),position.getY()+1,position.getZ());
+                    knight.teleportTo(position.getX(),position.getY()+1,position.getZ());
                     knight.resetDashCooldown();
                     this.start(); // to recompute a path navigation
                 }
