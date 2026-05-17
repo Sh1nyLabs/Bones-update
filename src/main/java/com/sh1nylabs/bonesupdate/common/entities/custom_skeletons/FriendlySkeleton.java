@@ -36,7 +36,7 @@ public abstract class FriendlySkeleton extends AbstractSkeleton {
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.friendly = compoundTag.getBoolean("Friendly");
+        this.friendly = compoundTag.getBooleanOr("Friendly", false);
     }
 
     public boolean isFriendly() {return this.friendly;}

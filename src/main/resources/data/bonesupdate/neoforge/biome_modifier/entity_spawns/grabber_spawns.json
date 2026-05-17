@@ -1,10 +1,12 @@
 {
   "type": "neoforge:add_spawns",
   "biomes": "#bonesupdate:allows_grabber",
-  "spawners": {
-    "type": "bonesupdate:grabber",
-    "weight": 1,
-    "minCount": 1,
-    "maxCount": 1
-  }
+  "spawners": [
+    {
+      "type": "bonesupdate:grabber",
+      "weight": 1,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
 }

@@ -54,7 +54,9 @@ public class HaunterSkeletonModel extends HumanoidModel<HumanoidRenderState> imp
 
 		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.1F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 12.0F, 0.1F));
 
-		head.clearChild("hat");
+		head.addOrReplaceChild(
+				"hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 0.0F, 0.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.ZERO
+		);
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 

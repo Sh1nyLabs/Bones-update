@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": 12698049
-      },
-      {
-        "type": "minecraft:constant",
-        "value": 10774566
-      }
-    ]
+    "model": "bonesupdate:item/grabber_spawn_egg"
   }
 }

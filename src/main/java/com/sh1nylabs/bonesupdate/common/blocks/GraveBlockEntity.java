@@ -33,15 +33,9 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
 
     protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
         super.loadAdditional(compoundTag, provider);
-        readyToSpawn=compoundTag.getBoolean("ReadyToSpawn");
-        necromancerDelay=compoundTag.getInt("NecromancerDelay");
+        readyToSpawn=compoundTag.getBooleanOr("ReadyToSpawn", false);
+        necromancerDelay=compoundTag.getIntOr("NecromancerDelay", -1);
     }
-    /**
-    public void load(CompoundTag compoundTag) {
-        super.load(compoundTag);
-        readyToSpawn=compoundTag.getBoolean("ReadyToSpawn");
-        necromancerDelay=compoundTag.getInt("NecromancerDelay");
-    } */
     
     protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider holderProvider) {
         super.saveAdditional(compoundTag, holderProvider);

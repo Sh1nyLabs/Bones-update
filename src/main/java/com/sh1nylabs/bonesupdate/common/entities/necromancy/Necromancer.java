@@ -45,21 +45,26 @@ public class Necromancer extends AbstractIllager {
     private static final int TIME_BETWEEN_TWO_CASTS_MAX = 600; // FIX_VALUE
     private static final int MINION_STOCK_ON_SPAWN = 30; // FIX_VALUE
     private static final int GRAVE_STOCK_ON_SPAWN = 6; // FIX_VALUE
-    private int timeBeforeNextCast = 100; // FIX_VALUE
+    private static final int DEFAULT_TIME_BEFORE_NEXT_CAST = 100; // FIX_VALUE
+    private int timeBeforeNextCast = DEFAULT_TIME_BEFORE_NEXT_CAST;
     private int minionStock = MINION_STOCK_ON_SPAWN;
     public int graveStock = GRAVE_STOCK_ON_SPAWN;
     public BlockPos gravePosition = BlockPos.ZERO;
 
     public Necromancer(EntityType<? extends AbstractIllager> entityType, Level level) {
         super(entityType, level);
+        for (EquipmentSlot slot : EquipmentSlot.values())
+        {
+            this.setDropChance(slot, 0.0F);
+        }
     }
 
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.timeBeforeNextCast = tag.getInt("CastTicks");
-        this.minionStock = tag.getInt("Stock");
-        this.graveStock = tag.getInt("Grave_stock");
-        this.gravePosition = NbtUtils.readBlockPos(tag, "GravePos").get();
+        this.timeBeforeNextCast = tag.getIntOr("CastTicks", DEFAULT_TIME_BEFORE_NEXT_CAST);
+        this.minionStock = tag.getIntOr("Stock", MINION_STOCK_ON_SPAWN);
+        this.graveStock = tag.getIntOr("Grave_stock", GRAVE_STOCK_ON_SPAWN);
+        this.gravePosition = (BlockPos)tag.read("GravePos", BlockPos.CODEC).orElse(BlockPos.ZERO);
     }
 
     public void addAdditionalSaveData(CompoundTag tag) {
@@ -67,7 +72,7 @@ public class Necromancer extends AbstractIllager {
         tag.putInt("CastTicks", this.timeBeforeNextCast);
         tag.putInt("Stock", this.minionStock);
         tag.putInt("Grave_stock", this.graveStock);
-        tag.put("GravePos", NbtUtils.writeBlockPos(this.gravePosition));
+        tag.storeNullable("GravePos", BlockPos.CODEC, this.gravePosition);
     }
 
     protected void defineSynchedData(SynchedEntityData.Builder syncBuilder) {
@@ -110,11 +115,6 @@ public class Necromancer extends AbstractIllager {
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource rdmSequence, DifficultyInstance difficulty) {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesRegistry.NECRO_SCEPTER.item()));
-    }
-
-    @Override
-    protected float getEquipmentDropChance(EquipmentSlot slot) {
-        return 0.0F;
     }
 
     @Override

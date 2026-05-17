@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": 3026478
-      },
-      {
-        "type": "minecraft:constant",
-        "value": 5653171
-      }
-    ]
+    "model": "bonesupdate:item/knight_skeleton_spawn_egg"
   }
 }

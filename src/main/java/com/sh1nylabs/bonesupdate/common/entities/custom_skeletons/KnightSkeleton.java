@@ -17,7 +17,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -77,7 +77,7 @@ public class KnightSkeleton extends FriendlySkeleton {
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.dashCooldown = compoundTag.getInt("DashCooldown");
+        this.dashCooldown = compoundTag.getIntOr("DashCooldown", DASH_RESET_DURATION);
     }
 
     public void setIsDashing(boolean bool) {

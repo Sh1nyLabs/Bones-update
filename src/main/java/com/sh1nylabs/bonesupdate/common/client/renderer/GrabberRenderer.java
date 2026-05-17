@@ -17,12 +17,9 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 
 public class GrabberRenderer extends MobRenderer<Grabber, GrabberRenderState, GrabberModel> {
 
@@ -45,7 +42,7 @@ public class GrabberRenderer extends MobRenderer<Grabber, GrabberRenderState, Gr
     @Override
     public void extractRenderState(Grabber grabber, GrabberRenderState grabberRenderState, float value) {
         super.extractRenderState(grabber, grabberRenderState, value);
-        itemModelResolver.updateForLiving(grabberRenderState.pocketItem, grabber.getPocketItem(), ItemDisplayContext.GROUND, false, grabber);
+        itemModelResolver.updateForLiving(grabberRenderState.pocketItem, grabber.getPocketItem(), ItemDisplayContext.GROUND, grabber);
         grabberRenderState.celebrating = grabber.isCelebratingNewItem();
     }
 }

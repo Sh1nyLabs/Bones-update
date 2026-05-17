@@ -89,7 +89,7 @@ public class GraveBlock extends Block implements EntityBlock {
         if (state.getValue(HAUNTED) && level.getRandom().nextInt(4)==0 && !level.isClientSide()) {
             Reaper reaper = BonesRegistry.REAPER.type().create(level, EntitySpawnReason.SPAWNER);
             if (reaper!=null) {
-                reaper.moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), level.getRandom().nextFloat(), 0.0F);
+                reaper.snapTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), level.getRandom().nextFloat(), 0.0F);
                 net.minecraftforge.event.ForgeEventFactory.onFinalizeSpawn(reaper, (ServerLevel) level, level.getCurrentDifficultyAt(blockPos), EntitySpawnReason.SPAWNER, null);
                 ((ServerLevel) level).tryAddFreshEntityWithPassengers(reaper);
                 level.gameEvent(reaper, GameEvent.ENTITY_PLACE, blockPos);
