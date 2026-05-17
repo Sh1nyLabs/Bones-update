@@ -59,7 +59,7 @@ public class BonesModEvent {
                         if (blockpos != null) {
                             AbstractSkeleton new_skeleton = entityType.create(serverLevel, EntitySpawnReason.NATURAL);
                             if (new_skeleton != null) {
-                                new_skeleton.moveTo(blockpos, serverLevel.getRandom().nextFloat() * 3.0F, 0.0F);
+                                new_skeleton.snapTo(blockpos, serverLevel.getRandom().nextFloat() * 3.0F, 0.0F);
                                 net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(new_skeleton, serverLevel, serverLevel.getCurrentDifficultyAt(blockpos), EntitySpawnReason.EVENT, null);
                                 serverLevel.tryAddFreshEntityWithPassengers(new_skeleton);
                                 serverLevel.gameEvent(new_skeleton, GameEvent.ENTITY_PLACE, blockpos);
@@ -90,7 +90,7 @@ public class BonesModEvent {
                 ServerLevel svrLevel = (ServerLevel) event.getEntity().level();
                 BrokenSkeleton broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
                 if (broken != null) {
-                    broken.moveTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
+                    broken.snapTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
                     net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), EntitySpawnReason.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
 
                     net.neoforged.neoforge.event.EventHooks.onLivingConvert(skeleton, broken);

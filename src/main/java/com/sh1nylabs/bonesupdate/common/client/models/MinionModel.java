@@ -35,7 +35,9 @@ public class MinionModel extends HumanoidModel<HumanoidRenderState> implements A
 		partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(16, 9).addBox(0.001F, 0.5F, -0.5F, 1.0F, 5.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 13.5F, 0.0F));
 		partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(4, 17).addBox(-1.0001F, 0.5F, -0.5F, 1.0F, 5.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 13.5F, 0.0F));
 
-		head.clearChild("hat");
+		head.addOrReplaceChild(
+				"hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 0.0F, 0.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.ZERO
+		);
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 	@Override

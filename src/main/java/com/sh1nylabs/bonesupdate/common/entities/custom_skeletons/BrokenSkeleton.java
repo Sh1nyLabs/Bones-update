@@ -2,6 +2,7 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,6 +17,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -37,11 +39,14 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.IntFunction;
 
 public class BrokenSkeleton extends AbstractSkeleton {
     private int timeBeforeSkeletonRevives;
+    private static final int SKELETON_REVIVES_MIN_TIME = 905;
+    private static final int SKELETON_REVIVES_MAX_TIME = SKELETON_REVIVES_MIN_TIME + 200;
     private LivingEntity inheritedKillCredit;
     private boolean friendly = false;
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.INT);
@@ -67,9 +72,9 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.entityData.set(DATA_ID_TYPE_VARIANT, compoundTag.getInt("Variant"));
-        this.entityData.set(DATA_BOGGED_SHEARED, compoundTag.getBoolean("sheared"));
-        this.timeBeforeSkeletonRevives = compoundTag.getInt("TimeToRevive");
+        this.entityData.set(DATA_ID_TYPE_VARIANT, compoundTag.getIntOr("Variant", 1));
+        this.entityData.set(DATA_BOGGED_SHEARED, compoundTag.getBooleanOr("sheared", false));
+        this.timeBeforeSkeletonRevives = compoundTag.getIntOr("TimeToRevive", SKELETON_REVIVES_MAX_TIME);
     }
 
     public static AttributeSupplier.Builder getCustomAttributes() {
@@ -93,22 +98,23 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     /* COPIED from Minecraft's LivingEntity Source Code */
     @Override
-    protected void dropFromLootTable(ServerLevel level, DamageSource source, boolean hurtByPlayer) {
+    protected void dropFromLootTable(ServerLevel level, DamageSource damageSource, boolean playerKill) {
         Optional<ResourceKey<LootTable>> optional = this.getSkeletonType().getDefaultLootTable();
         if (!optional.isEmpty()) {
             LootTable loottable = level.getServer().reloadableRegistries().getLootTable(optional.get());
             LootParams.Builder lootparams$builder = new LootParams.Builder(level)
                     .withParameter(LootContextParams.THIS_ENTITY, this)
                     .withParameter(LootContextParams.ORIGIN, this.position())
-                    .withParameter(LootContextParams.DAMAGE_SOURCE, source)
-                    .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, source.getEntity())
-                    .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, source.getDirectEntity());
-            if (hurtByPlayer && this.lastHurtByPlayer != null) {
-                lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer).withLuck(this.lastHurtByPlayer.getLuck());
+                    .withParameter(LootContextParams.DAMAGE_SOURCE, damageSource)
+                    .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, damageSource.getEntity())
+                    .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, damageSource.getDirectEntity());
+            Player player = this.getLastHurtByPlayer();
+            if (playerKill && player != null) {
+                lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player).withLuck(player.getLuck());
             }
 
             LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
-            loottable.getRandomItems(lootparams, this.getLootTableSeed(), p_358880_ -> this.spawnAtLocation(level, p_358880_));
+            loottable.getRandomItems(lootparams, this.getLootTableSeed(), p_375574_ -> this.spawnAtLocation(level, p_375574_));
         }
     }
 
@@ -146,7 +152,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
                 ServerLevel svrLevel = (ServerLevel) this.level();
                 AbstractSkeleton skeleton = getSkeletonType().create(svrLevel, EntitySpawnReason.CONVERSION);
                 if (skeleton!=null) {
-                    skeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                    skeleton.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
                     for(MobEffectInstance mobeffectinstance : this.getActiveEffectsMap().values()) {
                         skeleton.getActiveEffectsMap().put(mobeffectinstance.getEffect(), mobeffectinstance);
                     }
@@ -246,7 +252,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnData) {
-        timeBeforeSkeletonRevives = 905 + random.nextInt(200);
+        timeBeforeSkeletonRevives = random.nextInt(SKELETON_REVIVES_MIN_TIME, SKELETON_REVIVES_MAX_TIME);
         if (spawnData instanceof BrokenSkeletonSpawnData skeletonData) { /* Defining which skeleton to create after revival */
             setSkeletonType(skeletonData.skeletonType);
             this.friendly = skeletonData.friendly;
@@ -256,12 +262,9 @@ public class BrokenSkeleton extends AbstractSkeleton {
             this.setItemInHand(InteractionHand.OFF_HAND,skeletonData.offHandItem);
 
             this.setRemainingFireTicks(skeletonData.remainingFireTicks);
-            for(int i = 0; i < skeletonData.listtag.size(); ++i) {
-                CompoundTag compoundtag = skeletonData.listtag.getCompound(i);
-                MobEffectInstance mobeffectinstance = MobEffectInstance.load(compoundtag);
-                if (mobeffectinstance != null) {
-                    this.getActiveEffectsMap().put(mobeffectinstance.getEffect(), mobeffectinstance);
-                }
+            for(Holder<MobEffect> effect : skeletonData.activeEffects.keySet()) {
+                MobEffectInstance mobeffectinstance = new MobEffectInstance(effect);
+                this.getActiveEffectsMap().put(mobeffectinstance.getEffect(), mobeffectinstance);
             }
         } else {
             if (this.level().dimension() == Level.NETHER) {
@@ -278,7 +281,8 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     public static class BrokenSkeletonSpawnData implements SpawnGroupData {
         public EntityType<? extends AbstractSkeleton> skeletonType;
-        public ListTag listtag;
+        public
+        java.util.Map<Holder<MobEffect>, MobEffectInstance> activeEffects;
         public LivingEntity inheritedKillCredit;
         public ItemStack mainHandItem;
         public ItemStack offHandItem;
@@ -288,17 +292,13 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
         public BrokenSkeletonSpawnData(AbstractSkeleton entity) {
             this.skeletonType = (EntityType<? extends AbstractSkeleton>) entity.getType();
-            this.listtag = new ListTag();
+            this.activeEffects = entity.getActiveEffectsMap();
             this.remainingFireTicks = entity.getRemainingFireTicks();
             this.inheritedKillCredit = entity.getKillCredit();
             this.mainHandItem = entity.getMainHandItem();
             this.offHandItem = entity.getOffhandItem();
             this.friendly = (entity instanceof FriendlySkeleton friendlySk && friendlySk.isFriendly());
             this.bogged_sheared = (entity instanceof Bogged bogged && bogged.isSheared());
-
-            for(MobEffectInstance mobeffectinstance : entity.getActiveEffectsMap().values()) {
-                listtag.add(mobeffectinstance.save());
-            }
         }
     }
 }

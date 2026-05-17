@@ -22,6 +22,10 @@ import net.minecraft.world.level.Level;
 public class HaunterSkeleton extends FriendlySkeleton {
     public HaunterSkeleton(EntityType<? extends AbstractSkeleton> entityType, Level level) {
         super(entityType, level);
+        for (EquipmentSlot slot : EquipmentSlot.values())
+        {
+            this.setDropChance(slot, 0.0F);
+        }
     }
 
     public static AttributeSupplier.Builder getCustomAttributes() {
@@ -46,11 +50,6 @@ public class HaunterSkeleton extends FriendlySkeleton {
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource rdmSequence, DifficultyInstance difficulty) {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesRegistry.HAUNTER_SPEAR.item()));
-    }
-
-    @Override
-    protected float getEquipmentDropChance(EquipmentSlot slot) {
-        return 0.0F;
     }
 
     @Override

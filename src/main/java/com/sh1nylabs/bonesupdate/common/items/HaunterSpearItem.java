@@ -37,9 +37,8 @@ public class HaunterSpearItem extends Item {
      * @return true: when used, this item hurt the enemy.
      */
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity user) {
+    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity user) {
         stack.hurtAndBreak(1, user, stack.getEquipmentSlot());
-        return true;
     }
 
     @Override

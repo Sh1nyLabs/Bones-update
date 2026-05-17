@@ -22,7 +22,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -55,8 +55,8 @@ public class Grabber extends AbstractSkeleton {
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        CompoundTag compoundTag1 = compoundTag.getCompound("requestedItem");
-        setPocketItem(ItemStack.parseOptional(this.registryAccess(), compoundTag1));
+        CompoundTag compoundTag1 = compoundTag.getCompoundOrEmpty("requestedItem");
+        setPocketItem(ItemStack.parse(this.registryAccess(), compoundTag1).orElse(ItemStack.EMPTY));
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
