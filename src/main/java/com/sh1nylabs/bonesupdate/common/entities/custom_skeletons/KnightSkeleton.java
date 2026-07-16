@@ -4,7 +4,6 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import com.sh1nylabs.bonesupdate.common.entities.goal.KnightSkeletonDashesGoal;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -25,6 +24,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import javax.annotation.Nullable;
 
@@ -70,14 +71,16 @@ public class KnightSkeleton extends FriendlySkeleton {
         syncBuilder.define(IS_DASHING, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("DashCooldown", this.dashCooldown);
+    @Override
+    public void addAdditionalSaveData(ValueOutput valueOutput) {
+        super.addAdditionalSaveData(valueOutput);
+        valueOutput.putInt("DashCooldown", this.dashCooldown);
     }
 
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.dashCooldown = compoundTag.getIntOr("DashCooldown", DASH_RESET_DURATION);
+    @Override
+    public void readAdditionalSaveData(ValueInput valueInput) {
+        super.readAdditionalSaveData(valueInput);
+        this.dashCooldown = valueInput.getIntOr("DashCooldown", DASH_RESET_DURATION);
     }
 
     public void setIsDashing(boolean bool) {

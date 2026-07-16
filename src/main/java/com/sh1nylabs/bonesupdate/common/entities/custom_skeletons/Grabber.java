@@ -7,7 +7,6 @@ import com.sh1nylabs.bonesupdate.common.entities.goal.*;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,10 +26,12 @@ import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -53,15 +54,18 @@ public class Grabber extends AbstractSkeleton {
         syncBuilder.define(ITEM_DISPLAY, ItemStack.EMPTY);
     }
 
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        CompoundTag compoundTag1 = compoundTag.getCompoundOrEmpty("requestedItem");
-        setPocketItem(ItemStack.parse(this.registryAccess(), compoundTag1).orElse(ItemStack.EMPTY));
+    @Override
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        setPocketItem(input.read("requestedItem", ItemStack.CODEC).orElse(ItemStack.EMPTY));
+        if (getOffhandItem().getItem() == Items.TOTEM_OF_UNDYING) // code for version migration 1.21.4 -> 1.21.5 (and more) to succeed.
+            setItemInHand(InteractionHand.OFF_HAND, new ItemStack(BonesRegistry.GRABBER_HOLD_TOTEM.item()));
     }
 
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.put("requestedItem", this.requestedItem.save(this.registryAccess()));
+    @Override
+    public void addAdditionalSaveData(ValueOutput valueOutput) {
+        super.addAdditionalSaveData(valueOutput);
+        valueOutput.store("requestedItem", ItemStack.CODEC, this.requestedItem);
     }
 
     public boolean isCelebratingNewItem() {
@@ -80,7 +84,7 @@ public class Grabber extends AbstractSkeleton {
     public boolean wantsItem(Item item) {
         return !this.gotItem() && item == requestedItem.getItem();
     }
-    public boolean gotItem() {return requestedItem!=null && this.requestedItem.getItem() == getOffhandItem().getItem();}
+    public boolean gotItem() {return getOffhandItem().getItem() != Items.AIR;}
 
     public ItemStack getPocketItem() {return entityData.get(ITEM_DISPLAY);}
 
@@ -134,7 +138,10 @@ public class Grabber extends AbstractSkeleton {
     @Override
     protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean hurtByPlayer) {
         ItemStack itemstack = this.getOffhandItem();
-        this.spawnAtLocation(level, itemstack);
+        if (itemstack.getItem() == BonesRegistry.GRABBER_HOLD_TOTEM.item())
+            this.spawnAtLocation(level, Items.TOTEM_OF_UNDYING);
+        else
+            this.spawnAtLocation(level, itemstack);
         setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
     }
 

@@ -5,9 +5,11 @@ package com.sh1nylabs.bonesupdate.common.entities.goal;
 
 import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
+import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class GrabberStealsItem extends Goal {
 
@@ -45,7 +47,10 @@ public class GrabberStealsItem extends Goal {
                 stop();
                 return ;
             }
-            grabber.setItemInHand(InteractionHand.OFF_HAND,grabber.getTarget().getItemInHand(hand).copy());
+            ItemStack stolenItem = grabber.getTarget().getItemInHand(hand).copy();
+            if ( stolenItem.getItem() == Items.TOTEM_OF_UNDYING)
+                stolenItem = new ItemStack(BonesRegistry.GRABBER_HOLD_TOTEM.item());
+            grabber.setItemInHand(InteractionHand.OFF_HAND,stolenItem);
             grabber.getTarget().setItemInHand(hand,ItemStack.EMPTY);
         }
     }
