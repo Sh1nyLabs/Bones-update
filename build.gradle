@@ -1,37 +1,12 @@
 plugins {
     id 'eclipse'
-    id 'java-library'
+    id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0.36,6.2)'
-    id 'idea'
 }
-
 
 version = mod_version
 group = mod_group_id
-
-repositories {
-    mavenCentral()
-    maven {
-        name = 'Forge'
-        url = 'https://maven.minecraftforge.net'
-    }
-    maven {
-        name = 'Minecraft libraries'
-        url = 'https://libraries.minecraft.net'
-    }
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = 'Sponge'
-                url = 'https://repo.spongepowered.org/repository/maven-public'
-            }
-        }
-        filter {
-            includeGroupAndSubgroups('org.spongepowered')
-        }
-    }
-}
 
 base {
     archivesName = mod_id
@@ -39,9 +14,9 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
-
     reobf = false
     copyIdeResources = true
 
@@ -49,6 +24,7 @@ minecraft {
         configureEach {
             workingDirectory project.file('run')
             property 'forge.logging.console.level', 'debug'
+            property 'eventbus.api.strictRuntimeChecks', 'true'
         }
 
         client {
@@ -73,19 +49,40 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-configurations {
-    runtimeClasspath.extendsFrom localRuntime
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Forge'
+        url = 'https://maven.minecraftforge.net'
+    }
+    maven {
+        name = 'Minecraft libraries'
+        url = 'https://libraries.minecraft.net'
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'Sponge'
+                url = 'https://repo.spongepowered.org/repository/maven-public'
+            }
+        }
+        filter {
+            includeGroupAndSubgroups('org.spongepowered')
+        }
+    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0-beta.10'
 }
 
 tasks.named('processResources', ProcessResources) {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
-            forge_version	   : forge_version,
+            forge_version_range    : forge_version_range,
+            forge_version          : forge_version,
             forge_version_range    : forge_version_range,
             loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
@@ -93,9 +90,10 @@ tasks.named('processResources', ProcessResources) {
             mod_license            : mod_license,
             mod_version            : mod_version,
             mod_authors            : mod_authors,
-            mod_description        : mod_description
+            mod_description        : mod_description,
     ]
     inputs.properties replaceProperties
+
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
@@ -131,12 +129,7 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
-idea {
-    module {
-        downloadSources = true
-        downloadJavadoc = true
-    }
-}
+idea.module { downloadJavadoc = downloadSources = true }
 
 eclipse {
     synchronizationTasks 'genEclipseRuns'
@@ -147,4 +140,3 @@ sourceSets.each {
     it.output.resourcesDir = dir
     it.java.destinationDirectory = dir
 }
-
