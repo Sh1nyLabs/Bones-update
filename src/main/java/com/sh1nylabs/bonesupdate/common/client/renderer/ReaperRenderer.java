@@ -25,7 +25,7 @@ public class ReaperRenderer extends MobRenderer<Reaper, ReaperRenderState, Reape
     public void extractRenderState(Reaper reaper, ReaperRenderState reaperRenderState, float value) {
         super.extractRenderState(reaper, reaperRenderState, value);
         reaperRenderState.attackTime = reaper.getAttackAnim(value);
-        reaperRenderState.walkAnimationSinceLastStop = reaper.walkAnimation.isMoving() ? reaperRenderState.walkAnimationPos - reaperRenderState.previousWalkAnimationPos
+        reaperRenderState.walkAnimationSinceLastStop = reaper.walkAnimation.isMoving() ? reaperRenderState.walkAnimationSinceLastStop + 0.1F
                                                        : Math.max(reaperRenderState.walkAnimationSinceLastStop / 1.05F, 0.01F);
         reaperRenderState.previousWalkAnimationPos = reaperRenderState.walkAnimationPos;
     }

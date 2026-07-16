@@ -11,8 +11,6 @@ import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,7 +25,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.player.Player;
@@ -35,6 +32,8 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import javax.annotation.Nullable;
 
@@ -59,20 +58,20 @@ public class Necromancer extends AbstractIllager {
         }
     }
 
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        this.timeBeforeNextCast = tag.getIntOr("CastTicks", DEFAULT_TIME_BEFORE_NEXT_CAST);
-        this.minionStock = tag.getIntOr("Stock", MINION_STOCK_ON_SPAWN);
-        this.graveStock = tag.getIntOr("Grave_stock", GRAVE_STOCK_ON_SPAWN);
-        this.gravePosition = (BlockPos)tag.read("GravePos", BlockPos.CODEC).orElse(BlockPos.ZERO);
+    public void readAdditionalSaveData(ValueInput valueInput) {
+        super.readAdditionalSaveData(valueInput);
+        this.timeBeforeNextCast = valueInput.getIntOr("CastTicks", DEFAULT_TIME_BEFORE_NEXT_CAST);
+        this.minionStock = valueInput.getIntOr("Stock", MINION_STOCK_ON_SPAWN);
+        this.graveStock = valueInput.getIntOr("Grave_stock", GRAVE_STOCK_ON_SPAWN);
+        this.gravePosition = (BlockPos)valueInput.read("GravePos", BlockPos.CODEC).orElse(null);
     }
 
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putInt("CastTicks", this.timeBeforeNextCast);
-        tag.putInt("Stock", this.minionStock);
-        tag.putInt("Grave_stock", this.graveStock);
-        tag.storeNullable("GravePos", BlockPos.CODEC, this.gravePosition);
+    public void addAdditionalSaveData(ValueOutput valueOutput) {
+        super.addAdditionalSaveData(valueOutput);
+        valueOutput.putInt("CastTicks", this.timeBeforeNextCast);
+        valueOutput.putInt("Stock", this.minionStock);
+        valueOutput.putInt("Grave_stock", this.graveStock);
+        valueOutput.storeNullable("GravePos", BlockPos.CODEC, this.gravePosition);
     }
 
     protected void defineSynchedData(SynchedEntityData.Builder syncBuilder) {

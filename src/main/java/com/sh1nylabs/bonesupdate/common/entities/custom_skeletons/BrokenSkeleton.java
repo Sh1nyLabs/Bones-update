@@ -3,8 +3,6 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -33,6 +31,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -63,18 +63,20 @@ public class BrokenSkeleton extends AbstractSkeleton {
         syncBuilder.define(DATA_BOGGED_SHEARED, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.entityData.get(DATA_ID_TYPE_VARIANT));
-        compoundTag.putBoolean("sheared", this.boggedIsSheared());
-        compoundTag.putInt("TimeToRevive", this.timeBeforeSkeletonRevives);
+    @Override
+    public void addAdditionalSaveData(ValueOutput valueOutput) {
+        super.addAdditionalSaveData(valueOutput);
+        valueOutput.putInt("Variant", this.entityData.get(DATA_ID_TYPE_VARIANT));
+        valueOutput.putBoolean("sheared", this.boggedIsSheared());
+        valueOutput.putInt("TimeToRevive", this.timeBeforeSkeletonRevives);
     }
 
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.entityData.set(DATA_ID_TYPE_VARIANT, compoundTag.getIntOr("Variant", 1));
-        this.entityData.set(DATA_BOGGED_SHEARED, compoundTag.getBooleanOr("sheared", false));
-        this.timeBeforeSkeletonRevives = compoundTag.getIntOr("TimeToRevive", SKELETON_REVIVES_MAX_TIME);
+    @Override
+    public void readAdditionalSaveData(ValueInput valueInput) {
+        super.readAdditionalSaveData(valueInput);
+        this.entityData.set(DATA_ID_TYPE_VARIANT, valueInput.getIntOr("Variant", 1));
+        this.entityData.set(DATA_BOGGED_SHEARED, valueInput.getBooleanOr("sheared", false));
+        this.timeBeforeSkeletonRevives = valueInput.getIntOr("TimeToRevive", SKELETON_REVIVES_MAX_TIME);
     }
 
     public static AttributeSupplier.Builder getCustomAttributes() {

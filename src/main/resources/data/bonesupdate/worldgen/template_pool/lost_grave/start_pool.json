@@ -1,14 +1,13 @@
 {
   "fallback": "minecraft:empty",
   "name": "bonesupdate:lost_grave",
-
   "elements": [
     {
       "weight": 1,
       "element": {
         "location": "bonesupdate:lost_grave",
         "processors": "minecraft:empty",
-        "projection": "rigid", // or terrain_matching
+        "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     }

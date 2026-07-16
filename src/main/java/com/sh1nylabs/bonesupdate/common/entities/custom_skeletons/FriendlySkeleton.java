@@ -3,7 +3,6 @@ package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
@@ -15,6 +14,8 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 
 /**
@@ -29,14 +30,16 @@ public abstract class FriendlySkeleton extends AbstractSkeleton {
         super(entityType, level);
     }
 
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putBoolean("Friendly", this.friendly);
+    @Override
+    public void addAdditionalSaveData(ValueOutput valueOutput) {
+        super.addAdditionalSaveData(valueOutput);
+        valueOutput.putBoolean("Friendly", this.friendly);
     }
 
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.friendly = compoundTag.getBooleanOr("Friendly", false);
+    @Override
+    public void readAdditionalSaveData(ValueInput valueInput) {
+        super.readAdditionalSaveData(valueInput);
+        this.friendly = valueInput.getBooleanOr("Friendly", false);
     }
 
     public boolean isFriendly() {return this.friendly;}

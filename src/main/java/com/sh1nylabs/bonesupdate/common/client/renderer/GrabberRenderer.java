@@ -9,10 +9,7 @@ import com.sh1nylabs.bonesupdate.common.client.render_states.GrabberRenderState;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -21,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 
-public class GrabberRenderer extends MobRenderer<Grabber, GrabberRenderState, GrabberModel> {
+public class GrabberRenderer extends HumanoidMobRenderer<Grabber, GrabberRenderState, GrabberModel> {
 
     public GrabberRenderer(EntityRendererProvider.Context context) {
         super(context, new GrabberModel(context.bakeLayer(BonesRegistry.GRABBER.modelLayerLocation())), 0.5f);

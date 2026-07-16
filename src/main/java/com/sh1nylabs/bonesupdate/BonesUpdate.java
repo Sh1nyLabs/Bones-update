@@ -13,21 +13,17 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -37,9 +33,6 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.Supplier;
 
 @Mod(BonesUpdate.MODID)
 public class BonesUpdate
@@ -83,24 +76,25 @@ public class BonesUpdate
             }).build());
 
     public BonesUpdate(FMLJavaModLoadingContext modContainer) {
-        IEventBus modEventBus = modContainer.getModEventBus();
+        BusGroup modBusGroup = modContainer.getModBusGroup();
 
-        BonesRegistry.BU_BLOCKS.register(modEventBus);
-        BonesRegistry.BU_BLOCK_ENTITIES.register(modEventBus);
-        BonesRegistry.BU_ENTITIES.register(modEventBus);
-        BonesRegistry.BU_ITEMS.register(modEventBus);
-        BonesRegistry.BU_PARTICLES.register(modEventBus);
-        BonesRegistry.BU_SOUNDS.register(modEventBus);
-        BONESUPDATE_TABS.register(modEventBus);
+        BonesRegistry.BU_BLOCKS.register(modBusGroup);
+        BonesRegistry.BU_BLOCK_ENTITIES.register(modBusGroup);
+        BonesRegistry.BU_ENTITIES.register(modBusGroup);
+        BonesRegistry.BU_ITEMS.register(modBusGroup);
+        BonesRegistry.BU_PARTICLES.register(modBusGroup);
+        BonesRegistry.BU_SOUNDS.register(modBusGroup);
+        BONESUPDATE_TABS.register(modBusGroup);
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        modEventBus.addListener(this::addCreative);
-        modEventBus.addListener(this::commonSetup);
+        BuildCreativeModeTabContentsEvent.getBus(modBusGroup).addListener(this::addCreative);
+        FMLCommonSetupEvent.getBus(modBusGroup).addListener(this::commonSetup);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, BUConfig.SPEC);
     }
 
+    @SubscribeEvent
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(BonesRegistry.GRAVE_BLOCK.item());
@@ -172,7 +166,8 @@ public class BonesUpdate
         //BonesUpdate.LOGGER.info("HELLO from server starting");
     }
 
-    private void commonSetup(ModConfigEvent event) {
+    @SubscribeEvent
+    private void commonSetup(FMLCommonSetupEvent event) {
         BUConfig.loadConfig();
     }
 

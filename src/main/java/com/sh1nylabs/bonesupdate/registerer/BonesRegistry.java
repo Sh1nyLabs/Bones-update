@@ -131,6 +131,9 @@ public class BonesRegistry {
     public static final BUItemHelper RED_BONE = new BUItemHelper("red_bone", Item::new,
             new Item.Properties());
 
+    public static final BUItemHelper GRABBER_HOLD_TOTEM = new BUItemHelper("grabber_hold_totem", Item::new,
+            new Item.Properties());
+
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Particles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
