@@ -1,13 +1,10 @@
 package com.sh1nylabs.bonesupdate.common.blocks;
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.unclassed.CanSummonMinions;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -15,6 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import static com.sh1nylabs.bonesupdate.common.blocks.GraveBlock.HAUNTED;
 
@@ -31,16 +30,18 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
     @Override
     public void delayNextSummon(RandomSource rdmSource) {readyToSpawn = false;}
 
-    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.loadAdditional(compoundTag, provider);
-        readyToSpawn=compoundTag.getBooleanOr("ReadyToSpawn", false);
-        necromancerDelay=compoundTag.getIntOr("NecromancerDelay", -1);
+    @Override
+    protected void loadAdditional(ValueInput valueInput) {
+        super.loadAdditional(valueInput);
+        readyToSpawn=valueInput.getBooleanOr("ReadyToSpawn", false);
+        necromancerDelay=valueInput.getIntOr("NecromancerDelay", -1);
     }
-    
-    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider holderProvider) {
-        super.saveAdditional(compoundTag, holderProvider);
-        compoundTag.putBoolean("ReadyToSpawn", readyToSpawn);
-        compoundTag.putInt("NecromancerDelay", necromancerDelay);
+
+    @Override
+    protected void saveAdditional(ValueOutput valueOutput) {
+        super.saveAdditional(valueOutput);
+        valueOutput.putBoolean("ReadyToSpawn", readyToSpawn);
+        valueOutput.putInt("NecromancerDelay", necromancerDelay);
     }
 
     public void blockEntityTicker(Level level, BlockPos pos, BlockState blockState) {

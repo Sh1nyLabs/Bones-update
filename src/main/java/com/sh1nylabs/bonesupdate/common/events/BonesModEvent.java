@@ -9,7 +9,6 @@ import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.DataProvider;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
@@ -84,9 +83,8 @@ public class BonesModEvent {
          *     replaced by the original skeleton.
          */
         @SubscribeEvent
-        public static void SkeletonDiesEvent(LivingDeathEvent event) {
+        public static boolean SkeletonDiesEvent(LivingDeathEvent event) {
             if ((!event.getEntity().level().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && BonesUpdate.skeletonAllowedToBecomeBroken(skeleton, event.getEntity().level().getCurrentDifficultyAt(event.getEntity().getOnPos()))) {
-                event.setCanceled(true);
                 ServerLevel svrLevel = (ServerLevel) event.getEntity().level();
                 BrokenSkeleton broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
                 if (broken != null) {
@@ -98,7 +96,9 @@ public class BonesModEvent {
                     svrLevel.gameEvent(broken, GameEvent.ENTITY_PLACE, broken.blockPosition());
                     skeleton.discard();
                 }
+                return true;
             }
+            return false;
         }
         /**
          * When a pillager or a villager dies near a necromancer, it increases the necromancer's

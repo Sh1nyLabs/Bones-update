@@ -15,8 +15,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -38,8 +36,6 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
 import java.util.function.Supplier;
 
 @Mod(BonesUpdate.MODID)
