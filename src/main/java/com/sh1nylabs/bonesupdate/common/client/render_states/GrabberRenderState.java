@@ -4,10 +4,7 @@ package com.sh1nylabs.bonesupdate.common.client.render_states;
 
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class GrabberRenderState extends HumanoidRenderState {
     public ItemStackRenderState pocketItem = new ItemStackRenderState();
     public boolean celebrating;

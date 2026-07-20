@@ -5,8 +5,6 @@ package com.sh1nylabs.bonesupdate.common.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 public class ParticleBar extends TextureSheetParticle {
@@ -32,7 +30,6 @@ public class ParticleBar extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         public SpriteSet sprite;
         public Provider(SpriteSet sprite) {this.sprite = sprite;}
