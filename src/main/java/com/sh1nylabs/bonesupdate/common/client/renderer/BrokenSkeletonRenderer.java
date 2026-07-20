@@ -19,6 +19,8 @@ import net.minecraft.world.entity.EntityType;
 
 import java.util.Map;
 
+import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
+
 public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSkeletonRenderState, BrokenSkeletonModel<BrokenSkeletonRenderState>>{
 
     private static final Map<String, ResourceLocation> LOCATION_BY_SKELETON = Util.make(Maps.newHashMap(), (map) -> {
@@ -31,7 +33,7 @@ public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSk
     });
 
     public BrokenSkeletonRenderer(EntityRendererProvider.Context context) {
-        super(context,new BrokenSkeletonModel<>(context.bakeLayer(BonesRegistry.BROKEN_SKELETON.modelLayerLocation())), 0.5f);
+        super(context,new BrokenSkeletonModel<>(context.bakeLayer(getLayerLocation(BonesRegistry.BROKEN_SKELETON))), 0.5f);
         this.addLayer(new ItemInHandLayer<>(this, context.getItemRenderer()) {
             public void render(
                     PoseStack p_116330_, MultiBufferSource p_116331_, int p_116332_, BrokenSkeletonRenderState skeleton, float p_116334_, float p_116335_

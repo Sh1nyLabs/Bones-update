@@ -11,10 +11,12 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.ResourceLocation;
 
+import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
+
 public class MinionRenderer extends MobRenderer<Minion, HumanoidRenderState, MinionModel> {
 
     public MinionRenderer(EntityRendererProvider.Context context) {
-        super(context, new MinionModel(context.bakeLayer(BonesRegistry.MINION.modelLayerLocation())), 0.5f);
+        super(context, new MinionModel(context.bakeLayer(getLayerLocation(BonesRegistry.MINION))), 0.5f);
         this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
     }
 

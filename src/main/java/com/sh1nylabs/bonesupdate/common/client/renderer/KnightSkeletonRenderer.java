@@ -11,11 +11,13 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
+import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
+
 public class KnightSkeletonRenderer extends HumanoidMobRenderer<KnightSkeleton, KnightSkeletonRenderState, KnightSkeletonModel> {
 
 
     public KnightSkeletonRenderer(EntityRendererProvider.Context context) {
-        super(context,new KnightSkeletonModel(context.bakeLayer(BonesRegistry.KNIGHT_SKELETON.modelLayerLocation())), 0.5f);
+        super(context,new KnightSkeletonModel(context.bakeLayer(getLayerLocation(BonesRegistry.KNIGHT_SKELETON))), 0.5f);
         this.addLayer(new ItemInHandLayer<>(this, context.getItemRenderer()));
     }
 

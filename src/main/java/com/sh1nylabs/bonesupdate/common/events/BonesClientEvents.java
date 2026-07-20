@@ -7,6 +7,7 @@ import com.sh1nylabs.bonesupdate.common.client.models.*;
 import com.sh1nylabs.bonesupdate.common.client.renderer.*;
 import com.sh1nylabs.bonesupdate.common.particle.ParticleSoul;
 import com.sh1nylabs.bonesupdate.common.particle.ParticleBar;
+import com.sh1nylabs.bonesupdate.registerer.BUEntityHelper;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -16,6 +17,8 @@ import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+
+import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
 
 @EventBusSubscriber(modid = BonesUpdate.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class BonesClientEvents {
@@ -33,13 +36,13 @@ public class BonesClientEvents {
 
     @SubscribeEvent
     public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(BonesRegistry.GRABBER.modelLayerLocation(), GrabberModel::createBodyLayer);
-        event.registerLayerDefinition(BonesRegistry.MINION.modelLayerLocation(), MinionModel::createBodyLayer);
-        event.registerLayerDefinition(BonesRegistry.NECROMANCER.modelLayerLocation(), NecromancerModel::createBodyLayer);
-        event.registerLayerDefinition(BonesRegistry.REAPER.modelLayerLocation(), ReaperModel::createBodyLayer);
-        event.registerLayerDefinition(BonesRegistry.KNIGHT_SKELETON.modelLayerLocation(), KnightSkeletonModel::createBodyLayer);
-        event.registerLayerDefinition(BonesRegistry.HAUNTER_SKELETON.modelLayerLocation(), HaunterSkeletonModel::createBodyLayer);
-        event.registerLayerDefinition(BonesRegistry.BROKEN_SKELETON.modelLayerLocation(), BrokenSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(getLayerLocation(BonesRegistry.GRABBER), GrabberModel::createBodyLayer);
+        event.registerLayerDefinition(getLayerLocation(BonesRegistry.MINION), MinionModel::createBodyLayer);
+        event.registerLayerDefinition(getLayerLocation(BonesRegistry.NECROMANCER), NecromancerModel::createBodyLayer);
+        event.registerLayerDefinition(getLayerLocation(BonesRegistry.REAPER), ReaperModel::createBodyLayer);
+        event.registerLayerDefinition(getLayerLocation(BonesRegistry.KNIGHT_SKELETON), KnightSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(getLayerLocation(BonesRegistry.HAUNTER_SKELETON), HaunterSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(getLayerLocation(BonesRegistry.BROKEN_SKELETON), BrokenSkeletonModel::createBodyLayer);
     }
 
     @SubscribeEvent

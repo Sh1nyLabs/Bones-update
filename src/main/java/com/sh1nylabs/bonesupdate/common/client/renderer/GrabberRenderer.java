@@ -23,10 +23,12 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
+
 public class GrabberRenderer extends MobRenderer<Grabber, GrabberRenderState, GrabberModel> {
 
     public GrabberRenderer(EntityRendererProvider.Context context) {
-        super(context, new GrabberModel(context.bakeLayer(BonesRegistry.GRABBER.modelLayerLocation())), 0.5f);
+        super(context, new GrabberModel(context.bakeLayer(getLayerLocation(BonesRegistry.GRABBER))), 0.5f);
         this.addLayer(new GrabberPocketItemLayer( this, context.getItemRenderer()));
         this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
     }

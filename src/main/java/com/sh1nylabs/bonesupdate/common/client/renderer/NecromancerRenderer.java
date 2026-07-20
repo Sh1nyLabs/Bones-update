@@ -12,10 +12,12 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.AbstractIllager;
 
+import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
+
 public class NecromancerRenderer extends IllagerRenderer<Necromancer, NecromancerRenderState> {
 
     public NecromancerRenderer(EntityRendererProvider.Context context) {
-        super(context,new NecromancerModel<>(context.bakeLayer(BonesRegistry.NECROMANCER.modelLayerLocation())), 0.5f);
+        super(context,new NecromancerModel<>(context.bakeLayer(getLayerLocation(BonesRegistry.NECROMANCER))), 0.5f);
         this.addLayer(new ItemInHandLayer<>( this, context.getItemRenderer()));
     }
 

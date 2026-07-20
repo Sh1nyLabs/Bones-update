@@ -10,10 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
+import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
+
 public class ReaperRenderer extends MobRenderer<Reaper, ReaperRenderState, ReaperModel>{
 
     public ReaperRenderer(EntityRendererProvider.Context context) {
-        super(context,new ReaperModel(context.bakeLayer(BonesRegistry.REAPER.modelLayerLocation())), 0.5f);
+        super(context,new ReaperModel(context.bakeLayer(getLayerLocation(BonesRegistry.REAPER))), 0.5f);
     }
 
     @Override

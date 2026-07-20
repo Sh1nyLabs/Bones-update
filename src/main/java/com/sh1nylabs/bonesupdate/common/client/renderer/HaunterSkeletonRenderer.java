@@ -11,9 +11,11 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.ResourceLocation;
 
+import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
+
 public class HaunterSkeletonRenderer extends HumanoidMobRenderer<HaunterSkeleton, HumanoidRenderState, HaunterSkeletonModel> {
     public HaunterSkeletonRenderer(EntityRendererProvider.Context context) {
-        super(context, new HaunterSkeletonModel(context.bakeLayer(BonesRegistry.HAUNTER_SKELETON.modelLayerLocation())), 0.5f);
+        super(context, new HaunterSkeletonModel(context.bakeLayer(getLayerLocation(BonesRegistry.HAUNTER_SKELETON))), 0.5f);
         this.addLayer(new ItemInHandLayer<>(this, context.getItemRenderer()));
     }
 
