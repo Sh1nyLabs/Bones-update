@@ -141,7 +141,7 @@ public class BonesModEvent {
         }
     }
 
-    @EventBusSubscriber(modid = BonesUpdate.MODID, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = BonesUpdate.MODID)
     public static class BonesCommonEvents {
 
         @SubscribeEvent
