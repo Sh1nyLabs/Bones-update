@@ -54,7 +54,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
             }
 
 
-            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+            stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
             player.getCooldowns().addCooldown(stack, 120);
 
             return InteractionResult.SUCCESS;
@@ -83,7 +83,7 @@ public class NecroScepterItem extends Item implements CanSummonMinions, CanPacif
                     MAX_MINIONS_SUMMONED + (hasLeader? 4 : 0),
                     player.blockPosition(), EntitySpawnReason.MOB_SUMMONED, new Minion.MinionData(this));
 
-            stack.hurtAndBreak((hasLeader ? 2 : 1), player, LivingEntity.getSlotForHand(hand));
+            stack.hurtAndBreak((hasLeader ? 2 : 1), player, hand.asEquipmentSlot());
             player.getCooldowns().addCooldown(stack, (hasLeader ? 140 : 100));
             return InteractionResult.CONSUME;
         } else {

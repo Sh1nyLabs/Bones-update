@@ -13,7 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
-public class HaunterSkeletonModel extends HumanoidModel<HumanoidRenderState> implements ArmedModel {
+public class HaunterSkeletonModel extends HumanoidModel<HumanoidRenderState> implements ArmedModel<HumanoidRenderState> {
 
 	private final ModelPart rightHand;
 
@@ -94,7 +94,7 @@ public class HaunterSkeletonModel extends HumanoidModel<HumanoidRenderState> imp
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack stack) {
+	public void translateToHand(HumanoidRenderState renderState, HumanoidArm arm, PoseStack stack) {
 		ModelPart armPart = this.rightHand;
 		stack.translate((armPart.x) / 16.0F, (armPart.y-9.5F) / 16.0F, (armPart.z) / 16.0F);
 		if (armPart.xRot != 0.0F || armPart.yRot != 0.0F || armPart.zRot != 0.0F) {

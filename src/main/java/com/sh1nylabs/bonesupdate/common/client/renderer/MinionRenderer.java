@@ -6,6 +6,7 @@ import com.sh1nylabs.bonesupdate.common.client.models.MinionModel;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
@@ -13,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
 
-public class MinionRenderer extends MobRenderer<Minion, HumanoidRenderState, MinionModel> {
+public class MinionRenderer extends HumanoidMobRenderer<Minion, HumanoidRenderState, MinionModel> {
 
     public MinionRenderer(EntityRendererProvider.Context context) {
         super(context, new MinionModel(context.bakeLayer(getLayerLocation(BonesRegistry.MINION))), 0.5f);

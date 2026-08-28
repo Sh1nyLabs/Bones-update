@@ -53,8 +53,8 @@ public class BonesRegistry {
 
     public static final BUBlockHelper<GraveBlockEntity> GRAVE_BLOCK = new BUBlockHelper<>("grave", GraveBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).requiresCorrectToolForDrops().strength(3.0F), GraveBlockEntity::new);
     public static final BUBlockHelper<?> CURSED_LANTERN = new BUBlockHelper<>("cursed_lantern", CursedLanternBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).noOcclusion().lightLevel((light) -> {return 10;}));
-    public static final BUBlockHelper<?> WEEPING_WILLOW_SMALL_VINES = new BUBlockHelper<>("weeping_willow_small_vines", WeepingWillowSmallVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).randomTicks().noCollission().instabreak());
-    public static final BUBlockHelper<?> WEEPING_WILLOW_VINES = new BUBlockHelper<>("weeping_willow_vines", WeepingWillowVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).noCollission().instabreak());
+    public static final BUBlockHelper<?> WEEPING_WILLOW_SMALL_VINES = new BUBlockHelper<>("weeping_willow_small_vines", WeepingWillowSmallVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).randomTicks().noCollision().instabreak());
+    public static final BUBlockHelper<?> WEEPING_WILLOW_VINES = new BUBlockHelper<>("weeping_willow_vines", WeepingWillowVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.VINE).noCollision().instabreak());
     public static final BUBlockHelper<?> WEEPING_WILLOW_LEAVES = new BUBlockHelper<>("weeping_willow_leaves", properties -> new TintedParticleLeavesBlock(0.01F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).randomTicks().noOcclusion());
     public static final BUBlockHelper<?> ERODED_FOSSIL = new BUBlockHelper<>("eroded_fossil", (properties) -> new BonesOrientableBlock(properties,
                 Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 15.0D),
@@ -85,13 +85,13 @@ public class BonesRegistry {
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Entities %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
 
-    public static final BUEntityHelper<BrokenSkeleton> BROKEN_SKELETON = new BUEntityHelper<>("broken_skeleton", 0xC1C1C1, 0xC1C1C1, EntityType.Builder.of(BrokenSkeleton::new,MobCategory.MONSTER).sized(0.6F,0.5F));
-    public static final BUEntityHelper<HaunterSkeleton> HAUNTER_SKELETON = new BUEntityHelper<>("haunter_skeleton", 0xC1C1C1, 0x5642B3, EntityType.Builder.of(HaunterSkeleton::new,MobCategory.MONSTER).sized(0.6F, 1.99F));
-    public static final BUEntityHelper<KnightSkeleton> KNIGHT_SKELETON = new BUEntityHelper<>("knight_skeleton", 0x2E2E2E,0x5642B3, EntityType.Builder.of(KnightSkeleton::new,MobCategory.MONSTER).sized(0.6F, 1.99F));
-    public static final BUEntityHelper<Grabber> GRABBER = new BUEntityHelper<>("grabber", 0xC1C1C1,0xA46826, EntityType.Builder.of(Grabber::new,MobCategory.MONSTER).sized(0.7F ,1.6F).eyeHeight(1.5F));
-    public static final BUEntityHelper<Minion> MINION = new BUEntityHelper<>("minion", 0xC1C1C1,0xC5C5C5, EntityType.Builder.of(Minion::new,MobCategory.MONSTER).sized(0.35F, 0.85F).eyeHeight(0.85F * 0.85F));
-    public static final BUEntityHelper<Necromancer> NECROMANCER = new BUEntityHelper<>("necromancer", 0x9B7A63,0xFFFFFF, EntityType.Builder.of( Necromancer::new,MobCategory.MONSTER));
-    public static final BUEntityHelper<Reaper> REAPER = new BUEntityHelper<>("reaper", 0x343244,0xBC5E5E, EntityType.Builder.of(Reaper::new,MobCategory.MONSTER).sized(0.6F, 1.4F));
+    public static final BUEntityHelper<BrokenSkeleton> BROKEN_SKELETON = new BUEntityHelper<>("broken_skeleton", EntityType.Builder.of(BrokenSkeleton::new,MobCategory.MONSTER).sized(0.6F,0.5F));
+    public static final BUEntityHelper<HaunterSkeleton> HAUNTER_SKELETON = new BUEntityHelper<>("haunter_skeleton", EntityType.Builder.of(HaunterSkeleton::new,MobCategory.MONSTER).sized(0.6F, 1.99F));
+    public static final BUEntityHelper<KnightSkeleton> KNIGHT_SKELETON = new BUEntityHelper<>("knight_skeleton", EntityType.Builder.of(KnightSkeleton::new,MobCategory.MONSTER).sized(0.6F, 1.99F));
+    public static final BUEntityHelper<Grabber> GRABBER = new BUEntityHelper<>("grabber", EntityType.Builder.of(Grabber::new,MobCategory.MONSTER).sized(0.7F ,1.6F).eyeHeight(1.5F));
+    public static final BUEntityHelper<Minion> MINION = new BUEntityHelper<>("minion", EntityType.Builder.of(Minion::new,MobCategory.MONSTER).sized(0.35F, 0.85F).eyeHeight(0.85F * 0.85F));
+    public static final BUEntityHelper<Necromancer> NECROMANCER = new BUEntityHelper<>("necromancer", EntityType.Builder.of( Necromancer::new,MobCategory.MONSTER));
+    public static final BUEntityHelper<Reaper> REAPER = new BUEntityHelper<>("reaper", EntityType.Builder.of(Reaper::new,MobCategory.MONSTER).sized(0.6F, 1.4F));
 
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Enchantments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //

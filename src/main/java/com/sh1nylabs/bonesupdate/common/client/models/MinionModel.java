@@ -12,15 +12,10 @@ import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
-public class MinionModel extends HumanoidModel<HumanoidRenderState> implements ArmedModel {
-
-	private final ModelPart left_arm;
-	private final ModelPart right_arm;
+public class MinionModel extends HumanoidModel<HumanoidRenderState> implements ArmedModel<HumanoidRenderState> {
 
 	public MinionModel(ModelPart root) {
 		super(root);
-		this.left_arm = root.getChild("left_arm");
-		this.right_arm = root.getChild("right_arm");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -40,6 +35,7 @@ public class MinionModel extends HumanoidModel<HumanoidRenderState> implements A
 		);
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
+
 	@Override
 	public void setupAnim(HumanoidRenderState entity) {
 		super.setupAnim(entity);
@@ -47,10 +43,9 @@ public class MinionModel extends HumanoidModel<HumanoidRenderState> implements A
 		this.setupAttackAnimation(entity, entity.ageInTicks);
 
 	}
-
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack stack) {
-		ModelPart armPart = (arm == HumanoidArm.LEFT) ? this.left_arm : this.right_arm;
+	public void translateToHand(HumanoidRenderState state, HumanoidArm arm, PoseStack stack) {
+		ModelPart armPart = (arm == HumanoidArm.LEFT) ? this.leftArm : this.rightArm;
 		stack.translate(armPart.x / 16.0F, armPart.y / 16.0F, armPart.z / 16.0F);
 		if (armPart.xRot != 0.0F || armPart.yRot != 0.0F || armPart.zRot != 0.0F) {
 			stack.mulPose((new Quaternionf()).rotationZYX(armPart.zRot, armPart.yRot, armPart.xRot));

@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-public class GrabberModel extends HumanoidModel<GrabberRenderState> implements ArmedModel {
+public class GrabberModel extends HumanoidModel<GrabberRenderState> implements ArmedModel<GrabberRenderState> {
 
 	public GrabberModel(ModelPart root) {
 		super(root);
