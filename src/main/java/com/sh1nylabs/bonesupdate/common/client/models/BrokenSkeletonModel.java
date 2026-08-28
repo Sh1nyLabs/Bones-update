@@ -14,7 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
-public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends EntityModel<BrokenSkeletonRenderState> implements ArmedModel {
+public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends EntityModel<BrokenSkeletonRenderState> implements ArmedModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	private final ModelPart broken_state;
 	private final ModelPart haunter_parts;
@@ -67,9 +67,8 @@ public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends En
 		this.mushrooms.visible = entity.skeletonType == EntityType.BOGGED && !entity.boggedIsSheared;
 	}
 
-
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack stack) {
+	public void translateToHand(BrokenSkeletonRenderState renderState, HumanoidArm arm, PoseStack stack) {
 		ModelPart armPart = this.right_hand;
 		stack.translate((armPart.x+1.0F) / 16.0F, (armPart.y-9.5F) / 16.0F, (armPart.z+1.5F) / 16.0F);
 		if (armPart.xRot != 0.0F || armPart.yRot != 0.0F || armPart.zRot != 0.0F) {

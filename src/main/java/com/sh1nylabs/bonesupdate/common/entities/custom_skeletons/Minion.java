@@ -36,15 +36,16 @@ public class Minion extends FriendlySkeleton {
         super(type, level);
         this.xpReward = 1;
         this.owner = null;
+        for (EquipmentSlot slot : EquipmentSlot.values())
+        {
+            this.setDropChance(slot, 0.0F);
+        }
     }
 
     @Override
     public boolean isSunBurnTick() {
         return false;
     }
-
-    @Override
-    protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean hurtByPlayer) {}
 
     public static AttributeSupplier.Builder getCustomAttributes() {
         return Monster.createMonsterAttributes()

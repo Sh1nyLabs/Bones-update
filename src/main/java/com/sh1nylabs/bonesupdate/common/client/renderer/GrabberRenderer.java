@@ -9,6 +9,7 @@ import com.sh1nylabs.bonesupdate.common.client.render_states.GrabberRenderState;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -51,8 +52,9 @@ class GrabberPocketItemLayer extends RenderLayer<GrabberRenderState, GrabberMode
     public GrabberPocketItemLayer(RenderLayerParent<GrabberRenderState, GrabberModel> layerParent) {
         super(layerParent);
     }
-
-    public void render(PoseStack poseStack, MultiBufferSource bufferSource, int p_116899_, GrabberRenderState grabberRenderState, float p_116901_, float p_116902_) {
+    public void submit(
+            PoseStack poseStack, SubmitNodeCollector nodeCollector, int i1, GrabberRenderState grabberRenderState, float f1, float f2
+    ) {
         ItemStackRenderState itemStackRenderState = grabberRenderState.pocketItem;
         if (!itemStackRenderState.isEmpty()) {
             poseStack.pushPose();
@@ -60,7 +62,7 @@ class GrabberPocketItemLayer extends RenderLayer<GrabberRenderState, GrabberMode
             poseStack.mulPose(Axis.ZP.rotation(Mth.PI * 10.0F / 11.0F));
             poseStack.scale(0.57F, 0.57F, 1.0F);
 
-            itemStackRenderState.render(poseStack, bufferSource, p_116899_, OverlayTexture.NO_OVERLAY);
+            itemStackRenderState.submit(poseStack, nodeCollector, i1, OverlayTexture.NO_OVERLAY, grabberRenderState.outlineColor);
             poseStack.popPose();
         }
     }

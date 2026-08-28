@@ -11,7 +11,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class NecromancerModel<S extends NecromancerRenderState> extends IllagerModel<S> implements ArmedModel {
+public class NecromancerModel<S extends NecromancerRenderState> extends IllagerModel<S> implements ArmedModel<S> {
 
 	private final ModelPart left_arm;
 	private final ModelPart right_arm;

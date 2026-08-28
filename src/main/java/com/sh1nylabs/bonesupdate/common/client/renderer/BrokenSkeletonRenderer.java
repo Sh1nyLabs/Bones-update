@@ -11,6 +11,7 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
@@ -35,11 +36,11 @@ public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSk
     public BrokenSkeletonRenderer(EntityRendererProvider.Context context) {
         super(context,new BrokenSkeletonModel<>(context.bakeLayer(getLayerLocation(BonesRegistry.BROKEN_SKELETON))), 0.5f);
         this.addLayer(new ItemInHandLayer<BrokenSkeletonRenderState, BrokenSkeletonModel<BrokenSkeletonRenderState>>(this) {
-            public void render(
-                    PoseStack p_116330_, MultiBufferSource p_116331_, int p_116332_, BrokenSkeletonRenderState skeleton, float p_116334_, float p_116335_
+            public void submit(
+                    PoseStack poseStack, SubmitNodeCollector nodeCollector, int i1, BrokenSkeletonRenderState skeleton, float f1, float f2
             ) {
                 if (skeleton.skeletonType == BonesRegistry.HAUNTER_SKELETON.type()) {
-                    super.render(p_116330_, p_116331_, p_116332_, skeleton, p_116334_, p_116335_);
+                    super.submit(poseStack, nodeCollector, i1, skeleton, f1, f2);
                 }
             }
         });

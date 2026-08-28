@@ -25,11 +25,11 @@ public class BUEntityHelper<T extends Mob>
     private RegistryObject<SoundEvent> ambient;
 
     private static String eggName(String name) {return name + "_spawn_egg";}
-    public BUEntityHelper(String name, int backgroundColor, int highlightColor, EntityType.Builder<T> builder) {
+    public BUEntityHelper(String name, EntityType.Builder<T> builder) {
         entityType = BU_ENTITIES.register(name, () -> builder.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name))));
         entityName = name;
         spawnEgg = BU_ITEMS.register(eggName(name),
-                ()-> new SpawnEggItem(entityType.get(), new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, eggName(name))))));
+                ()-> new SpawnEggItem(new Item.Properties().setId(BU_ITEMS.key(eggName(name))).spawnEgg(entityType.get())));
         step = BU_SOUNDS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_step")));
         hurt = BU_SOUNDS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_hurt")));
         death = BU_SOUNDS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_death")));

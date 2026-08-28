@@ -24,7 +24,7 @@ public class BUBlockHelper<T extends BlockEntity> {
     public BUBlockHelper(String name, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties blockProperties) {
         block = BU_BLOCKS.register(name, () -> function.apply(blockProperties.setId(ResourceKey.create(BU_BLOCKS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name)))));
         item = BU_ITEMS.register(name,
-                () -> new BlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name)))));
+                () -> new BlockItem(block.get(), new Item.Properties().setId(BU_ITEMS.key(name))));
         blockEntity = null;
     }
 

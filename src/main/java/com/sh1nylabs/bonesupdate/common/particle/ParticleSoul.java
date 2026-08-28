@@ -5,18 +5,18 @@ package com.sh1nylabs.bonesupdate.common.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-public class ParticleSoul extends TextureSheetParticle {
+public class ParticleSoul extends SingleQuadParticle {
 
-    protected ParticleSoul(ClientLevel level, SpriteSet sprite, double pos_x, double pos_y, double pos_z, double xd, double yd, double zd) {
-        super(level, pos_x, pos_y, pos_z, xd, yd, zd);
+    protected ParticleSoul(ClientLevel level, double pos_x, double pos_y, double pos_z, double xd, double yd, double zd, SpriteSet sprite) {
+        super(level, pos_x, pos_y, pos_z, xd, yd, zd, sprite.first());
         this.quadSize *= 0.85F;
         this.friction = 0.55F;
         this.lifetime = 10+level.random.nextInt(3);
-        this.pickSprite(sprite);
 
         this.xd = xd;
         this.yd = yd;
@@ -28,8 +28,8 @@ public class ParticleSoul extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    protected Layer getLayer() {
+        return SingleQuadParticle.Layer.OPAQUE;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -40,8 +40,9 @@ public class ParticleSoul extends TextureSheetParticle {
         @Override
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level,
                                        double x, double y, double z,
-                                       double dx, double dy, double dz) {
-            return new ParticleSoul(level, sprite, x, y, z, dx, dy, dz);
+                                       double dx, double dy, double dz,
+                                       RandomSource randomSource) {
+            return new ParticleSoul(level, x, y, z, dx, dy, dz, sprite);
         }
     }
 

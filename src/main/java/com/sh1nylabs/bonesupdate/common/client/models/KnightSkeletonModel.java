@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-public class KnightSkeletonModel extends HumanoidModel<KnightSkeletonRenderState> implements ArmedModel {
+public class KnightSkeletonModel extends HumanoidModel<KnightSkeletonRenderState> implements ArmedModel<KnightSkeletonRenderState> {
 
 	public KnightSkeletonModel(ModelPart root) {
 		super(root);
