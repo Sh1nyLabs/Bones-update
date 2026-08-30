@@ -4,7 +4,7 @@ package com.sh1nylabs.bonesupdate.common.client.models;
 
 import com.sh1nylabs.bonesupdate.common.client.render_states.NecromancerRenderState;
 import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.IllagerModel;
+import net.minecraft.client.model.monster.illager.IllagerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

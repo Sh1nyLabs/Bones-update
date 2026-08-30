@@ -4,6 +4,7 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import com.sh1nylabs.bonesupdate.registerer.BUModIdentifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -12,7 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -27,21 +28,19 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
 import javax.annotation.Nullable;
 
-@Mod(BonesUpdate.MODID)
+@Mod(BUModIdentifier.MODID)
 public class BonesUpdate
 {
     /**
      */
-    public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final DeferredRegister<CreativeModeTab> BONESUPDATE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<CreativeModeTab> BONESUPDATE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BUModIdentifier.MODID);
 
     public static final RegistryObject<CreativeModeTab> BONESUPDATE_TAB = BONESUPDATE_TABS.register("bonesupdate_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.bonesupdate"))
@@ -69,6 +68,7 @@ public class BonesUpdate
                 output.accept(BonesRegistry.GRABBER.egg());
                 output.accept(BonesRegistry.MINION.egg());
                 output.accept(BonesRegistry.BROKEN_SKELETON.egg());
+                output.accept(BonesRegistry.BROKEN_WITHER_SKELETON.egg());
                 output.accept(BonesRegistry.KNIGHT_SKELETON.egg());
                 output.accept(BonesRegistry.HAUNTER_SKELETON.egg());
                 output.accept(BonesRegistry.NECROMANCER.egg());
@@ -123,6 +123,7 @@ public class BonesUpdate
             event.accept(BonesRegistry.GRABBER.egg());
             event.accept(BonesRegistry.MINION.egg());
             event.accept(BonesRegistry.BROKEN_SKELETON.egg());
+            event.accept(BonesRegistry.BROKEN_WITHER_SKELETON.egg());
             event.accept(BonesRegistry.KNIGHT_SKELETON.egg());
             event.accept(BonesRegistry.HAUNTER_SKELETON.egg());
             event.accept(BonesRegistry.NECROMANCER.egg());

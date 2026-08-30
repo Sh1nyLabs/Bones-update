@@ -36,14 +36,16 @@
 
   "entity.bonesupdate.grabber": "Greifer",
   "entity.bonesupdate.broken_skeleton": "Zerbrochenes Skelett",
-  "entity.bonesupdate.haunter_skeleton": "Verfolgerskelett",
-  "entity.bonesupdate.knight_skeleton": "Ritterskelett",
+  "entity.bonesupdate.broken_wither_skeleton": "Zerbrochenes-Wither Skelett",
+  "entity.bonesupdate.haunter_skeleton": "Verfolger-Skelett",
+  "entity.bonesupdate.knight_skeleton": "Ritter-Skelett",
   "entity.bonesupdate.minion": "Lakaien",
   "entity.bonesupdate.necromancer": "Nekromant",
   "entity.bonesupdate.reaper": "Schnitter",
 
   "item.bonesupdate.grabber_spawn_egg": "Greifer-Spawn-Ei",
   "item.bonesupdate.broken_skeleton_spawn_egg": "Zerbrochenes-Skelett-Spawn-Ei",
+  "item.bonesupdate.broken_wither_skeleton_spawn_egg": "Zerbrochenes-Wither-Skelett-Spawn-Ei",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Verfolgerskelett-Spawn-Ei",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Ritterskelett-Spawn-Ei",
   "item.bonesupdate.minion_spawn_egg": "Lakaien-Spawn-Ei",

@@ -8,7 +8,7 @@ import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
 
@@ -32,8 +32,8 @@ public class ReaperRenderer extends MobRenderer<Reaper, ReaperRenderState, Reape
         reaperRenderState.previousWalkAnimationPos = reaperRenderState.walkAnimationPos;
     }
 
-    public ResourceLocation getTextureLocation(ReaperRenderState entity) {
-    return BonesRegistry.REAPER.textureLocation();
+    public Identifier getTextureLocation(ReaperRenderState entity) {
+        return BonesRegistry.REAPER.textureLocation();
     }
 
 }

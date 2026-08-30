@@ -20,8 +20,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraft.world.entity.monster.Bogged;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
+import net.minecraft.world.entity.monster.skeleton.Bogged;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +41,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.IntFunction;
 
 public class BrokenSkeleton extends AbstractSkeleton {
     private int timeBeforeSkeletonRevives;
@@ -49,9 +48,12 @@ public class BrokenSkeleton extends AbstractSkeleton {
     private static final int SKELETON_REVIVES_MAX_TIME = SKELETON_REVIVES_MIN_TIME + 200;
     private LivingEntity inheritedKillCredit;
     private boolean friendly = false;
-    private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.INT);
 
     private static final EntityDataAccessor<Boolean> DATA_BOGGED_SHEARED = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.BOOLEAN);
+    private static final List<EntityType<? extends AbstractSkeleton>> OVERWORLD_DEFAULT_VARIANTS =
+            List.of(EntityType.SKELETON, BonesRegistry.KNIGHT_SKELETON.type(), BonesRegistry.HAUNTER_SKELETON.type());
+    private static int SIZE_OVERWORLD_DEFAULT_VARIANTS = OVERWORLD_DEFAULT_VARIANTS.size();
 
     public BrokenSkeleton(EntityType<? extends AbstractSkeleton> type, Level level) {
         super(type, level);
@@ -131,10 +133,11 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
         boolean playerGotAmulet = (damageSource.getEntity() instanceof Player player &&
                 (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AmuletItem ||
-                        player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem));
-        if (getSkeletonType() == EntityType.WITHER_SKELETON) {
-            this.spawnAtLocation(level, Items.WITHER_SKELETON_SKULL);
-        } else if (getSkeletonType() != EntityType.BOGGED){
+                 player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem));
+        if (getSkeletonType() == EntityType.SKELETON ||
+            getSkeletonType() == BonesRegistry.KNIGHT_SKELETON.type() ||
+            getSkeletonType() == BonesRegistry.HAUNTER_SKELETON.type())
+        {
             this.spawnAtLocation(level, Items.SKELETON_SKULL);
         }
         if (playerGotAmulet) {
@@ -211,18 +214,15 @@ public class BrokenSkeleton extends AbstractSkeleton {
     }
 
     @Override
-    public boolean isSunBurnTick() {
-        return getSkeletonType() != EntityType.WITHER_SKELETON && super.isSunBurnTick();
-    }
-
-    @Override
     public boolean isImmobile() {
         return true;
     }
 
     @Override
     public boolean isInvulnerableTo(ServerLevel level, DamageSource damageSource) {
-        return (!damageSource.is(DamageTypeTags.IS_FIRE)  && !damageSource.is(DamageTypeTags.IS_EXPLOSION)) || super.isInvulnerableTo(level, damageSource);
+        return (!damageSource.is(DamageTypeTags.IS_FIRE) &&
+                !damageSource.is(DamageTypeTags.IS_EXPLOSION))
+                || super.isInvulnerableTo(level, damageSource);
     }
 
     @Override
@@ -230,13 +230,14 @@ public class BrokenSkeleton extends AbstractSkeleton {
         return SoundEvents.SKELETON_STEP;
     }
 
-    public final EntityType<? extends AbstractSkeleton> getSkeletonType() {
+    public EntityType<? extends AbstractSkeleton> getSkeletonType() {
         return switch (this.entityData.get(DATA_ID_TYPE_VARIANT)) { /* case 1 is SKELETON */
             case 2 -> EntityType.STRAY;
             case 3 -> EntityType.WITHER_SKELETON;
             case 4 -> BonesRegistry.HAUNTER_SKELETON.type();
             case 5 -> BonesRegistry.KNIGHT_SKELETON.type();
             case 6 -> EntityType.BOGGED;
+            case 7 -> EntityType.PARCHED;
             default -> EntityType.SKELETON;
         };
     }
@@ -248,6 +249,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
             case "entity.bonesupdate.haunter_skeleton" -> 4;
             case "entity.bonesupdate.knight_skeleton" -> 5;
             case "entity.minecraft.bogged" -> 6;
+            case "entity.minecraft.parched" -> 7;
             default -> 1;
         });
     }
@@ -269,13 +271,9 @@ public class BrokenSkeleton extends AbstractSkeleton {
                 this.getActiveEffectsMap().put(mobeffectinstance.getEffect(), mobeffectinstance);
             }
         } else {
-            if (this.level().dimension() == Level.NETHER) {
-                this.entityData.set(DATA_ID_TYPE_VARIANT, 1);
-            } else {
-                this.entityData.set(DATA_ID_TYPE_VARIANT, 4 + random.nextInt(4));
-                if (getSkeletonType()==BonesRegistry.HAUNTER_SKELETON.type()) {
-                    this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesRegistry.HAUNTER_SPEAR.item()));
-                }
+            this.setSkeletonType(OVERWORLD_DEFAULT_VARIANTS.get(random.nextInt(SIZE_OVERWORLD_DEFAULT_VARIANTS)));
+            if (getSkeletonType() == BonesRegistry.HAUNTER_SKELETON.type()) {
+                this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BonesRegistry.HAUNTER_SPEAR.item()));
             }
         }
         return spawnData;
@@ -283,8 +281,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     public static class BrokenSkeletonSpawnData implements SpawnGroupData {
         public EntityType<? extends AbstractSkeleton> skeletonType;
-        public
-        java.util.Map<Holder<MobEffect>, MobEffectInstance> activeEffects;
+        public java.util.Map<Holder<MobEffect>, MobEffectInstance> activeEffects;
         public LivingEntity inheritedKillCredit;
         public ItemStack mainHandItem;
         public ItemStack offHandItem;

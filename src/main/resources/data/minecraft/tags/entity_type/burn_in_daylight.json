@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "bonesupdate:grabber",
+    "bonesupdate:broken_skeleton",
+    "bonesupdate:haunter_skeleton",
+    "bonesupdate:knight_skeleton"
+  ]
+}

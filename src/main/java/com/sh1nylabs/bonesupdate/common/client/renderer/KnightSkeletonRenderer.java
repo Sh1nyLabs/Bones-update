@@ -9,7 +9,7 @@ import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
 
@@ -33,7 +33,7 @@ public class KnightSkeletonRenderer extends HumanoidMobRenderer<KnightSkeleton, 
     }
 
     @Override
-    public ResourceLocation getTextureLocation(KnightSkeletonRenderState entity) {
+    public Identifier getTextureLocation(KnightSkeletonRenderState entity) {
         return BonesRegistry.KNIGHT_SKELETON.textureLocation();
     }
 

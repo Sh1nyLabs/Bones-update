@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
 
@@ -27,7 +27,7 @@ public class MinionRenderer extends HumanoidMobRenderer<Minion, HumanoidRenderSt
     }
 
     @Override
-    public ResourceLocation getTextureLocation(HumanoidRenderState entity) {
+    public Identifier getTextureLocation(HumanoidRenderState entity) {
         return BonesRegistry.MINION.textureLocation();
     }
 }

@@ -2,9 +2,8 @@ package com.sh1nylabs.bonesupdate.common.items;
 
 /* Java class written by sh1nylabs' team. All rights reserved. */
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
+import com.sh1nylabs.bonesupdate.registerer.BUModIdentifier;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -15,7 +14,7 @@ import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 public class HaunterSpearItem extends Item {
-    protected static final ResourceLocation BASE_KNOCKBACK_ID = ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"base_knockback");
+    protected static final Identifier BASE_KNOCKBACK_ID = BUModIdentifier.fromModNamespace("base_knockback");
 
     public HaunterSpearItem(Properties properties) {
         super(properties);

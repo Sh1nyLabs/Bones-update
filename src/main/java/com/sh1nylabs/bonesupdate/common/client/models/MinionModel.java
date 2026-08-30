@@ -37,13 +37,6 @@ public class MinionModel extends HumanoidModel<HumanoidRenderState> implements A
 	}
 
 	@Override
-	public void setupAnim(HumanoidRenderState entity) {
-		super.setupAnim(entity);
-
-		this.setupAttackAnimation(entity, entity.ageInTicks);
-
-	}
-	@Override
 	public void translateToHand(HumanoidRenderState state, HumanoidArm arm, PoseStack stack) {
 		ModelPart armPart = (arm == HumanoidArm.LEFT) ? this.leftArm : this.rightArm;
 		stack.translate(armPart.x / 16.0F, armPart.y / 16.0F, armPart.z / 16.0F);
