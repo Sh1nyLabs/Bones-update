@@ -4,6 +4,7 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
+import com.sh1nylabs.bonesupdate.registerer.BUModIdentifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -12,14 +13,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -38,14 +38,13 @@ import com.mojang.logging.LogUtils;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-@Mod(BonesUpdate.MODID)
+@Mod(BUModIdentifier.MODID)
 public class BonesUpdate
 {
     /**
      */
-    public static final String MODID = "bonesupdate";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final DeferredRegister<CreativeModeTab> BONESUPDATE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<CreativeModeTab> BONESUPDATE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BUModIdentifier.MODID);
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BONESUPDATE_TAB = BONESUPDATE_TABS.register("bonesupdate_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.bonesupdate"))
@@ -73,6 +72,7 @@ public class BonesUpdate
                 output.accept(BonesRegistry.GRABBER.egg());
                 output.accept(BonesRegistry.MINION.egg());
                 output.accept(BonesRegistry.BROKEN_SKELETON.egg());
+                output.accept(BonesRegistry.BROKEN_WITHER_SKELETON.egg());
                 output.accept(BonesRegistry.KNIGHT_SKELETON.egg());
                 output.accept(BonesRegistry.HAUNTER_SKELETON.egg());
                 output.accept(BonesRegistry.NECROMANCER.egg());
@@ -125,6 +125,7 @@ public class BonesUpdate
             event.accept(BonesRegistry.GRABBER.egg());
             event.accept(BonesRegistry.MINION.egg());
             event.accept(BonesRegistry.BROKEN_SKELETON.egg());
+            event.accept(BonesRegistry.BROKEN_WITHER_SKELETON.egg());
             event.accept(BonesRegistry.KNIGHT_SKELETON.egg());
             event.accept(BonesRegistry.HAUNTER_SKELETON.egg());
             event.accept(BonesRegistry.NECROMANCER.egg());

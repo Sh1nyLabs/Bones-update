@@ -9,8 +9,8 @@ import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.IllagerRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
 
 import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocation.getLayerLocation;
 
@@ -33,8 +33,8 @@ public class NecromancerRenderer extends IllagerRenderer<Necromancer, Necromance
         necromancerRenderState.isCastingSpell = necromancer.isCastingSpell();
     }
 
-    public ResourceLocation getTextureLocation(NecromancerRenderState entity) {
-    return BonesRegistry.NECROMANCER.textureLocation();
+    public Identifier getTextureLocation(NecromancerRenderState entity) {
+        return BonesRegistry.NECROMANCER.textureLocation();
     }
 
 }

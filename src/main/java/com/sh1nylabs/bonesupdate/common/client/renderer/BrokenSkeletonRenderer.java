@@ -4,18 +4,17 @@ package com.sh1nylabs.bonesupdate.common.client.renderer;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.client.models.BrokenSkeletonModel;
 import com.sh1nylabs.bonesupdate.common.client.render_states.BrokenSkeletonRenderState;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
+import com.sh1nylabs.bonesupdate.registerer.BUModIdentifier;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
-import net.minecraft.Util;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.util.Util;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 
 import java.util.Map;
@@ -24,13 +23,14 @@ import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocat
 
 public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSkeletonRenderState, BrokenSkeletonModel<BrokenSkeletonRenderState>>{
 
-    private static final Map<String, ResourceLocation> LOCATION_BY_SKELETON = Util.make(Maps.newHashMap(), (map) -> {
-        map.put(EntityType.SKELETON.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png"));
-        map.put(EntityType.STRAY.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/stray.png"));
-        map.put(EntityType.WITHER_SKELETON.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/wither_skeleton.png"));
-        map.put(EntityType.BOGGED.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/bogged.png"));
-        map.put(BonesRegistry.HAUNTER_SKELETON.type().toString(), ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/haunter_skeleton.png"));
-        map.put(BonesRegistry.KNIGHT_SKELETON.type().toString(), ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/knight_skeleton.png"));
+    private static final Map<String, Identifier> LOCATION_BY_SKELETON = Util.make(Maps.newHashMap(), (map) -> {
+        map.put(EntityType.SKELETON.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/skeleton.png"));
+        map.put(EntityType.STRAY.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/stray.png"));
+        map.put(EntityType.WITHER_SKELETON.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/wither_skeleton.png"));
+        map.put(EntityType.BOGGED.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/bogged.png"));
+        map.put(EntityType.PARCHED.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/parched.png"));
+        map.put(BonesRegistry.HAUNTER_SKELETON.type().toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/haunter_skeleton.png"));
+        map.put(BonesRegistry.KNIGHT_SKELETON.type().toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/knight_skeleton.png"));
     });
 
     public BrokenSkeletonRenderer(EntityRendererProvider.Context context) {
@@ -59,7 +59,7 @@ public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSk
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BrokenSkeletonRenderState skeleton) {
-        return LOCATION_BY_SKELETON.getOrDefault(skeleton.skeletonType.toString(), ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png"));
+    public Identifier getTextureLocation(BrokenSkeletonRenderState skeleton) {
+        return LOCATION_BY_SKELETON.getOrDefault(skeleton.skeletonType.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/skeleton.png"));
     }
 }

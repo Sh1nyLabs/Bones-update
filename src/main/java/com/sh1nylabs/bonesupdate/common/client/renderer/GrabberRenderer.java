@@ -8,14 +8,13 @@ import com.sh1nylabs.bonesupdate.common.client.models.GrabberModel;
 import com.sh1nylabs.bonesupdate.common.client.render_states.GrabberRenderState;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 
@@ -29,7 +28,7 @@ public class GrabberRenderer extends HumanoidMobRenderer<Grabber, GrabberRenderS
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GrabberRenderState grabberState) {
+    public Identifier getTextureLocation(GrabberRenderState grabberState) {
         return BonesRegistry.GRABBER.textureLocation();
     }
 

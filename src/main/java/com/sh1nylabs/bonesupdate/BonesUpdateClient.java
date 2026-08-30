@@ -1,5 +1,6 @@
 package com.sh1nylabs.bonesupdate;
 
+import com.sh1nylabs.bonesupdate.registerer.BUModIdentifier;
 import net.neoforged.api.distmarker.Dist;
         import net.neoforged.fml.ModContainer;
         import net.neoforged.fml.common.Mod;
@@ -8,7 +9,7 @@ import net.neoforged.api.distmarker.Dist;
 
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
-@Mod(value = BonesUpdate.MODID, dist = Dist.CLIENT)
+@Mod(value = BUModIdentifier.MODID, dist = Dist.CLIENT)
 public class BonesUpdateClient {
     public BonesUpdateClient(ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);

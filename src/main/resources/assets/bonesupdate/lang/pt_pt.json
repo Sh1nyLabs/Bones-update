@@ -35,7 +35,8 @@
   "item.bonesupdate.soul_orb": "Orbe da Alma",
 
   "entity.bonesupdate.grabber": "Arragador",
-  "entity.bonesupdate.broken_skeleton": "Esqueleto partido",
+  "entity.bonesupdate.broken_skeleton": "Esqueleto Partido",
+  "entity.bonesupdate.broken_wither_skeleton": "Esqueleto de Wither Partido",
   "entity.bonesupdate.haunter_skeleton": "Esqueleto de Assombrador",
   "entity.bonesupdate.knight_skeleton": "Paladino Esqueleto",
   "entity.bonesupdate.minion": "Minion",
@@ -44,6 +45,7 @@
 
   "item.bonesupdate.grabber_spawn_egg": "Ovo de invocação de arragador",
   "item.bonesupdate.broken_skeleton_spawn_egg": "Ovo gerador de esqueleto partido",
+  "item.bonesupdate.broken_wither_skeleton_spawn_egg": "Ovo gerador de esqueleto de wither partido",
   "item.bonesupdate.haunter_skeleton_spawn_egg": "Ovo gerador de esqueleto de assombrador",
   "item.bonesupdate.knight_skeleton_spawn_egg": "Ovo de invocação de paladino esqueleto",
   "item.bonesupdate.minion_spawn_egg": "Ovo de invocação de minion",

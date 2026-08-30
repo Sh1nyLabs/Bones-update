@@ -7,19 +7,21 @@ import com.sh1nylabs.bonesupdate.BonesUpdate;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.*;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
+import com.sh1nylabs.bonesupdate.registerer.BUModIdentifier;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.monster.AbstractIllager;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.monster.skeleton.Skeleton;
+import net.minecraft.world.entity.monster.skeleton.WitherSkeleton;
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.ItemCost;
@@ -43,7 +45,7 @@ import java.util.Set;
 
 public class BonesModEvent {
 
-    @EventBusSubscriber(modid = BonesUpdate.MODID)
+    @EventBusSubscriber(modid = BUModIdentifier.MODID)
     public static class BonesForgeEvents {
 
         @SubscribeEvent
@@ -73,7 +75,7 @@ public class BonesModEvent {
         public static void onConfigReload(ModConfigEvent.Reloading event)
         {
             BUConfig.loadConfig();
-            BonesUpdate.LOGGER.info("Reloaded config for mod " + BonesUpdate.MODID);
+            BonesUpdate.LOGGER.info("Reloaded config for mod " + BUModIdentifier.MODID);
         }
 
         /**
@@ -84,9 +86,13 @@ public class BonesModEvent {
          */
         @SubscribeEvent
         public static boolean SkeletonDiesEvent(LivingDeathEvent event) {
-            if ((!event.getEntity().level().isClientSide()) && (event.getEntity() instanceof AbstractSkeleton skeleton) && BonesUpdate.skeletonAllowedToBecomeBroken(skeleton, event.getEntity().level().getCurrentDifficultyAt(event.getEntity().getOnPos()))) {
-                ServerLevel svrLevel = (ServerLevel) event.getEntity().level();
-                BrokenSkeleton broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
+            if ((event.getEntity().level() instanceof ServerLevel svrLevel) && (event.getEntity() instanceof AbstractSkeleton skeleton) && BonesUpdate.skeletonAllowedToBecomeBroken(skeleton, svrLevel.getCurrentDifficultyAt(event.getEntity().getOnPos()))) {
+                BrokenSkeleton broken;
+                if (skeleton instanceof WitherSkeleton) {
+                    broken = BonesRegistry.BROKEN_WITHER_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
+                } else {
+                    broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
+                }
                 if (broken != null) {
                     broken.snapTo(skeleton.getX(), skeleton.getY(), skeleton.getZ(), skeleton.getYRot(), skeleton.getXRot());
                     net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(broken, svrLevel, svrLevel.getCurrentDifficultyAt(broken.blockPosition()), EntitySpawnReason.CONVERSION, new BrokenSkeleton.BrokenSkeletonSpawnData(skeleton));
@@ -133,15 +139,10 @@ public class BonesModEvent {
         @SubscribeEvent
         public static void addVillagerTradesEvent(VillagerTradesEvent event){
             if (event.getType() == VillagerProfession.CLERIC){
-                event.getTrades().get(2).add(new VillagerTrades.ItemListing() {
-                    @Override
-                    public MerchantOffer getOffer(Entity entity, RandomSource rdmSource) {
-                        return new MerchantOffer(new ItemCost(BonesRegistry.SKELETON_SOUL.item(), 2), new ItemStack(Items.EMERALD), 12, 12, 0.2F);
-                    }
-                });
+                event.getTrades().get(2).add(new VillagerTrades.EmeraldForItems(BonesRegistry.SKELETON_SOUL.item(), 2, 12, 12));
                 event.getTrades().get(5).add(new VillagerTrades.ItemListing() {
                     @Override
-                    public MerchantOffer getOffer(Entity entity, RandomSource rdmSource) {
+                    public MerchantOffer getOffer(ServerLevel svrLevel, Entity entity, RandomSource rdmSource) {
                         return new MerchantOffer(new ItemCost(BonesRegistry.SKELETON_SOUL.item(), 4), Optional.of(new ItemCost(BonesRegistry.BLADE.item(),1)), new ItemStack(BonesRegistry.HAUNTER_BLADE.item()), 12, 12, 0.2F);
                     }
                 });
@@ -149,7 +150,7 @@ public class BonesModEvent {
         }
     }
 
-    @EventBusSubscriber(modid = BonesUpdate.MODID)
+    @EventBusSubscriber(modid = BUModIdentifier.MODID)
     public static class BonesCommonEvents {
 
         @SubscribeEvent
@@ -166,12 +167,14 @@ public class BonesModEvent {
             event.put(BonesRegistry.KNIGHT_SKELETON.type(), KnightSkeleton.getCustomAttributes().build());
             event.put(BonesRegistry.HAUNTER_SKELETON.type(), HaunterSkeleton.getCustomAttributes().build());
             event.put(BonesRegistry.BROKEN_SKELETON.type(), BrokenSkeleton.getCustomAttributes().build());
+            event.put(BonesRegistry.BROKEN_WITHER_SKELETON.type(), BrokenWitherSkeleton.getCustomAttributes().build());
         }
 
         @SubscribeEvent
         public static void entitySpawnRestriction(RegisterSpawnPlacementsEvent event) {
             Set<EntityType<? extends Mob>> entityTypes = Set.of(BonesRegistry.KNIGHT_SKELETON.type(),
                                               BonesRegistry.BROKEN_SKELETON.type(),
+                                              BonesRegistry.BROKEN_WITHER_SKELETON.type(),
                                               BonesRegistry.GRABBER.type(),
                                               BonesRegistry.HAUNTER_SKELETON.type(),
                                               BonesRegistry.NECROMANCER.type());

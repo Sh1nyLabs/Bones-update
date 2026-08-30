@@ -9,7 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -38,6 +38,7 @@ import java.util.List;
 public class GraveBlock extends Block implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty HAUNTED=BooleanProperty.create("haunted");
+    private static final int REAPER_SPAWN_LIKELIHOOD = 4;
 
     private static final VoxelShape FACE_S = Shapes.or(Block.box(2.0D, 0.0D, 0.0D, 13.0D, 3.0D, 15.0D), Block.box(3.0D, 3.0D, 13.0D, 12.0D, 14.0D, 15.0D));
     private static final VoxelShape FACE_N = Shapes.or(Block.box(3.0D, 0.0D, 1.0D, 14.0D, 3.0D, 16.0D), Block.box(4.0D, 3.0D, 1.0D, 13.0D, 14.0D, 3.0D));
@@ -86,12 +87,12 @@ public class GraveBlock extends Block implements EntityBlock {
             villager.getGossips().add(player.getUUID(), GossipType.MINOR_NEGATIVE, 25); // TODO:PROBLEM?
             villager.playSound(SoundEvents.VILLAGER_NO, 1.0F, villager.getVoicePitch());
         }
-        if (state.getValue(HAUNTED) && level.getRandom().nextInt(4)==0 && !level.isClientSide()) {
+        if (state.getValue(HAUNTED) && level.getRandom().nextInt(REAPER_SPAWN_LIKELIHOOD)==0 && level instanceof ServerLevel serverLevel) {
             Reaper reaper = BonesRegistry.REAPER.type().create(level, EntitySpawnReason.SPAWNER);
             if (reaper!=null) {
                 reaper.snapTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), level.getRandom().nextFloat(), 0.0F);
-                net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(reaper, (ServerLevel) level, level.getCurrentDifficultyAt(blockPos), EntitySpawnReason.SPAWNER, null);
-                ((ServerLevel) level).tryAddFreshEntityWithPassengers(reaper);
+                net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(reaper, serverLevel, serverLevel.getCurrentDifficultyAt(blockPos), EntitySpawnReason.SPAWNER, null);
+                serverLevel.tryAddFreshEntityWithPassengers(reaper);
                 level.gameEvent(reaper, GameEvent.ENTITY_PLACE, blockPos);
             }
         }

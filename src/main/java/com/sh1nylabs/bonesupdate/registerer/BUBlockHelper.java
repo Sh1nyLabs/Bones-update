@@ -1,8 +1,6 @@
 package com.sh1nylabs.bonesupdate.registerer;
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -22,16 +20,16 @@ public class BUBlockHelper<T extends BlockEntity> {
     private final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BlockEntity>> blockEntity;
 
     public BUBlockHelper(String name, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties blockProperties) {
-        block = BU_BLOCKS.register(name, () -> function.apply(blockProperties.setId(ResourceKey.create(BU_BLOCKS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name)))));
+        block = BU_BLOCKS.register(name, () -> function.apply(blockProperties.setId(ResourceKey.create(BU_BLOCKS.getRegistryKey(), BUModIdentifier.fromModNamespace(name)))));
         item = BU_ITEMS.register(name,
-                () -> new BlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name)))));
+                () -> new BlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(), BUModIdentifier.fromModNamespace(name)))));
         blockEntity = null;
     }
 
     public BUBlockHelper(String name, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties blockProperties, BlockEntityType.BlockEntitySupplier<? extends BlockEntity> blockEntity) {
-        block = BU_BLOCKS.register(name, () -> function.apply(blockProperties.setId(ResourceKey.create(BU_BLOCKS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name)))));
+        block = BU_BLOCKS.register(name, () -> function.apply(blockProperties.setId(ResourceKey.create(BU_BLOCKS.getRegistryKey(), BUModIdentifier.fromModNamespace(name)))));
         item = BU_ITEMS.register(name,
-                () -> new BlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(), ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name)))));
+                () -> new BlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(), BUModIdentifier.fromModNamespace(name)))));
         this.blockEntity = BU_BLOCK_ENTITIES.register(name+"_entity", () -> new BlockEntityType<>(blockEntity, Set.of(block.get())));
     }
 

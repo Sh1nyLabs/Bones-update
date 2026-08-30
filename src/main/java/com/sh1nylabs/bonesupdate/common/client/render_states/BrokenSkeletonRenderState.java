@@ -5,7 +5,7 @@ package com.sh1nylabs.bonesupdate.common.client.render_states;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 
 public class BrokenSkeletonRenderState extends ArmedEntityRenderState {
     public EntityType<? extends AbstractSkeleton> skeletonType;

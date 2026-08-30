@@ -1,9 +1,8 @@
 package com.sh1nylabs.bonesupdate.registerer;
 
-import com.sh1nylabs.bonesupdate.BonesUpdate;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -26,14 +25,14 @@ public class BUEntityHelper<T extends Mob>
 
     private static String eggName(String name) {return name + "_spawn_egg";}
     public BUEntityHelper(String name, EntityType.Builder<T> builder) {
-        entityType = BU_ENTITIES.register(name, () -> builder.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name))));
+        entityType = BU_ENTITIES.register(name, () -> builder.build(ResourceKey.create(Registries.ENTITY_TYPE, BUModIdentifier.fromModNamespace(name))));
         entityName = name;
         spawnEgg = BU_ITEMS.register(eggName(name),
-                ()-> new SpawnEggItem(new Item.Properties().spawnEgg(entityType.get()).setId(ResourceKey.create(BU_ITEMS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, eggName(name))))));
-        step = BU_SOUNDS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_step")));
-        hurt = BU_SOUNDS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_hurt")));
-        death = BU_SOUNDS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_death")));
-        ambient = BU_SOUNDS.register(name + "_ambient", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID, name + "_ambient")));
+                ()-> new SpawnEggItem(new Item.Properties().spawnEgg(entityType.get()).setId(ResourceKey.create(BU_ITEMS.getRegistryKey(),BUModIdentifier.fromModNamespace(eggName(name))))));
+        step = BU_SOUNDS.register(name + "_step", () -> SoundEvent.createVariableRangeEvent(BUModIdentifier.fromModNamespace(name + "_step")));
+        hurt = BU_SOUNDS.register(name + "_hurt", () -> SoundEvent.createVariableRangeEvent(BUModIdentifier.fromModNamespace(name + "_hurt")));
+        death = BU_SOUNDS.register(name + "_death", () -> SoundEvent.createVariableRangeEvent(BUModIdentifier.fromModNamespace(name + "_death")));
+        ambient = BU_SOUNDS.register(name + "_ambient", () -> SoundEvent.createVariableRangeEvent(BUModIdentifier.fromModNamespace(name + "_ambient")));
     }
 
     public EntityType<T> type() {
@@ -48,5 +47,5 @@ public class BUEntityHelper<T extends Mob>
     public SoundEvent death() {return death.get();}
     public SoundEvent ambient() {return ambient.get();}
 
-    public final ResourceLocation textureLocation() {return ResourceLocation.fromNamespaceAndPath(BonesUpdate.MODID,"textures/entity/" + entityName + ".png");}
+    public final Identifier textureLocation() {return BUModIdentifier.fromModNamespace("textures/entity/" + entityName + ".png");}
 }
