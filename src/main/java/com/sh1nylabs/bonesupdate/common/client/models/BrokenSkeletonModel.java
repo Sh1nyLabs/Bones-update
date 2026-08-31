@@ -15,16 +15,22 @@ import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
 public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends EntityModel<BrokenSkeletonRenderState> implements ArmedModel<T> {
-	private final ModelPart broken_state;
-	private final ModelPart outer_clothes;
+	private final ModelPart regular_broken;
+	private final ModelPart knight_broken;
+	private final ModelPart head;
+	private final ModelPart claw;
+	private final ModelPart parched_clothes;
 	private final ModelPart haunter_parts;
 	private final ModelPart right_hand;
 	private final ModelPart mushrooms;
 
 	public BrokenSkeletonModel(ModelPart root) {
         super(root);
-        this.broken_state = root.getChild("broken_state");
-		this.outer_clothes = root.getChild("outer_clothes");
+        this.regular_broken = root.getChild("regular_broken");
+		this.knight_broken = root.getChild("knight_broken");
+		this.head = this.knight_broken.getChild("head");
+		this.claw = this.head.getChild("claw");
+		this.parched_clothes = root.getChild("parched_clothes");
 		this.haunter_parts = root.getChild("haunter_parts");
 		this.right_hand = root.getChild("right_hand");
 		this.mushrooms = root.getChild("mushrooms");
@@ -34,13 +40,23 @@ public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends En
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition broken_state = partdefinition.addOrReplaceChild("broken_state", CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, -7.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 23.0F, 0.0F));
+		PartDefinition regular_broken = partdefinition.addOrReplaceChild("regular_broken", CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, -7.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 23.0F, 0.0F));
 
-		PartDefinition body_r1 = broken_state.addOrReplaceChild("body_r1", CubeListBuilder.create().texOffs(16, 16).addBox(0.0F, -10.0F, -4.5F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-6.0F, 0.0F, -3.0F, -1.1961F, 0.2291F, -0.5236F));
+		PartDefinition body_r1 = regular_broken.addOrReplaceChild("body_r1", CubeListBuilder.create().texOffs(16, 16).addBox(0.0F, -10.0F, -4.5F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-6.0F, 0.0F, -3.0F, -1.1961F, 0.2291F, -0.5236F));
 
-		PartDefinition outer_clothes = partdefinition.addOrReplaceChild("outer_clothes", CubeListBuilder.create().texOffs(0, 32).addBox(1.0F, -7.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.2F)), PartPose.offset(0.0F, 23.0F, 0.0F));
+		PartDefinition knight_broken = partdefinition.addOrReplaceChild("knight_broken", CubeListBuilder.create(), PartPose.offset(0.0F, 23.0F, 0.0F));
 
-		PartDefinition bodywear_r1 = outer_clothes.addOrReplaceChild("bodywear_r1", CubeListBuilder.create().texOffs(16, 48).addBox(0.0F, -10.0F, -4.5F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.2F)), PartPose.offsetAndRotation(-6.0F, 0.0F, -3.0F, -1.1961F, 0.2291F, -0.5236F));
+		PartDefinition upper_body_r1 = knight_broken.addOrReplaceChild("upper_body_r1", CubeListBuilder.create().texOffs(32, 32).addBox(-1.0F, -10.0F, -5.5F, 10.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
+				.texOffs(16, 16).addBox(0.0F, -10.0F, -4.5F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-6.0F, 0.0F, -3.0F, -1.1961F, 0.2291F, -0.5236F));
+
+		PartDefinition head = knight_broken.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 1.0F, 0.0F));
+
+		PartDefinition claw = head.addOrReplaceChild("claw", CubeListBuilder.create().texOffs(32, 5).addBox(-5.0F, -2.5F, -4.5F, 10.0F, 3.0F, 6.0F, new CubeDeformation(0.0F))
+				.texOffs(38, 0).addBox(-5.0F, -4.5F, -1.5F, 10.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0873F, 0.0F, 0.0F));
+
+		PartDefinition parched_clothes = partdefinition.addOrReplaceChild("parched_clothes", CubeListBuilder.create().texOffs(0, 32).addBox(1.0F, -7.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.2F)), PartPose.offset(0.0F, 23.0F, 0.0F));
+
+		PartDefinition bodywear_r1 = parched_clothes.addOrReplaceChild("bodywear_r1", CubeListBuilder.create().texOffs(16, 48).addBox(0.0F, -10.0F, -4.5F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.2F)), PartPose.offsetAndRotation(-6.0F, 0.0F, -3.0F, -1.1961F, 0.2291F, -0.5236F));
 
 		PartDefinition haunter_parts = partdefinition.addOrReplaceChild("haunter_parts", CubeListBuilder.create().texOffs(47, 7).mirror().addBox(1.999F, -4.0F, -8.0F, 3.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(36, 3).mirror().addBox(3.5F, -1.5F, -7.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 24.0F, 0.0F));
@@ -65,9 +81,11 @@ public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends En
 
 	@Override
 	public void setupAnim(BrokenSkeletonRenderState entity) {
+		this.regular_broken.visible = entity.skeletonType != BonesRegistry.KNIGHT_SKELETON.type();
+		this.knight_broken.visible = entity.skeletonType == BonesRegistry.KNIGHT_SKELETON.type();
 		this.haunter_parts.visible = entity.skeletonType == BonesRegistry.HAUNTER_SKELETON.type();
 		this.mushrooms.visible = entity.skeletonType == EntityType.BOGGED && !entity.boggedIsSheared;
-		this.outer_clothes.visible = entity.skeletonType == EntityType.PARCHED || entity.skeletonType == EntityType.BOGGED;
+		this.parched_clothes.visible = entity.skeletonType == EntityType.PARCHED || entity.skeletonType == EntityType.BOGGED;
 
 		super.setupAnim(entity);
 	}
