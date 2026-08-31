@@ -3,6 +3,7 @@ package com.sh1nylabs.bonesupdate;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.BrokenSkeleton;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Grabber;
 import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.Minion;
+import com.sh1nylabs.bonesupdate.registerer.BUEnchantmentHelper;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import com.sh1nylabs.bonesupdate.registerer.BUModIdentifier;
 import net.minecraft.core.BlockPos;
@@ -16,6 +17,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -36,6 +39,7 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Supplier;
 
 @Mod(BUModIdentifier.MODID)
@@ -77,6 +81,13 @@ public class BonesUpdate
                 output.accept(BonesRegistry.HAUNTER_SKELETON.egg());
                 output.accept(BonesRegistry.NECROMANCER.egg());
                 output.accept(BonesRegistry.REAPER.egg());
+                parameters.holders().lookup(Registries.ENCHANTMENT).ifPresent(reference -> {
+                    for (BUEnchantmentHelper bonesEnchantment : List.of(BonesRegistry.SERENITY, BonesRegistry.SUBALTERN, BonesRegistry.LEADER))
+                    {
+                        EnchantmentInstance enchantment = new EnchantmentInstance(reference.getOrThrow(bonesEnchantment.ench()), 1);
+                        output.accept(EnchantmentHelper.createBook(enchantment));
+                    }
+                });
             }).build());
 
     public BonesUpdate(IEventBus modEventBus, ModContainer modContainer) {
