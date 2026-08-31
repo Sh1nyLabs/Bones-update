@@ -15,7 +15,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "bonesupdate:textures/gui/advancements/backgrounds/bonesupdate.png",
+    "background": "bonesupdate:gui/advancements/backgrounds/bonesupdate",
     "description": {
       "translate": "advancements.bonesupdate.root.description"
     },
