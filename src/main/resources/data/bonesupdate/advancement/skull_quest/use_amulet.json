@@ -13,11 +13,25 @@
           "type": "bonesupdate:broken_skeleton"
         }
       }
+    },
+    "used_on_broken_wither_skeleton": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_wither_skeleton"
+        }
+      }
     }
   },
   "requirements": [
     [
-      "used_on_broken_skeleton"
+      "used_on_broken_skeleton",
+      "used_on_broken_wither_skeleton"
     ]
   ],
   "display": {

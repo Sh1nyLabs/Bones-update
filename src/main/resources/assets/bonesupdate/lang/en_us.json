@@ -66,15 +66,19 @@
   "advancements.necromancy.find_weeping_willow_tree.title": "Meeting Under The Tree",
   "advancements.necromancy.find_weeping_willow_tree.description": "Find a Weeping Willow Tree, and meet there someone special",
   "advancements.necromancy.friends_or_foes.title":"Friends Or Foes",
-  "advancements.necromancy.friends_or_foes.description": "Become friend with a particular skeleton",
+  "advancements.necromancy.friends_or_foes.description": "Use a Necromancer Scepter enchanted with Subaltern on a Knight or Haunter Skeleton",
   "advancements.necromancy.hurt_friendly_skeleton.title": "Traitor",
   "advancements.necromancy.hurt_friendly_skeleton.description": "Hurt a skeleton who thought he was your friend",
   "advancements.necromancy.kill_a_necromancer.title": "Forbidden Skills",
   "advancements.necromancy.kill_a_necromancer.description": "Kill a necromancer",
   "advancements.necromancy.rest_in_peace.title": "Rest In Peace",
-  "advancements.necromancy.rest_in_peace.description": "Use a special tool on a grave...",
+  "advancements.necromancy.rest_in_peace.description": "Use a special tool enchanted with Serenity on a grave...",
   "advancements.necromancy.whos_the_necromancer_now.title": "Who's The Necromancer Now?",
-  "advancements.necromancy.whos_the_necromancer_now.description": "Bring back to life a huge amount of minions at once",
+  "advancements.necromancy.whos_the_necromancer_now.description": "Use a Necromancer Scepter enchanted with Leader",
+  "advancements.necromancy.amulet_crafter.title": "Amulet Crafter",
+  "advancements.necromancy.amulet_crafter.description": "Use a Soul Orb and other materials to craft an Amulet",
+  "advancements.necromancy.necromancer_scepter_crafter.title": "Necromancer Scepter Crafter",
+  "advancements.necromancy.necromancer_scepter_crafter.description": "Use a Soul Orb and other materials to craft a Necromancer Scepter",
 
   "advancements.skull_quest.kill_all_bones_monsters.title": "Bestiary Complete",
   "advancements.skull_quest.kill_all_bones_monsters.description": "Kill each new monster specimen",
@@ -85,7 +89,7 @@
   "advancements.skull_quest.untouchable.title": "Untouchable",
   "advancements.skull_quest.untouchable.description": "Collect in your inventory a spear and a scepter",
   "advancements.skull_quest.use_amulet.title": "Soul Extraction",
-  "advancements.skull_quest.use_amulet.description": "Find a way to get loot from a broken skeleton",
+  "advancements.skull_quest.use_amulet.description": "Use an amulet on a broken skeleton, and get its loot",
   "advancements.skull_quest.use_amulet_all_skeletons.description": "Reign Over Them",
-  "advancements.skull_quest.use_amulet_all_skeletons.title": "Use your amulet on every skeleton"
+  "advancements.skull_quest.use_amulet_all_skeletons.title": "Use your amulet on every broken skeleton"
 }

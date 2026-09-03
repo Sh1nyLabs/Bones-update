@@ -1,5 +1,5 @@
 {
-  "parent": "bonesupdate:necromancy/kill_a_necromancer",
+  "parent": "bonesupdate:necromancy/amulet_crafter",
   "criteria": {
     "grave_not_haunted": {
       "conditions": {

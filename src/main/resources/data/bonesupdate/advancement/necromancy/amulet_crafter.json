@@ -1,0 +1,33 @@
+{
+  "parent": "bonesupdate:necromancy/kill_a_necromancer",
+  "criteria": {
+    "bonesupdate:inventory_items": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bonesupdate:amulet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.necromancy.amulet_crafter.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "bonesupdate:amulet"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.necromancy.amulet_crafter.title"
+    }
+  }
+}
