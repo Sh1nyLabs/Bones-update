@@ -41,11 +41,43 @@ import com.mojang.logging.LogUtils;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
+/* Changes for update publication
 
+# Bones Update has new content and many fixes!
+
+## Parched (new official Skeleton Mob) can become broken
+
+- broken form implemented. Parched (when broken) does not burn under daylight.
+
+## Improved designs and broken skeleton spawn mechanisms
+
+- Parched, Bogged (broken form) now have their textures completely copied for the broken form, getting a better render for the broken form.
+- Knight Skeleton model slightly improved, to look stronger.
+- Knight Skeleton (broken form) now renders its claw to be easily recognized.
+
+## Items small rework
+
+- haunter spear now uses official Spear implementations (similar to Iron Spear)
+- reworked rendering for Necromancer Scepter and Haunter Spear (render model for inventory items)
+
+## Advancements reworked
+
+- Telling when an advancement requires a specific item and / or a specific enchantment.
+- Added more advancements for play experience: advancement to craft amulet and necromancer scepter.
+- Advancement tree slightly reworked to be consistent with the new advancements.
+
+## Small other improvements
+- Wither skeleton now spawns as broken in soul sand valley.
+- Bones Update enchantment books are now added to the Bones Update Creative Mod Tab
+
+ */
 @Mod(BUModIdentifier.MODID)
 public class BonesUpdate
 {
     /**
+     * Parched can currently become broken, but it would burn under daylight!!
+     *
+     *
      */
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> BONESUPDATE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BUModIdentifier.MODID);
@@ -77,6 +109,7 @@ public class BonesUpdate
                 output.accept(BonesRegistry.MINION.egg());
                 output.accept(BonesRegistry.BROKEN_SKELETON.egg());
                 output.accept(BonesRegistry.BROKEN_WITHER_SKELETON.egg());
+                output.accept(BonesRegistry.BROKEN_PARCHED.egg());
                 output.accept(BonesRegistry.KNIGHT_SKELETON.egg());
                 output.accept(BonesRegistry.HAUNTER_SKELETON.egg());
                 output.accept(BonesRegistry.NECROMANCER.egg());

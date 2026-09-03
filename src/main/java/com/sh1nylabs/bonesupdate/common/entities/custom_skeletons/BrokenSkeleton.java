@@ -55,7 +55,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
             List.of(EntityType.SKELETON, BonesRegistry.KNIGHT_SKELETON.type(), BonesRegistry.HAUNTER_SKELETON.type());
     private static int SIZE_OVERWORLD_DEFAULT_VARIANTS = OVERWORLD_DEFAULT_VARIANTS.size();
 
-    public BrokenSkeleton(EntityType<? extends AbstractSkeleton> type, Level level) {
+    public BrokenSkeleton(EntityType<? extends BrokenSkeleton> type, Level level) {
         super(type, level);
     }
 
@@ -140,6 +140,9 @@ public class BrokenSkeleton extends AbstractSkeleton {
         {
             this.spawnAtLocation(level, Items.SKELETON_SKULL);
         }
+        if (getSkeletonType() == EntityType.WITHER_SKELETON)
+            this.spawnAtLocation(level, Items.WITHER_SKELETON_SKULL);
+
         if (playerGotAmulet) {
             this.spawnAtLocation(level, BonesRegistry.SKELETON_SOUL.item());
         }
@@ -232,25 +235,25 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     public EntityType<? extends AbstractSkeleton> getSkeletonType() {
         return switch (this.entityData.get(DATA_ID_TYPE_VARIANT)) { /* case 1 is SKELETON */
-            case 2 -> EntityType.STRAY;
-            case 3 -> EntityType.WITHER_SKELETON;
-            case 4 -> BonesRegistry.HAUNTER_SKELETON.type();
-            case 5 -> BonesRegistry.KNIGHT_SKELETON.type();
-            case 6 -> EntityType.BOGGED;
-            case 7 -> EntityType.PARCHED;
+            case BrokenSkeletonVariants.STRAY -> EntityType.STRAY;
+            case BrokenSkeletonVariants.WITHER_SKELETON -> EntityType.WITHER_SKELETON;
+            case BrokenSkeletonVariants.HAUNTER_SKELETON -> BonesRegistry.HAUNTER_SKELETON.type();
+            case BrokenSkeletonVariants.KNIGHT_SKELETON -> BonesRegistry.KNIGHT_SKELETON.type();
+            case BrokenSkeletonVariants.BOGGED -> EntityType.BOGGED;
+            case BrokenSkeletonVariants.PARCHED -> EntityType.PARCHED;
             default -> EntityType.SKELETON;
         };
     }
 
-    public final void setSkeletonType(EntityType<? extends AbstractSkeleton> skeletonType) {
+    public void setSkeletonType(EntityType<? extends AbstractSkeleton> skeletonType) {
         this.entityData.set(DATA_ID_TYPE_VARIANT, switch (skeletonType.toString()) {
-            case "entity.minecraft.stray" -> 2;
-            case "entity.minecraft.wither_skeleton" -> 3;
-            case "entity.bonesupdate.haunter_skeleton" -> 4;
-            case "entity.bonesupdate.knight_skeleton" -> 5;
-            case "entity.minecraft.bogged" -> 6;
-            case "entity.minecraft.parched" -> 7;
-            default -> 1;
+            case "entity.minecraft.stray" -> BrokenSkeletonVariants.STRAY;
+            case "entity.minecraft.wither_skeleton" -> BrokenSkeletonVariants.WITHER_SKELETON;
+            case "entity.bonesupdate.haunter_skeleton" -> BrokenSkeletonVariants.HAUNTER_SKELETON;
+            case "entity.bonesupdate.knight_skeleton" -> BrokenSkeletonVariants.KNIGHT_SKELETON;
+            case "entity.minecraft.bogged" -> BrokenSkeletonVariants.BOGGED;
+            case "entity.minecraft.parched" -> BrokenSkeletonVariants.PARCHED;
+            default -> BrokenSkeletonVariants.SKELETON;
         });
     }
 
