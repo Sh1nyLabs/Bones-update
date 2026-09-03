@@ -93,6 +93,7 @@ public class BonesRegistry {
 
     public static final BUEntityHelper<BrokenSkeleton> BROKEN_SKELETON = new BUEntityHelper<>("broken_skeleton", EntityType.Builder.of(BrokenSkeleton::new,MobCategory.MONSTER).sized(0.6F,0.5F));
     public static final BUEntityHelper<BrokenWitherSkeleton> BROKEN_WITHER_SKELETON = new BUEntityHelper<>("broken_wither_skeleton", EntityType.Builder.of(BrokenWitherSkeleton::new,MobCategory.MONSTER).sized(0.6F,0.5F));
+    public static final BUEntityHelper<BrokenParched> BROKEN_PARCHED = new BUEntityHelper<>("broken_parched", EntityType.Builder.of(BrokenParched::new,MobCategory.MONSTER).sized(0.6F,0.5F));
     public static final BUEntityHelper<HaunterSkeleton> HAUNTER_SKELETON = new BUEntityHelper<>("haunter_skeleton", EntityType.Builder.of(HaunterSkeleton::new,MobCategory.MONSTER).sized(0.6F, 1.99F));
     public static final BUEntityHelper<KnightSkeleton> KNIGHT_SKELETON = new BUEntityHelper<>("knight_skeleton", EntityType.Builder.of(KnightSkeleton::new,MobCategory.MONSTER).sized(0.6F, 1.99F));
     public static final BUEntityHelper<Grabber> GRABBER = new BUEntityHelper<>("grabber", EntityType.Builder.of(Grabber::new,MobCategory.MONSTER).sized(0.7F ,1.6F).eyeHeight(1.5F));

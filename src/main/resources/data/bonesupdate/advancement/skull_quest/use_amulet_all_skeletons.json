@@ -111,6 +111,19 @@
           "nbt": "{Variant:7}"
         }
       }
+    },
+    "used_on_parched2": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_parched"
+        }
+      }
     }
   },
   "requirements": [
@@ -134,7 +147,8 @@
       "used_on_bogged"
     ],
     [
-      "used_on_parched"
+      "used_on_parched",
+      "used_on_parched2"
     ]
   ],
   "display": {

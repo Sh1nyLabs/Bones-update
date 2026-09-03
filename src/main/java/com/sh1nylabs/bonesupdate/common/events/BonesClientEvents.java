@@ -29,6 +29,7 @@ public class BonesClientEvents {
         event.registerEntityRenderer(BonesRegistry.HAUNTER_SKELETON.type(), HaunterSkeletonRenderer::new);
         event.registerEntityRenderer(BonesRegistry.BROKEN_SKELETON.type(), BrokenSkeletonRenderer::new);
         event.registerEntityRenderer(BonesRegistry.BROKEN_WITHER_SKELETON.type(), BrokenSkeletonRenderer::new);
+        event.registerEntityRenderer(BonesRegistry.BROKEN_PARCHED.type(), BrokenSkeletonRenderer::new);
     }
 
     @SubscribeEvent
@@ -41,6 +42,7 @@ public class BonesClientEvents {
         event.registerLayerDefinition(getLayerLocation(BonesRegistry.HAUNTER_SKELETON), HaunterSkeletonModel::createBodyLayer);
         event.registerLayerDefinition(getLayerLocation(BonesRegistry.BROKEN_SKELETON), BrokenSkeletonModel::createBodyLayer);
         event.registerLayerDefinition(getLayerLocation(BonesRegistry.BROKEN_WITHER_SKELETON), BrokenSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(getLayerLocation(BonesRegistry.BROKEN_PARCHED), BrokenSkeletonModel::createBodyLayer);
     }
 
     @SubscribeEvent

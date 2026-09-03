@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.illager.AbstractIllager;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.skeleton.Parched;
 import net.minecraft.world.entity.monster.skeleton.Skeleton;
 import net.minecraft.world.entity.monster.skeleton.WitherSkeleton;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
@@ -89,6 +90,8 @@ public class BonesModEvent {
                 BrokenSkeleton broken;
                 if (skeleton instanceof WitherSkeleton) {
                     broken = BonesRegistry.BROKEN_WITHER_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
+                } else if (skeleton instanceof Parched) {
+                    broken = BonesRegistry.BROKEN_PARCHED.type().create(svrLevel, EntitySpawnReason.CONVERSION);
                 } else {
                     broken = BonesRegistry.BROKEN_SKELETON.type().create(svrLevel, EntitySpawnReason.CONVERSION);
                 }
@@ -162,6 +165,7 @@ public class BonesModEvent {
             event.put(BonesRegistry.HAUNTER_SKELETON.type(), HaunterSkeleton.getCustomAttributes().build());
             event.put(BonesRegistry.BROKEN_SKELETON.type(), BrokenSkeleton.getCustomAttributes().build());
             event.put(BonesRegistry.BROKEN_WITHER_SKELETON.type(), BrokenWitherSkeleton.getCustomAttributes().build());
+            event.put(BonesRegistry.BROKEN_PARCHED.type(), BrokenWitherSkeleton.getCustomAttributes().build());
         }
 
         @SubscribeEvent
@@ -169,6 +173,7 @@ public class BonesModEvent {
             Set<EntityType<? extends Mob>> entityTypes = Set.of(BonesRegistry.KNIGHT_SKELETON.type(),
                                               BonesRegistry.BROKEN_SKELETON.type(),
                                               BonesRegistry.BROKEN_WITHER_SKELETON.type(),
+                                              BonesRegistry.BROKEN_PARCHED.type(),
                                               BonesRegistry.GRABBER.type(),
                                               BonesRegistry.HAUNTER_SKELETON.type(),
                                               BonesRegistry.NECROMANCER.type());
