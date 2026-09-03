@@ -5,7 +5,6 @@ import com.sh1nylabs.bonesupdate.common.entities.custom_skeletons.*;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Necromancer;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import com.sh1nylabs.bonesupdate.common.items.AmuletItem;
-import com.sh1nylabs.bonesupdate.common.items.HaunterSpearItem;
 import com.sh1nylabs.bonesupdate.common.items.NecroScepterItem;
 import com.sh1nylabs.bonesupdate.common.items.SoulItem;
 import net.minecraft.core.HolderLookup;
@@ -16,14 +15,21 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.EitherHolder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwingAnimationType;
-import net.minecraft.world.item.component.SwingAnimation;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -33,6 +39,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -122,12 +129,60 @@ public class BonesRegistry {
             new Item.Properties().stacksTo(64));
     public static final BUItemHelper HAUNTER_BLADE = new BUItemHelper("haunter_blade", Item::new,
             new Item.Properties().stacksTo(64));
-    public static final BUItemHelper HAUNTER_SPEAR = new BUItemHelper("haunter_spear", HaunterSpearItem::new,
-            new Item.Properties().durability(100)
-                    .component(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, 20))
-                    .attributes(HaunterSpearItem.createAttributes()));
-    public static final BUItemHelper NECRO_SCEPTER_INVENTORY = new BUItemHelper("necromancer_scepter_inventory", Item::new,
-            new Item.Properties());
+
+    public static Item.Properties haunterSpear(
+            float swingDuration,
+            float damageMultiplier,
+            float delay,
+            float dismountMaxDuration,
+            float dismountMinSpeed,
+            float knockbackMaxDuration,
+            float knockbackMinSpeed,
+            float damageMaxDuration,
+            float damageMinSpeed
+    ) {
+        return new Item.Properties().durability(ToolMaterial.IRON.durability())
+                .component(DataComponents.DAMAGE_TYPE, new EitherHolder<>(DamageTypes.SPEAR))
+                .component(
+                        DataComponents.KINETIC_WEAPON,
+                        new KineticWeapon(
+                                10,
+                                (int)(delay * 20.0F),
+                                KineticWeapon.Condition.ofAttackerSpeed((int)(dismountMaxDuration * 20.0F), dismountMinSpeed),
+                                KineticWeapon.Condition.ofAttackerSpeed((int)(knockbackMaxDuration * 20.0F), knockbackMinSpeed),
+                                KineticWeapon.Condition.ofRelativeSpeed((int)(damageMaxDuration * 20.0F), damageMinSpeed),
+                                0.38F,
+                                damageMultiplier,
+                                Optional.of(SoundEvents.SPEAR_USE),
+                                Optional.of(SoundEvents.SPEAR_HIT)
+                        )
+                )
+                .component(DataComponents.ATTACK_RANGE, new AttackRange(2.0F, 4.5F, 2.0F, 6.5F, 0.125F, 0.5F))
+                .component(DataComponents.MINIMUM_ATTACK_CHARGE, 1.0F)
+                .component(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, (int)(swingDuration * 20.0F)))
+                .attributes(
+                        ItemAttributeModifiers.builder()
+                                .add(
+                                        Attributes.ATTACK_DAMAGE,
+                                        new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 3.0D, AttributeModifier.Operation.ADD_VALUE),
+                                        EquipmentSlotGroup.MAINHAND
+                                )
+                                .add(
+                                        Attributes.ATTACK_SPEED,
+                                        new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, 1.0F / swingDuration - 4.0, AttributeModifier.Operation.ADD_VALUE),
+                                        EquipmentSlotGroup.MAINHAND
+                                )
+                                .add(
+                                        Attributes.ATTACK_KNOCKBACK,
+                                        new AttributeModifier(BUModIdentifier.fromModNamespace("base_knockback"),3.0D, AttributeModifier.Operation.ADD_VALUE),
+                                        EquipmentSlotGroup.MAINHAND)
+                                .build()
+                )
+                .component(DataComponents.USE_EFFECTS, new UseEffects(true, false, 1.0F))
+                .component(DataComponents.WEAPON, new Weapon(1));
+    }
+    public static final BUItemHelper HAUNTER_SPEAR = new BUItemHelper("haunter_spear", Item::new,
+            haunterSpear(0.95F, 0.95F, 0.6F, 2.5F, 8.0F, 6.75F, 5.1F, 11.25F, 4.6F));
 
     public static final BUItemHelper RED_BONE = new BUItemHelper("red_bone", Item::new,
             new Item.Properties());
