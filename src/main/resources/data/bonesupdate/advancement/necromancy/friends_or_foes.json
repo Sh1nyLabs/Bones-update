@@ -1,5 +1,5 @@
 {
-  "parent": "bonesupdate:necromancy/kill_a_necromancer",
+  "parent": "bonesupdate:necromancy/necromancer_scepter_crafter",
   "criteria":  {
     "used_on_haunter": {
       "trigger": "minecraft:player_interacted_with_entity",
@@ -72,7 +72,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id": "bonesupdate:necromancer_scepter_inventory"
+      "id": "bonesupdate:necromancer_scepter"
     },
     "show_toast": true,
     "title": {

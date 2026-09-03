@@ -29,7 +29,7 @@
         }
       }
     },
-    "used_on_wither_skeleton": {
+    "used_on_wither_skeleton1": {
       "trigger": "minecraft:player_interacted_with_entity",
       "conditions": {
         "item": {
@@ -40,6 +40,19 @@
         "entity": {
           "type": "bonesupdate:broken_skeleton",
           "nbt": "{Variant:3}"
+        }
+      }
+    },
+    "used_on_wither_skeleton2": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_wither_skeleton"
         }
       }
     },
@@ -84,6 +97,20 @@
           "nbt": "{Variant:6}"
         }
       }
+    },
+    "used_on_parched": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "bonesupdate:amulet"
+          ]
+        },
+        "entity": {
+          "type": "bonesupdate:broken_skeleton",
+          "nbt": "{Variant:7}"
+        }
+      }
     }
   },
   "requirements": [
@@ -94,7 +121,8 @@
       "used_on_stray"
     ],
     [
-      "used_on_wither_skeleton"
+      "used_on_wither_skeleton1",
+      "used_on_wither_skeleton2"
     ],
     [
       "used_on_haunter_skeleton"
@@ -104,6 +132,9 @@
     ],
     [
       "used_on_bogged"
+    ],
+    [
+      "used_on_parched"
     ]
   ],
   "display": {

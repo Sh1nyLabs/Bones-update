@@ -1,13 +1,12 @@
 {
-  "parent": "bonesupdate:root",
+  "parent": "bonesupdate:necromancy/kill_a_necromancer",
   "criteria": {
     "bonesupdate:inventory_items": {
       "conditions": {
         "items": [
           {
             "items": [
-              "bonesupdate:necromancer_scepter",
-              "bonesupdate:haunter_spear"
+              "bonesupdate:amulet"
             ]
           }
         ]
@@ -18,22 +17,17 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.skull_quest.untouchable.description"
+      "translate": "advancements.necromancy.amulet_crafter.description"
     },
     "frame": "task",
-    "hidden": true,
+    "hidden": false,
     "icon": {
       "count": 1,
-      "id": "bonesupdate:necromancer_scepter"
+      "id": "bonesupdate:amulet"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.skull_quest.untouchable.title"
+      "translate": "advancements.necromancy.amulet_crafter.title"
     }
-  },
-  "requirements": [
-    [
-      "bonesupdate:inventory_items"
-    ]
-  ]
+  }
 }

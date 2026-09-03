@@ -66,15 +66,19 @@
   "advancements.necromancy.find_weeping_willow_tree.title": "Встреча под деревом",
   "advancements.necromancy.find_weeping_willow_tree.description": "Найти Плакучая ива дерево и встретить там кого-то особенного",
   "advancements.necromancy.friends_or_foes.title":"Друзья или враги",
-  "advancements.necromancy.friends_or_foes.description": "Подружитесь с определенным скелетом",
+  "advancements.necromancy.friends_or_foes.description": "Примените скипетр некроманта, зачарованный заклинанием Подчиненные, к скелету-рыцарю или скелету-призраку",
   "advancements.necromancy.hurt_friendly_skeleton.title": "Предатель",
   "advancements.necromancy.hurt_friendly_skeleton.description": "Раните скелета, который считал себя вашим другом.",
   "advancements.necromancy.kill_a_necromancer.title": "Запрещенные навыки",
   "advancements.necromancy.kill_a_necromancer.description": "Убить некроманта",
   "advancements.necromancy.rest_in_peace.title": "Покойся с миром",
-  "advancements.necromancy.rest_in_peace.description": "Используйте специальный инструмент на могиле...",
+  "advancements.necromancy.rest_in_peace.description": "Примените специальный инструмент, зачарованный заклинанием Безмятежность, к могиле...",
   "advancements.necromancy.whos_the_necromancer_now.title": "Кто теперь некромант?",
-  "advancements.necromancy.whos_the_necromancer_now.description": "Верните к жизни сразу огромное количество миньонов",
+  "advancements.necromancy.whos_the_necromancer_now.description": "Примените скипетр некроманта, зачарованный заклинанием Лидер",
+  "advancements.necromancy.amulet_crafter.title": "Мастер по изготовлению амулетов",
+  "advancements.necromancy.amulet_crafter.description": "Используйте «Сферу души» и другие материалы, чтобы изготовить амулет",
+  "advancements.necromancy.necromancer_scepter_crafter.title": "Мастер по изготовлению скипетров некроманта",
+  "advancements.necromancy.necromancer_scepter_crafter.description": "Используйте «Сферу души» и другие материалы, чтобы изготовить скипетр некроманта",
 
   "advancements.skull_quest.kill_all_bones_monsters.title": "Бестиарий завершен",
   "advancements.skull_quest.kill_all_bones_monsters.description": "Убейте каждую новую особь монстра",
@@ -85,5 +89,7 @@
   "advancements.skull_quest.untouchable.title": "Неприкасаемый",
   "advancements.skull_quest.untouchable.description": "Соберите в инвентаре копье и скипетр.",
   "advancements.skull_quest.use_amulet.title": "Извлечение души",
-  "advancements.skull_quest.use_amulet.description": "Найдите способ получить добычу с разбитого скелета"
+  "advancements.skull_quest.use_amulet.description": "Примените амулет к разбитому скелету и заберите его добычу",
+  "advancements.skull_quest.use_amulet_all_skeletons.description": "Возглавьте их",
+  "advancements.skull_quest.use_amulet_all_skeletons.title": "Применяйте амулет ко всем разбитым скелетам"
 }

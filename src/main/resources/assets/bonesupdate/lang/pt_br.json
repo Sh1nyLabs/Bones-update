@@ -66,15 +66,19 @@
   "advancements.necromancy.find_weeping_willow_tree.title": "Reunião embaixo da árvore",
   "advancements.necromancy.find_weeping_willow_tree.description": "Encontre um Weeping Willow Tree e encontre alguém especial",
   "advancements.necromancy.friends_or_foes.title":"Amigos ou inimigos",
-  "advancements.necromancy.friends_or_foes.description": "Tornar-se amigo de um esqueleto específico",
+  "advancements.necromancy.friends_or_foes.description": "Use um Cetro de Necromante encantado com Subalterno em um Cavaleiro ou Esqueleto Assombrado",
   "advancements.necromancy.hurt_friendly_skeleton.title": "Traidor",
   "advancements.necromancy.hurt_friendly_skeleton.description": "Ferir um esqueleto que pensava ser seu amigo",
   "advancements.necromancy.kill_a_necromancer.title": "Habilidades proibidas",
   "advancements.necromancy.kill_a_necromancer.description": "Matar um necromante",
   "advancements.necromancy.rest_in_peace.title": "Descanse em paz",
-  "advancements.necromancy.rest_in_peace.description": "Use uma ferramenta especial em um túmulo...v",
+  "advancements.necromancy.rest_in_peace.description": "Use uma ferramenta especial encantada com Serenidade em uma sepultura...",
   "advancements.necromancy.whos_the_necromancer_now.title": "Quem é o Necromante agora?",
-  "advancements.necromancy.whos_the_necromancer_now.description": "Trazer de volta à vida uma grande quantidade de lacaios de uma só vez",
+  "advancements.necromancy.whos_the_necromancer_now.description": "Use um Cetro de Necromante encantado com Líder",
+  "advancements.necromancy.amulet_crafter.title": "Criador de Amuletos",
+  "advancements.necromancy.amulet_crafter.description": "Use um Orbe de Alma e outros materiais para criar um Amuleto",
+  "advancements.necromancy.necromancer_scepter_crafter.title": "Criador de Cetros de Necromante",
+  "advancements.necromancy.necromancer_scepter_crafter.description": "Use um Orbe de Alma e outros materiais para criar um Cetro de Necromante",
 
   "advancements.skull_quest.kill_all_bones_monsters.title": "Bestiário completo",
   "advancements.skull_quest.kill_all_bones_monsters.description": "Mate cada novo espécime de monstro",
@@ -85,5 +89,7 @@
   "advancements.skull_quest.untouchable.title": "Intocável",
   "advancements.skull_quest.untouchable.description": "Tenha em seu inventário uma lança e um cetro",
   "advancements.skull_quest.use_amulet.title": "Extração de Alma",
-  "advancements.skull_quest.use_amulet.description": "Encontre uma maneira de obter o saque de um esqueleto quebrado"
+  "advancements.skull_quest.use_amulet.description": "Use um amuleto em um esqueleto destruído e pegue o saque dele",
+  "advancements.skull_quest.use_amulet_all_skeletons.description": "Reine sobre eles",
+  "advancements.skull_quest.use_amulet_all_skeletons.title": "Use seu amuleto em todos os esqueletos destruídos"
 }
