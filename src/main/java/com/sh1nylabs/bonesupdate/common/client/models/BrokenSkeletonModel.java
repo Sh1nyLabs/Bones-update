@@ -19,7 +19,7 @@ public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends En
 	private final ModelPart knight_broken;
 	private final ModelPart head;
 	private final ModelPart claw;
-	private final ModelPart parched_clothes;
+	private final ModelPart outer_clothes;
 	private final ModelPart haunter_parts;
 	private final ModelPart right_hand;
 	private final ModelPart mushrooms;
@@ -30,7 +30,7 @@ public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends En
 		this.knight_broken = root.getChild("knight_broken");
 		this.head = this.knight_broken.getChild("head");
 		this.claw = this.head.getChild("claw");
-		this.parched_clothes = root.getChild("parched_clothes");
+		this.outer_clothes = root.getChild("parched_clothes");
 		this.haunter_parts = root.getChild("haunter_parts");
 		this.right_hand = root.getChild("right_hand");
 		this.mushrooms = root.getChild("mushrooms");
@@ -85,7 +85,9 @@ public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends En
 		this.knight_broken.visible = entity.skeletonType == BonesRegistry.KNIGHT_SKELETON.type();
 		this.haunter_parts.visible = entity.skeletonType == BonesRegistry.HAUNTER_SKELETON.type();
 		this.mushrooms.visible = entity.skeletonType == EntityType.BOGGED && !entity.boggedIsSheared;
-		this.parched_clothes.visible = entity.skeletonType == EntityType.PARCHED || entity.skeletonType == EntityType.BOGGED;
+		this.outer_clothes.visible = entity.skeletonType == EntityType.PARCHED
+				|| entity.skeletonType == EntityType.BOGGED
+				|| entity.skeletonType == EntityType.STRAY;
 
 		super.setupAnim(entity);
 	}
