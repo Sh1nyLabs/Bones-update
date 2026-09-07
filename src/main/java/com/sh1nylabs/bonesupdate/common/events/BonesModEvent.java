@@ -22,19 +22,14 @@ import net.minecraft.world.entity.monster.skeleton.Parched;
 import net.minecraft.world.entity.monster.skeleton.Skeleton;
 import net.minecraft.world.entity.monster.skeleton.WitherSkeleton;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
-import net.minecraft.world.entity.npc.villager.VillagerProfession;
-import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.ItemCost;
-import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -128,19 +123,6 @@ public class BonesModEvent {
         public static void KnightSkeletonDamageIncreased(LivingHurtEvent event) {
             if (event.getSource().getEntity() instanceof KnightSkeleton knight && knight.isDashing()) {
                 event.setAmount(event.getAmount() + KnightSkeleton.DASH_BONUS_DAMAGE);
-            }
-        }
-
-        @SubscribeEvent
-        public static void addVillagerTradesEvent(VillagerTradesEvent event){
-            if (event.getType() == VillagerProfession.CLERIC){
-                event.getTrades().get(2).add(new VillagerTrades.EmeraldForItems(BonesRegistry.SKELETON_SOUL.item(), 2, 12, 12));
-                event.getTrades().get(5).add(new VillagerTrades.ItemListing() {
-                    @Override
-                    public MerchantOffer getOffer(ServerLevel svrLevel, Entity entity, RandomSource rdmSource) {
-                        return new MerchantOffer(new ItemCost(BonesRegistry.SKELETON_SOUL.item(), 4), Optional.of(new ItemCost(BonesRegistry.BLADE.item(),1)), new ItemStack(BonesRegistry.HAUNTER_BLADE.item()), 12, 12, 0.2F);
-                    }
-                });
             }
         }
     }
