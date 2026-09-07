@@ -6,8 +6,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 public class ParticleSoul extends SingleQuadParticle {
@@ -16,7 +14,7 @@ public class ParticleSoul extends SingleQuadParticle {
         super(level, pos_x, pos_y, pos_z, xd, yd, zd, sprite.first());
         this.quadSize *= 0.85F;
         this.friction = 0.55F;
-        this.lifetime = 10+level.random.nextInt(3);
+        this.lifetime = 10+level.getRandom().nextInt(3);
 
         this.xd = xd;
         this.yd = yd;
@@ -32,7 +30,6 @@ public class ParticleSoul extends SingleQuadParticle {
         return SingleQuadParticle.Layer.OPAQUE;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         public SpriteSet sprite;
         public Provider(SpriteSet sprite) {this.sprite = sprite;}

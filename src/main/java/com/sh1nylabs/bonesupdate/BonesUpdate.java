@@ -133,7 +133,6 @@ public class BonesUpdate
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        BuildCreativeModeTabContentsEvent.getBus(modBusGroup).addListener(this::addCreative);
         FMLCommonSetupEvent.getBus(modBusGroup).addListener(this::commonSetup);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, BUConfig.SPEC);
