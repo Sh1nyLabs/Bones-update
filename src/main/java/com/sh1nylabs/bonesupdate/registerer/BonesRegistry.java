@@ -25,7 +25,6 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.EitherHolder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwingAnimationType;
 import net.minecraft.world.item.ToolMaterial;
@@ -143,7 +142,7 @@ public class BonesRegistry {
             float damageMinSpeed
     ) {
         return new Item.Properties().durability(ToolMaterial.IRON.durability())
-                .component(DataComponents.DAMAGE_TYPE, new EitherHolder<>(DamageTypes.SPEAR))
+                .delayedHolderComponent(DataComponents.DAMAGE_TYPE, DamageTypes.SPEAR)
                 .component(
                         DataComponents.KINETIC_WEAPON,
                         new KineticWeapon(

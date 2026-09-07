@@ -15,9 +15,10 @@ import java.util.function.Function;
 import static com.sh1nylabs.bonesupdate.registerer.BonesRegistry.*;
 
 public class BUBlockHelper<T extends BlockEntity> {
+
     private final DeferredHolder<Block, Block> block;
     private final DeferredHolder<Item, BlockItem> item;
-    private final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BlockEntity>> blockEntity;
+    private final DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> blockEntity;
 
     public BUBlockHelper(String name, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties blockProperties) {
         block = BU_BLOCKS.register(name, () -> function.apply(blockProperties.setId(ResourceKey.create(BU_BLOCKS.getRegistryKey(), BUModIdentifier.fromModNamespace(name)))));
@@ -26,11 +27,11 @@ public class BUBlockHelper<T extends BlockEntity> {
         blockEntity = null;
     }
 
-    public BUBlockHelper(String name, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties blockProperties, BlockEntityType.BlockEntitySupplier<? extends BlockEntity> blockEntity) {
+    public BUBlockHelper(String name, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties blockProperties, BlockEntityType.BlockEntitySupplier<T> blockEntity) {
         block = BU_BLOCKS.register(name, () -> function.apply(blockProperties.setId(ResourceKey.create(BU_BLOCKS.getRegistryKey(), BUModIdentifier.fromModNamespace(name)))));
         item = BU_ITEMS.register(name,
                 () -> new BlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(BU_ITEMS.getRegistryKey(), BUModIdentifier.fromModNamespace(name)))));
-        this.blockEntity = BU_BLOCK_ENTITIES.register(name+"_entity", () -> new BlockEntityType<>(blockEntity, Set.of(block.get())));
+        this.blockEntity = BU_BLOCK_ENTITIES.register(name+"_entity", () -> new BlockEntityType<T>(blockEntity, Set.of(block.get())));
     }
 
     public Block block() {
@@ -38,7 +39,7 @@ public class BUBlockHelper<T extends BlockEntity> {
     }
 
     public BlockItem item() { return item.get();}
-    public BlockEntityType<? extends BlockEntity> blockEntity() { return blockEntity.get();}
+    public BlockEntityType<T> blockEntity() { return blockEntity.get();}
 
 
 }
