@@ -6,11 +6,15 @@ import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -44,27 +48,21 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
         valueOutput.putInt("NecromancerDelay", necromancerDelay);
     }
 
-    public void blockEntityTicker(Level level, BlockPos pos, BlockState blockState) {
+    public static void serverTick(final Level level, final BlockPos blockPos, final BlockState state, final GraveBlockEntity graveBlockEntity) {
         RandomSource rdmSequence = level.getRandom();
 
-        if (level.isClientSide()) {
-            if (blockState.getValue(HAUNTED) && level.random.nextDouble()<0.07) {
-                level.addParticle(ParticleTypes.SMOKE, pos.getX()+level.random.nextDouble(), pos.getY() + 0.2D, pos.getZ()+level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
-            }
-        } else {
-            if (blockState.getValue(HAUNTED) && rdmSequence.nextInt(SPAWN_PROBABILITY) == 0) {
-                readyToSpawn = true;
-            }
+        if (graveBlockEntity.getBlockState().getValue(HAUNTED) && rdmSequence.nextInt(SPAWN_PROBABILITY) == 0) {
+            graveBlockEntity.readyToSpawn = true;
+        }
 
-            if (necromancerDelay >= 0) {
-                necromancerDelay--;
-            }
-            if (readyToSummon() & ( necromancerDelay == 0
-                    || ((level.getBrightness(LightLayer.SKY,pos)-level.getSkyDarken())<(5+rdmSequence.nextInt(4))))) {
-                this.summonMinion((ServerLevel)level, rdmSequence,
-                        1+rdmSequence.nextInt(SPAWN_COUNT-1),
-                        getBlockPos(), EntitySpawnReason.SPAWNER, new Minion.MinionData(this));
-            }
+        if (graveBlockEntity.necromancerDelay >= 0) {
+            graveBlockEntity.necromancerDelay--;
+        }
+        if (graveBlockEntity.readyToSummon() & ( graveBlockEntity.necromancerDelay == 0
+                || ((level.getBrightness(LightLayer.SKY,blockPos)-level.getSkyDarken())<(5+rdmSequence.nextInt(4))))) {
+            graveBlockEntity.summonMinion((ServerLevel)level, rdmSequence,
+                    1+rdmSequence.nextInt(SPAWN_COUNT-1),
+                    graveBlockEntity.getBlockPos(), EntitySpawnReason.SPAWNER, new Minion.MinionData(graveBlockEntity));
         }
     }
 

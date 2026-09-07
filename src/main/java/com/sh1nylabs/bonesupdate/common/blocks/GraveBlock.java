@@ -1,11 +1,14 @@
 package com.sh1nylabs.bonesupdate.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import com.sh1nylabs.bonesupdate.common.entities.necromancy.Reaper;
 import com.sh1nylabs.bonesupdate.registerer.BonesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -15,9 +18,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,7 +37,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class GraveBlock extends Block implements EntityBlock {
+public class GraveBlock extends BaseEntityBlock {
+    public static final MapCodec<GraveBlock> CODEC = simpleCodec(GraveBlock::new);
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty HAUNTED=BooleanProperty.create("haunted");
     private static final int REAPER_SPAWN_LIKELIHOOD = 4;
@@ -49,6 +52,13 @@ public class GraveBlock extends Block implements EntityBlock {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HAUNTED,true));
     }
+
+
+    @Override
+    public MapCodec<GraveBlock> codec() {
+        return CODEC;
+    }
+
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockState) {
         blockState.add(FACING,HAUNTED);
     }
@@ -70,14 +80,20 @@ public class GraveBlock extends Block implements EntityBlock {
     public BlockEntity newBlockEntity(BlockPos position, BlockState state) {
         return new GraveBlockEntity(position,state);
     }
-    @Nullable
+
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return ( (level1,pos,blockState,blockEntity)->{
-            if (blockEntity instanceof GraveBlockEntity grave) {
-                grave.blockEntityTicker(level1,pos,blockState);
-            }
-        });
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(final Level level, final BlockState blockState, final BlockEntityType<T> type) {
+        return level.isClientSide() ? null : createTickerHelper(type, BonesRegistry.GRAVE_BLOCK.blockEntity(), GraveBlockEntity::serverTick);
+    }
+
+    @Override
+    public void animateTick(final BlockState state, final Level level, final BlockPos pos, final RandomSource random)
+    {
+        RandomSource rdmSequence = level.getRandom();
+
+        if (state.getValue(HAUNTED) && rdmSequence.nextDouble()<0.07) {
+            level.addParticle(ParticleTypes.SMOKE, pos.getX()+rdmSequence.nextDouble(), pos.getY() + 0.2D, pos.getZ()+rdmSequence.nextDouble(), 0.0D, 0.0D, 0.0D);
+        }
     }
 
     public void playerDestroy(Level level, Player player, BlockPos blockPos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
