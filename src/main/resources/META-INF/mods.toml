@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[62,)"
+loaderVersion="[63,)"
 license="All Rights Reserved"
 
 [[mods]]
@@ -12,13 +12,13 @@ description='''Explore a world where skeletons decided to come back to life to d
 [[dependencies.bonesupdate]]
 modId="forge"
 mandatory=true
-versionRange="[62,)"
+versionRange="[63,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.bonesupdate]]
 modId="minecraft"
 mandatory=true
-versionRange="[26.1,26.2,)"
+versionRange="[26.1.1,26.2,)"
 ordering="NONE"
 side="BOTH"
