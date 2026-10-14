@@ -14,7 +14,7 @@ public class ParticleSoul extends SingleQuadParticle {
         super(level, pos_x, pos_y, pos_z, xd, yd, zd, sprite.first());
         this.quadSize *= 0.85F;
         this.friction = 0.55F;
-        this.lifetime = 10+level.random.nextInt(3);
+        this.lifetime = 10+level.getRandom().nextInt(3);
 
         this.xd = xd;
         this.yd = yd;

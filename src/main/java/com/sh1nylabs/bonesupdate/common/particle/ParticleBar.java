@@ -14,7 +14,7 @@ public class ParticleBar extends SingleQuadParticle {
         super(level, pos_x, pos_y, pos_z, xd, yd, zd, sprite.first());
         this.quadSize *= 0.85F;
         this.friction = 0.99F;
-        this.lifetime = 12+level.random.nextInt(5);
+        this.lifetime = 12+level.getRandom().nextInt(5);
 
         this.xd = xd;
         this.yd = yd;

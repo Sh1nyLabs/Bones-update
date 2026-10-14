@@ -48,8 +48,8 @@ public class GraveBlockEntity extends BlockEntity implements CanSummonMinions {
         RandomSource rdmSequence = level.getRandom();
 
         if (level.isClientSide()) {
-            if (blockState.getValue(HAUNTED) && level.random.nextDouble()<0.07) {
-                level.addParticle(ParticleTypes.SMOKE, pos.getX()+level.random.nextDouble(), pos.getY() + 0.2D, pos.getZ()+level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
+            if (blockState.getValue(HAUNTED) && level.getRandom().nextDouble()<0.07) {
+                level.addParticle(ParticleTypes.SMOKE, pos.getX()+level.getRandom().nextDouble(), pos.getY() + 0.2D, pos.getZ()+level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
             }
         } else {
             if (blockState.getValue(HAUNTED) && rdmSequence.nextInt(SPAWN_PROBABILITY) == 0) {
