@@ -139,11 +139,6 @@ public class BonesModEvent {
     public static class BonesCommonEvents {
 
         @SubscribeEvent
-        public static void gatherBonesData(GatherDataEvent.Client event) {
-            event.createProvider(BonesRegistry.BonesEntityTagsProvider::new);
-        }
-
-        @SubscribeEvent
         public static void entityAttributes(EntityAttributeCreationEvent event) {
             event.put(BonesRegistry.GRABBER.type(), Grabber.getCustomAttributes().build());
             event.put(BonesRegistry.MINION.type(), Minion.getCustomAttributes().build());

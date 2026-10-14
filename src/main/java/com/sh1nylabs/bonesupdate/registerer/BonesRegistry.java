@@ -202,24 +202,4 @@ public class BonesRegistry {
     public static final DeferredHolder<SoundEvent, SoundEvent> BROKEN_SKELETON_REVIVES =
             BU_SOUNDS.register("broken_skeleton_revives",
                     () -> SoundEvent.createVariableRangeEvent(BUModIdentifier.fromModNamespace("broken_skeleton_revives")));
-
-
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EntityTags %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
-
-    public static class BonesEntityTagsProvider extends EntityTypeTagsProvider {
-
-        public BonesEntityTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
-            super(output, provider);
-        }
-
-        public void addTags(HolderLookup.Provider provider) {
-            this.tag(EntityTypeTags.ILLAGER).add(NECROMANCER.type());
-            this.tag(EntityTypeTags.SKELETONS)
-                    .add(REAPER.type())
-                    .add(MINION.type())
-                    .add(GRABBER.type())
-                    .add(HAUNTER_SKELETON.type())
-                    .add(KNIGHT_SKELETON.type());
-        }
-    }
 }
