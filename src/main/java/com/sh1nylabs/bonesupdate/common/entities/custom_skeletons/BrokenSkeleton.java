@@ -52,7 +52,7 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     private static final EntityDataAccessor<Boolean> DATA_BOGGED_SHEARED = SynchedEntityData.defineId(BrokenSkeleton.class, EntityDataSerializers.BOOLEAN);
     private static final List<EntityType<? extends AbstractSkeleton>> OVERWORLD_DEFAULT_VARIANTS =
-            List.of(EntityType.SKELETON, BonesRegistry.KNIGHT_SKELETON.type(), BonesRegistry.HAUNTER_SKELETON.type());
+            List.of(EntityTypes.SKELETON, BonesRegistry.KNIGHT_SKELETON.type(), BonesRegistry.HAUNTER_SKELETON.type());
     private static int SIZE_OVERWORLD_DEFAULT_VARIANTS = OVERWORLD_DEFAULT_VARIANTS.size();
 
     public BrokenSkeleton(EntityType<? extends BrokenSkeleton> type, Level level) {
@@ -134,13 +134,13 @@ public class BrokenSkeleton extends AbstractSkeleton {
         boolean playerGotAmulet = (damageSource.getEntity() instanceof Player player &&
                 (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AmuletItem ||
                  player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AmuletItem));
-        if (getSkeletonType() == EntityType.SKELETON ||
+        if (getSkeletonType() == EntityTypes.SKELETON ||
             getSkeletonType() == BonesRegistry.KNIGHT_SKELETON.type() ||
             getSkeletonType() == BonesRegistry.HAUNTER_SKELETON.type())
         {
             this.spawnAtLocation(level, Items.SKELETON_SKULL);
         }
-        if (getSkeletonType() == EntityType.WITHER_SKELETON)
+        if (getSkeletonType() == EntityTypes.WITHER_SKELETON)
             this.spawnAtLocation(level, Items.WITHER_SKELETON_SKULL);
 
         if (playerGotAmulet) {
@@ -235,13 +235,13 @@ public class BrokenSkeleton extends AbstractSkeleton {
 
     public EntityType<? extends AbstractSkeleton> getSkeletonType() {
         return switch (this.entityData.get(DATA_ID_TYPE_VARIANT)) { /* case 1 is SKELETON */
-            case BrokenSkeletonVariants.STRAY -> EntityType.STRAY;
-            case BrokenSkeletonVariants.WITHER_SKELETON -> EntityType.WITHER_SKELETON;
+            case BrokenSkeletonVariants.STRAY -> EntityTypes.STRAY;
+            case BrokenSkeletonVariants.WITHER_SKELETON -> EntityTypes.WITHER_SKELETON;
             case BrokenSkeletonVariants.HAUNTER_SKELETON -> BonesRegistry.HAUNTER_SKELETON.type();
             case BrokenSkeletonVariants.KNIGHT_SKELETON -> BonesRegistry.KNIGHT_SKELETON.type();
-            case BrokenSkeletonVariants.BOGGED -> EntityType.BOGGED;
-            case BrokenSkeletonVariants.PARCHED -> EntityType.PARCHED;
-            default -> EntityType.SKELETON;
+            case BrokenSkeletonVariants.BOGGED -> EntityTypes.BOGGED;
+            case BrokenSkeletonVariants.PARCHED -> EntityTypes.PARCHED;
+            default -> EntityTypes.SKELETON;
         };
     }
 

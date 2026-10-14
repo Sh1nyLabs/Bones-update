@@ -3,6 +3,7 @@ package com.sh1nylabs.bonesupdate;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -62,12 +63,12 @@ public class BUConfig {
         skeletonBreakRandomChanceMin = Math.max(1, Math.min(SKELETON_BREAK_RANDOM_CHANCE_MIN.get(), 100));
         skeletonBreakRandomChanceMax = Math.max(SKELETON_BREAK_RANDOM_CHANCE_MIN.get(), Math.min(SKELETON_BREAK_RANDOM_CHANCE_MAX.get(), 100));
 
-        SKELETONS_PER_SQUAD_HARD.put(EntityType.SKELETON, BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(0));
+        SKELETONS_PER_SQUAD_HARD.put(EntityTypes.SKELETON, BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(0));
         SKELETONS_PER_SQUAD_HARD.put(BonesRegistry.KNIGHT_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(1));
         SKELETONS_PER_SQUAD_HARD.put(BonesRegistry.HAUNTER_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(2));
         SKELETONS_PER_SQUAD_HARD.put(BonesRegistry.MINION.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD_HARD.get().get(3));
 
-        SKELETONS_PER_SQUAD.put(EntityType.SKELETON, BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(0));
+        SKELETONS_PER_SQUAD.put(EntityTypes.SKELETON, BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(0));
         SKELETONS_PER_SQUAD.put(BonesRegistry.KNIGHT_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(1));
         SKELETONS_PER_SQUAD.put(BonesRegistry.HAUNTER_SKELETON.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(2));
         SKELETONS_PER_SQUAD.put(BonesRegistry.MINION.type(), BUConfig.ENTITY_NUMBER_PER_SQUAD.get().get(3));

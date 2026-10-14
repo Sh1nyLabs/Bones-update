@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.HumanoidArm;
 import org.joml.Quaternionf;
 
@@ -84,10 +85,10 @@ public class BrokenSkeletonModel<T extends BrokenSkeletonRenderState> extends En
 		this.regular_broken.visible = entity.skeletonType != BonesRegistry.KNIGHT_SKELETON.type();
 		this.knight_broken.visible = entity.skeletonType == BonesRegistry.KNIGHT_SKELETON.type();
 		this.haunter_parts.visible = entity.skeletonType == BonesRegistry.HAUNTER_SKELETON.type();
-		this.mushrooms.visible = entity.skeletonType == EntityType.BOGGED && !entity.boggedIsSheared;
-		this.outer_clothes.visible = entity.skeletonType == EntityType.PARCHED
-				|| entity.skeletonType == EntityType.BOGGED
-				|| entity.skeletonType == EntityType.STRAY;
+		this.mushrooms.visible = entity.skeletonType == EntityTypes.BOGGED && !entity.boggedIsSheared;
+		this.outer_clothes.visible = entity.skeletonType == EntityTypes.PARCHED
+				|| entity.skeletonType == EntityTypes.BOGGED
+				|| entity.skeletonType == EntityTypes.STRAY;
 
 		super.setupAnim(entity);
 	}

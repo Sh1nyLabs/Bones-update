@@ -1,6 +1,7 @@
 package com.sh1nylabs.bonesupdate.common.entities.custom_skeletons;
 
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.level.Level;
 
@@ -11,7 +12,7 @@ public class BrokenParched extends BrokenSkeleton {
     }
 
     public EntityType<? extends AbstractSkeleton> getSkeletonType() {
-        return EntityType.PARCHED;
+        return EntityTypes.PARCHED;
     }
 
     // A broken wither skeleton can only be related to a wither skeleton variant
