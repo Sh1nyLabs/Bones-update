@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 
 import java.util.Map;
 
@@ -24,11 +25,11 @@ import static com.sh1nylabs.bonesupdate.common.client.renderer.BUModelLayerLocat
 public class BrokenSkeletonRenderer extends MobRenderer<BrokenSkeleton, BrokenSkeletonRenderState, BrokenSkeletonModel<BrokenSkeletonRenderState>>{
 
     private static final Map<String, Identifier> LOCATION_BY_SKELETON = Util.make(Maps.newHashMap(), (map) -> {
-        map.put(EntityType.SKELETON.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/skeleton.png"));
-        map.put(EntityType.STRAY.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/stray.png"));
-        map.put(EntityType.WITHER_SKELETON.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/wither_skeleton.png"));
-        map.put(EntityType.BOGGED.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/bogged.png"));
-        map.put(EntityType.PARCHED.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/parched.png"));
+        map.put(EntityTypes.SKELETON.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/skeleton.png"));
+        map.put(EntityTypes.STRAY.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/stray.png"));
+        map.put(EntityTypes.WITHER_SKELETON.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/wither_skeleton.png"));
+        map.put(EntityTypes.BOGGED.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/bogged.png"));
+        map.put(EntityTypes.PARCHED.toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/parched.png"));
         map.put(BonesRegistry.HAUNTER_SKELETON.type().toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/haunter_skeleton.png"));
         map.put(BonesRegistry.KNIGHT_SKELETON.type().toString(), BUModIdentifier.fromModNamespace("textures/entity/broken_skeleton/knight_skeleton.png"));
     });
